@@ -17,14 +17,8 @@
 gboolean gl_view_fit_fold_box(view_t *view, gl_view_state_t *state,
     render_fit_acc_t *acc);
 
-/** gl_view_fit_fold_perspective() - Fold perspective distance requirements */
-gboolean gl_view_fit_fold_perspective(view_t *view, gl_view_state_t *state,
-    const render_proj_t *projection, render_fit_acc_t *acc,
-    float center_x, float center_y);
-
-/** gl_view_fit_fold_ndc() - Fold projected normalized-device coordinates */
-gboolean gl_view_fit_fold_ndc(view_t *view, gl_view_state_t *state,
-    const render_proj_t *projection, float distance, render_fit_acc_t *acc);
+/** gl_view_fit_perspective() - Center active vertices inside the frustum */
+gboolean gl_view_fit_perspective(gl_view_state_t *state, view_fit_t *fit);
 
 #endif /* HAVE_OPENGL */
 #endif /* __OPENGL_VIEW_FIT_GEOMETRY_H */

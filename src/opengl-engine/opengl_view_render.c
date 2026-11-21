@@ -17,6 +17,8 @@
  *    https://www.xnec2c.org/
  */
 
+#include <float.h>
+
 #include "opengl_view_render.h"
 #include "opengl_view_peel.h"
 #include "opengl_view_msaa.h"
@@ -84,6 +86,33 @@ gl_view_frame_content_reset(gl_view_state_t *state)
 } /* gl_view_frame_content_reset() */
 
 /*-----------------------------------------------------------------------*/
+
+/** gl_view_near_fit_distance() - Keep the nearest vertex past the near plane
+ * @state: view whose rendered clip extents define the planes
+ * @distance: camera distance required by the lateral bounds
+ * @front: coordinate of the vertex farthest toward the camera
+ */
+  double
+gl_view_near_fit_distance(const gl_view_state_t *state, double distance, double front)
+{
+  double clip_extent = (double)state->content.clip_extent;
+  double far_extent = (double)state->cached_far_extent;
+  double near_ratio = (double)GL_VIEW_FAR_HEADROOM / (double)GL_VIEW_DEPTH_RATIO;
+  double near_padding = (double)GL_VIEW_NEAR_PADDING;
+  double depth_pad = 8.0 * (double)FLT_EPSILON
+      * fmax(distance, fmax(clip_extent, far_extent));
+
+  // Invert the near-plane rule on each side of the scene extent.
+  double inner_distance = fmax(distance, (front + depth_pad + near_ratio * far_extent)
+      / (1.0 - near_ratio));
+
+  if( clip_extent - inner_distance > depth_pad )
+    return inner_distance;
+
+  return fmax(fmax(distance, clip_extent + depth_pad),
+      (front + depth_pad - near_padding * clip_extent) / (1.0 - near_padding));
+
+} /* gl_view_near_fit_distance() */
 
 /** gl_view_scene_render() - Render one frame of a view into its scene framebuffer
  * @state: view state whose scene framebuffer receives the frame
@@ -169,12 +198,13 @@ gl_view_scene_render(gl_view_state_t *state)
       effective_far = state->content.clip_extent;
     }
 
+    state->cached_far_extent = effective_far;
     nearest_point = camera_distance - state->content.clip_extent;
     farthest_point = camera_distance + effective_far;
 
     /* Extra margin provides window-space headroom for per-patch
      * gl_FragDepth bias without pushing fragments past 1.0. */
-    far_plane = farthest_point * 1.5f;
+    far_plane = farthest_point * GL_VIEW_FAR_HEADROOM;
 
     if( rc_config.opengl_orthographic )
     {
@@ -186,13 +216,12 @@ gl_view_scene_render(gl_view_state_t *state)
     }
     else if( nearest_point > 0.0f )
     {
-      near_plane = nearest_point * 0.8f;
+      near_plane = nearest_point * GL_VIEW_NEAR_PADDING;
     }
     else
     {
-      /* Bound near/far ratio to ~10000:1 for usable depth precision.
-       * Fixed 0.001f caused extreme ratios with large scenes. */
-      near_plane = far_plane / 10000.0f;
+      /* Bound the near/far ratio for usable depth precision. */
+      near_plane = far_plane / GL_VIEW_DEPTH_RATIO;
     }
 
     state->cached_near_plane = near_plane;

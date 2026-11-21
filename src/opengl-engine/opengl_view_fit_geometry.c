@@ -5,11 +5,35 @@
  *  (at your option) any later version.
  */
 
+#include <float.h>
 #include <math.h>
 
 #include "opengl_view_fit_geometry.h"
+#include "opengl_view_render.h"
 
 #ifdef HAVE_OPENGL
+
+/* Reserve a fraction of a pixel for the float matrix and pan conversion. */
+#define GL_FIT_ROUNDING_PX 0.25
+
+/* Refine the center to a fraction of the rounding allowance. */
+#define GL_FIT_CENTER_TOLERANCE_PX (GL_FIT_ROUNDING_PX / 16.0)
+
+typedef struct
+{
+  double aperture;
+  double lower_term, upper_term;
+  double pan, projected_min, projected_max;
+
+} gl_fit_axis_t;
+
+typedef struct
+{
+  gl_fit_axis_t axes[2];
+  double front, distance;
+
+} gl_fit_perspective_t;
+
 
 /** gl_fit_batch_vertex() - Rotate and scale one batch vertex
  * @view:        view supplying the rotation basis
@@ -54,24 +78,6 @@ gl_fit_renderable_content(const gl_renderable_t *renderable)
 } /* gl_fit_renderable_content() */
 
 typedef void (*gl_fit_vertex_fn)(void *user, float x, float y, float z);
-
-typedef struct
-{
-  render_fit_acc_t    *acc;
-  const render_proj_t *projection;
-  float                center_x;
-  float                center_y;
-
-} gl_fit_perspective_ctx_t;
-
-typedef struct
-{
-  render_fit_acc_t    *acc;
-  const render_proj_t *projection;
-  float                distance;
-  float                tangent;
-
-} gl_fit_ndc_ctx_t;
 
 /** gl_fit_walk_vertices() - Feed active rendered vertices to a private sink */
   static gboolean
@@ -131,78 +137,155 @@ gl_fit_sink_box(void *user, float x, float y, float _z)
 
 } /* gl_fit_sink_box() */
 
-/** gl_fit_sink_perspective() - Fold one perspective distance requirement */
-  static void
-gl_fit_sink_perspective(void *user, float x, float y, float z)
-{
-  gl_fit_perspective_ctx_t *ctx = user;
-
-  render_fit_add_persp(ctx->acc, ctx->center_x, ctx->center_y,
-      x, y, z, ctx->projection);
-
-} /* gl_fit_sink_perspective() */
-
-/** gl_fit_sink_ndc() - Fold one perspective-projected vertex */
-  static void
-gl_fit_sink_ndc(void *user, float x, float y, float z)
-{
-  gl_fit_ndc_ctx_t *ctx = user;
-  float denominator = ctx->distance - z;
-
-  if( fl_flt(denominator, FL_EPS) )
-    denominator = FL_EPS;
-
-  render_fit_add(ctx->acc,
-      x / (ctx->tangent * ctx->projection->aspect * denominator),
-      y / (ctx->tangent * denominator));
-
-} /* gl_fit_sink_ndc() */
-
 /** gl_view_fit_fold_box() - Fold active vertices into a rotated box */
   gboolean
-gl_view_fit_fold_box(view_t *view, gl_view_state_t *state,
-    render_fit_acc_t *acc)
+gl_view_fit_fold_box(view_t *view, gl_view_state_t *state, render_fit_acc_t *acc)
 {
   return gl_fit_walk_vertices(view, state, gl_fit_sink_box, acc);
 
 } /* gl_view_fit_fold_box() */
 
-/** gl_view_fit_fold_perspective() - Fold perspective distance requirements */
-  gboolean
-gl_view_fit_fold_perspective(view_t *view, gl_view_state_t *state,
-    const render_proj_t *projection, render_fit_acc_t *acc,
-    float center_x, float center_y)
+/** gl_fit_sink_limits() - Fold the affine pan limits of one vertex */
+  static void
+gl_fit_sink_limits(void *user, float x, float y, float z)
 {
-  gl_fit_perspective_ctx_t ctx =
+  gl_fit_perspective_t *ctx = user;
+  const float lateral[] = { x, y };
+  size_t i;
+
+  ctx->front = fmax(ctx->front, (double)z);
+  for( i = 0; i < G_N_ELEMENTS(ctx->axes); i++ )
   {
-    .acc = acc,
-    .projection = projection,
-    .center_x = center_x,
-    .center_y = center_y
-  };
+    gl_fit_axis_t *axis = &ctx->axes[i];
+    double depth_term = axis->aperture * (double)z;
 
-  return gl_fit_walk_vertices(view, state, gl_fit_sink_perspective, &ctx);
+    // At distance d, the pan is bounded by -a*d+lower and a*d+upper.
+    axis->lower_term = fmax(axis->lower_term, depth_term - (double)lateral[i]);
+    axis->upper_term = fmin(axis->upper_term, -depth_term - (double)lateral[i]);
+  }
 
-} /* gl_view_fit_fold_perspective() */
+} /* gl_fit_sink_limits() */
 
-/** gl_view_fit_fold_ndc() - Fold projected normalized-device coordinates */
-  gboolean
-gl_view_fit_fold_ndc(view_t *view, gl_view_state_t *state,
-    const render_proj_t *projection, float distance, render_fit_acc_t *acc)
+/** gl_fit_sink_projected() - Fold final perspective extrema for trial pan */
+  static void
+gl_fit_sink_projected(void *user, float x, float y, float z)
 {
-  gl_fit_ndc_ctx_t ctx =
-  {
-    .acc = acc,
-    .projection = projection,
-    .distance = distance,
-    .tangent = tanf(projection->fov_rad * 0.5f)
-  };
+  gl_fit_perspective_t *ctx = user;
+  const float lateral[] = { x, y };
+  double depth = ctx->distance - (double)z;
+  size_t i;
 
-  if( !fl_fgt(ctx.tangent, 0.0f) )
+  for( i = 0; i < G_N_ELEMENTS(ctx->axes); i++ )
+  {
+    gl_fit_axis_t *axis = &ctx->axes[i];
+    double projected = ((double)lateral[i] + axis->pan) / depth;
+
+    axis->projected_min = fmin(axis->projected_min, projected);
+    axis->projected_max = fmax(axis->projected_max, projected);
+  }
+
+} /* gl_fit_sink_projected() */
+
+/** gl_fit_center_perspective() - Balance projected edges without exceeding the pan limits */
+  static void
+gl_fit_center_perspective(gl_view_state_t *state, gl_fit_perspective_t *ctx,
+    double world_tolerance)
+{
+  double low[G_N_ELEMENTS(ctx->axes)], high[G_N_ELEMENTS(ctx->axes)];
+  double span;
+  size_t i;
+
+  // Recover the feasible interval at the camera's representable distance.
+  for( i = 0; i < G_N_ELEMENTS(ctx->axes); i++ )
+  {
+    const gl_fit_axis_t *axis = &ctx->axes[i];
+    double extent = axis->aperture * ctx->distance;
+
+    low[i] = axis->lower_term - extent;
+    high[i] = axis->upper_term + extent;
+  }
+
+  // The sum of the final projected edges increases monotonically with pan.
+  do
+  {
+    span = 0.0;
+    for( i = 0; i < G_N_ELEMENTS(ctx->axes); i++ )
+    {
+      ctx->axes[i].pan = 0.5 * (low[i] + high[i]);
+      ctx->axes[i].projected_min = HUGE_VAL;
+      ctx->axes[i].projected_max = -HUGE_VAL;
+    }
+    gl_fit_walk_vertices(state->base.view, state, gl_fit_sink_projected, ctx);
+    for( i = 0; i < G_N_ELEMENTS(ctx->axes); i++ )
+    {
+      const gl_fit_axis_t *axis = &ctx->axes[i];
+
+      if( axis->projected_min + axis->projected_max > 0.0 )
+        high[i] = axis->pan;
+      else
+        low[i] = axis->pan;
+      span = fmax(span, high[i] - low[i]);
+    }
+  } while( span > world_tolerance );
+
+} /* gl_fit_center_perspective() */
+
+/** gl_view_fit_perspective() - Fit the geometry after perspective pan and division */
+  gboolean
+gl_view_fit_perspective(gl_view_state_t *state, view_fit_t *fit)
+{
+  view_t *view = state->base.view;
+  float tangent = tanf(state->fov_rad * 0.5f);
+  float aspect = (float)view->width / (float)view->height;
+  double half_width = (double)view->width * 0.5;
+  double half_height = (double)view->height * 0.5;
+  double border = (double)RENDER_FIT_BORDER_PX + GL_FIT_ROUNDING_PX;
+  float camera_base = state->content.r_max * GL_VIEW_BASE_DISTANCE_FACTOR;
+  gl_fit_perspective_t ctx =
+  {
+    .front = -HUGE_VAL,
+    .distance = (double)camera_base * (double)FLT_EPSILON,
+  };
+  float zoom, distance, pan_scale;
+  size_t i;
+
+  if( !fl_fgt(tangent, 0.0f) || !fl_fgt(state->content.r_max, 0.0f)
+      || !dl_fgt(half_width, border) || !dl_fgt(half_height, border) )
     return FALSE;
 
-  return gl_fit_walk_vertices(view, state, gl_fit_sink_ndc, &ctx);
+  // Locate the first distance where both pan intervals are nonempty.
+  ctx.axes[0].aperture = (double)(tangent * aspect) * (1.0 - border / half_width);
+  ctx.axes[1].aperture = (double)tangent * (1.0 - border / half_height);
+  for( i = 0; i < G_N_ELEMENTS(ctx.axes); i++ )
+  {
+    ctx.axes[i].lower_term = -HUGE_VAL;
+    ctx.axes[i].upper_term = HUGE_VAL;
+  }
+  if( !gl_fit_walk_vertices(view, state, gl_fit_sink_limits, &ctx)
+      || !isfinite(ctx.front) )
+    return FALSE;
+  for( i = 0; i < G_N_ELEMENTS(ctx.axes); i++ )
+  {
+    const gl_fit_axis_t *axis = &ctx.axes[i];
 
-} /* gl_view_fit_fold_ndc() */
+    ctx.distance = fmax(ctx.distance,
+        (axis->lower_term - axis->upper_term) / (2.0 * axis->aperture));
+  }
+  ctx.distance = gl_view_near_fit_distance(state, ctx.distance, ctx.front);
+
+  // Round zoom outward, then center using the distance the renderer obtains.
+  zoom = nextafterf((float)((double)camera_base / ctx.distance), 0.0f);
+  distance = camera_base / zoom;
+  ctx.distance = (double)distance;
+  pan_scale = 2.0f * distance * tangent / (float)view->height;
+  gl_fit_center_perspective(state, &ctx, GL_FIT_CENTER_TOLERANCE_PX
+      * (ctx.distance - ctx.front) * (double)tangent / half_height);
+  fit->zoom = zoom;
+  for( i = 0; i < G_N_ELEMENTS(ctx.axes); i++ )
+    fit->pan_offset[i] = (float)(ctx.axes[i].pan / (double)pan_scale);
+
+  return TRUE;
+
+} /* gl_view_fit_perspective() */
 
 #endif /* HAVE_OPENGL */

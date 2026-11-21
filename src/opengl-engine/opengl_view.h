@@ -35,6 +35,11 @@
  * default fit-to-window framing matches the Cairo renderer. */
 #define GL_VIEW_BASE_DISTANCE_FACTOR 2.165f
 
+/* Set the depth headroom and near/far precision for the camera frustum. */
+#define GL_VIEW_FAR_HEADROOM 1.5f
+#define GL_VIEW_NEAR_PADDING 0.8f
+#define GL_VIEW_DEPTH_RATIO 10000.0f
+
 /* Number of depth-peel passes for order-independent transparency.
  * 4 covers: near patch face, far patch face, near cylinder wall,
  * far cylinder wall — or structure front/back + radiation front/back. */
@@ -263,8 +268,9 @@ typedef struct gl_view_state_s
   /* Camera distance cached for pan pixel-to-world conversion */
   float cached_camera_distance;
 
-  /* Cached clip planes from main render pass — shared by all renderables
-   * so depth values are in the same projection space */
+  /* Retain the last rendered far extent for fitting and share the clip
+   * planes across renderables so their depth values use one projection. */
+  float cached_far_extent;
   float cached_near_plane;
   float cached_far_plane;
 

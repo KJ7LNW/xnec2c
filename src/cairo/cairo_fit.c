@@ -55,12 +55,6 @@ cairo_fit_view(render_surface_t *surface, view_fit_t *fit)
   view_t *view = (surface != NULL) ? surface->view : NULL;
   render_fit_acc_t acc = {0};
   render_fit_frame_t frame;
-  const render_proj_t projection =
-  {
-    .kind = RENDER_PROJ_PARALLEL,
-    .fov_rad = 0.0f,
-    .aspect = 0.0f
-  };
   cairo_fit_ctx_t ctx = { .view = view, .acc = &acc };
   float extent = 0.0f;
   double phase;
@@ -81,7 +75,7 @@ cairo_fit_view(render_surface_t *surface, view_fit_t *fit)
   phase = anim_phase_get();
   extent = render_geom_walk(view, phase, cairo_fit_sink, &ctx);
   if( acc.any )
-    solved = render_fit_solve(&acc, &projection, view->height, &frame);
+    solved = render_fit_solve(&acc, &frame);
 
   if( solved && fl_fgt(extent, 0.0f) )
   {

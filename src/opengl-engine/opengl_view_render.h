@@ -25,6 +25,10 @@
 #ifdef HAVE_OPENGL
 #include "opengl_view.h"
 
+/** gl_view_near_fit_distance() - Move a fitted camera past the near clip plane */
+double gl_view_near_fit_distance(const gl_view_state_t *state, double distance,
+    double front);
+
 /* gl_view_render_connect()
  *
  * Wire the render signal handler to the area a view state owns.
