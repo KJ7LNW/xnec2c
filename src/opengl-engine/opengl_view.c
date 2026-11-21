@@ -234,7 +234,7 @@ on_realize(GtkGLArea *area, gpointer user_data)
   {
     opengl_axes_t *axes;
 
-    axes = opengl_axes_new(&state->content.axes);
+    axes = opengl_axes_new(&state->content);
     if( !axes )
     {
       pr_err("Disabling OpenGL: axes renderer failed\n");
@@ -248,6 +248,7 @@ on_realize(GtkGLArea *area, gpointer user_data)
       .destroy              = opengl_axes_free,
       .is_active            = opengl_axes_is_active,
       .far_extent           = opengl_axes_far_extent,
+      .get_content          = opengl_axes_get_content,
       .ctx                  = axes,
       .get_alpha            = opengl_axes_get_alpha,
       .origin               = {0.0f, 0.0f, 0.0f},
