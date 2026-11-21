@@ -202,7 +202,7 @@ impedance_data_t *impedance_data = NULL;
 double *solver_cond = NULL;
 
 /* Data for various calculations */
-calc_data_t calc_data;
+calc_data_t calc_data = { .freq_step = -1 };
 data_t data;
 
 /* Per-frequency-step crnt storage */

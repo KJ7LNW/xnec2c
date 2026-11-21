@@ -9394,6 +9394,11 @@ Save NEC2 Editor data first?
     <property name="can-focus">False</property>
     <property name="stock">gtk-save-as</property>
   </object>
+  <object class="GtkImage" id="struct_save_currents_image">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="stock">gtk-save-as</property>
+  </object>
   <object class="GtkWindow" id="freqplots_window">
     <property name="visible">False</property>
     <property name="can-focus">False</property>
@@ -10529,7 +10534,7 @@ See the "Validating a Model" section of the manual to read it beside the AGT tra
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="use-underline">True</property>
-                            <property name="image">saveas_gnuplot</property>
+                            <property name="image">struct_save_currents_image</property>
                             <property name="use-stock">False</property>
                             <signal name="activate" handler="on_struct_save_currents_activate" swapped="no"/>
                           </object>

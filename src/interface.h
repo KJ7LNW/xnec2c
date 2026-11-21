@@ -686,6 +686,7 @@ NULL
 "main_rotate_spinbutton", \
 "main_incline_spinbutton", \
 "saveas_gnuplot", \
+"struct_save_currents_image", \
 "main_zoom_spinbutton", \
 "structure_plus_button", \
 "structure_minus_button", \
