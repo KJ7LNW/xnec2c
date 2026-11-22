@@ -348,7 +348,7 @@ on_size_allocate(GtkWidget *_widget, GtkAllocation *allocation,
   render_surface_t *surface = (render_surface_t *)user_data;
   int scale = gtk_widget_get_scale_factor(surface->widget);
 
-  view_set_viewport(surface->view, allocation->width, allocation->height);
+  canvas_surface_sync_viewport(surface);
   canvas_surface_resize(surface, allocation->width * scale,
       allocation->height * scale);
   canvas_surface_queue_redraw(surface);
