@@ -34,18 +34,6 @@ typedef struct
 
 } axes_build_key_t;
 
-#define GL_AXIS_COUNT 3
-#define GL_AXIS_LINE_VERTICES 2
-#define GL_AXIS_LABEL_VERTICES 6
-
-typedef struct
-{
-  vec3 position;
-  rgba_f_t color;
-  float texcoord[2];
-
-} axes_vertex_t;
-
 typedef struct
 {
   GLuint lines_vao;
@@ -67,22 +55,18 @@ typedef struct
   GLint label_pos_loc;
   GLint label_uv_loc;
 
-  const gl_view_content_t *scene;
-  axes_vertex_t lines[GL_AXIS_COUNT * GL_AXIS_LINE_VERTICES];
-  axes_vertex_t labels[GL_AXIS_COUNT * GL_AXIS_LABEL_VERTICES];
-  gl_view_content_t fit_content;
+  const gl_axes_content_t *content;
   axes_build_key_t built;
   gboolean initialized;
 
 } opengl_axes_t;
 
-opengl_axes_t* opengl_axes_new(const gl_view_content_t *scene);
+opengl_axes_t* opengl_axes_new(const gl_axes_content_t *content);
 void opengl_axes_free(void *ctx);
 void opengl_axes_prepare(void *ctx, const gl_render_params_t *params);
 void opengl_axes_render(void *ctx, const gl_render_params_t *params);
 gboolean opengl_axes_is_active(void *ctx);
 float opengl_axes_far_extent(void *ctx, float r_max);
-const gl_view_content_t *opengl_axes_get_content(void *ctx);
 float opengl_axes_get_alpha(void *ctx);
 
 #endif /* HAVE_OPENGL */

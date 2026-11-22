@@ -33,6 +33,7 @@ opengl_axes_get_alpha(void *ctx)
   return TRANSPARENCY_TO_ALPHA(rc_config.transparency_axes);
 }
 
+#define NUM_AXES 3
 #define AXIS_LENGTH_SCALE 1.1f
 #define LABEL_OFFSET_SCALE 1.15f
 #define LABEL_SIZE_SCALE 0.05f
@@ -41,22 +42,21 @@ opengl_axes_get_alpha(void *ctx)
 #define LABEL_TEX_MARGIN (8 * LABEL_TEX_SCALE)
 
 /* Axis labels indexed by axis number (0=X, 1=Y, 2=Z) */
-static const char *axis_labels[GL_AXIS_COUNT] = {"X", "Y", "Z"};
+static const char *axis_labels[NUM_AXES] = {"X", "Y", "Z"};
 
-/* Select the along-axis and transverse coordinates for each label quad. */
-static const int axis_coord_map[GL_AXIS_COUNT][2] = {
-  {0, 1},
-  {1, 0},
-  {2, 0}
-};
-
-static const gl_vertex_layout_t axes_fit_layout = {
-  .stride = sizeof(axes_vertex_t),
+/* Maps axis index to 3D coordinate positions [u_coord, v_coord, zero_coord]
+ * Axis 0 (X): label offset along X, label size along Y, zero on Z
+ * Axis 1 (Y): label offset along Y, label size along X, zero on Z
+ * Axis 2 (Z): label offset along Z, label size along X, zero on Y */
+static const int axis_coord_map[NUM_AXES][3] = {
+  {0, 1, 2},
+  {1, 0, 2},
+  {2, 0, 1}
 };
 
 /* Quad vertex pattern for billboards (2 triangles = 6 vertices)
  * Coordinates are normalized offsets [-1,1] scaled by label_half_size */
-static const float quad_offsets[GL_AXIS_LABEL_VERTICES][2] = {
+static const float quad_offsets[6][2] = {
   {-1.0f,  1.0f}, {-1.0f, -1.0f}, { 1.0f, -1.0f},
   {-1.0f,  1.0f}, { 1.0f, -1.0f}, { 1.0f,  1.0f}
 };
@@ -83,7 +83,7 @@ generate_label_texture(void)
   PangoFontDescription *font_desc;
   char font_str[32];
 
-  width = GL_AXIS_COUNT * LABEL_TEX_WIDTH;
+  width = NUM_AXES * LABEL_TEX_WIDTH;
   height = 32 * LABEL_TEX_SCALE;
 
   surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, width, height);
@@ -99,7 +99,7 @@ generate_label_texture(void)
   font_desc = pango_font_description_from_string(font_str);
   pango_layout_set_font_description(layout, font_desc);
 
-  for( int i = 0; i < GL_AXIS_COUNT; i++ )
+  for( int i = 0; i < NUM_AXES; i++ )
   {
     int tex_x = LABEL_TEX_MARGIN + i * LABEL_TEX_WIDTH;
     pango_layout_set_text(layout, axis_labels[i], -1);
@@ -136,24 +136,16 @@ generate_label_texture(void)
 /*-----------------------------------------------------------------------*/
 
 /** opengl_axes_new() - Allocate and initialize axes renderer with own shaders
- * @scene: parent-prepared axes and model scale borrowed for the renderer lifetime
+ * @content: parent-prepared axes state borrowed for the renderer lifetime
  */
   opengl_axes_t*
-opengl_axes_new(const gl_view_content_t *scene)
+opengl_axes_new(const gl_axes_content_t *content)
 {
   opengl_axes_t *axes;
   gboolean line_ok, label_ok;
 
   axes = g_new0(opengl_axes_t, 1);
-  axes->scene = scene;
-  axes->fit_content = (gl_view_content_t){
-    .batches = {
-      { .vertices = axes->lines, .vertex_count = G_N_ELEMENTS(axes->lines) },
-      { .vertices = axes->labels, .vertex_count = G_N_ELEMENTS(axes->labels) },
-    },
-    .batch_count = 2,
-    .layout = &axes_fit_layout,
-  };
+  axes->content = content;
 
   const gl_shader_spec_t line_spec = {
     .vertex_path = "/gl/color-vertex.glsl",
@@ -257,56 +249,6 @@ setup_vertex_attrib(GLint loc, GLint size, size_t stride, size_t offset)
 
 /*-----------------------------------------------------------------------*/
 
-/** opengl_axes_build_vertices() - Build the axis segments and label quads
- * @axes: axes context owning the shared vertex arrays
- */
-  static void
-opengl_axes_build_vertices(opengl_axes_t *axes)
-{
-  float extent = axes->scene->axes.extent;
-  float axis_length = extent * AXIS_LENGTH_SCALE;
-  float label_offset = extent * LABEL_OFFSET_SCALE;
-  float label_half_size = extent * LABEL_SIZE_SCALE;
-  int i;
-
-  // Keep the coordinates outside each axis or label plane at zero.
-  for( i = 0; i < GL_AXIS_COUNT; i++ )
-  {
-    axes_vertex_t *label = &axes->labels[i * GL_AXIS_LABEL_VERTICES];
-    float u_min = (float)i / GL_AXIS_COUNT;
-    float u_max = (float)(i + 1) / GL_AXIS_COUNT;
-    int j;
-
-    axes->lines[i * GL_AXIS_LINE_VERTICES + 1].position[i] = axis_length;
-    for( j = 0; j < GL_AXIS_LABEL_VERTICES; j++ )
-    {
-      label[j].position[axis_coord_map[i][0]] =
-        label_offset + quad_offsets[j][0] * label_half_size;
-      label[j].position[axis_coord_map[i][1]] = quad_offsets[j][1] * label_half_size;
-      label[j].texcoord[0] = u_min + quad_uvs[j][0] * (u_max - u_min);
-      label[j].texcoord[1] = quad_uvs[j][1];
-    }
-  }
-
-} /* opengl_axes_build_vertices() */
-
-/** opengl_axes_get_content() - Expose drawn axis vertices to the fit solver
- * @ctx: axes context
- */
-  const gl_view_content_t *
-opengl_axes_get_content(void *ctx)
-{
-  opengl_axes_t *axes = ctx;
-
-  if( axes->scene->batch_count == 0 || fl_feq(axes->scene->axes.extent, 0.0f) )
-    return NULL;
-
-  opengl_axes_build_vertices(axes);
-  axes->fit_content.model_scale = axes->scene->model_scale;
-  return &axes->fit_content;
-
-} /* opengl_axes_get_content() */
-
 /** opengl_axes_prepare() - Rebuild axis buffers when their inputs change
  * @ctx: axes context
  * @params: per-frame parameters carrying axis geometry and line color
@@ -316,42 +258,89 @@ opengl_axes_prepare(void *ctx, const gl_render_params_t *params)
 {
   opengl_axes_t *axes = ctx;
   axes_build_key_t key;
-  size_t i;
+  color_point_t lines[NUM_AXES * 2];
+  text_vertex_t labels[NUM_AXES * 6];
+  int i;
 
   if( !axes || !axes->initialized )
     return;
 
   key = (axes_build_key_t){
-    .r_max = axes->scene->axes.extent,
+    .r_max = axes->content->extent,
     .axis = params->view_axis,
   };
 
   if( memcmp(&axes->built, &key, sizeof(key)) == 0 )
     return;
 
-  opengl_axes_build_vertices(axes);
-  for( i = 0; i < G_N_ELEMENTS(axes->lines); i++ )
-    axes->lines[i].color = (rgba_f_t){ key.axis.r, key.axis.g, key.axis.b, 1.0f };
+  rgba_f_t line_color = {
+    key.axis.r, key.axis.g, key.axis.b, 1.0f
+  };
+  float axis_length = key.r_max * AXIS_LENGTH_SCALE;
+  float label_offset = key.r_max * LABEL_OFFSET_SCALE;
+  float label_half_size = key.r_max * LABEL_SIZE_SCALE;
+
+  /* Build colored axis line vertices. */
+  for( i = 0; i < NUM_AXES; i++ )
+  {
+    int line_idx = i * 2;
+    float *origin_coord = (float*)&lines[line_idx].point;
+    float *end_coord = (float*)&lines[line_idx + 1].point;
+
+    lines[line_idx].color = line_color;
+    lines[line_idx + 1].color = line_color;
+
+    origin_coord[0] = 0.0f;
+    origin_coord[1] = 0.0f;
+    origin_coord[2] = 0.0f;
+
+    end_coord[0] = 0.0f;
+    end_coord[1] = 0.0f;
+    end_coord[2] = 0.0f;
+    end_coord[i] = axis_length;
+  }
 
   /* Upload axis line geometry. */
   glBindVertexArray(axes->lines_vao);
   glBindBuffer(GL_ARRAY_BUFFER, axes->lines_vbo);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(axes->lines), axes->lines, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(lines), lines, GL_STATIC_DRAW);
 
-  setup_vertex_attrib(axes->line_pos_loc, 3, sizeof(axes_vertex_t),
-      offsetof(axes_vertex_t, position));
-  setup_vertex_attrib(axes->line_col_loc, 4, sizeof(axes_vertex_t),
-      offsetof(axes_vertex_t, color));
+  setup_vertex_attrib(axes->line_pos_loc, 3, sizeof(color_point_t), 0);
+  setup_vertex_attrib(axes->line_col_loc, 4, sizeof(color_point_t), 4 * sizeof(float));
+
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  glBindVertexArray(0);
+
+  /* Build label quads from the shared texture atlas. */
+  for( i = 0; i < NUM_AXES; i++ )
+  {
+    int vtx_idx = i * 6;
+    float u_min = (float)i / NUM_AXES;
+    float u_max = (float)(i + 1) / NUM_AXES;
+    int j;
+
+    for( j = 0; j < 6; j++ )
+    {
+      float *pos = (float*)&labels[vtx_idx + j];
+      float u = label_offset + quad_offsets[j][0] * label_half_size;
+      float v = quad_offsets[j][1] * label_half_size;
+
+      pos[axis_coord_map[i][0]] = u;
+      pos[axis_coord_map[i][1]] = v;
+      pos[axis_coord_map[i][2]] = 0.0f;
+
+      labels[vtx_idx + j].u = u_min + quad_uvs[j][0] * (u_max - u_min);
+      labels[vtx_idx + j].v = quad_uvs[j][1];
+    }
+  }
 
   /* Upload label geometry. */
   glBindVertexArray(axes->labels_vao);
   glBindBuffer(GL_ARRAY_BUFFER, axes->labels_vbo);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(axes->labels), axes->labels, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(labels), labels, GL_STATIC_DRAW);
 
-  setup_vertex_attrib(axes->label_pos_loc, 3, sizeof(axes_vertex_t),
-      offsetof(axes_vertex_t, position));
-  setup_vertex_attrib(axes->label_uv_loc, 2, sizeof(axes_vertex_t),
-      offsetof(axes_vertex_t, texcoord));
+  setup_vertex_attrib(axes->label_pos_loc, 3, sizeof(text_vertex_t), 0);
+  setup_vertex_attrib(axes->label_uv_loc, 2, sizeof(text_vertex_t), 3 * sizeof(float));
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);
@@ -370,7 +359,7 @@ opengl_axes_is_active(void *ctx)
 {
   opengl_axes_t *axes = ctx;
 
-  return( axes->scene->axes.active );
+  return( axes->content->active );
 
 } /* opengl_axes_is_active() */
 
@@ -386,7 +375,7 @@ opengl_axes_far_extent(void *ctx, float _r_max)
 {
   opengl_axes_t *axes = ctx;
 
-  return( axes->scene->axes.extent * AXIS_LENGTH_SCALE );
+  return( axes->content->extent * AXIS_LENGTH_SCALE );
 
 } /* opengl_axes_far_extent() */
 
@@ -415,7 +404,7 @@ opengl_axes_render(void *ctx, const gl_render_params_t *params)
    * global GL state from a previously rendered batch. */
   glLineWidth(1.0f);
   glBindVertexArray(axes->lines_vao);
-  glDrawArrays(GL_LINES, 0, G_N_ELEMENTS(axes->lines));
+  glDrawArrays(GL_LINES, 0, NUM_AXES * 2);
   glBindVertexArray(0);
 
   /* Render labels */
@@ -431,7 +420,7 @@ opengl_axes_render(void *ctx, const gl_render_params_t *params)
   glBindTexture(GL_TEXTURE_2D, axes->label_texture);
 
   glBindVertexArray(axes->labels_vao);
-  glDrawArrays(GL_TRIANGLES, 0, G_N_ELEMENTS(axes->labels));
+  glDrawArrays(GL_TRIANGLES, 0, NUM_AXES * 6);
   glBindVertexArray(0);
   glBindTexture(GL_TEXTURE_2D, 0);
 
