@@ -90,7 +90,8 @@ gboolean canvas_surface_fit(render_surface_t *surface, view_fit_t *fit);
  * @width:   capture width in pixels
  * @height:  capture height in pixels
  *
- * Returns NULL for a degenerate capture size.
+ * Returns NULL for a degenerate capture size, or when the engine produced
+ * its frame at a size other than @width by @height pixels.
  */
 GdkPixbuf *canvas_surface_capture(render_surface_t *surface,
     int width, int height);

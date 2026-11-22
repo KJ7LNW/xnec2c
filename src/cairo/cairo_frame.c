@@ -127,26 +127,21 @@ cairo_frame_produce(render_surface_t *surface)
 /**
  * cairo_capture_pixbuf() - Read the latest frame of a Cairo surface into a pixbuf
  * @surface: surface whose capture image holds the frame
- * @width: capture width in pixels
- * @height: capture height in pixels
  *
- * Returns a newly allocated pixbuf, or NULL when the latest frame was not
- * produced at the requested size.
+ * Returns a newly allocated pixbuf holding the whole image at the size the
+ * latest frame was produced, or NULL when no frame was produced.
  */
   GdkPixbuf *
-cairo_capture_pixbuf(render_surface_t *surface, int width, int height)
+cairo_capture_pixbuf(render_surface_t *surface)
 {
   cairo_engine_surface_t *cs = cairo_engine_surface(surface);
 
   if( cs == NULL || cs->capture_image == NULL )
     return NULL;
 
-  if( cairo_image_surface_get_width(cs->capture_image) != width
-      || cairo_image_surface_get_height(cs->capture_image) != height )
-    return NULL;
-
-  return( gdk_pixbuf_get_from_surface(cs->capture_image,
-        0, 0, width, height) );
+  return( gdk_pixbuf_get_from_surface(cs->capture_image, 0, 0,
+        cairo_image_surface_get_width(cs->capture_image),
+        cairo_image_surface_get_height(cs->capture_image)) );
 
 } /* cairo_capture_pixbuf() */
 

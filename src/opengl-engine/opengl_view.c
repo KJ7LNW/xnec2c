@@ -649,16 +649,13 @@ gl_view_frame(render_surface_t *surface)
 /**
  * gl_view_capture_pixbuf() - Capture the resolved OpenGL frame
  * @surface: surface holding the presented frame
- * @width: capture width in pixels
- * @height: capture height in pixels
  *
- * Reads the engine-owned single-sample resolve framebuffer because GTK's
- * default framebuffer has no stable format or sample-count contract.
- * Returns NULL when the resolved frame was not produced at @width by
- * @height pixels.
+ * Reads the whole engine-owned single-sample resolve framebuffer, at the
+ * size of the latest frame, because GTK's default framebuffer has no stable
+ * format or sample-count contract.  Returns NULL when no frame was resolved.
  */
   GdkPixbuf *
-gl_view_capture_pixbuf(render_surface_t *surface, int width, int height)
+gl_view_capture_pixbuf(render_surface_t *surface)
 {
   gl_view_state_t *state = gl_view_state(surface);
   GdkPixbuf *pixbuf;
@@ -668,30 +665,33 @@ gl_view_capture_pixbuf(render_surface_t *surface, int width, int height)
   size_t row_bytes;
   int row;
 
-  if( state == NULL || width <= 0 || height <= 0 || state->resolve_fbo == 0
-      || width != state->msaa_width || height != state->msaa_height )
+  if( state == NULL || state->msaa_width <= 0 || state->msaa_height <= 0
+      || state->resolve_fbo == 0 )
     return NULL;
 
   gtk_gl_area_make_current(GTK_GL_AREA(state->gl_area));
   if( gtk_gl_area_get_error(GTK_GL_AREA(state->gl_area)) != NULL )
     return NULL;
 
-  pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, width, height);
+  pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8,
+      state->msaa_width, state->msaa_height);
   if( pixbuf == NULL )
     return NULL;
 
-  row_bytes = (size_t)width * 4;
-  mem_alloc(&pixels, row_bytes * (size_t)height);
+  row_bytes = (size_t)state->msaa_width * 4;
+  mem_alloc(&pixels, row_bytes * (size_t)state->msaa_height);
 
   glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &read_fbo);
   glBindFramebuffer(GL_READ_FRAMEBUFFER, state->resolve_fbo);
-  glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+  glReadPixels(0, 0, state->msaa_width, state->msaa_height,
+      GL_RGBA, GL_UNSIGNED_BYTE, pixels);
   glBindFramebuffer(GL_READ_FRAMEBUFFER, (GLuint)read_fbo);
 
   dst = gdk_pixbuf_get_pixels(pixbuf);
-  for( row = 0; row < height; row++ )
+  for( row = 0; row < state->msaa_height; row++ )
     memcpy(dst + (size_t)row * gdk_pixbuf_get_rowstride(pixbuf),
-        pixels + (size_t)(height - row - 1) * row_bytes, row_bytes);
+        pixels + (size_t)(state->msaa_height - row - 1) * row_bytes,
+        row_bytes);
 
   mem_free(&pixels);
   return pixbuf;

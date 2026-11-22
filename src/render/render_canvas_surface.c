@@ -137,6 +137,9 @@ canvas_surface_fit(render_surface_t *surface, view_fit_t *fit)
   GdkPixbuf *
 canvas_surface_capture(render_surface_t *surface, int width, int height)
 {
+  GdkPixbuf *captured;
+  GdkPixbuf *pixbuf;
+
   if( width <= 0 || height <= 0 )
     return NULL;
 
@@ -147,7 +150,19 @@ canvas_surface_capture(render_surface_t *surface, int width, int height)
   if( !surface->engine->frame(surface) )
     return NULL;
 
-  return( surface->engine->capture(surface, width, height) );
+  captured = surface->engine->capture(surface);
+  if( captured != NULL && gdk_pixbuf_get_width(captured) == width
+      && gdk_pixbuf_get_height(captured) == height )
+    pixbuf = captured;
+  else
+  {
+    /* Refuse a missing capture, or one the engine produced at a size other
+     * than requested */
+    g_clear_object(&captured);
+    pixbuf = NULL;
+  }
+
+  return pixbuf;
 
 } /* canvas_surface_capture() */
 

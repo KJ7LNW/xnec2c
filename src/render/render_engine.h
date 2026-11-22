@@ -54,8 +54,9 @@ typedef struct render_engine_s
    * unmapped produces the frame too.  Runs on the GTK main thread. */
   gboolean (*frame)(render_surface_t *surface);
 
-  /* Read the capture target the latest frame wrote. */
-  GdkPixbuf *(*capture)(render_surface_t *surface, int width, int height);
+  /* Read the whole capture target the latest frame wrote, at the size that
+   * frame was produced. */
+  GdkPixbuf *(*capture)(render_surface_t *surface);
 
   /* Request a new frame from the engine's surface.  A Cairo area produces
    * its frame during ::draw, while a GtkGLArea under manual render mode

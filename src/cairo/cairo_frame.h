@@ -29,10 +29,10 @@ gboolean cairo_frame_produce(render_surface_t *surface);
 
 /** cairo_capture_pixbuf() - Read the latest frame of a Cairo surface into a pixbuf
  *
- * Returns NULL when the latest frame was not produced at the requested size.
+ * Returns the whole image at the size the latest frame was produced, or NULL
+ * when no frame was produced.
  */
-GdkPixbuf *cairo_capture_pixbuf(render_surface_t *surface,
-    int width, int height);
+GdkPixbuf *cairo_capture_pixbuf(render_surface_t *surface);
 
 /** cairo_surface_adopt() - Build a Cairo surface presenting a drawing area
  * @area: drawing area the surface presents through

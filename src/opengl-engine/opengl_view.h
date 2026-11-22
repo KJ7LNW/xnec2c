@@ -401,13 +401,11 @@ void gl_view_gpu_release(gl_view_state_t *state);
 /**
  * gl_view_capture_pixbuf() - Capture the resolved OpenGL frame
  * @surface: surface holding the presented frame
- * @width: capture width in pixels
- * @height: capture height in pixels
  *
- * Returns a newly allocated top-down RGBA pixbuf, or NULL on failure.
+ * Returns a newly allocated top-down RGBA pixbuf at the size of the latest
+ * frame, or NULL on failure.
  */
-GdkPixbuf *gl_view_capture_pixbuf(render_surface_t *surface,
-    int width, int height);
+GdkPixbuf *gl_view_capture_pixbuf(render_surface_t *surface);
 
 /**
  * gl_view_frame() - Render one frame into the engine-owned resolve framebuffer
