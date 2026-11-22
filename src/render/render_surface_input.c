@@ -30,6 +30,7 @@
 #include "render_surface_input.h"
 #include "render_surface.h"
 #include "render_canvas_surface.h"
+#include "../config/widget/config_widget.h"
 #include "../gdk_scroll.h"
 #include "../shared.h"
 
@@ -353,6 +354,37 @@ on_size_allocate(GtkWidget *_widget, GtkAllocation *allocation,
   canvas_surface_queue_redraw(surface);
 
 } /* on_size_allocate() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * surface_input_allocate_pixels() - Allocate a surface at exact frame pixels
+ * @surface: surface whose widget is allocated
+ * @width: frame width in pixels, positive
+ * @height: frame height in pixels, positive
+ *
+ * Allocates the widget for frame production at exactly @width by @height
+ * pixels, independent of the display scale factor.  The write is
+ * programmatic, so the allocation handler is blocked and its viewport and
+ * engine sizing obligations are discharged here at the requested pixels.
+ * The caller produces the frame synchronously, so no redraw is requested.
+ */
+  void
+surface_input_allocate_pixels(render_surface_t *surface, int width, int height)
+{
+  GtkAllocation allocation = { .width = width, .height = height };
+
+  if( surface == NULL || surface->widget == NULL )
+    return;
+
+  SIGNAL_BLOCK(surface->widget, on_size_allocate);
+  gtk_widget_size_allocate(surface->widget, &allocation);
+  SIGNAL_UNBLOCK(surface->widget, on_size_allocate);
+
+  canvas_surface_sync_viewport(surface);
+  canvas_surface_resize(surface, width, height);
+
+} /* surface_input_allocate_pixels() */
 
 /*-----------------------------------------------------------------------*/
 

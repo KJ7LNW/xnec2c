@@ -654,6 +654,8 @@ gl_view_frame(render_surface_t *surface)
  *
  * Reads the engine-owned single-sample resolve framebuffer because GTK's
  * default framebuffer has no stable format or sample-count contract.
+ * Returns NULL when the resolved frame was not produced at @width by
+ * @height pixels.
  */
   GdkPixbuf *
 gl_view_capture_pixbuf(render_surface_t *surface, int width, int height)
@@ -666,7 +668,8 @@ gl_view_capture_pixbuf(render_surface_t *surface, int width, int height)
   size_t row_bytes;
   int row;
 
-  if( state == NULL || width <= 0 || height <= 0 || state->resolve_fbo == 0 )
+  if( state == NULL || width <= 0 || height <= 0 || state->resolve_fbo == 0
+      || width != state->msaa_width || height != state->msaa_height )
     return NULL;
 
   gtk_gl_area_make_current(GTK_GL_AREA(state->gl_area));

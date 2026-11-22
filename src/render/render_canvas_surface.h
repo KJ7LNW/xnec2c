@@ -109,8 +109,9 @@ PangoLayout *canvas_surface_pango_layout(const render_surface_t *surface,
  * @width:   requested allocation width
  * @height:  requested allocation height
  *
- * Returns FALSE for degenerate draw inputs or when the engine produces no
- * frame.
+ * Produces the frame at exactly @width by @height pixels at any display
+ * scale factor.  Returns FALSE for degenerate draw inputs or when the engine
+ * produces no frame.
  */
 gboolean canvas_surface_draw_sync(render_surface_t *surface,
     int width, int height);

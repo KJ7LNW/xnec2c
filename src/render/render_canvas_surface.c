@@ -164,8 +164,6 @@ canvas_surface_pango_layout(const render_surface_t *surface, const char *text)
   gboolean
 canvas_surface_draw_sync(render_surface_t *surface, int width, int height)
 {
-  GtkAllocation allocation = {0};
-
   if( width <= 0 || height <= 0 )
     return FALSE;
 
@@ -178,9 +176,7 @@ canvas_surface_draw_sync(render_surface_t *surface, int width, int height)
    * is the last the widget receives */
   gtk_widget_realize(surface->widget);
 
-  allocation.width = width;
-  allocation.height = height;
-  gtk_widget_size_allocate(surface->widget, &allocation);
+  surface_input_allocate_pixels(surface, width, height);
 
   return( surface->engine->frame(surface) );
 

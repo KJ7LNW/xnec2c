@@ -84,4 +84,17 @@ void surface_notice_capabilities(render_surface_t *surface,
  */
 void surface_input_connect(render_surface_t *surface);
 
+/**
+ * surface_input_allocate_pixels() - Allocate a surface at exact frame pixels
+ * @surface: surface whose widget is allocated
+ * @width: frame width in pixels, positive
+ * @height: frame height in pixels, positive
+ *
+ * Prepares a frame of exactly @width by @height pixels at any display scale
+ * factor: allocates the widget with the allocation handler blocked, records
+ * the viewport, and sizes the engine frame resources.
+ */
+void surface_input_allocate_pixels(render_surface_t *surface,
+    int width, int height);
+
 #endif /* __RENDER_SURFACE_INPUT_H */
