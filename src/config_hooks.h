@@ -81,6 +81,7 @@ void color_tone_marks_attach(GtkBuilder *builder);
     .value_label_id = (label_id), \
     .elements = CONFIG_WIDGETS( __VA_ARGS__, NULL ) )
 
+void theme_derived_rebuild(void);
 void hook_theme_change(void);
 extern const config_refresh_t hook_theme_change_refresh;
 

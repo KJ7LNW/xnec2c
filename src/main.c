@@ -36,7 +36,6 @@
 #include "config/config_frequency.h"
 #include "config/widget/config_widget_ops.h"
 #include "themes/theme.h"
-#include "color/color_palette.h"
 #include "ui_style.h"
 
 /* Forward declaration — full sy_overrides.h conflicts with openblas via gsl */
@@ -295,15 +294,15 @@ main (int argc, char *argv[])
   config_frequency_init();
   rc_config_register_widgets();
 
-  /* Theme registry and palette LUTs precede every theme_active() consumer;
-   * the hook pass inside Read_Config() then rebuilds the palettes for the
-   * persisted theme selection. */
+  /* Load the theme registry ahead of every theme_active() consumer */
   theme_registry_init();
-  palette_registry_init();
-  ui_style_sync_canvas_background();
 
   /* Read GUI state config file and reset geometry */
   Read_Config();
+
+  /* Build the palettes and canvas border from the persisted theme selection
+   * before any canvas draws */
+  theme_derived_rebuild();
 
   /* Write the stored values into the widgets, reached whether or not a
    * config file was read */

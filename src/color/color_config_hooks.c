@@ -276,6 +276,24 @@ const config_refresh_t hook_color_family_refresh =
 
 /*------------------------------------------------------------------------*/
 
+/** theme_derived_rebuild() - Rebuild the state derived from the active theme
+ *
+ * Builds the palette LUTs from the theme's gradient roles and redefines the
+ * canvas border background, requesting no redraw.  Startup calls it once the
+ * persisted theme selection is read and before any canvas draws;
+ * hook_theme_change() calls it ahead of its repaint.
+ */
+void
+theme_derived_rebuild(void)
+{
+  palette_registry_init();
+
+  /* The canvas border mixes the window color with the theme background */
+  ui_style_sync_canvas_background();
+}
+
+/*------------------------------------------------------------------------*/
+
 /** hook_theme_change() - Refresh everything derived from the active theme
  *
  * Single unified refresh for every theme-derived consumer: rebuild the
@@ -283,16 +301,14 @@ const config_refresh_t hook_color_family_refresh =
  * color-projected surfaces and legend strips, then repaint the frequency
  * plots through the redraw orchestration path.  Every theme commit,
  * preview, and revert edge calls this one function; a new theme-derived
- * consumer adds its refresh here.
+ * consumer adds its refresh here, or to theme_derived_rebuild() when
+ * startup needs it before the first draw.
  */
 void
 hook_theme_change(void)
 {
-  palette_registry_init();
+  theme_derived_rebuild();
   hook_color_vis();
-
-  /* The canvas border mixes the window color with the theme background */
-  ui_style_sync_canvas_background();
 
   /* The Inverted item offers itself only where the rendered base theme
    * carries an inverted variant */
