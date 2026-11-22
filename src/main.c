@@ -325,12 +325,9 @@ main (int argc, char *argv[])
   /* Main window freq spinbutton */
   config_widget_capture( &calc_data.fmhz_save );
 
-  /* Get the structure drawing area and allocation */
+  /* Get the structure drawing area */
   GtkWidget *structure_cairo_da =
     Builder_Get_Object( main_window_builder, "structure_drawingarea" );
-
-  GtkAllocation allocation;
-  gtk_widget_get_allocation( structure_cairo_da, &allocation );
 
   /* Spin buttons and entry backing the structure view */
   rotate_structure  = GTK_SPIN_BUTTON(
@@ -354,7 +351,6 @@ main (int argc, char *argv[])
       G_CALLBACK(on_main_rotate_spinbutton_value_changed),
       G_CALLBACK(on_main_incline_spinbutton_value_changed),
       G_CALLBACK(on_main_zoom_spinbutton_value_changed) );
-  view_set_viewport( structure_view, allocation.width, allocation.height );
   view_set_angles( structure_view,
       gtk_spin_button_get_value( rotate_structure ),
       gtk_spin_button_get_value( incline_structure ) );
@@ -387,6 +383,11 @@ main (int argc, char *argv[])
 
   config_widget_set_visible( &rc_config.opengl_orthographic, FALSE );
 #endif
+
+  /* Record the presented surface allocation as the first structure
+   * viewport, once the renderer choice has selected that surface */
+  if( !canvas_sync_viewport( CANVAS_STRUCTURE ) )
+    BUG("canvas %d presents no surface\n", (int)CANVAS_STRUCTURE);
 
   /* Signal start of xnec2c */
   SetFlag( XNEC2C_START );
