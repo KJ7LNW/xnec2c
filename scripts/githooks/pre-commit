@@ -118,7 +118,7 @@ if [ "${FORCE_COMMIT:-}" != "true" ]; then
 			exit 1
 		fi
 	else
-		echo "pre-commit: Makefile missing (tree not configured); check-local skipped." >&2
+		echo "pre-commit: Makefile missing (tree not configured); check-deck skipped." >&2
 	fi
 fi
 

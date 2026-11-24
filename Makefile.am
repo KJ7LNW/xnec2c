@@ -344,8 +344,10 @@ nobase_dist_pkgdata_DATA += examples/satellite.nec
 # committed reference data under examples/data/*.csv stays in the list.
 CLEANFILES += examples-automake.lst
 CLEANFILES += examples-srcdir.lst
-# PO catalog maintenance gate
-check-local: check-potfiles-list check-po-exemptions check-po-clean
+# Run the PO catalog maintenance gates on a development checkout. They
+# rewrite $(srcdir)/po and read git state, which a release tarball lacks.
+check-po: check-potfiles-list check-po-exemptions check-po-clean
+.PHONY: check-po
 check-potfiles-list:
 	@$(srcdir)/scripts/po/po-update.sh --check
 # Check the catalogs after the refresh sweep so the gate reads final tree

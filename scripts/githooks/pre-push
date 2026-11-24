@@ -1,8 +1,9 @@
 #!/bin/bash
 #
-# Block a push whose tree fails the test suite. Runs make check once for the
-# whole push; a push carrying only ref deletions publishes no tree and runs
-# nothing. Catalog validation lives in the pre-commit hook.
+# Block a push whose tree fails the test suite or the PO catalog gates. Runs
+# make check, then make check-po, once for the whole push; a push carrying
+# only ref deletions publishes no tree and runs nothing. The pre-commit hook
+# holds the per-commit catalog staging and delta gates.
 #
 # Bypass:  FORCE_PUSH=true git push ...
 #
@@ -26,12 +27,12 @@ if ! $pushes_tree; then
 	exit 0
 fi
 
-# make check needs a configured tree; report rather than pass untested work.
+# Both targets need a configured tree; report rather than pass untested work.
 if [ ! -f Makefile ]; then
 	echo ""
 	echo "❌ Pre-push validation failed: tree not configured"
 	echo ""
-	echo "make check cannot run without a configured tree."
+	echo "make check and make check-po cannot run without a configured tree."
 	echo ""
 	echo "Fix with:"
 	echo ""
@@ -45,17 +46,20 @@ if [ ! -f Makefile ]; then
 fi
 
 # Detach make from the ref list on stdin and stream progress to the terminal.
-if ! make check </dev/null; then
-	echo ""
-	echo "❌ Pre-push validation failed: make check"
-	echo ""
-	echo "Fix the failing tests, commit, and push again."
-	echo ""
-	echo "If you have determined this push must proceed anyway:"
-	echo ""
-	echo "  FORCE_PUSH=true git push"
-	echo ""
-	exit 1
-fi
+# Test the build, then run the PO catalog maintenance gates.
+for target in check check-po; do
+	if ! make "$target" </dev/null; then
+		echo ""
+		echo "❌ Pre-push validation failed: make $target"
+		echo ""
+		echo "Fix the failures above, commit, and push again."
+		echo ""
+		echo "If you have determined this push must proceed anyway:"
+		echo ""
+		echo "  FORCE_PUSH=true git push"
+		echo ""
+		exit 1
+	fi
+done
 
 exit 0
