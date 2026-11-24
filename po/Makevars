@@ -86,3 +86,11 @@ PO_DEPENDS_ON_POT = no
 # "no".  Set this to no if the POT file and PO files are maintained
 # externally.
 DIST_DEPENDS_ON_UPDATE_PO = no
+
+# This names the target "make dist" brings current in a make of its own
+# before it copies the distribution files, when DIST_DEPENDS_ON_UPDATE_PO is
+# "no".  The copy step lists both stamp-po, whose recipe compiles every
+# catalog in a second make, and the compiled catalogs themselves; running
+# stamp-po first leaves those catalogs current, so parallel make compiles
+# each catalog once.
+DISTFILESDEPS_no = stamp-po
