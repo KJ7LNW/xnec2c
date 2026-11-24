@@ -2924,12 +2924,16 @@ preserved across a reset.</p>
 
 <h4 id="ColorTheme">Color Themes</h4>
 <p>The <span class="ui-button">Color Theme</span> pull-down on the
-dialog's General page offers built-in themes, each with an
-<span class="ui-button">Invert</span> toggle.
+dialog's General page offers the built-in themes, among them the daisyUI
+palettes and palettes modeled on vintage CRT displays such as amber, CGA,
+EGA, and oscilloscope phosphors. The <span class="ui-button">Invert</span>
+checkbox beside it selects the inverted variant of the chosen theme.
 Place a <span class="fileext">~/.xnec2c/themes.ini</span> file to override the
 built-in palettes with your own. The shipped
 <span class="filepath">resources/themes.ini</span> holds the built-in
-definitions to copy from.</p>
+definitions to copy from. A theme of your own offers
+<span class="ui-button">Invert</span> only when the file also defines its
+<code>&lt;name&gt;-inverted</code> group.</p>
 
 <p>A theme restyles the structure display, the radiation pattern and
 the plots together, under both the Cairo and the
@@ -4183,6 +4187,7 @@ visualization, and internationalization support.</p>
 			<li><span class="contact" data-github="peteasa">peteasa</span> &mdash; drove the <code>--write-patch-currents</code> option and the gnuplot patch-line fix (<span class="issue-ref">#75</span>, <span class="issue-ref">#76</span>)</li>
 			<li><span class="contact" data-callsign="9M2PJU" data-github="9M2PJU">9M2PJU</span> &mdash; reported a build break and submitted a pull request (<span class="issue-ref">#84</span>, <span class="issue-ref">#85</span>), and synchronized the <code class="nec-card">Z0</code> string changes across all 47 translation catalogs (<span class="issue-ref">#88</span>)</li>
 			<li><span class="contact" data-github="mahswrn">Maheswaran</span> &mdash; contributed per-window arrow-key panning, the <kbd class="shortcut">Home</kbd> fit-to-view binding, and the <span class="menu-path">Common Pan</span> toggle (<span class="issue-ref">#92</span>), and the front-to-rear ratio and average gain test (<span class="issue-ref">#89</span>)</li>
+			<li><span class="contact" data-github="xylo04">Chris Keller</span> &mdash; documented the build and runtime dependencies for packagers (<span class="issue-ref">#96</span>), and reported and tested the serial sweep and start-up fixes</li>
 		</ul>
 	</li>
 
@@ -4192,10 +4197,6 @@ visualization, and internationalization support.</p>
 			surfaces, labelled axes, and ground plane</li>
 			<li>OpenGL Settings dialog: brightness, transparency, MSAA
 			anti-aliasing, cylinder scale, and draw style</li>
-			<li>Built-in color themes on the OpenGL Settings dialog with an
-			Invert toggle and user override via
-			<span class="fileext">~/.xnec2c/themes.ini</span>
-			(<a href="#ColorTheme">documentation</a>)</li>
 			<li>Orthographic projection toggle in the Main and Radiation
 			Pattern toolbars (<a href="#Projection">documentation</a>)</li>
 			<li>Radiation pattern draw style: Surface, Wireframe, or Both
@@ -4357,6 +4358,14 @@ visualization, and internationalization support.</p>
 			<li>Geometry checks report coincident wires and wire ends that
 			miss a junction by a small gap
 			(<a href="#CommonDefects">documentation</a>)</li>
+			<li>Color themes on the Rendering Settings dialog, including the
+			daisyUI and CRT-display palettes, each paired with an inverted
+			variant chosen by the <span class="ui-button">Invert</span>
+			checkbox beside the selector, with translated theme descriptions
+			and user override via
+			<span class="fileext">~/.xnec2c/themes.ini</span>; a theme
+			restyles both the Cairo and the OpenGL renderer
+			(<a href="#ColorTheme">documentation</a>)</li>
 		</ul>
 	</li>
 
@@ -4425,6 +4434,10 @@ visualization, and internationalization support.</p>
 			<code>--no-pthreads</code></li>
 			<li>Batch runs exit on a parse failure instead of reopening the
 			NEC2 editor</li>
+			<li>Fix threaded serial sweeps exporting zero impedance and gain
+			with infinite VSWR</li>
+			<li>Fix GTK warnings at start-up, which stopped xnec2c when GTK
+			warnings are fatal</li>
 		</ul>
 	</li>
 
@@ -4433,6 +4446,10 @@ visualization, and internationalization support.</p>
 			<li>OpenGL and Epoxy are optional build dependencies
 			(<code>--enable-opengl</code>)</li>
 			<li>Support running from source tree without installation</li>
+			<li><span class="filepath">PACKAGING</span> lists the required
+			build dependencies, the OpenGL dependencies that
+			<code>--disable-opengl</code> drops, and the optional runtime
+			BLAS/LAPACK libraries (<span class="issue-ref">#96</span>)</li>
 		</ul>
 	</li>
 </ul>
