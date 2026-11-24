@@ -99,11 +99,12 @@ wire_model_width_px(int idx, double scale)
  * @scale:  world-to-pixel projection scale
  * @segm:   projected segment array [nseg]
  * @nseg:   number of segments
- * @params: dispatch-resolved wire colors, segment scales, and glyphs
+ * @params: dispatch-resolved wire, network and glyph colors, segment scales,
+ *          and glyphs
  * @width:  pixel width coefficients of the presented wire form
  *
  * Single pass with precomputed per-segment colors from dispatch.
- * seg_rgb encodes type color (blue/yellow/red) in geometry mode.
+ * seg_rgb encodes the theme's segment type color in geometry mode.
  */
   static void
 draw_wire_segments(cairo_scenebuffer_t *sb, view_t *v, double scale,
@@ -147,7 +148,7 @@ draw_wire_segments(cairo_scenebuffer_t *sb, view_t *v, double scale,
 
           Segment_t net_tmpl;
           net_tmpl.z_mid = zn_mid;
-          seg_set_color(&net_tmpl, COLOR_MAGENTA);
+          seg_set_color(&net_tmpl, params->network_colors[idx]);
           net_tmpl.width = 2.0f;
           scenebuffer_add_polygon_outline(sb, &net_tmpl, xs, ys);
 
@@ -164,7 +165,7 @@ draw_wire_segments(cairo_scenebuffer_t *sb, view_t *v, double scale,
         {
           Segment_t tl;
           tl.z_mid = seg_pair_z_mid(segm, i1, i2);
-          seg_set_color(&tl, COLOR_CYAN);
+          seg_set_color(&tl, params->network_colors[idx]);
           tl.width = 2.0f;
           tl.x1 = segm[i1].x1; tl.y1 = segm[i1].y1;
           tl.x2 = segm[i2].x1; tl.y2 = segm[i2].y1;
@@ -179,7 +180,7 @@ draw_wire_segments(cairo_scenebuffer_t *sb, view_t *v, double scale,
         {
           Segment_t tl;
           tl.z_mid = seg_pair_z_mid(segm, i1, i2);
-          seg_set_color(&tl, COLOR_CYAN);
+          seg_set_color(&tl, params->network_colors[idx]);
           tl.width = 2.0f;
           tl.x1 = segm[i1].x1; tl.y1 = segm[i1].y1;
           tl.x2 = segm[i2].x2; tl.y2 = segm[i2].y2;
@@ -223,7 +224,7 @@ draw_wire_segments(cairo_scenebuffer_t *sb, view_t *v, double scale,
         const glyph_stroke_t *st = &gs->strokes[k];
         Segment_t tick = segm[idx];   /* inherit z_mid for depth sorting */
 
-        seg_set_color(&tick, gs->color);
+        seg_set_color(&tick, params->glyph_colors[params->wire_glyphs[idx]]);
         tick.width = GLYPH_TICK_LINE_PX;
         tick.x1 = (gint)(cx + st->ax * ext);
         tick.y1 = (gint)(cy + st->ay * ext);

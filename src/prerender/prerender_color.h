@@ -37,7 +37,7 @@ typedef enum
 } segment_color_type_t;
 
 /**
- * segment_type_to_rgb() - Map segment classification to display color
+ * segment_type_to_rgb() - Map segment classification to the active theme's color
  * @type: segment color classification
  * @r:    output red [0..1]
  * @g:    output green [0..1]
@@ -83,10 +83,12 @@ typedef struct
 } struct_colors_t;
 
 /*-----------------------------------------------------------------------
- * Tier 1 geometry color arrays (file-load time, frequency-independent)
+ * Tier 1 geometry color arrays (file-load and theme-change time,
+ * frequency-independent)
  *----------------------------------------------------------------------*/
-extern rgb_f_t *seg_rgb;    /* [data.n] blue/yellow/red per segment type */
-extern rgb_f_t *patch_rgb;  /* [data.m] blue constant */
+extern rgb_f_t *seg_rgb;    /* [data.n] theme color per segment type */
+extern rgb_f_t *patch_rgb;  /* [data.m] normal segment color */
+extern rgb_f_t *net_rgb;    /* [netcx.nonet] theme color per network type */
 
 /*-----------------------------------------------------------------------
  * Tier 2 per-fstep color arrays
@@ -121,11 +123,13 @@ void alloc_struct_colors(int nfrq);
 void free_struct_colors(void);
 
 /**
- * init_geometry_colors() - Compute Tier 1 seg_rgb/patch_rgb at file load
+ * init_geometry_colors() - Compute Tier 1 seg_rgb/patch_rgb/net_rgb at file load and theme change
  *
  * Iterates data.n segments via get_segment_color_type() + segment_type_to_rgb().
- * Fills patch_rgb[] with SEG_COLOR_NORMAL blue.
- * Called from Init_Struct_Drawing() after structure_segs is allocated.
+ * Fills patch_rgb[] with the normal segment color and net_rgb[] with each
+ * network type's theme color.
+ * Called once the deck's excitation and loads are read, and by
+ * theme_derived_rebuild() when the theme changes.
  */
 void init_geometry_colors(void);
 

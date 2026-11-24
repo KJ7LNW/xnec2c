@@ -21,8 +21,8 @@
  * chroma_glyph: node/antinode current-marker overlay.
  *
  * One owner for the glyph presentation: the enum-indexed shape table
- * pairing each mark's tick strokes with its color in the unit [-1,1]
- * plane, and the phase-invariant marking of envelope extrema along wire
+ * pairing each mark's tick strokes in the unit [-1,1] plane with its theme
+ * color role, and the phase-invariant marking of envelope extrema along wire
  * connectivity.  Each structure backend maps the unit strokes through
  * its own 2D-screen or 3D-world basis.
  */
@@ -46,11 +46,13 @@ static const glyph_stroke_t glyph_antinode_strokes[] = {
   { -M_SQRT1_2, -M_SQRT1_2, M_SQRT1_2, M_SQRT1_2 },
   { -M_SQRT1_2,  M_SQRT1_2, M_SQRT1_2, -M_SQRT1_2 } };
 
+/* Node and antinode marks take gradient roles the legacy theme holds at cyan
+ * and red; an unmarked segment draws no stroke, so its color is never drawn */
 const glyph_shape_t glyph_shapes[GLYPH_NUM] = {
   [GLYPH_NONE]     = { .n_strokes = 0 },
-  [GLYPH_NODE]     = { .color = { 0.0f, 1.0f, 1.0f },
+  [GLYPH_NODE]     = { .role = THEME_ROLE_GRAD_2,
                        .strokes = glyph_node_strokes,     .n_strokes = 2 },
-  [GLYPH_ANTINODE] = { .color = { 1.0f, 0.0f, 0.0f },
+  [GLYPH_ANTINODE] = { .role = THEME_ROLE_GRAD_5,
                        .strokes = glyph_antinode_strokes, .n_strokes = 2 },
 };
 

@@ -22,6 +22,7 @@
 
 #include "../common.h"
 #include "../chroma/chroma_field.h"
+#include "../chroma/chroma_glyph.h"
 #include "../prerender/prerender_color.h"
 #include "../prerender/prerender_state.h"
 #include "render_check.h"
@@ -42,6 +43,7 @@ typedef struct
   const rgb_f_t *wire_colors;   /* seg_rgb | composed projection colors */
   const float   *wire_seg_scale;  /* [data.n] dimensionless per-segment size gain */
   const rgb_f_t *patch_colors;  /* patch_rgb | composed projection colors */
+  const rgb_f_t *network_colors; /* net_rgb: theme color per network */
   const unsigned char *wire_glyphs; /* per-segment GLYPH_* code [data.n], or NULL */
   patch_flow_frame_t patch_flow; /* resolved patch directions and marks */
   double         cmax;          /* fmax(wire_crnt_cmax, patch_crnt_cmax) or 0.0 */
@@ -49,8 +51,10 @@ typedef struct
   double         wire_radius_scale; /* uniform user wire radius gain */
   float          geometry_extent; /* unscaled structure-space half-extent */
   float          model_scale;   /* resolved structure-to-presentation scale */
+  rgb_f_t        glyph_colors[GLYPH_NUM]; /* theme color per GLYPH_* mark */
   int            fstep;         /* for crnt_fstep[] access */
   uint32_t       color_generation; /* bumped whenever dispatch rebakes wire/patch color */
+  uint32_t       palette_gen;   /* color_palette_generation() */
   wire_form_t    wire_form;     /* line or solid presentation resolved from wire_radius_scale */
 } struct_draw_params_t;
 
@@ -74,8 +78,10 @@ _Static_assert(offsetof(struct_draw_params_t, wire_seg_scale) ==
     STRUCT_DRAW_PARAMS_END(wire_colors), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
 _Static_assert(offsetof(struct_draw_params_t, patch_colors) ==
     STRUCT_DRAW_PARAMS_END(wire_seg_scale), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
-_Static_assert(offsetof(struct_draw_params_t, wire_glyphs) ==
+_Static_assert(offsetof(struct_draw_params_t, network_colors) ==
     STRUCT_DRAW_PARAMS_END(patch_colors), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
+_Static_assert(offsetof(struct_draw_params_t, wire_glyphs) ==
+    STRUCT_DRAW_PARAMS_END(network_colors), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
 _Static_assert(offsetof(struct_draw_params_t, patch_flow) ==
     STRUCT_DRAW_PARAMS_END(wire_glyphs), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
 _Static_assert(offsetof(struct_draw_params_t, cmax) ==
@@ -88,12 +94,16 @@ _Static_assert(offsetof(struct_draw_params_t, geometry_extent) ==
     STRUCT_DRAW_PARAMS_END(wire_radius_scale), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
 _Static_assert(offsetof(struct_draw_params_t, model_scale) ==
     STRUCT_DRAW_PARAMS_END(geometry_extent), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
-_Static_assert(offsetof(struct_draw_params_t, fstep) ==
+_Static_assert(offsetof(struct_draw_params_t, glyph_colors) ==
     STRUCT_DRAW_PARAMS_END(model_scale), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
+_Static_assert(offsetof(struct_draw_params_t, fstep) ==
+    STRUCT_DRAW_PARAMS_END(glyph_colors), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
 _Static_assert(offsetof(struct_draw_params_t, color_generation) ==
     STRUCT_DRAW_PARAMS_END(fstep), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
-_Static_assert(offsetof(struct_draw_params_t, wire_form) ==
+_Static_assert(offsetof(struct_draw_params_t, palette_gen) ==
     STRUCT_DRAW_PARAMS_END(color_generation), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
+_Static_assert(offsetof(struct_draw_params_t, wire_form) ==
+    STRUCT_DRAW_PARAMS_END(palette_gen), STRUCT_DRAW_PARAMS_LAYOUT_MSG);
 _Static_assert(sizeof(struct_draw_params_t) ==
     (STRUCT_DRAW_PARAMS_END(wire_form) + _Alignof(struct_draw_params_t) - 1)
     / _Alignof(struct_draw_params_t) * _Alignof(struct_draw_params_t),

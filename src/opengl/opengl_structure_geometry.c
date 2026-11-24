@@ -75,9 +75,11 @@ typedef struct
 } patch_batch_edge_t;
 
 /* Record what the shared geometry pass consumed at its last run.  The pass
- * bakes deck identity, wire color, current-data identity, wire radius scale,
- * and segment geometry into every batch it builds, so a frame differing in
- * any of them rebuilds them all. */
+ * bakes deck identity, wire, network and glyph color, current-data identity,
+ * wire radius scale, and segment geometry into every batch it builds, so a
+ * frame differing in any of them rebuilds them all.  Network and glyph color
+ * change only with the deck and the palette, whose versions the edge
+ * compares. */
 typedef struct
 {
   struct_draw_params_t params;
@@ -206,15 +208,16 @@ emit_world_line(structure_vertex_t *verts, int vidx,
 
 /** generate_network_lines() - Emit GL_LINES vertices for networks and transmission lines
  * @batch: draw batch with pre-allocated vertices buffer
+ * @params: resolved frame carrying the per-network colors
  *
  * Two-port networks (ntyp 1) emit only the two port-connector lines; the
  * quadrilateral boundary shape is carried by the GL_TRIANGLES fill batch
  * produced by generate_network_fill().  Straight (ntyp 2) and crossed
- * (ntyp 3) transmission lines emit two cyan lines.  Network colors are fixed,
- * independent of current/charge mode.  Sets batch vertex_count.
+ * (ntyp 3) transmission lines emit two lines.  Each network takes its color
+ * from @params in every current/charge mode.  Sets batch vertex_count.
  */
   static void
-generate_network_lines(gl_draw_batch_t *batch)
+generate_network_lines(gl_draw_batch_t *batch, const struct_draw_params_t *params)
 {
   int idx, vidx = 0;
   structure_vertex_t *verts = (structure_vertex_t *)batch->vertices;
@@ -233,18 +236,18 @@ generate_network_lines(gl_draw_batch_t *batch)
     switch( netcx.ntyp[idx] )
     {
       case 1: /* Two-port network: port-connector lines; polygon fill on separate batch */
-        vidx = emit_world_line(verts, vidx, a1x, a1y, a1z, b1x, b1y, b1z, COLOR_MAGENTA);
-        vidx = emit_world_line(verts, vidx, a2x, a2y, a2z, b2x, b2y, b2z, COLOR_MAGENTA);
+        vidx = emit_world_line(verts, vidx, a1x, a1y, a1z, b1x, b1y, b1z, params->network_colors[idx]);
+        vidx = emit_world_line(verts, vidx, a2x, a2y, a2z, b2x, b2y, b2z, params->network_colors[idx]);
         break;
 
       case 2: /* Straight transmission line */
-        vidx = emit_world_line(verts, vidx, a1x, a1y, a1z, b1x, b1y, b1z, COLOR_CYAN);
-        vidx = emit_world_line(verts, vidx, a2x, a2y, a2z, b2x, b2y, b2z, COLOR_CYAN);
+        vidx = emit_world_line(verts, vidx, a1x, a1y, a1z, b1x, b1y, b1z, params->network_colors[idx]);
+        vidx = emit_world_line(verts, vidx, a2x, a2y, a2z, b2x, b2y, b2z, params->network_colors[idx]);
         break;
 
       case 3: /* Crossed transmission line */
-        vidx = emit_world_line(verts, vidx, a1x, a1y, a1z, b2x, b2y, b2z, COLOR_CYAN);
-        vidx = emit_world_line(verts, vidx, a2x, a2y, a2z, b1x, b1y, b1z, COLOR_CYAN);
+        vidx = emit_world_line(verts, vidx, a1x, a1y, a1z, b2x, b2y, b2z, params->network_colors[idx]);
+        vidx = emit_world_line(verts, vidx, a2x, a2y, a2z, b1x, b1y, b1z, params->network_colors[idx]);
         break;
 
       default:
@@ -259,15 +262,16 @@ generate_network_lines(gl_draw_batch_t *batch)
 
 /** generate_network_fill() - Emit GL_TRIANGLES vertices for ntyp 1 polygon fill
  * @batch: draw batch with pre-allocated vertices buffer
+ * @params: resolved frame carrying the per-network colors
  *
- * Two-port networks (ntyp 1) draw a magenta filled quadrilateral whose corners
+ * Two-port networks (ntyp 1) draw a filled quadrilateral whose corners
  * sit at the one-third points between the endpoints of segments i1 and i2,
  * matching the corner formulas in generate_network_lines().  Triangulated as
  * (c0,c1,c2) and (c0,c2,c3); 6 vertices per ntyp 1 instance.  Transmission
  * line types (ntyp 2,3) contribute nothing.  Sets batch vertex_count.
  */
   static void
-generate_network_fill(gl_draw_batch_t *batch)
+generate_network_fill(gl_draw_batch_t *batch, const struct_draw_params_t *params)
 {
   int idx, vidx = 0;
   structure_vertex_t *verts = (structure_vertex_t *)batch->vertices;
@@ -280,7 +284,7 @@ generate_network_fill(gl_draw_batch_t *batch)
     double c0x, c0y, c0z, c1x, c1y, c1z;
     double c2x, c2y, c2z, c3x, c3y, c3z;
     float nx, ny, nz;
-    rgb_f_t c = COLOR_MAGENTA;
+    rgb_f_t c = params->network_colors[idx];
 
     if( netcx.ntyp[idx] != 1 )
       continue;
@@ -417,14 +421,15 @@ cyl_display_radius(int idx, double radius_scale, float seg_scale)
 
 /** generate_segments_glyphs() - Emit GL_LINES tick marks for node/antinode segments
  * @batch:  draw batch with pre-allocated vertices buffer
- * @params: dispatch-resolved draw parameters (wire_glyphs, segment scales,
- *          radius scale)
+ * @params: dispatch-resolved draw parameters (wire_glyphs, glyph colors,
+ *          segment scales, radius scale)
  *
  * For each flagged segment, builds an orthonormal basis perpendicular to the
  * segment axis and maps the shape's unit strokes into world space, scaled to
  * STRUCTURE_GLYPH_TICK_RADIUS_K times the displayed wire radius so the mark
  * clears a thick cylinder at any user scale.  The engine reads only
- * glyph_shapes[] geometry and color, never the mark meaning.  Sets vertex_count.
+ * glyph_shapes[] geometry and the mark color @params resolves, never the mark
+ * meaning.  Sets vertex_count.
  */
   static void
 generate_segments_glyphs(gl_draw_batch_t *batch, const struct_draw_params_t *params)
@@ -445,6 +450,7 @@ generate_segments_glyphs(gl_draw_batch_t *batch, const struct_draw_params_t *par
       continue;
 
     gs = &glyph_shapes[params->wire_glyphs[idx]];
+    const rgb_f_t glyph_color = params->glyph_colors[params->wire_glyphs[idx]];
 
     dx = data.segments[idx].x2 - data.segments[idx].x1;
     dy = data.segments[idx].y2 - data.segments[idx].y1;
@@ -481,14 +487,14 @@ generate_segments_glyphs(gl_draw_batch_t *batch, const struct_draw_params_t *par
                       my + (st->ax * ny + st->ay * vy) * ext,
                       mz + (st->ax * nz + st->ay * vz) * ext },
           .normal = { nx, ny, nz },
-          .color  = { gs->color.r, gs->color.g, gs->color.b, 1.0f },
+          .color  = { glyph_color.r, glyph_color.g, glyph_color.b, 1.0f },
       };
       verts[vidx++] = (structure_vertex_t){
           .point  = { mx + (st->bx * nx + st->by * vx) * ext,
                       my + (st->bx * ny + st->by * vy) * ext,
                       mz + (st->bx * nz + st->by * vz) * ext },
           .normal = { nx, ny, nz },
-          .color  = { gs->color.r, gs->color.g, gs->color.b, 1.0f },
+          .color  = { glyph_color.r, glyph_color.g, glyph_color.b, 1.0f },
       };
     }
   }
@@ -657,7 +663,7 @@ opengl_structure_generate_geometry(
                 (size_t)(netcx.nonet * STRUCTURE_NETWORK_MAX_VERTS)
                 * sizeof(structure_vertex_t));
 
-    generate_network_lines(&batches[bc]);
+    generate_network_lines(&batches[bc], params);
 
     batches[bc].draw_mode = GL_LINES;
     batches[bc].polygon_offset = FALSE;
@@ -671,7 +677,7 @@ opengl_structure_generate_geometry(
                 (size_t)(netcx.nonet * STRUCTURE_NETWORK_FILL_VERTS_PER_INSTANCE)
                 * sizeof(structure_vertex_t));
 
-    generate_network_fill(&batches[bc]);
+    generate_network_fill(&batches[bc], params);
 
     batches[bc].draw_mode = GL_TRIANGLES;
     batches[bc].polygon_offset = TRUE;
@@ -730,7 +736,8 @@ patch_batch_edge_make(unsigned int generation,
  * @b: capture describing what this frame consumes
  *
  * Returns TRUE when both captures carry the same structure publication
- * version, resolved flow version, and baked color version.
+ * version, resolved flow version, baked color version, and palette
+ * version.
  */
   static gboolean
 patch_batch_edge_eq(const patch_batch_edge_t *a, const patch_batch_edge_t *b)
@@ -738,7 +745,8 @@ patch_batch_edge_eq(const patch_batch_edge_t *a, const patch_batch_edge_t *b)
   return a->valid == b->valid
       && a->structure_generation == b->structure_generation
       && a->params.patch_flow.generation == b->params.patch_flow.generation
-      && a->params.color_generation == b->params.color_generation;
+      && a->params.color_generation == b->params.color_generation
+      && a->params.palette_gen == b->params.palette_gen;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -850,7 +858,8 @@ geom_pass_edge_eq(const geom_pass_edge_t *a, const geom_pass_edge_t *b)
       && dl_feq(a->params.wire_radius_scale, b->params.wire_radius_scale)
       && a->wire_geometry == b->wire_geometry
       && current_data_eq
-      && a->geom_generation == b->geom_generation;
+      && a->geom_generation == b->geom_generation
+      && a->params.palette_gen == b->params.palette_gen;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -933,7 +942,7 @@ opengl_structure_update_shared_geometry_with_params(
   }
   if( structure_glyph_batch_index >= 0 )
   {
-    /* Marks render at full intensity so the fixed cyan/red is not dimmed */
+    /* Marks render at full intensity so their theme color is not dimmed */
     batches[structure_glyph_batch_index].color_dim = 1.0f;
     batches[structure_glyph_batch_index].alpha = 1.0f;
   }

@@ -26,6 +26,7 @@
 #include "../shared.h"
 #include "../callbacks.h"
 #include "../config/widget/config_widget_ops.h"
+#include "../prerender/prerender_color.h"
 #include "../rdpattern_ui.h"
 #include "../structure_ui.h"
 #include "../ui_style.h"
@@ -278,15 +279,16 @@ const config_refresh_t hook_color_family_refresh =
 
 /** theme_derived_rebuild() - Rebuild the state derived from the active theme
  *
- * Builds the palette LUTs from the theme's gradient roles and redefines the
- * canvas border background, requesting no redraw.  Startup calls it once the
- * persisted theme selection is read and before any canvas draws;
- * hook_theme_change() calls it ahead of its repaint.
+ * Builds the palette LUTs and the structure geometry colors from the theme's
+ * gradient roles and redefines the canvas border background, requesting no
+ * redraw.  Startup calls it once the persisted theme selection is read and
+ * before any canvas draws; hook_theme_change() calls it ahead of its repaint.
  */
 void
 theme_derived_rebuild(void)
 {
   palette_registry_init();
+  init_geometry_colors();
 
   /* The canvas border mixes the window color with the theme background */
   ui_style_sync_canvas_background();

@@ -27,25 +27,37 @@
 #include "../chroma/chroma_nearfield.h"
 #include "../chroma/chroma_farfield.h"
 #include "../shared.h"
+#include "../themes/theme.h"
+
+/* Assigned when a classification falls outside its table, so no unwritten
+ * color reaches the canvas and an unknown segment type shows on the model */
+#define STRUCT_TYPE_UNKNOWN_ROLE  THEME_ROLE_GRAD_0
 
 rgb_f_t *seg_rgb   = NULL;
 rgb_f_t *patch_rgb = NULL;
+rgb_f_t *net_rgb   = NULL;
 
 struct_colors_t *struct_colors = NULL;
 
 /* Monotonic publication sequence stamped onto each completed fstep slot */
 static uint32_t struct_colors_seq = 0;
 
-/* Geometry display color per segment classification */
-static const rgb_f_t seg_type_rgb[SEG_COLOR_COUNT] = {
-  [SEG_COLOR_NORMAL]     = { 0.0f, 0.0f, 1.0f },
-  [SEG_COLOR_LOADED]     = { 1.0f, 1.0f, 0.0f },
-  [SEG_COLOR_EXCITATION] = { 1.0f, 0.0f, 0.0f },
+/* Theme gradient role per segment classification; the legacy theme holds
+ * these stops at blue, yellow and red */
+static const theme_role_e seg_type_role[SEG_COLOR_COUNT] = {
+  [SEG_COLOR_NORMAL]     = THEME_ROLE_GRAD_1,
+  [SEG_COLOR_LOADED]     = THEME_ROLE_GRAD_4,
+  [SEG_COLOR_EXCITATION] = THEME_ROLE_GRAD_5,
 };
 
-/* Drawn when a classification falls outside the enum, so the fault shows
- * on the model instead of reaching the canvas as an unwritten color */
-#define SEG_TYPE_UNKNOWN_RGB  ((rgb_f_t){ 1.0f, 0.0f, 1.0f })
+/* Theme gradient role per network type: NT cards (ntyp 1) and straight and
+ * crossed TL cards (ntyp 2, 3); the legacy theme holds these stops at
+ * magenta and cyan */
+static const theme_role_e net_type_role[] = {
+  [1] = THEME_ROLE_GRAD_0,
+  [2] = THEME_ROLE_GRAD_2,
+  [3] = THEME_ROLE_GRAD_2,
+};
 
 /*-----------------------------------------------------------------------*/
 
@@ -85,7 +97,7 @@ get_segment_color_type(int seg_num)
 /*-----------------------------------------------------------------------*/
 
 /**
- * segment_type_to_rgb() - Map classification to display color
+ * segment_type_to_rgb() - Map classification to the active theme's color
  * @type: segment classification
  * @r:    output red [0..1]
  * @g:    output green [0..1]
@@ -94,16 +106,37 @@ get_segment_color_type(int seg_num)
   void
 segment_type_to_rgb(segment_color_type_t type, float *r, float *g, float *b)
 {
-  rgb_f_t c = SEG_TYPE_UNKNOWN_RGB;
+  theme_role_e role = STRUCT_TYPE_UNKNOWN_ROLE;
 
   if( (unsigned)type < SEG_COLOR_COUNT )
-    c = seg_type_rgb[type];
+    role = seg_type_role[type];
   else
     BUG("unknown segment color classification %d\n", type);
 
-  *r = c.r;
-  *g = c.g;
-  *b = c.b;
+  *r = theme_active()->colors[role].r;
+  *g = theme_active()->colors[role].g;
+  *b = theme_active()->colors[role].b;
+}
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * network_type_to_rgb() - Map a network type to the active theme's color
+ * @ntyp: netcx.ntyp entry: 1 NT network, 2 straight TL, 3 crossed TL
+ *
+ * Returns the theme color of the type's gradient role.
+ */
+  static rgb_f_t
+network_type_to_rgb(int ntyp)
+{
+  theme_role_e role = STRUCT_TYPE_UNKNOWN_ROLE;
+
+  if( (ntyp >= 1) && (ntyp < (int)G_N_ELEMENTS(net_type_role)) )
+    role = net_type_role[ntyp];
+  else
+    BUG("unknown network type %d\n", ntyp);
+
+  return theme_active()->colors[role];
 }
 
 /*-----------------------------------------------------------------------*/
@@ -167,6 +200,7 @@ free_struct_colors(void)
 
   mem_array_free(&seg_rgb);
   mem_array_free(&patch_rgb);
+  mem_array_free(&net_rgb);
 
   chroma_proj_free();
   chroma_nf_free();
@@ -176,7 +210,7 @@ free_struct_colors(void)
 /*-----------------------------------------------------------------------*/
 
 /**
- * init_geometry_colors() - Compute Tier 1 seg_rgb/patch_rgb at file load
+ * init_geometry_colors() - Compute Tier 1 seg_rgb/patch_rgb/net_rgb at file load and theme change
  */
   void
 init_geometry_colors(void)
@@ -203,7 +237,7 @@ init_geometry_colors(void)
   {
     mem_array_realloc(&patch_rgb, data.m);
 
-    /* Patches use SEG_COLOR_NORMAL blue constant */
+    /* Patches take the normal segment color */
     segment_type_to_rgb(SEG_COLOR_NORMAL, &r, &g, &b);
     for( i = 0; i < data.m; i++ )
     {
@@ -211,6 +245,14 @@ init_geometry_colors(void)
       patch_rgb[i].g = g;
       patch_rgb[i].b = b;
     }
+  }
+
+  if( netcx.nonet > 0 )
+  {
+    mem_array_realloc(&net_rgb, netcx.nonet);
+
+    for( i = 0; i < netcx.nonet; i++ )
+      net_rgb[i] = network_type_to_rgb(netcx.ntyp[i]);
   }
 }
 

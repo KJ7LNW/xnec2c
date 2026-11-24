@@ -21,8 +21,11 @@
 #include "render_wire_radius.h"
 #include "../anim/anim_class.h"
 #include "../chroma/chroma.h"
+#include "../chroma/chroma_glyph.h"
+#include "../color/color_palette.h"
 #include "../prerender/prerender_farfield.h"
 #include "../shared.h"
+#include "../themes/theme.h"
 
 /**
  * render_overlay_model_scale() - Resolve the effective overlay model scale
@@ -78,7 +81,7 @@ render_overlay_excitation_offset(float model_scale, gboolean overlay_active,
  * @model_scale: structure-to-presentation scale
  * @frame_phase: phase read once by the frame owner
  *
- * Returns the typed wire, patch, glyph, scale, wire form, and patch-flow inputs consumed
+ * Returns the typed wire, patch, network, glyph, scale, wire form, and patch-flow inputs consumed
  * by either structure backend.
  */
   struct_draw_params_t
@@ -145,6 +148,16 @@ render_structure_frame(int fstep, float model_scale, double frame_phase)
   params.fstep = fstep;
   params.freq_mhz = calc_data.freq_mhz;
   params.wire_radius_scale = rc_config.wire_radius_scale;
+  params.network_colors = net_rgb;
+
+  /* A theme change recolors seg_rgb, patch_rgb and net_rgb in place, so
+   * presentation caches key on the palette as well as on the color version */
+  params.palette_gen = color_palette_generation();
+
+  /* Resolve each glyph mark's theme role into the color the backends draw */
+  for( int glyph = 0; glyph < GLYPH_NUM; glyph++ )
+    params.glyph_colors[glyph] =
+      theme_active()->colors[glyph_shapes[glyph].role];
 
   /* Present wires as lines below the threshold, as radius-scaled solids otherwise */
   if( dl_flt(params.wire_radius_scale, WIRE_FORM_LINE_THRESHOLD) )

@@ -130,10 +130,6 @@ typedef struct Segment
 /* Per-vertex RGB color (float precision, renderer-agnostic) */
 typedef struct { float r, g, b; } rgb_f_t;
 
-/* Named color constants for rendering */
-extern const rgb_f_t COLOR_CYAN;
-extern const rgb_f_t COLOR_MAGENTA;
-
 /**
  * cairo_set_source_rgb_f() - Set the Cairo source from a float color
  * @cr: target Cairo context

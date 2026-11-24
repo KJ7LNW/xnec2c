@@ -22,6 +22,7 @@
 
 #include "../common.h"
 #include "chroma_source.h"
+#include "../themes/theme.h"
 
 /* Node/antinode glyph marks written by chroma_glyph_mark_nodes(); the
  * trailing count makes glyph_shapes[] enum-indexed. */
@@ -37,16 +38,18 @@ enum
  * through its own basis and scale. */
 typedef struct { float ax, ay, bx, by; } glyph_stroke_t;
 
-/* A glyph marker's full presentation: its color and its tick strokes. */
+/* A glyph marker's full presentation: its theme color role and its tick
+ * strokes. */
 typedef struct
 {
-  rgb_f_t               color;
+  theme_role_e          role;
   const glyph_stroke_t *strokes;
   int                   n_strokes;
 } glyph_shape_t;
 
 /* Enum-indexed marker table: the single source of a glyph's shape and
- * color, mapped through each backend's own basis. */
+ * color role.  Dispatch resolves the role through the active theme, and each
+ * backend maps the strokes through its own basis. */
 extern const glyph_shape_t glyph_shapes[GLYPH_NUM];
 
 /**

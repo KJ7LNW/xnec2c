@@ -21,12 +21,6 @@
 
 /*------------------------------------------------------------------------*/
 
-/* Named color constants for cairo rendering (declared in common.h) */
-const rgb_f_t COLOR_CYAN       = {0.0f, 1.0f, 1.0f};
-const rgb_f_t COLOR_MAGENTA    = {1.0f, 0.0f, 1.0f};
-
-/*------------------------------------------------------------------------*/
-
 /* Runtime config file */
 rc_config_t rc_config;
 
