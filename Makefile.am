@@ -30,11 +30,12 @@ clean:
 	fi
 
 # Keep po/POTFILES.in synced with git-tracked sources on every make in
-# git checkouts; tarball builds lack .git and skip silently.
+# git checkouts, whose .git is a directory or, in a worktree or submodule, a
+# gitfile; tarball builds lack .git and skip silently.
 BUILT_SOURCES = potfiles-sync
 .PHONY: potfiles-sync
 potfiles-sync:
-	@if test -d $(top_srcdir)/.git; then \
+	@if test -e $(top_srcdir)/.git; then \
 		$(top_srcdir)/scripts/po/po-update.sh --sync; \
 	fi
 
@@ -385,7 +386,7 @@ check-po-exemptions: check-po-catalogs
 # both po/ gates so the recipe reads the tree after every sweep finishes, including
 # under parallel make. Tarball builds carry no .git and skip.
 check-po-clean: check-potfiles-list check-po-exemptions
-	@if test -d $(top_srcdir)/.git; then \
+	@if test -e $(top_srcdir)/.git; then \
 	  residue=`cd $(srcdir) && git status --porcelain -- po`; \
 	  if test -n "$$residue"; then \
 	    echo "Error: po/ carries uncommitted changes after the refresh sweep:"; \
