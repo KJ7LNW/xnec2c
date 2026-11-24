@@ -15,25 +15,17 @@ set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
 
+. scripts/githooks/hook-notice.sh commit FORCE_COMMIT
+
 if [ "${FORCE_COMMIT:-}" != "true" ]; then
 	# Gate 1: POTFILES.in must match the git-tracked source list.
 	# Show the drift listing only on failure; stay quiet when clean.
 	if ! check_output=$(./scripts/po/po-update.sh --check 2>&1); then
 		echo "$check_output"
-		echo ""
-		echo "❌ Pre-commit validation failed"
-		echo ""
-		echo "po/POTFILES.in is out of date with the git-tracked source list."
-		echo ""
-		echo "Fix with:"
-		echo ""
-		echo "  ./scripts/po/po-update.sh --sync"
-		echo "  git add po/POTFILES.in"
-		echo ""
-		echo "If you have determined this commit must proceed anyway:"
-		echo ""
-		echo "  FORCE_COMMIT=true git commit"
-		echo ""
+		hook_notice_print_failed
+		hook_notice_print_section "po/POTFILES.in is out of date with the git-tracked source list."
+		hook_notice_print_fix "./scripts/po/po-update.sh --sync" "git add po/POTFILES.in"
+		hook_notice_print_bypass
 		exit 1
 	fi
 
@@ -44,9 +36,7 @@ if [ "${FORCE_COMMIT:-}" != "true" ]; then
 	if [ -f po/Makefile ]; then
 		if ! po_output=$(make -s po-refresh 2>&1); then
 			echo "$po_output"
-			echo ""
-			echo "❌ Pre-commit validation failed: make po-refresh failed"
-			echo ""
+			hook_notice_print_failed "make po-refresh failed"
 			exit 1
 		fi
 	else
@@ -55,21 +45,12 @@ if [ "${FORCE_COMMIT:-}" != "true" ]; then
 
 	# Gate 3: translation files must land with the commit that changed them.
 	if ! git diff --quiet -- po; then
-		echo ""
-		echo "❌ Pre-commit validation failed"
-		echo ""
-		echo "po/ tree modified but not staged for commit:"
-		echo ""
+		hook_notice_print_failed
+		hook_notice_print_section "po/ tree modified but not staged for commit:"
 		git status -s -- po
-		echo ""
-		echo "Fix with:"
-		echo ""
-		echo "  git add po/"
-		echo ""
-		echo "If you have determined this commit must proceed anyway:"
-		echo ""
-		echo "  FORCE_COMMIT=true git commit"
-		echo ""
+		hook_notice_print_section
+		hook_notice_print_fix "git add po/"
+		hook_notice_print_bypass
 		exit 1
 	fi
 
@@ -83,9 +64,7 @@ if [ "${FORCE_COMMIT:-}" != "true" ]; then
 	# Capture the registered languages first so the reader's exit status gates
 	# the loop, then split them into words as the make recipes do.
 	if ! languages=$(scripts/po/po-linguas.sh po/LINGUAS); then
-		echo ""
-		echo "❌ Pre-commit validation failed: po/LINGUAS could not be read"
-		echo ""
+		hook_notice_print_failed "po/LINGUAS could not be read"
 		exit 1
 	fi
 
@@ -100,16 +79,10 @@ if [ "${FORCE_COMMIT:-}" != "true" ]; then
 	done
 
 	if [ "$delta_rc" -ne 0 ]; then
-		echo ""
-		echo "❌ Pre-commit validation failed"
-		echo ""
-		echo "This commit introduces new fuzzy or untranslated catalog entries."
-		echo "Translate or resolve the entries listed above and stage po/."
-		echo ""
-		echo "If you have determined this commit must proceed anyway:"
-		echo ""
-		echo "  FORCE_COMMIT=true git commit"
-		echo ""
+		hook_notice_print_failed
+		hook_notice_print_section "This commit introduces new fuzzy or untranslated catalog entries." \
+			"Translate or resolve the entries listed above and stage po/."
+		hook_notice_print_bypass
 		exit 1
 	fi
 
@@ -117,13 +90,8 @@ if [ "${FORCE_COMMIT:-}" != "true" ]; then
 	if [ -f Makefile ]; then
 		if ! check_output=$(make -s check-deck 2>&1); then
 			echo "$check_output"
-			echo ""
-			echo "❌ Pre-commit validation failed: make check-deck"
-			echo ""
-			echo "If you have determined this commit must proceed anyway:"
-			echo ""
-			echo "  FORCE_COMMIT=true git commit"
-			echo ""
+			hook_notice_print_failed "make check-deck"
+			hook_notice_print_bypass
 			exit 1
 		fi
 	else

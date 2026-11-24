@@ -15,6 +15,8 @@ set -euo pipefail
 
 cd "$(git rev-parse --show-toplevel)"
 
+. scripts/githooks/hook-notice.sh push FORCE_PUSH
+
 pushes_tree=false
 
 while read -r local_ref local_sha remote_ref remote_sha; do
@@ -29,19 +31,10 @@ fi
 
 # Both targets need a configured tree; report rather than pass untested work.
 if [ ! -f Makefile ]; then
-	echo ""
-	echo "❌ Pre-push validation failed: tree not configured"
-	echo ""
-	echo "make check and make check-po cannot run without a configured tree."
-	echo ""
-	echo "Fix with:"
-	echo ""
-	echo "  ./configure"
-	echo ""
-	echo "If you have determined this push must proceed anyway:"
-	echo ""
-	echo "  FORCE_PUSH=true git push"
-	echo ""
+	hook_notice_print_failed "tree not configured"
+	hook_notice_print_section "make check and make check-po cannot run without a configured tree."
+	hook_notice_print_fix "./configure"
+	hook_notice_print_bypass
 	exit 1
 fi
 
@@ -49,15 +42,9 @@ fi
 # Test the build, then run the PO catalog maintenance gates.
 for target in check check-po; do
 	if ! make "$target" </dev/null; then
-		echo ""
-		echo "❌ Pre-push validation failed: make $target"
-		echo ""
-		echo "Fix the failures above, commit, and push again."
-		echo ""
-		echo "If you have determined this push must proceed anyway:"
-		echo ""
-		echo "  FORCE_PUSH=true git push"
-		echo ""
+		hook_notice_print_failed "make $target"
+		hook_notice_print_section "Fix the failures above, commit, and push again."
+		hook_notice_print_bypass
 		exit 1
 	fi
 done
