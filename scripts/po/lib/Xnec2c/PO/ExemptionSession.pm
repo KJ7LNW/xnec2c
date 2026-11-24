@@ -52,7 +52,7 @@ sub session_contract
 		'5. Stop once both commands pass.',
 		'',
 		'',
-		'Perform item 1 now.');
+		'Perform item 1, then all remaining items, now. Do not stop until all are complete.');
 }
 
 # Direct correction of the catalog entries the audit rejected.

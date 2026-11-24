@@ -89,7 +89,7 @@ sub session_contract
 		'7. Stop once verify succeeds.',
 		'',
 		'',
-		'Perform item 1 now.');
+		'Perform item 1, then all remaining items, now. Do not stop until all are complete.');
 }
 
 # Direct line-targeted correction of the records the preceding report named.
