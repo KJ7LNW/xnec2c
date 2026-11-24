@@ -2,7 +2,7 @@
 # Defines unit tests for symbol expression evaluation
 
 check_PROGRAMS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test bin/opt_simple_test bin/opt_fitness_test bin/touchstone_test bin/geometry_verify_test
-TESTS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test bin/opt_simple_test bin/opt_fitness_test bin/touchstone_test bin/geometry_verify_test mem_array_void_test.sh
+TESTS = bin/sy_expr_test bin/sy_expr_extended_test bin/sy_fixture_test bin/sy_input_integration_test bin/sy_value_test bin/sy_load_overrides_test bin/pso_test bin/simplex_test bin/opt_simple_test bin/opt_fitness_test bin/touchstone_test bin/geometry_verify_test mem_array_void_test.sh po_stats_exempt_test.sh
 
 bin_sy_expr_test_SOURCES = src/sy_expr_test.c \
 	src/test_stubs.c \
@@ -148,7 +148,7 @@ bin_geometry_verify_test_LDADD = $(GTK_LIBS) $(GMODULE_LIBS) -lm
 
 AM_TESTS_ENVIRONMENT = CC='$(CC)'; export CC;
 
-dist_check_SCRIPTS = mem_array_void_test.sh
+dist_check_SCRIPTS = mem_array_void_test.sh po_stats_exempt_test.sh
 
 EXTRA_DIST = fixtures src
 

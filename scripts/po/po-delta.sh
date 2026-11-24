@@ -49,10 +49,11 @@ fi
 tip_records=$(awk -f "$classifier" "$po")
 
 # A tip record is new when its key is absent from the base key set; the key is
-# field 3, identity-stable across line-number churn.
+# field 3, identity-stable across line-number churn. An exempt record is the
+# catalog's recorded outcome rather than pending work, so neither set reads it.
 new=$(awk -F'\t' '
-	NR == FNR { if (NF) base[$3] = 1; next }
-	NF && !($3 in base) { print }
+	NR == FNR { if (NF && $1 != "exempt") base[$3] = 1; next }
+	NF && $1 != "exempt" && !($3 in base) { print }
 ' <(printf '%s\n' "$base_records") <(printf '%s\n' "$tip_records"))
 
 if [ -z "$new" ]; then

@@ -5,18 +5,20 @@
 #
 #   state <TAB> report_line <TAB> key
 #
-# state is the literal "fuzzy", "untranslated", or "identical". report_line is
-# the 1-based catalog line reported for that state: the "#, fuzzy" flag line for
-# a fuzzy record, the msgid line for an untranslated record, the msgstr line for
-# an identical record. An entry carrying an "xnec2c-exempt:" translator comment
-# records that this catalog writes no translation, so its empty msgstr emits no
+# state is the literal "fuzzy", "untranslated", "exempt", or "identical".
+# report_line is the 1-based catalog line reported for that state: the
+# "#, fuzzy" flag line for a fuzzy record, the msgid line for an untranslated or
+# exempt record, the msgstr line for an identical record. An entry carrying an
+# "xnec2c-exempt:" translator comment records that this catalog writes no
+# translation, so its empty msgstr emits an exempt record in place of an
 # untranslated record and a repeated msgid stays identical. key is
 # the entry identity used for delta set difference: msgctxt content, a U+0004
 # separator, then the msgid content concatenated across continuation lines. The
 # header entry (empty msgid with no msgctxt) is excluded.
 #
-# Owned by scripts/po/po-check.sh (absolute reporting) and scripts/po/po-delta.sh
-# (base-vs-tip set difference); the single source of catalog state detection.
+# Owned by scripts/po/po-check.sh (absolute reporting), scripts/po/po-delta.sh
+# (base-vs-tip set difference), and scripts/po/po-stats.sh (per-language
+# counts); the single source of catalog state detection.
 
 # Return the text between the first and last double quote on a catalog line.
 function qcontent(s) {
@@ -33,6 +35,8 @@ function emit(   key) {
 			print "fuzzy\t" fuzzy_line "\t" key
 		if (have_msgstr && msgstr == "" && !exempt)
 			print "untranslated\t" msgid_line "\t" key
+		if (have_msgstr && msgstr == "" && exempt)
+			print "exempt\t" msgid_line "\t" key
 		if (have_msgstr && msgstr != "" && msgstr == msgid)
 			print "identical\t" msgstr_line "\t" key
 	}
