@@ -20,7 +20,8 @@
 #      translation rather than a copied one. Each remaining one is reported
 #      with the po-file line number of its msgstr.
 #
-# Exit status: 0 all gates pass, 1 any gate fails, 2 usage error.
+# Exit status: 0 all gates pass, 1 any gate fails, 2 usage error or
+# classifier failure.
 
 # Review mode gates staged partial catalogs: keep syntax, format, and fuzzy
 # gates, drop the untranslated-completeness gate that a partial catalog fails.
@@ -53,7 +54,10 @@ fi
 # tab-separated "state<TAB>line<TAB>key" record per flagged entry. Fuzzy
 # records carry the "#, fuzzy" flag line, untranslated records the msgid line,
 # and identical records the msgstr line, matching the per-gate reporting below.
-records=$(awk -f "$(dirname "$0")/po-classify.awk" "$l")
+if ! records=$(awk -f "$(dirname "$0")/po-classify.awk" "$l"); then
+	echo "$l: entry classifier failed" >&2
+	exit 2
+fi
 
 # Report every entry one classifier state names, summarizing the state and then
 # naming each entry at its own line. Returns non-zero when the state holds any.
