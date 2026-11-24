@@ -328,8 +328,12 @@ include ./$(XNEC2C_DEPDIR)/xnec2c-resources.Pc
 
 xnec2c_SOURCES += xnec2c-resources.c
 CLEANFILES     += xnec2c-resources.c
-# List the path of every member the manifest names, under $(top_srcdir)/resources.
-XNEC2C_RESOURCE_MEMBERS = $(GLIB_COMPILE_RESOURCES) --sourcedir=$(top_srcdir)/resources --generate-dependencies $(top_srcdir)/resources/xnec2c.gresource.xml
+# Name the resource source directory and the manifest listing its members.
+XNEC2C_RESOURCE_DIR = $(top_srcdir)/resources
+XNEC2C_RESOURCE_MANIFEST = $(XNEC2C_RESOURCE_DIR)/xnec2c.gresource.xml
+
+# List the path of every member the manifest names, under $(XNEC2C_RESOURCE_DIR).
+XNEC2C_RESOURCE_MEMBERS = $(GLIB_COMPILE_RESOURCES) --sourcedir=$(XNEC2C_RESOURCE_DIR) --generate-dependencies $(XNEC2C_RESOURCE_MANIFEST)
 
 # Validate every XML member before it becomes resource bytes. The resource
 # compiler copies each member verbatim, so a malformed member survives the
@@ -342,7 +346,7 @@ XNEC2C_RESOURCE_XML_LINT = \
 	if test "x$(XMLLINT)" = xno; then \
 	  echo "warning: xmllint not found, resource XML not validated"; \
 	else \
-	  for f in $(top_srcdir)/resources/xnec2c.gresource.xml \
+	  for f in $(XNEC2C_RESOURCE_MANIFEST) \
 	      `$(XNEC2C_RESOURCE_MEMBERS)`; do \
 	    if $(SED) 1q $$f | grep -q '^[[:space:]]*<'; then \
 	      $(XMLLINT) --noout $$f || exit 1; \
@@ -358,9 +362,9 @@ check-resource-xml:
 
 # --generate-phony-targets: emit phony Make targets for each resource file so
 # deleting a resource file triggers a rebuild instead of a stale-dep error.
-xnec2c-resources.c: $(top_srcdir)/resources/xnec2c.gresource.xml $(top_srcdir)/resources/xnec2c.glade $(top_srcdir)/resources/animate.glade $(top_srcdir)/resources/settings/render_settings.glade $(top_srcdir)/resources/settings/opengl_settings.glade $(top_srcdir)/resources/settings/cairo_settings.glade $(top_srcdir)/resources/settings/color_settings.glade $(top_srcdir)/resources/themes.ini $(top_srcdir)/resources/freqplots_widths.ini $(top_srcdir)/resources/xnec2c.css
+xnec2c-resources.c: $(XNEC2C_RESOURCE_MANIFEST) $(XNEC2C_RESOURCE_DIR)/xnec2c.glade $(XNEC2C_RESOURCE_DIR)/animate.glade $(XNEC2C_RESOURCE_DIR)/settings/render_settings.glade $(XNEC2C_RESOURCE_DIR)/settings/opengl_settings.glade $(XNEC2C_RESOURCE_DIR)/settings/cairo_settings.glade $(XNEC2C_RESOURCE_DIR)/settings/color_settings.glade $(XNEC2C_RESOURCE_DIR)/themes.ini $(XNEC2C_RESOURCE_DIR)/freqplots_widths.ini $(XNEC2C_RESOURCE_DIR)/xnec2c.css
 	@$(XNEC2C_RESOURCE_XML_LINT)
-	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --sourcedir=$(top_srcdir)/resources --dependency-file=./$(XNEC2C_DEPDIR)/xnec2c-resources.Pc --generate-phony-targets --target=xnec2c-resources.c --generate-source $(top_srcdir)/resources/xnec2c.gresource.xml
+	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --sourcedir=$(XNEC2C_RESOURCE_DIR) --dependency-file=./$(XNEC2C_DEPDIR)/xnec2c-resources.Pc --generate-phony-targets --target=xnec2c-resources.c --generate-source $(XNEC2C_RESOURCE_MANIFEST)
 
 # Do not dist the generated source file so that building from tarball
 # will use glib-compile-resources together with compatible libraries.
@@ -372,7 +376,7 @@ dist-hook:
 # builds compile the same resources a git checkout does.
 XNEC2C_RESOURCE_DIST = \
 	members=`$(XNEC2C_RESOURCE_MEMBERS)` || exit 1; \
-	for f in $(top_srcdir)/resources/xnec2c.gresource.xml $$members; do \
+	for f in $(XNEC2C_RESOURCE_MANIFEST) $$members; do \
 	  case $$f in \
 	  $(top_srcdir)/*) member=$${f\#$(top_srcdir)/} ;; \
 	  *) echo "error: resource member $$f lies outside $(top_srcdir)" >&2; exit 1 ;; \
