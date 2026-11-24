@@ -51,16 +51,11 @@ EXTRA_DIST += debian/upstream/metadata
 
 EXTRA_DIST += MAINTAINER
 EXTRA_DIST += README.md
+EXTRA_DIST += NOTICE
 EXTRA_DIST += PACKAGING
 
 EXTRA_DIST += m4-include/ax_check_compile_flag.m4
 EXTRA_DIST += m4-include/pkg.m4
-
-EXTRA_DIST += resources/link.svg
-EXTRA_DIST += resources/unlink.svg
-EXTRA_DIST += resources/xnec2c.glade
-EXTRA_DIST += resources/sy_overrides.glade
-EXTRA_DIST += resources/xnec2c.gresource.xml
 
 SED_CMDS  =
 SED_CMDS += -e 's|[@]PACKAGE_NAME@|$(PACKAGE_NAME)|g'
@@ -92,8 +87,9 @@ files/xnec2c.desktop: $(srcdir)/files/xnec2c.desktop.in
 	$(AM_V_GEN)cp $(srcdir)/files/xnec2c.desktop.in $@
 endif
 
-dist_applications_DATA = files/xnec2c.desktop
+applications_DATA = files/xnec2c.desktop
 
+EXTRA_DIST += files/xnec2c.desktop.in
 CLEANFILES += files/xnec2c.desktop
 
 appiconsdir            = $(datarootdir)/icons/hicolor/256x256/apps

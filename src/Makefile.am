@@ -109,6 +109,7 @@ xnec2c_SOURCES = \
     optimizers/opt_simple_var.c \
     optimizers/opt_simple_engine.c \
     optimizers/optimizer.c     optimizers/optimizer.h \
+    optimizers/optimizer_bounds.h \
     optimizers/simplex.c       optimizers/simplex.h \
     optimizers/simplex_internal.h \
     optimizers/simplex_engine.c \
@@ -178,7 +179,8 @@ xnec2c_SOURCES = \
     cairo/cairo_field_vectors.c \
     cairo/cairo_structure.c \
     cairo/cairo_patch_flow.c    cairo/cairo_patch_flow.h \
-    common.h        editors.h
+    common.h        editors.h \
+    i18n.h
 
 xnec2c_CPPFLAGS  =
 xnec2c_CFLAGS    =
@@ -244,6 +246,7 @@ xnec2c_SOURCES += \
   opengl-engine/opengl_cairo_overlay.c opengl-engine/opengl_cairo_overlay.h \
   opengl-engine/opengl_image_overlay.c opengl-engine/opengl_image_overlay.h \
   opengl-engine/opengl_cylinder.c opengl-engine/opengl_cylinder.h \
+  opengl-engine/opengl_math.h \
   opengl/opengl_rdpattern.c opengl/opengl_rdpattern.h \
   opengl/opengl_rdpattern_geometry.c opengl/opengl_rdpattern_geometry.h \
   opengl/opengl_structure.c opengl/opengl_structure.h \
@@ -325,6 +328,9 @@ include ./$(XNEC2C_DEPDIR)/xnec2c-resources.Pc
 
 xnec2c_SOURCES += xnec2c-resources.c
 CLEANFILES     += xnec2c-resources.c
+# List the path of every member the manifest names, under $(top_srcdir)/resources.
+XNEC2C_RESOURCE_MEMBERS = $(GLIB_COMPILE_RESOURCES) --sourcedir=$(top_srcdir)/resources --generate-dependencies $(top_srcdir)/resources/xnec2c.gresource.xml
+
 # Validate every XML member before it becomes resource bytes. The resource
 # compiler copies each member verbatim, so a malformed member survives the
 # build and fails inside gtk_builder_add_from_resource() at runtime. The
@@ -337,7 +343,7 @@ XNEC2C_RESOURCE_XML_LINT = \
 	  echo "warning: xmllint not found, resource XML not validated"; \
 	else \
 	  for f in $(top_srcdir)/resources/xnec2c.gresource.xml \
-	      `$(GLIB_COMPILE_RESOURCES) --sourcedir=$(top_srcdir)/resources --generate-dependencies $(top_srcdir)/resources/xnec2c.gresource.xml`; do \
+	      `$(XNEC2C_RESOURCE_MEMBERS)`; do \
 	    if $(SED) 1q $$f | grep -q '^[[:space:]]*<'; then \
 	      $(XMLLINT) --noout $$f || exit 1; \
 	    fi; \
@@ -360,3 +366,17 @@ xnec2c-resources.c: $(top_srcdir)/resources/xnec2c.gresource.xml $(top_srcdir)/r
 # will use glib-compile-resources together with compatible libraries.
 dist-hook:
 	rm -f $(distdir)/xnec2c-resources.c
+	@$(XNEC2C_RESOURCE_DIST)
+
+# Copy the manifest and every member it names into the dist tree, so tarball
+# builds compile the same resources a git checkout does.
+XNEC2C_RESOURCE_DIST = \
+	members=`$(XNEC2C_RESOURCE_MEMBERS)` || exit 1; \
+	for f in $(top_srcdir)/resources/xnec2c.gresource.xml $$members; do \
+	  case $$f in \
+	  $(top_srcdir)/*) member=$${f\#$(top_srcdir)/} ;; \
+	  *) echo "error: resource member $$f lies outside $(top_srcdir)" >&2; exit 1 ;; \
+	  esac; \
+	  $(MKDIR_P) $(top_distdir)/`dirname $$member` || exit 1; \
+	  cp -p $$f $(top_distdir)/$$member || exit 1; \
+	done
