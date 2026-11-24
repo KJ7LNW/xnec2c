@@ -43,23 +43,23 @@ static const char *formula_dir_fmts[FIT_DIR_COUNT] = {
  * update_goal_scores() for the per-direction arg lists. */
 static const char *formula_tooltip_fmts[FIT_DIR_COUNT] = {
 	[FIT_DIR_MINIMIZE] =
-		"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n\n"
+		N_("<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n\n"
 		"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
 		"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n\n"
 		"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
 		"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>"
-		"  (tension: residual gradient past target)",
+		"  (tension: residual gradient past target)"),
 	[FIT_DIR_MAXIMIZE] =
-		"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n\n"
+		N_("<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n\n"
 		"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
 		"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n\n"
 		"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
 		"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>"
-		"  (tension: residual gradient past target)",
+		"  (tension: residual gradient past target)"),
 	[FIT_DIR_DEVIATE] =
-		"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n\n"
+		N_("<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n\n"
 		"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n\n"
-		"No normalization or tension term.",
+		"No normalization or tension term."),
 };
 
 /*------------------------------------------------------------------------*/
@@ -143,7 +143,7 @@ void opt_ui_update_formula(void)
 
 	if (term_count == 0)
 	{
-		formula_base_markup = "<i>No goals enabled</i>";
+		formula_base_markup = _("<i>No goals enabled</i>");
 		gtk_label_set_markup(GTK_LABEL(totals_formula_label),
 			formula_base_markup);
 	}
@@ -151,8 +151,8 @@ void opt_ui_update_formula(void)
 	{
 		/* Summary: individual terms are in per-row Formula column */
 		formula_base_markup =
-			"<b>F = Σ(scores) =</b>\n"
-			"<small><i>Optimizer minimizes F</i></small>";
+			_("<b>F = Σ(scores) =</b>\n"
+			"<small><i>Optimizer minimizes F</i></small>");
 		set_formula_with_score(NAN);
 	}
 
@@ -347,7 +347,7 @@ static double update_goal_scores(const opt_goal_band_t *band)
 
 			/* Strip spaces from metric name for compact notation */
 			metric_compact = g_strdup(
-				meas_display_names[obj.meas_index]);
+				_(meas_display_names[obj.meas_index]));
 			dst = metric_compact;
 			for (src = metric_compact; *src != '\0'; src++)
 			{
@@ -385,7 +385,7 @@ static double update_goal_scores(const opt_goal_band_t *band)
 			if (obj.direction == FIT_DIR_DEVIATE)
 			{
 				fragment = g_strdup_printf(
-					formula_tooltip_fmts[obj.direction],
+					_(formula_tooltip_fmts[obj.direction]),
 					metric_compact, target_str,
 					metric_compact, target_str, exp_str);
 			}
@@ -416,7 +416,7 @@ static double update_goal_scores(const opt_goal_band_t *band)
 				}
 
 				fragment = g_strdup_printf(
-					formula_tooltip_fmts[obj.direction],
+					_(formula_tooltip_fmts[obj.direction]),
 					metric_compact, target_str,
 					p1, p2, exp_str,
 					t1, t2,
@@ -702,7 +702,7 @@ void on_opt_formula_help_clicked(GtkButton *button, gpointer user_data)
 	(void)user_data;
 
 	help_text =
-		"<span size='large' weight='bold'>Transform Directions</span>\n\n"
+		_("<span size='large' weight='bold'>Transform Directions</span>\n\n"
 		"<b>minimize:</b> Lower values are better\n"
 		"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
 		"    <i>Score approaches zero below target; penalizes excess above target</i>\n\n"
@@ -738,13 +738,13 @@ void on_opt_formula_help_clicked(GtkButton *button, gpointer user_data)
 		"    gain_dev_py: deviation from +Y axis\n"
 		"    gain_dev_ny: deviation from -Y axis\n"
 		"    gain_dev_pz: deviation from +Z axis (zenith)\n"
-		"    gain_dev_nz: deviation from -Z axis (nadir)\n";
+		"    gain_dev_nz: deviation from -Z axis (nadir)\n");
 
 	dialog = gtk_dialog_new_with_buttons(
-		"Fitness Formula Help",
+		_("Fitness Formula Help"),
 		GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(formula_help_button))),
 		GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-		"_Close", GTK_RESPONSE_CLOSE,
+		_("_Close"), GTK_RESPONSE_CLOSE,
 		NULL);
 
 	gtk_window_set_default_size(GTK_WINDOW(dialog), 600, 500);

@@ -7,10 +7,10 @@
 noise_temp_t *noise_temp = NULL;
 
 const char *ant_temp_method_names[ANT_TEMP_METHOD_COUNT] = {
-	[ANT_TEMP_SNAP]     = "Snap",
-	[ANT_TEMP_INTERP]   = "Interpolate",
-	[ANT_TEMP_FORMULA]  = "Formula",
-	[ANT_TEMP_GALACTIC] = "Galactic",
+	[ANT_TEMP_SNAP]     = N_("Snap"),
+	[ANT_TEMP_INTERP]   = N_("Interpolate"),
+	[ANT_TEMP_FORMULA]  = N_("Formula"),
+	[ANT_TEMP_GALACTIC] = N_("Galactic"),
 };
 
 /* DG7YBN Era 3 (2025-08-29) — [env][band]: 0=Rural 1=Residential 2=City;
@@ -71,56 +71,56 @@ static const double synth_min_sky[SYNTH_NPTS] = {
 /* Sky model registry (ascending year) */
 const ant_temp_model_t sky_models[ANT_TEMP_SKY_COUNT] = {
 	[ANT_TEMP_SKY_G4CQM_MIN] = {
-		.name = "G4CQM Min Quiet (pre-2016)",
+		.name = N_("G4CQM Min Quiet (pre-2016)"),
 		.method = ANT_TEMP_INTERP,
 		.freq_mhz = g4cqm_mhz, .temp = g4cqm_sky, .freq_count = G4CQM_NPTS,
 
 		.valid_interp = ANT_TEMP_TABLE_METHODS,
 	},
 	[ANT_TEMP_SKY_VK3UM_MIN] = {
-		.name = "VK3UM Min Quiet (pre-2016)",
+		.name = N_("VK3UM Min Quiet (pre-2016)"),
 		.method = ANT_TEMP_INTERP,
 		.freq_mhz = vk3um_mhz, .temp = vk3um_sky, .freq_count = VK3UM_NPTS,
 
 		.valid_interp = ANT_TEMP_TABLE_METHODS,
 	},
 	[ANT_TEMP_SKY_BASE_REF] = {
-		.name = "VE7BQH Base Ref (pre-2018)",
+		.name = N_("VE7BQH Base Ref (pre-2018)"),
 		.method = ANT_TEMP_INTERP,
 		.freq_mhz = base_ref_mhz, .temp = base_ref_sky, .freq_count = BASE_REF_NPTS,
 
 		.valid_interp = ANT_TEMP_TABLE_METHODS,
 	},
 	[ANT_TEMP_SKY_GALACTIC] = {
-		.name = "Galactic P.372 (2022)",
+		.name = N_("Galactic P.372 (2022)"),
 		.method = ANT_TEMP_GALACTIC,
 		.c = 52.0, .d = 23.0,
 		.freq_break = 100.0, .power_exponent = -2.75, .power_offset = 2.7,
 
 	},
 	[ANT_TEMP_SKY_DG7YBN_AVG] = {
-		.name = "DG7YBN Galactic Avg (2025)",
+		.name = N_("DG7YBN Galactic Avg (2025)"),
 		.method = ANT_TEMP_INTERP,
 		.freq_mhz = ve7bqh_mhz, .temp = ve7bqh_sky, .freq_count = 3,
 
 		.valid_interp = ANT_TEMP_TABLE_METHODS,
 	},
 	[ANT_TEMP_SKY_SYNTH_AVG] = {
-		.name = "Synth Practical Avg (2026)",
+		.name = N_("Synth Practical Avg (2026)"),
 		.method = ANT_TEMP_INTERP,
 		.freq_mhz = synth_mhz, .temp = synth_avg_sky, .freq_count = SYNTH_NPTS,
 
 		.valid_interp = ANT_TEMP_TABLE_METHODS,
 	},
 	[ANT_TEMP_SKY_SYNTH_MIN] = {
-		.name = "Synth Min Quiet (2026)",
+		.name = N_("Synth Min Quiet (2026)"),
 		.method = ANT_TEMP_INTERP,
 		.freq_mhz = synth_mhz, .temp = synth_min_sky, .freq_count = SYNTH_NPTS,
 
 		.valid_interp = ANT_TEMP_TABLE_METHODS,
 	},
 	[ANT_TEMP_SKY_CUSTOM] = {
-		.name = "Custom",
+		.name = N_("Custom"),
 		/* Other fields unused: ant_temp_resolve() bypasses ant_temp_eval()
 		 * for Custom and reads rc_config.ant_temp_custom_t_sky directly. */
 	},
@@ -129,70 +129,70 @@ const ant_temp_model_t sky_models[ANT_TEMP_SKY_COUNT] = {
 /* Earth model registry (ascending year) */
 const ant_temp_model_t earth_models[ANT_TEMP_EARTH_COUNT] = {
 	[ANT_TEMP_EARTH_ITU_BUSINESS] = {
-		.name = "ITU-R Business (1974)",
+		.name = N_("ITU-R Business (1974)"),
 		.method = ANT_TEMP_FORMULA,
 		.c = 76.8, .d = 27.7,
 
 		/* Formula is intrinsic; no user-selectable interp override */
 	},
 	[ANT_TEMP_EARTH_ITU_RESIDENTIAL] = {
-		.name = "ITU-R Residential (1974)",
+		.name = N_("ITU-R Residential (1974)"),
 		.method = ANT_TEMP_FORMULA,
 		.c = 72.5, .d = 27.7,
 
 		/* Formula is intrinsic; no user-selectable interp override */
 	},
 	[ANT_TEMP_EARTH_ITU_RURAL] = {
-		.name = "ITU-R Rural (1974)",
+		.name = N_("ITU-R Rural (1974)"),
 		.method = ANT_TEMP_FORMULA,
 		.c = 67.2, .d = 27.7,
 
 		/* Formula is intrinsic; no user-selectable interp override */
 	},
 	[ANT_TEMP_EARTH_ITU_QUIET_RURAL] = {
-		.name = "ITU-R Quiet Rural (1974)",
+		.name = N_("ITU-R Quiet Rural (1974)"),
 		.method = ANT_TEMP_FORMULA,
 		.c = 53.6, .d = 28.6,
 
 		/* Formula is intrinsic; no user-selectable interp override */
 	},
 	[ANT_TEMP_EARTH_G4CQM_MIXED] = {
-		.name = "G4CQM Mixed (pre-2016)",
+		.name = N_("G4CQM Mixed (pre-2016)"),
 		.method = ANT_TEMP_INTERP,
 		.freq_mhz = g4cqm_mhz, .temp = g4cqm_earth, .freq_count = G4CQM_NPTS,
 
 		.valid_interp = ANT_TEMP_TABLE_METHODS,
 	},
 	[ANT_TEMP_EARTH_BASE_REF] = {
-		.name = "VE7BQH Base Ref (pre-2018)",
+		.name = N_("VE7BQH Base Ref (pre-2018)"),
 		.method = ANT_TEMP_INTERP,
 		.freq_mhz = base_ref_mhz, .temp = base_ref_earth, .freq_count = BASE_REF_NPTS,
 
 		.valid_interp = ANT_TEMP_TABLE_METHODS,
 	},
 	[ANT_TEMP_EARTH_DG7YBN_RURAL] = {
-		.name = "DG7YBN Rural (2025)",
+		.name = N_("DG7YBN Rural (2025)"),
 		.method = ANT_TEMP_INTERP,
 		.freq_mhz = ve7bqh_mhz, .temp = ve7bqh_earth[0], .freq_count = 3,
 
 		.valid_interp = ANT_TEMP_TABLE_METHODS,
 	},
 	[ANT_TEMP_EARTH_DG7YBN_RESIDENTIAL] = {
-		.name = "DG7YBN Residential (2025)",
+		.name = N_("DG7YBN Residential (2025)"),
 		.method = ANT_TEMP_INTERP,
 		.freq_mhz = ve7bqh_mhz, .temp = ve7bqh_earth[1], .freq_count = 3,
 
 		.valid_interp = ANT_TEMP_TABLE_METHODS,
 	},
 	[ANT_TEMP_EARTH_DG7YBN_CITY] = {
-		.name = "DG7YBN City (2025)",
+		.name = N_("DG7YBN City (2025)"),
 		.method = ANT_TEMP_INTERP,
 		.freq_mhz = ve7bqh_mhz, .temp = ve7bqh_earth[2], .freq_count = 3,
 
 		.valid_interp = ANT_TEMP_TABLE_METHODS,
 	},
 	[ANT_TEMP_EARTH_CUSTOM] = {
-		.name = "Custom",
+		.name = N_("Custom"),
 		/* Other fields unused: ant_temp_resolve() bypasses ant_temp_eval()
 		 * for Custom and reads rc_config.ant_temp_custom_t_earth directly. */
 	},
@@ -478,28 +478,28 @@ const char *meas_names[] = {
 
 const char *meas_display_names[] = {
 	[MEAS_MHZ]              =  "MHz",
-	[MEAS_ZREAL]            =  "Z Real",
-	[MEAS_ZIMAG]            =  "Z Imaginary",
-	[MEAS_ZMAG]             =  "Z Magnitude",
-	[MEAS_ZPHASE]           =  "Z Phase",
+	[MEAS_ZREAL]            =  N_("Z Real"),
+	[MEAS_ZIMAG]            =  N_("Z Imaginary"),
+	[MEAS_ZMAG]             =  N_("Z Magnitude"),
+	[MEAS_ZPHASE]           =  N_("Z Phase"),
 	[MEAS_VSWR]             =  "VSWR",
 	[MEAS_S11]              =  "S11",
-	[MEAS_S11_REAL]         =  "S11 Real",
-	[MEAS_S11_IMAG]         =  "S11 Imaginary",
-	[MEAS_S11_ANG]          =  "S11 Angle",
-	[MEAS_GAIN_MAX]         =  "Max Gain",
-	[MEAS_GAIN_NET]         =  "Net Gain",
-	[MEAS_GAIN_THETA]       =  "Gain Theta",
-	[MEAS_GAIN_PHI]         =  "Gain Phi",
-	[MEAS_GAIN_VIEWER]      =  "Viewer Gain",
-	[MEAS_GAIN_VIEWER_NET]  =  "Viewer Net Gain",
-	[MEAS_FB_RATIO]         =  "F/B Ratio",
-	[MEAS_GAIN_DEV_PX]     =  "Gain Dev +X",
-	[MEAS_GAIN_DEV_NX]     =  "Gain Dev −X",
-	[MEAS_GAIN_DEV_PY]     =  "Gain Dev +Y",
-	[MEAS_GAIN_DEV_NY]     =  "Gain Dev −Y",
-	[MEAS_GAIN_DEV_PZ]     =  "Gain Dev +Z",
-	[MEAS_GAIN_DEV_NZ]     =  "Gain Dev −Z",
+	[MEAS_S11_REAL]         =  N_("S11 Real"),
+	[MEAS_S11_IMAG]         =  N_("S11 Imaginary"),
+	[MEAS_S11_ANG]          =  N_("S11 Angle"),
+	[MEAS_GAIN_MAX]         =  N_("Max Gain"),
+	[MEAS_GAIN_NET]         =  N_("Net Gain"),
+	[MEAS_GAIN_THETA]       =  N_("Gain Theta"),
+	[MEAS_GAIN_PHI]         =  N_("Gain Phi"),
+	[MEAS_GAIN_VIEWER]      =  N_("Viewer Gain"),
+	[MEAS_GAIN_VIEWER_NET]  =  N_("Viewer Net Gain"),
+	[MEAS_FB_RATIO]         =  N_("F/B Ratio"),
+	[MEAS_GAIN_DEV_PX]     =  N_("Gain Dev +X"),
+	[MEAS_GAIN_DEV_NX]     =  N_("Gain Dev −X"),
+	[MEAS_GAIN_DEV_PY]     =  N_("Gain Dev +Y"),
+	[MEAS_GAIN_DEV_NY]     =  N_("Gain Dev −Y"),
+	[MEAS_GAIN_DEV_PZ]     =  N_("Gain Dev +Z"),
+	[MEAS_GAIN_DEV_NZ]     =  N_("Gain Dev −Z"),
 	[MEAS_ANT_TEMP]        =  "Ta",
 	[MEAS_ANT_TEMP_TOT]   =  "TA",
 	[MEAS_GT]              =  "G/Ta",
@@ -513,38 +513,38 @@ const char *meas_display_names[] = {
 };
 
 const char *meas_descriptions[] = {
-	[MEAS_MHZ]              =  "Frequency in MHz (independent variable)",
-	[MEAS_ZREAL]            =  "Real part of feed-point impedance (ohms)",
-	[MEAS_ZIMAG]            =  "Imaginary part of feed-point impedance (ohms)",
-	[MEAS_ZMAG]             =  "Magnitude of feed-point impedance (ohms)",
-	[MEAS_ZPHASE]           =  "Phase angle of feed-point impedance (degrees)",
-	[MEAS_VSWR]             =  "Voltage standing wave ratio (1.0 = perfect match)",
-	[MEAS_S11]              =  "Return loss in dB (more negative = better match)",
-	[MEAS_S11_REAL]         =  "Real part of S11 in dB",
-	[MEAS_S11_IMAG]         =  "Imaginary part of S11 in dB",
-	[MEAS_S11_ANG]          =  "Phase angle of reflection coefficient (degrees)",
-	[MEAS_GAIN_MAX]         =  "Peak gain across all angles in dBi",
-	[MEAS_GAIN_NET]         =  "Peak gain adjusted for mismatch loss in dBi",
-	[MEAS_GAIN_THETA]       =  "Elevation angle of peak gain (degrees above horizon)",
-	[MEAS_GAIN_PHI]         =  "Azimuth angle of peak gain (degrees)",
-	[MEAS_GAIN_VIEWER]      =  "Gain toward current viewer angle in dBi",
-	[MEAS_GAIN_VIEWER_NET]  =  "Viewer gain adjusted for mismatch loss in dBi",
-	[MEAS_FB_RATIO]         =  "Front-to-back ratio in dB",
-	[MEAS_GAIN_DEV_PX]     =  "Angular deviation of peak gain from +X axis (degrees)",
-	[MEAS_GAIN_DEV_NX]     =  "Angular deviation of peak gain from -X axis (degrees)",
-	[MEAS_GAIN_DEV_PY]     =  "Angular deviation of peak gain from +Y axis (degrees)",
-	[MEAS_GAIN_DEV_NY]     =  "Angular deviation of peak gain from -Y axis (degrees)",
-	[MEAS_GAIN_DEV_PZ]     =  "Angular deviation of peak gain from +Z axis (degrees)",
-	[MEAS_GAIN_DEV_NZ]     =  "Angular deviation of peak gain from -Z axis (degrees)",
-	[MEAS_ANT_TEMP]        =  "Antenna noise temperature Ta from sky/earth brightness (K)",
-	[MEAS_ANT_TEMP_TOT]   =  "Total system noise temperature TA including ohmic loss (K)",
-	[MEAS_GT]              =  "Gain-to-antenna-temperature ratio (dB), excludes loss",
-	[MEAS_PRECISION_LOST]  =  "Decimal digits of precision lost solving the antenna",
-	[MEAS_FR_RATIO_AZ]     =  "Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees azimuth",
-	[MEAS_FR_RATIO_SPHERE] =  "Front-to-rear ratio in dB over every direction behind the peak-gain direction",
-	[MEAS_AGT]             =  "Average power gain as a linear ratio over the solid angle the pattern grid samples",
-	[MEAS_AGT_EFFICIENCY]  =  "Average power gain times the sampled fraction of the sphere, in percent",
-	[MEAS_AGT_COVERAGE]    =  "Fraction of the full sphere the pattern grid samples",
+	[MEAS_MHZ]              =  N_("Frequency in MHz (independent variable)"),
+	[MEAS_ZREAL]            =  N_("Real part of feed-point impedance (ohms)"),
+	[MEAS_ZIMAG]            =  N_("Imaginary part of feed-point impedance (ohms)"),
+	[MEAS_ZMAG]             =  N_("Magnitude of feed-point impedance (ohms)"),
+	[MEAS_ZPHASE]           =  N_("Phase angle of feed-point impedance (degrees)"),
+	[MEAS_VSWR]             =  N_("Voltage standing wave ratio (1.0 = perfect match)"),
+	[MEAS_S11]              =  N_("Return loss in dB (more negative = better match)"),
+	[MEAS_S11_REAL]         =  N_("Real part of S11 in dB"),
+	[MEAS_S11_IMAG]         =  N_("Imaginary part of S11 in dB"),
+	[MEAS_S11_ANG]          =  N_("Phase angle of reflection coefficient (degrees)"),
+	[MEAS_GAIN_MAX]         =  N_("Peak gain across all angles in dBi"),
+	[MEAS_GAIN_NET]         =  N_("Peak gain adjusted for mismatch loss in dBi"),
+	[MEAS_GAIN_THETA]       =  N_("Elevation angle of peak gain (degrees above horizon)"),
+	[MEAS_GAIN_PHI]         =  N_("Azimuth angle of peak gain (degrees)"),
+	[MEAS_GAIN_VIEWER]      =  N_("Gain toward current viewer angle in dBi"),
+	[MEAS_GAIN_VIEWER_NET]  =  N_("Viewer gain adjusted for mismatch loss in dBi"),
+	[MEAS_FB_RATIO]         =  N_("Front-to-back ratio in dB"),
+	[MEAS_GAIN_DEV_PX]     =  N_("Angular deviation of peak gain from +X axis (degrees)"),
+	[MEAS_GAIN_DEV_NX]     =  N_("Angular deviation of peak gain from -X axis (degrees)"),
+	[MEAS_GAIN_DEV_PY]     =  N_("Angular deviation of peak gain from +Y axis (degrees)"),
+	[MEAS_GAIN_DEV_NY]     =  N_("Angular deviation of peak gain from -Y axis (degrees)"),
+	[MEAS_GAIN_DEV_PZ]     =  N_("Angular deviation of peak gain from +Z axis (degrees)"),
+	[MEAS_GAIN_DEV_NZ]     =  N_("Angular deviation of peak gain from -Z axis (degrees)"),
+	[MEAS_ANT_TEMP]        =  N_("Antenna noise temperature Ta from sky/earth brightness (K)"),
+	[MEAS_ANT_TEMP_TOT]   =  N_("Total system noise temperature TA including ohmic loss (K)"),
+	[MEAS_GT]              =  N_("Gain-to-antenna-temperature ratio (dB), excludes loss"),
+	[MEAS_PRECISION_LOST]  =  N_("Decimal digits of precision lost solving the antenna"),
+	[MEAS_FR_RATIO_AZ]     =  N_("Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees azimuth"),
+	[MEAS_FR_RATIO_SPHERE] =  N_("Front-to-rear ratio in dB over every direction behind the peak-gain direction"),
+	[MEAS_AGT]             =  N_("Average power gain as a linear ratio over the solid angle the pattern grid samples"),
+	[MEAS_AGT_EFFICIENCY]  =  N_("Average power gain times the sampled fraction of the sphere, in percent"),
+	[MEAS_AGT_COVERAGE]    =  N_("Fraction of the full sphere the pattern grid samples"),
 	[MEAS_COUNT]            =  NULL
 };
 
@@ -838,8 +838,8 @@ int meas_name_idx(const char *name, int len)
 const char *ant_temp_sky_name(int idx)
 {
 	if (idx < 0 || idx >= ANT_TEMP_SKY_COUNT)
-		return "Unknown";
-	return sky_models[idx].name;
+		return _("Unknown");
+	return _(sky_models[idx].name);
 }
 
 /**
@@ -849,8 +849,8 @@ const char *ant_temp_sky_name(int idx)
 const char *ant_temp_earth_name(int idx)
 {
 	if (idx < 0 || idx >= ANT_TEMP_EARTH_COUNT)
-		return "Unknown";
-	return earth_models[idx].name;
+		return _("Unknown");
+	return _(earth_models[idx].name);
 }
 
 /**

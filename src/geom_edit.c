@@ -452,8 +452,8 @@ Wire_Editor( int action )
   if( calc_data.FR_cards < 1 )
   {
     Stop( ERR_OK,
-        "Frequency (FR) cards not yet processed.\n"
-        "You may need to save the NEC2 Editor data first." );
+        _("Frequency (FR) cards not yet processed.\n"
+        "You may need to save the NEC2 Editor data first.") );
     return;
   }
 
@@ -1324,8 +1324,8 @@ Arc_Editor( int action )
   if( calc_data.FR_cards < 1 )
   {
     Stop( ERR_OK,
-        "Frequency (FR) cards not yet processed.\n"
-        "You may need to save the NEC2 Editor data first." );
+        _("Frequency (FR) cards not yet processed.\n"
+        "You may need to save the NEC2 Editor data first.") );
     return;
   }
 
@@ -1579,8 +1579,8 @@ Helix_Editor( int action )
   if( calc_data.FR_cards < 1 )
   {
     Stop( ERR_OK,
-        "Frequency (FR) cards not yet processed.\n"
-        "You may need to save the NEC2 Editor data first." );
+        _("Frequency (FR) cards not yet processed.\n"
+        "You may need to save the NEC2 Editor data first.") );
     return;
   }
 

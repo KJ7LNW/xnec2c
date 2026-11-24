@@ -134,12 +134,12 @@ static opt_goal_row_t *create_goal_row(int meas_index, int enabled)
 
 		gtk_combo_box_text_append_text(
 			GTK_COMBO_BOX_TEXT(gr->w[GR_METRIC]),
-			meas_display_names[i]);
+			_(meas_display_names[i]));
 	}
 	gtk_combo_box_set_active(GTK_COMBO_BOX(gr->w[GR_METRIC]),
 		meas_to_metric_combo_index(meas_index));
 	gtk_widget_set_tooltip_text(gr->w[GR_METRIC],
-		meas_descriptions[meas_index]);
+		_(meas_descriptions[meas_index]));
 	g_signal_connect(gr->w[GR_METRIC], "changed",
 		G_CALLBACK(on_metric_changed), gr);
 
@@ -148,7 +148,7 @@ static opt_goal_row_t *create_goal_row(int meas_index, int enabled)
 	gtk_label_set_xalign(GTK_LABEL(gr->w[GR_VALUE]), 1.0);
 	gtk_label_set_width_chars(GTK_LABEL(gr->w[GR_VALUE]), OPT_UI_ENTRY_WIDTH);
 	gtk_widget_set_tooltip_text(gr->w[GR_VALUE],
-		"Current NEC2 value at the frequency spinner position");
+		_("Current NEC2 value at the frequency spinner position"));
 
 	/* Transform dropdown */
 	gr->w[GR_TRANSFORM] = gtk_combo_box_text_new();
@@ -156,12 +156,12 @@ static opt_goal_row_t *create_goal_row(int meas_index, int enabled)
 	{
 		gtk_combo_box_text_append_text(
 			GTK_COMBO_BOX_TEXT(gr->w[GR_TRANSFORM]),
-			fitness_direction_names[i]);
+			_(fitness_direction_names[i]));
 	}
 	gtk_combo_box_set_active(GTK_COMBO_BOX(gr->w[GR_TRANSFORM]),
 		def->direction);
 	gtk_widget_set_tooltip_markup(gr->w[GR_TRANSFORM],
-		fitness_direction_tooltips[def->direction]);
+		_(fitness_direction_tooltips[def->direction]));
 	g_signal_connect(gr->w[GR_TRANSFORM], "changed",
 		G_CALLBACK(on_goal_param_changed), gr);
 
@@ -169,7 +169,7 @@ static opt_goal_row_t *create_goal_row(int meas_index, int enabled)
 	snprintf(buf, sizeof(buf), "%.4g", def->default_target);
 	gr->w[GR_TARGET] = make_entry(buf, OPT_UI_ENTRY_WIDTH);
 	gtk_widget_set_tooltip_text(gr->w[GR_TARGET],
-		"Goal value for the measurement");
+		_("Goal value for the measurement"));
 	g_signal_connect(gr->w[GR_TARGET], "changed",
 		G_CALLBACK(on_goal_param_changed), gr);
 
@@ -177,7 +177,7 @@ static opt_goal_row_t *create_goal_row(int meas_index, int enabled)
 	snprintf(buf, sizeof(buf), "%.4g", def->default_exponent);
 	gr->w[GR_EXP] = make_entry(buf, OPT_UI_ENTRY_WIDTH);
 	gtk_widget_set_tooltip_text(gr->w[GR_EXP],
-		"Exponent applied to the transform result");
+		_("Exponent applied to the transform result"));
 	g_signal_connect(gr->w[GR_EXP], "changed",
 		G_CALLBACK(on_goal_param_changed), gr);
 
@@ -192,7 +192,7 @@ static opt_goal_row_t *create_goal_row(int meas_index, int enabled)
 	gtk_combo_box_set_active(GTK_COMBO_BOX(gr->w[GR_REDUCE]),
 		def->default_reduce);
 	gtk_widget_set_tooltip_markup(gr->w[GR_REDUCE],
-		fitness_reduce_tooltips[def->default_reduce]);
+		_(fitness_reduce_tooltips[def->default_reduce]));
 	g_signal_connect(gr->w[GR_REDUCE], "changed",
 		G_CALLBACK(on_goal_param_changed), gr);
 
@@ -200,21 +200,21 @@ static opt_goal_row_t *create_goal_row(int meas_index, int enabled)
 	snprintf(buf, sizeof(buf), "%.4g", def->default_weight);
 	gr->w[GR_WEIGHT] = make_entry(buf, OPT_UI_ENTRY_WIDTH);
 	gtk_widget_set_tooltip_text(gr->w[GR_WEIGHT],
-		"Multiplier applied after reduction");
+		_("Multiplier applied after reduction"));
 	g_signal_connect(gr->w[GR_WEIGHT], "changed",
 		G_CALLBACK(on_goal_param_changed), gr);
 
 	/* MHz min */
 	gr->w[GR_MHZ_MIN] = make_entry("", OPT_UI_ENTRY_WIDTH);
 	gtk_widget_set_tooltip_text(gr->w[GR_MHZ_MIN],
-		"Lower frequency bound (empty = all frequencies)");
+		_("Lower frequency bound (empty = all frequencies)"));
 	g_signal_connect(gr->w[GR_MHZ_MIN], "changed",
 		G_CALLBACK(on_goal_param_changed), gr);
 
 	/* MHz max */
 	gr->w[GR_MHZ_MAX] = make_entry("", OPT_UI_ENTRY_WIDTH);
 	gtk_widget_set_tooltip_text(gr->w[GR_MHZ_MAX],
-		"Upper frequency bound (empty = all frequencies)");
+		_("Upper frequency bound (empty = all frequencies)"));
 	g_signal_connect(gr->w[GR_MHZ_MAX], "changed",
 		G_CALLBACK(on_goal_param_changed), gr);
 
@@ -223,18 +223,18 @@ static opt_goal_row_t *create_goal_row(int meas_index, int enabled)
 	gtk_label_set_use_markup(GTK_LABEL(gr->w[GR_FORMULA]), TRUE);
 	gtk_label_set_xalign(GTK_LABEL(gr->w[GR_FORMULA]), 1.0);
 	gtk_widget_set_tooltip_text(gr->w[GR_FORMULA],
-		"Formula term for this objective");
+		_("Formula term for this objective"));
 
 	/* Score display (read-only, shows weight × reduce(transform(...))) */
 	gr->w[GR_SCORE] = gtk_label_new("—");
 	gtk_label_set_xalign(GTK_LABEL(gr->w[GR_SCORE]), 1.0);
 	gtk_label_set_width_chars(GTK_LABEL(gr->w[GR_SCORE]), OPT_UI_ENTRY_WIDTH);
 	gtk_widget_set_tooltip_text(gr->w[GR_SCORE],
-		"Computed: weight × reduce(transform(value, target, exp))");
+		_("Computed: weight × reduce(transform(value, target, exp))"));
 
 	/* Remove button */
 	gr->w[GR_REMOVE] = gtk_button_new_with_label("−");
-	gtk_widget_set_tooltip_text(gr->w[GR_REMOVE], "Remove this objective");
+	gtk_widget_set_tooltip_text(gr->w[GR_REMOVE], _("Remove this objective"));
 	g_signal_connect(gr->w[GR_REMOVE], "clicked",
 		G_CALLBACK(on_remove_row_clicked), gr);
 
@@ -319,17 +319,17 @@ void build_goals_grid(void)
 	{
 		const gchar *headers[GR_NUM_COLS] = {
 			[GR_ENABLED]   = "\u2713",
-			[GR_METRIC]    = "Measurement",
-			[GR_VALUE]     = "Value",
-			[GR_TRANSFORM] = "Transform →",
-			[GR_TARGET]    = "Target",
-			[GR_EXP]       = "Exp →",
-			[GR_REDUCE]    = "Reduce →",
-			[GR_WEIGHT]    = "Weight",
-			[GR_MHZ_MIN]   = "MHz lo",
-			[GR_MHZ_MAX]   = "MHz hi →",
-			[GR_FORMULA]   = "Formula →",
-			[GR_SCORE]     = "Score",
+			[GR_METRIC]    = _("Measurement"),
+			[GR_VALUE]     = _("Value"),
+			[GR_TRANSFORM] = _("Transform →"),
+			[GR_TARGET]    = _("Target"),
+			[GR_EXP]       = _("Exp →"),
+			[GR_REDUCE]    = _("Reduce →"),
+			[GR_WEIGHT]    = _("Weight"),
+			[GR_MHZ_MIN]   = _("MHz lo"),
+			[GR_MHZ_MAX]   = _("MHz hi →"),
+			[GR_FORMULA]   = _("Formula →"),
+			[GR_SCORE]     = _("Score"),
 			[GR_REMOVE]    = "",
 		};
 		int col;
@@ -358,14 +358,14 @@ void build_goals_grid(void)
 	gtk_label_set_width_chars(GTK_LABEL(totals_score_label),
 		OPT_UI_ENTRY_WIDTH);
 	gtk_widget_set_tooltip_text(totals_score_label,
-		"Optimizer minimizes this value");
+		_("Optimizer minimizes this value"));
 
 	/* Default rows: VSWR, gain_max */
 	add_goal_row(MEAS_VSWR, 1);
 	add_goal_row(MEAS_GAIN_MAX, 1);
 
 	/* Add-metric button below the grid */
-	add_button = gtk_button_new_with_label("+ Add Metric");
+	add_button = gtk_button_new_with_label(_("+ Add Metric"));
 	g_signal_connect(add_button, "clicked",
 		G_CALLBACK(on_add_metric_clicked), NULL);
 
@@ -412,7 +412,7 @@ static void on_goal_param_changed(GtkWidget *widget, gpointer user_data)
 		if (dir_idx >= 0 && dir_idx < FIT_DIR_COUNT)
 		{
 			gtk_widget_set_tooltip_markup(gr->w[GR_TRANSFORM],
-				fitness_direction_tooltips[dir_idx]);
+				_(fitness_direction_tooltips[dir_idx]));
 		}
 
 		red_idx = gtk_combo_box_get_active(
@@ -420,7 +420,7 @@ static void on_goal_param_changed(GtkWidget *widget, gpointer user_data)
 		if (red_idx >= 0 && red_idx < FIT_REDUCE_COUNT)
 		{
 			gtk_widget_set_tooltip_markup(gr->w[GR_REDUCE],
-				fitness_reduce_tooltips[red_idx]);
+				_(fitness_reduce_tooltips[red_idx]));
 		}
 	}
 
@@ -454,13 +454,13 @@ static void on_metric_changed(GtkComboBox *combo, gpointer user_data)
 
 	/* Update tooltip to show measurement description */
 	gtk_widget_set_tooltip_text(GTK_WIDGET(combo),
-		meas_descriptions[meas_index]);
+		_(meas_descriptions[meas_index]));
 
 	/* Auto-fill defaults */
 	gtk_combo_box_set_active(GTK_COMBO_BOX(gr->w[GR_TRANSFORM]),
 		def->direction);
 	gtk_widget_set_tooltip_markup(gr->w[GR_TRANSFORM],
-		fitness_direction_tooltips[def->direction]);
+		_(fitness_direction_tooltips[def->direction]));
 
 	snprintf(buf, sizeof(buf), "%.4g", def->default_weight);
 	gtk_entry_set_text(GTK_ENTRY(gr->w[GR_WEIGHT]), buf);
@@ -474,7 +474,7 @@ static void on_metric_changed(GtkComboBox *combo, gpointer user_data)
 	gtk_combo_box_set_active(GTK_COMBO_BOX(gr->w[GR_REDUCE]),
 		def->default_reduce);
 	gtk_widget_set_tooltip_markup(gr->w[GR_REDUCE],
-		fitness_reduce_tooltips[def->default_reduce]);
+		_(fitness_reduce_tooltips[def->default_reduce]));
 }
 
 /*------------------------------------------------------------------------*/

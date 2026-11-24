@@ -168,7 +168,7 @@ Builder_Get_Object( GtkBuilder *builder, const gchar *name )
 
   if( object == NULL )
   {
-    Stop( ERR_STOP, "Fatal Error: builder could not find object '%s'", name );
+    Stop( ERR_STOP, _("Fatal Error: builder could not find object '%s'"), name );
     exit(-1);
   }
 

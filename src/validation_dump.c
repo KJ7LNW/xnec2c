@@ -618,13 +618,13 @@ void Save_Validation_Tree(void)
 
 	if (!freq_sweep_complete())
 	{
-		Notice(GTK_BUTTONS_OK, _("Validation Tree"), "Cannot save: frequency loop not done");
+		Notice(GTK_BUTTONS_OK, _("Validation Tree"), _("Cannot save: frequency loop not done"));
 		return;
 	}
 
 	if (mkdir(validation_dir, 0755) < 0 && errno != EEXIST)
 	{
-		Notice(GTK_BUTTONS_OK, _("Validation Tree"), "Cannot create output directory");
+		Notice(GTK_BUTTONS_OK, _("Validation Tree"), _("Cannot create output directory"));
 		return;
 	}
 

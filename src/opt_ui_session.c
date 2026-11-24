@@ -91,7 +91,7 @@ static void opt_finished(gpointer _u)
 		gchar buf[512];
 
 		current = gtk_label_get_text(GTK_LABEL(status_label));
-		snprintf(buf, sizeof(buf), "%s  [Complete]", current);
+		snprintf(buf, sizeof(buf), _("%s  [Complete]"), current);
 		gtk_label_set_text(GTK_LABEL(status_label), buf);
 	}
 
@@ -129,9 +129,9 @@ void on_opt_start_clicked(GtkButton *button, gpointer user_data)
 	num_vars = sy_overrides_get_opt_vars(&vars);
 	if (num_vars == 0)
 	{
-		Notice(GTK_BUTTONS_OK, "Optimization",
-			"No variables are flagged for optimization.\n"
-			"Check the Opt column for variables to optimize.");
+		Notice(GTK_BUTTONS_OK, _("Optimization"),
+			_("No variables are flagged for optimization.\n"
+			"Check the Opt column for variables to optimize."));
 		return;
 	}
 
@@ -162,9 +162,9 @@ void on_opt_start_clicked(GtkButton *button, gpointer user_data)
 		}
 		if (bad > 0)
 		{
-			Notice(GTK_BUTTONS_OK, "Optimization",
-				"%d variable(s) have min >= max: %s\n"
-				"Set different min and max values for each optimized variable.",
+			Notice(GTK_BUTTONS_OK, _("Optimization"),
+				_("%d variable(s) have min >= max: %s\n"
+				"Set different min and max values for each optimized variable."),
 				bad, bad_names);
 			sy_overrides_free_opt_vars(vars, num_vars);
 			return;
@@ -192,9 +192,9 @@ void on_opt_start_clicked(GtkButton *button, gpointer user_data)
 		{
 			sy_overrides_free_opt_vars(vars, num_vars);
 			fitness_config_free(&fit_cfg);
-			Notice(GTK_BUTTONS_OK, "Optimization",
-				"No fitness goals are enabled.\n"
-				"Check at least one metric in the Fitness Goals grid.");
+			Notice(GTK_BUTTONS_OK, _("Optimization"),
+				_("No fitness goals are enabled.\n"
+				"Check at least one metric in the Fitness Goals grid."));
 			return;
 		}
 	}
@@ -284,7 +284,7 @@ void on_opt_start_clicked(GtkButton *button, gpointer user_data)
 
 		if (status_label != NULL)
 		{
-			gtk_label_set_text(GTK_LABEL(status_label), "Starting...");
+			gtk_label_set_text(GTK_LABEL(status_label), _("Starting..."));
 		}
 
 		/* Refresh status display while running; completion is delivered by
@@ -293,9 +293,9 @@ void on_opt_start_clicked(GtkButton *button, gpointer user_data)
 	}
 	else
 	{
-		Notice(GTK_BUTTONS_OK, "Optimization",
-			"Optimization failed to start.\n"
-			"Check the terminal for details.");
+		Notice(GTK_BUTTONS_OK, _("Optimization"),
+			_("Optimization failed to start.\n"
+			"Check the terminal for details."));
 	}
 }
 
@@ -342,8 +342,8 @@ void opt_ui_update_status(void)
 	}
 
 	snprintf(buf, sizeof(buf),
-		"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  "
-		"Stagnant %d  Cache %d/%d",
+		_("Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  "
+		"Stagnant %d  Cache %d/%d"),
 		log->optimization_pass, log->num_passes,
 		log->log_count, log->iter_count,
 		log->minima, log->best_minima,

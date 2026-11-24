@@ -97,7 +97,7 @@ compile_shader(GLenum type, const char *path, const char *prologue)
     if( !g_file_get_contents(path, &file_source, &file_size, &error) )
     {
       pr_err("Failed to load shader: %s (%s)\n", path,
-        error ? error->message : "unknown error");
+        error ? error->message : _("unknown error"));
       g_clear_error(&error);
       return( 0 );
     }

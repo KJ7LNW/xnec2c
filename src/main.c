@@ -123,7 +123,7 @@ main (int argc, char *argv[])
     else if( type && g_strcmp0(type, "GdkWaylandDisplay") == 0 )
       backend = "Wayland";
     else if( !gtk_ok || !display )
-      backend = "none (no display)";
+      backend = _("none (no display)");
     else
       backend = type;
     pr_info("Detected %s windowing backend\n", backend);

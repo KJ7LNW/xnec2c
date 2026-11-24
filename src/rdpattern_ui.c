@@ -531,7 +531,7 @@ Set_Gain_Style( void )
     }
     else
     {
-      gtk_label_set_text( GTK_LABEL(widget), "Gain" );
+      gtk_label_set_text( GTK_LABEL(widget), _("Gain") );
     }
   }
 
@@ -953,14 +953,14 @@ Set_Window_Labels( void )
       /* Append noise model info when in noise display mode */
       if( IS_NOISE_MODE(rc_config.gain_style) )
       {
-        Strlcat( txt, " - Sky:", s );
+        Strlcat( txt, _(" - Sky:"), s );
         Strlcat( txt, ant_temp_sky_name(rc_config.ant_temp_sky), s );
-        Strlcat( txt, " - Earth:", s );
+        Strlcat( txt, _(" - Earth:"), s );
         Strlcat( txt, ant_temp_earth_name(rc_config.ant_temp_earth), s );
         Strlcat( txt, " - ", s );
         if( rc_config.ant_temp_interp >= 0 &&
             rc_config.ant_temp_interp < ANT_TEMP_METHOD_COUNT )
-          Strlcat( txt, ant_temp_method_names[rc_config.ant_temp_interp], s );
+          Strlcat( txt, _(ant_temp_method_names[rc_config.ant_temp_interp]), s );
       }
     }
     else if(rdpat_ehfield_active())

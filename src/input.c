@@ -2069,7 +2069,7 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   {
     const char *line_ptr = line_buf;
     double value;
-    if( !parse_field_with_expression(&line_ptr, &endptr, &value, "command data", cmnd_iexprs[i]) )
+    if( !parse_field_with_expression(&line_ptr, &endptr, &value, _("command data"), cmnd_iexprs[i]) )
     {
       mem_free(&startptr);
       return( FALSE );
@@ -2100,7 +2100,7 @@ readmn( char *mn, int *i1, int *i2, int *i3, int *i4,
   for( i = 0; i < nflt; i++ )
   {
     const char *line_ptr = line_buf;
-    if( !parse_field_with_expression(&line_ptr, &endptr, &rarr[i], "command data", cmnd_fexprs[i]) )
+    if( !parse_field_with_expression(&line_ptr, &endptr, &rarr[i], _("command data"), cmnd_fexprs[i]) )
     {
       mem_free(&startptr);
       return( FALSE );
@@ -2282,7 +2282,7 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   {
     const char *line_ptr = line_buf;
     double value;
-    if( !parse_field_with_expression(&line_ptr, &endptr, &value, "geometry data", geom_iexprs[i]) )
+    if( !parse_field_with_expression(&line_ptr, &endptr, &value, _("geometry data"), geom_iexprs[i]) )
     {
       mem_free(&startptr);
       return( FALSE );
@@ -2312,7 +2312,7 @@ readgm( char *gm, int *i1, int *i2, double *x1,
   for( i = 0; i < nflt; i++ )
   {
     const char *line_ptr = line_buf;
-    if( !parse_field_with_expression(&line_ptr, &endptr, &rarr[i], "geometry data", geom_fexprs[i]) )
+    if( !parse_field_with_expression(&line_ptr, &endptr, &rarr[i], _("geometry data"), geom_fexprs[i]) )
     {
       mem_free(&startptr);
       return( FALSE );

@@ -41,7 +41,7 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label">Renderer:</property>
+            <property name="label" translatable="yes">Renderer:</property>
           </object>
         </child>
         <child>
@@ -72,7 +72,7 @@
       <object class="GtkCheckButton" id="chk_constrained_rotation">
         <property name="visible">True</property>
         <property name="can-focus">True</property>
-        <property name="label">Constrained Rotation</property>
+        <property name="label" translatable="yes">Constrained Rotation</property>
         <property name="tooltip-text">Constrain view drag rotation to horizontal and vertical axes</property>
         <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
       </object>

@@ -166,15 +166,16 @@ Draw_Color_Legend_Overlay( cairo_t *cr, int fstep )
     if (!noise_mode)
     {
       /* Right-justify "Rel." */
+      const char *rel_label = _("Rel.");
       cairo_text_extents_t rel_extents;
-      cairo_text_extents(cr, "Rel.", &rel_extents);
+      cairo_text_extents(cr, rel_label, &rel_extents);
       cairo_move_to(cr, x - 5 - rel_extents.width, y - 7);  /* Moved up 2px */
-      cairo_show_text(cr, "Rel.");
+      cairo_show_text(cr, rel_label);
     }
 
     /* Left-justify heading: "K" for noise, "Abs." for gain */
     cairo_move_to(cr, x + width + 5, y - 7);  /* Moved up 2px */
-    cairo_show_text(cr, noise_mode ? "K/sr" : "Abs.");
+    cairo_show_text(cr, noise_mode ? "K/sr" : _("Abs."));
 
     /* Draw color gradient with proper scaling (min at bottom, max at top) */
     for (i = 0; i < height; i++)

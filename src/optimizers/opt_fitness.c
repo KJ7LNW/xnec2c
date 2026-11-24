@@ -308,36 +308,36 @@ const char *fitness_reduce_names[FIT_REDUCE_COUNT] =
 /* Direction name strings for UI combo boxes */
 const char *fitness_direction_names[FIT_DIR_COUNT] =
 {
-	[FIT_DIR_MINIMIZE] = "min score",
-	[FIT_DIR_MAXIMIZE] = "max score",
-	[FIT_DIR_DEVIATE]  = "± target",
+	[FIT_DIR_MINIMIZE] = N_("min score"),
+	[FIT_DIR_MAXIMIZE] = N_("max score"),
+	[FIT_DIR_DEVIATE]  = N_("± target"),
 };
 
 /* Direction tooltip strings for UI combo boxes */
 const char *fitness_direction_tooltips[FIT_DIR_COUNT] =
 {
 	[FIT_DIR_MINIMIZE] =
-		"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup>"
+		N_("Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup>"
 		" + τ / (1 + max(t − v, 0) / √(t² + 1))\n"
-		"Penalizes values above target; score approaches zero below target",
+		"Penalizes values above target; score approaches zero below target"),
 	[FIT_DIR_MAXIMIZE] =
-		"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup>"
+		N_("Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup>"
 		" + τ / (1 + max(v − t, 0) / √(t² + 1))\n"
-		"Penalizes values below target; score approaches zero above target",
+		"Penalizes values below target; score approaches zero above target"),
 	[FIT_DIR_DEVIATE]  =
-		"Score = |value − target|<sup>exp</sup>\n"
-		"Penalizes deviation from target; score=0 when value = target",
+		N_("Score = |value − target|<sup>exp</sup>\n"
+		"Penalizes deviation from target; score=0 when value = target"),
 };
 
 /* Reduction tooltip strings for UI combo boxes */
 const char *fitness_reduce_tooltips[FIT_REDUCE_COUNT] =
 {
-	[FIT_REDUCE_SUM]  = "Adds the score from every NEC2 frequency step",
-	[FIT_REDUCE_AVG]  = "Averages the score across all NEC2 frequency steps",
-	[FIT_REDUCE_MIN]  = "Selects the smallest score among all frequency steps",
-	[FIT_REDUCE_MAX]  = "Selects the largest score among all frequency steps",
-	[FIT_REDUCE_MAG]  = "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))",
-	[FIT_REDUCE_DIFF] = "Spread between largest and smallest scores across frequency steps",
+	[FIT_REDUCE_SUM]  = N_("Adds the score from every NEC2 frequency step"),
+	[FIT_REDUCE_AVG]  = N_("Averages the score across all NEC2 frequency steps"),
+	[FIT_REDUCE_MIN]  = N_("Selects the smallest score among all frequency steps"),
+	[FIT_REDUCE_MAX]  = N_("Selects the largest score among all frequency steps"),
+	[FIT_REDUCE_MAG]  = N_("Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"),
+	[FIT_REDUCE_DIFF] = N_("Spread between largest and smallest scores across frequency steps"),
 };
 
 /*------------------------------------------------------------------------*/

@@ -527,8 +527,8 @@ conect( int ignd )
             {
               pr_err("Segment connection count exceeds a full mesh, which is unlikely: data.n=%ld segj.maxcon=%lu\n",
                 (long)data.n, (long)segj.maxcon);
-	      Stop(ERR_STOP, "Segment connection count exceeds a full mesh, which is unlikely!\n"
-		   "Check for overlapping or nearly-connected segments\n");
+	      Stop(ERR_STOP, _("Segment connection count exceeds a full mesh, which is unlikely!\n"
+		   "Check for overlapping or nearly-connected segments\n"));
 	      return FALSE;
             }
             mem_array_realloc(&segj.jco, segj.maxcon);

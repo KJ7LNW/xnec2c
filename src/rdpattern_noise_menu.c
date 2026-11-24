@@ -206,7 +206,7 @@ noise_menu_append_heading(GtkWidget *menu, const char *label)
  * noise_menu_radio_append() - build one bound radio row into a group
  * @menu:  target GtkMenuShell
  * @group: radio group the row joins, extended to include it
- * @label: row text
+ * @label: row text, translated here
  * @field: registered field the row writes
  * @idx:   value selecting this row
  *
@@ -218,7 +218,7 @@ static void
 noise_menu_radio_append(GtkWidget *menu, GSList **group, const char *label,
     int *field, int idx)
 {
-  GtkWidget *item = gtk_radio_menu_item_new_with_label(*group, label);
+  GtkWidget *item = gtk_radio_menu_item_new_with_label(*group, _(label));
 
   *group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(item));
 

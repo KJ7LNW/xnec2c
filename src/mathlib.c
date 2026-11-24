@@ -828,7 +828,7 @@ void init_mathlib_menu(void)
 void mathlib_help(void)
 {
 	Notice(GTK_BUTTONS_OK, _("Mathlib Help"), "%s",
-		"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed up xnec2c EM simulations "
+		_("Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed up xnec2c EM simulations "
 		"if available on your platform. Library detection details are available in the terminal.\n"
 		"\n"
 		"* The selected \"Interactive\" math library is used when the frequency is "
@@ -858,7 +858,7 @@ void mathlib_help(void)
 		"* openSUSE: zypper install libopenblas_*0\n"
 		"  ATLAS is not officially supported by openSUSE so build from source\n"
 		"\n"
-		"This text is available in the terminal so you can copy-paste.\n");
+		"This text is available in the terminal so you can copy-paste.\n"));
 }
 
 void mathlib_benchmark_help(void)
@@ -1086,7 +1086,7 @@ void mathlib_benchmark(int slow)
 
 			double elapsed = (end.tv_sec + (double)end.tv_nsec/1e9) - (start.tv_sec + (double)start.tv_nsec/1e9);
 
-			bench_append(&m, "   %f seconds (%s %2d) %c\n",
+			bench_append(&m, _("   %f seconds (%s %2d) %c\n"),
 				elapsed,
 				varied->label,
 				count,
@@ -1127,10 +1127,10 @@ void mathlib_benchmark(int slow)
 	calc_data.num_threads = orig_threads;
 
 	if (best_mathlib != NULL)
-		bench_append(&m, "\nBest Mathlib: %s (%s %d): %f seconds\n",
+		bench_append(&m, _("\nBest Mathlib: %s (%s %d): %f seconds\n"),
 			best_mathlib->name, varied->label, best_count, best_elapsed);
 	else
-		bench_append(&m, "\nNo result found?  This is a bug.");
+		bench_append(&m, _("\nNo result found?  This is a bug."));
 
 	Notice(GTK_BUTTONS_OK, _("Mathlib Benchmark"), "%s", m);
 

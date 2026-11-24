@@ -79,7 +79,7 @@
           <object class="GtkExpander" id="opt_expander">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="label">Optimization</property>
+            <property name="label" translatable="yes">Optimization</property>
             <child>
               <object class="GtkBox" id="opt_content_box">
                 <property name="visible">True</property>
@@ -96,7 +96,7 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="label">Algorithm:</property>
+                        <property name="label" translatable="yes">Algorithm:</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -110,8 +110,8 @@
                         <property name="can-focus">False</property>
                         <property name="active">1</property>
                         <items>
-                          <item>Simplex</item>
-                          <item>Particle Swarm</item>
+                          <item translatable="yes">Simplex</item>
+                          <item translatable="yes">Particle Swarm</item>
                         </items>
                       </object>
                       <packing>
@@ -158,7 +158,7 @@
                   <object class="GtkExpander" id="opt_advanced_expander">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <property name="label">Advanced</property>
+                    <property name="label" translatable="yes">Advanced</property>
                     <child>
                       <object class="GtkBox">
                         <property name="visible">True</property>
@@ -169,7 +169,7 @@
                           <object class="GtkLabel">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="label">Common settings</property>
+                            <property name="label" translatable="yes">Common settings</property>
                             <property name="xalign">0</property>
                             <attributes>
                               <attribute name="weight" value="bold"/>
@@ -191,7 +191,7 @@
                               <object class="GtkLabel">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="label">Stagnation count:</property>
+                                <property name="label" translatable="yes">Stagnation count:</property>
                                 <property name="xalign">0</property>
                               </object>
                               <packing>
@@ -218,7 +218,7 @@
                               <object class="GtkLabel">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="label">tolerance:</property>
+                                <property name="label" translatable="yes">tolerance:</property>
                                 <property name="xalign">0</property>
                               </object>
                               <packing>
@@ -245,7 +245,7 @@
                               <object class="GtkLabel">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
-                                <property name="label">Max iterations:</property>
+                                <property name="label" translatable="yes">Max iterations:</property>
                                 <property name="xalign">0</property>
                               </object>
                               <packing>
@@ -279,7 +279,7 @@
                           <object class="GtkLabel" id="opt_simplex_label">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="label">Simplex settings</property>
+                            <property name="label" translatable="yes">Simplex settings</property>
                             <property name="xalign">0</property>
                             <attributes>
                               <attribute name="weight" value="bold"/>
@@ -307,7 +307,7 @@
                                   <object class="GtkLabel">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
-                                    <property name="label">Simplex sizes:</property>
+                                    <property name="label" translatable="yes">Simplex sizes:</property>
                                     <property name="xalign">0</property>
                                   </object>
                                   <packing>
@@ -335,7 +335,7 @@
                                   <object class="GtkLabel">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
-                                    <property name="label">Min size:</property>
+                                    <property name="label" translatable="yes">Min size:</property>
                                     <property name="xalign">0</property>
                                   </object>
                                   <packing>
@@ -362,7 +362,7 @@
                                   <object class="GtkLabel">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
-                                    <property name="label">Temperature:</property>
+                                    <property name="label" translatable="yes">Temperature:</property>
                                     <property name="xalign">0</property>
                                   </object>
                                   <packing>
@@ -404,7 +404,7 @@
                             <property name="visible">False</property>
                             <property name="can-focus">False</property>
                             <property name="no-show-all">True</property>
-                            <property name="label">Particle swarm settings</property>
+                            <property name="label" translatable="yes">Particle swarm settings</property>
                             <property name="xalign">0</property>
                             <attributes>
                               <attribute name="weight" value="bold"/>
@@ -433,7 +433,7 @@
                                   <object class="GtkLabel">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
-                                    <property name="label">Particles:</property>
+                                    <property name="label" translatable="yes">Particles:</property>
                                     <property name="xalign">0</property>
                                   </object>
                                   <packing>
@@ -460,7 +460,7 @@
                                   <object class="GtkLabel">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
-                                    <property name="label">Neighbors:</property>
+                                    <property name="label" translatable="yes">Neighbors:</property>
                                     <property name="xalign">0</property>
                                   </object>
                                   <packing>
@@ -487,7 +487,7 @@
                                   <object class="GtkLabel">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
-                                    <property name="label">Inertia:</property>
+                                    <property name="label" translatable="yes">Inertia:</property>
                                     <property name="xalign">0</property>
                                   </object>
                                   <packing>
@@ -514,7 +514,7 @@
                                   <object class="GtkLabel">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
-                                    <property name="label">Cognitive:</property>
+                                    <property name="label" translatable="yes">Cognitive:</property>
                                     <property name="xalign">0</property>
                                   </object>
                                   <packing>
@@ -541,7 +541,7 @@
                                   <object class="GtkLabel">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
-                                    <property name="label">Social:</property>
+                                    <property name="label" translatable="yes">Social:</property>
                                     <property name="xalign">0</property>
                                   </object>
                                   <packing>
@@ -568,7 +568,7 @@
                                   <object class="GtkLabel">
                                     <property name="visible">True</property>
                                     <property name="can-focus">False</property>
-                                    <property name="label">Search size:</property>
+                                    <property name="label" translatable="yes">Search size:</property>
                                     <property name="xalign">0</property>
                                   </object>
                                   <packing>
@@ -622,7 +622,7 @@
                     <property name="spacing">6</property>
                     <child>
                       <object class="GtkButton" id="opt_start_button">
-                        <property name="label">Start Optimization</property>
+                        <property name="label" translatable="yes">Start Optimization</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>
@@ -635,7 +635,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="opt_cancel_button">
-                        <property name="label">Cancel Optimization</property>
+                        <property name="label" translatable="yes">Cancel Optimization</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="receives-default">True</property>

@@ -181,7 +181,7 @@ Draw_Graph(
   // Min/max labels:
   if (rc_config.freqplots_min_max)
   {
-	  snprintf(s, sizeof(s)-1, "min:%.2f\nmax:%.2f", a[min_idx], a[max_idx]);
+	  snprintf(s, sizeof(s)-1, _("min:%.2f\nmax:%.2f"), a[min_idx], a[max_idx]);
 
 	  if (side == LEFT)
 		  fp_add_text(fp, rect->x + 5, rect->y + 5, 1.0f, s,

@@ -220,7 +220,7 @@ keyfile_from_resource( const char *res_path )
   if( bytes == NULL )
   {
     pr_err("theme: cannot load resource %s: %s\n",
-        res_path, err ? err->message : "unknown error");
+        res_path, err ? err->message : _("unknown error"));
     g_clear_error(&err);
     return NULL;
   }
@@ -230,7 +230,7 @@ keyfile_from_resource( const char *res_path )
   if( !g_key_file_load_from_data(kf, data, size, G_KEY_FILE_NONE, &err) )
   {
     pr_err("theme: cannot parse resource %s: %s\n",
-        res_path, err ? err->message : "unknown error");
+        res_path, err ? err->message : _("unknown error"));
     g_clear_error(&err);
     g_key_file_free(kf);
     g_bytes_unref(bytes);

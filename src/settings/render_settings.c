@@ -46,13 +46,13 @@ general_tab_apply_gl_sensitivity(void)
 #ifdef HAVE_OPENGL
   gboolean usable = !opengl_gl_context_failed();
   const char *reason = usable ? NULL :
-      "OpenGL is not available on this display.\n"
-      "Cairo rendering is active.";
+      _("OpenGL is not available on this display.\n"
+      "Cairo rendering is active.");
 #else
   gboolean usable = FALSE;
   const char *reason =
-      "Built without OpenGL support.\n"
-      "Cairo rendering is active.";
+      _("Built without OpenGL support.\n"
+      "Cairo rendering is active.");
 #endif
 
   config_widget_set_sensitive(&rc_config.use_opengl_renderer, usable);
@@ -120,11 +120,11 @@ render_settings_init(void)
 
     if( notebook != NULL && general_content != NULL )
       gtk_notebook_append_page(GTK_NOTEBOOK(notebook),
-          general_content, gtk_label_new("General"));
+          general_content, gtk_label_new(_("General")));
 
     if( notebook != NULL && color_content != NULL )
       gtk_notebook_append_page(GTK_NOTEBOOK(notebook),
-          color_content, gtk_label_new("Color"));
+          color_content, gtk_label_new(_("Color")));
 
 #ifdef HAVE_OPENGL
     if( notebook != NULL && gl_content != NULL )

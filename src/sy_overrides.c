@@ -769,7 +769,7 @@ create_column_headers(GtkWidget **header_widgets, GtkGrid *grid, gint row_index,
 {
   GtkWidget *label;
   GtkStyleContext *context;
-  const gchar *labels[] = {"Symbol", "Value", "Override", "✓", "Opt", "Min", "", "Max", "Expression"};
+  const gchar *labels[] = {_("Symbol"), _("Value"), _("Override"), "✓", _("Opt"), _("Min"), "", _("Max"), _("Expression")};
   GtkSizeGroup *groups[] = {sg.name, sg.value, sg.override, sg.check, sg.opt, sg.min, sg.slider, sg.max, sg.expr};
   gfloat xaligns[] = {0.0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.0, 0.5, 0.0};
   gchar *markup;
@@ -1220,7 +1220,7 @@ sy_overrides_refresh(void)
 
     if( !data->is_calculated && input_expander == NULL )
     {
-      input_expander = gtk_expander_new("Input Symbols");
+      input_expander = gtk_expander_new(_("Input Symbols"));
       gtk_expander_set_expanded(GTK_EXPANDER(input_expander), TRUE);
       gtk_widget_set_margin_top(input_expander, 6);
       gtk_widget_set_margin_bottom(input_expander, 2);
@@ -1237,7 +1237,7 @@ sy_overrides_refresh(void)
     }
     else if( data->is_calculated && calc_expander == NULL )
     {
-      calc_expander = gtk_expander_new("Calculated Symbols");
+      calc_expander = gtk_expander_new(_("Calculated Symbols"));
       gtk_expander_set_expanded(GTK_EXPANDER(calc_expander), FALSE);
       gtk_widget_set_margin_top(calc_expander, 6);
       gtk_widget_set_margin_bottom(calc_expander, 2);

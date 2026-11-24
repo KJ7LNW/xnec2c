@@ -98,7 +98,7 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label">Anti-aliasing (MSAA)</property>
+            <property name="label" translatable="yes">Anti-aliasing (MSAA)</property>
             <attributes><attribute name="weight" value="bold"/></attributes>
           </object>
         </child>
@@ -113,7 +113,7 @@
             <child>
               <object class="GtkRadioButton" id="radio_msaa_off">
                 <property name="visible">True</property><property name="can-focus">True</property>
-                <property name="label">Off</property>
+                <property name="label" translatable="yes">Off</property>
                 <property name="tooltip-text">Disable multi-sample anti-aliasing</property>
                 <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
               </object>
@@ -176,7 +176,7 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label">Structure</property>
+            <property name="label" translatable="yes">Structure</property>
             <attributes><attribute name="weight" value="bold"/></attributes>
           </object>
         </child>
@@ -193,15 +193,15 @@
               <packing><property name="left-attach">0</property><property name="top-attach">0</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Brightness</property><attributes><attribute name="scale" value="0.9"/></attributes></object>
+              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label" translatable="yes">Brightness</property><attributes><attribute name="scale" value="0.9"/></attributes></object>
               <packing><property name="left-attach">1</property><property name="top-attach">0</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Transparency</property><attributes><attribute name="scale" value="0.9"/></attributes></object>
+              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label" translatable="yes">Transparency</property><attributes><attribute name="scale" value="0.9"/></attributes></object>
               <packing><property name="left-attach">2</property><property name="top-attach">0</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Segments</property><property name="xalign">0</property></object>
+              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label" translatable="yes">Segments</property><property name="xalign">0</property></object>
               <packing><property name="left-attach">0</property><property name="top-attach">1</property></packing>
             </child>
             <child>
@@ -223,7 +223,7 @@
               <packing><property name="left-attach">2</property><property name="top-attach">1</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Patches</property><property name="xalign">0</property></object>
+              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label" translatable="yes">Patches</property><property name="xalign">0</property></object>
               <packing><property name="left-attach">0</property><property name="top-attach">2</property></packing>
             </child>
             <child>
@@ -261,7 +261,7 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label">Radiation Pattern</property>
+            <property name="label" translatable="yes">Radiation Pattern</property>
             <attributes><attribute name="weight" value="bold"/></attributes>
           </object>
         </child>
@@ -278,15 +278,15 @@
               <packing><property name="left-attach">0</property><property name="top-attach">0</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Brightness</property><attributes><attribute name="scale" value="0.9"/></attributes></object>
+              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label" translatable="yes">Brightness</property><attributes><attribute name="scale" value="0.9"/></attributes></object>
               <packing><property name="left-attach">1</property><property name="top-attach">0</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Transparency</property><attributes><attribute name="scale" value="0.9"/></attributes></object>
+              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label" translatable="yes">Transparency</property><attributes><attribute name="scale" value="0.9"/></attributes></object>
               <packing><property name="left-attach">2</property><property name="top-attach">0</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Surface</property><property name="xalign">0</property></object>
+              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label" translatable="yes">Surface</property><property name="xalign">0</property></object>
               <packing><property name="left-attach">0</property><property name="top-attach">1</property></packing>
             </child>
             <child>
@@ -308,7 +308,7 @@
               <packing><property name="left-attach">2</property><property name="top-attach">1</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Wireframe</property><property name="xalign">0</property></object>
+              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label" translatable="yes">Wireframe</property><property name="xalign">0</property></object>
               <packing><property name="left-attach">0</property><property name="top-attach">2</property></packing>
             </child>
             <child>
@@ -330,7 +330,7 @@
               <packing><property name="left-attach">2</property><property name="top-attach">2</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Near-field</property><property name="xalign">0</property></object>
+              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label" translatable="yes">Near-field</property><property name="xalign">0</property></object>
               <packing><property name="left-attach">0</property><property name="top-attach">3</property></packing>
             </child>
             <child>
@@ -352,7 +352,7 @@
               <packing><property name="left-attach">2</property><property name="top-attach">3</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Draw Style</property><property name="xalign">0</property><property name="margin-top">4</property></object>
+              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label" translatable="yes">Draw Style</property><property name="xalign">0</property><property name="margin-top">4</property></object>
               <packing><property name="left-attach">0</property><property name="top-attach">4</property></packing>
             </child>
             <child>
@@ -360,14 +360,14 @@
                 <property name="visible">True</property><property name="can-focus">False</property><property name="orientation">horizontal</property><property name="spacing">8</property><property name="margin-top">4</property>
                 <child>
                   <object class="GtkRadioButton" id="radio_style_surface">
-                    <property name="visible">True</property><property name="can-focus">True</property><property name="label">Surface</property>
+                    <property name="visible">True</property><property name="can-focus">True</property><property name="label" translatable="yes">Surface</property>
                     <property name="tooltip-text">Render radiation pattern as filled triangulated surface</property>
                     <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
                   </object>
                 </child>
                 <child>
                   <object class="GtkRadioButton" id="radio_style_wireframe">
-                    <property name="visible">True</property><property name="can-focus">True</property><property name="label">Wireframe</property>
+                    <property name="visible">True</property><property name="can-focus">True</property><property name="label" translatable="yes">Wireframe</property>
                     <property name="group">radio_style_surface</property>
                     <property name="tooltip-text">Render radiation pattern as wireframe lines</property>
                     <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
@@ -375,7 +375,7 @@
                 </child>
                 <child>
                   <object class="GtkRadioButton" id="radio_style_both">
-                    <property name="visible">True</property><property name="can-focus">True</property><property name="label">Both</property>
+                    <property name="visible">True</property><property name="can-focus">True</property><property name="label" translatable="yes">Both</property>
                     <property name="group">radio_style_surface</property>
                     <property name="tooltip-text">Render radiation pattern with surface and wireframe overlay</property>
                     <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
@@ -401,7 +401,7 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label">Scene</property>
+            <property name="label" translatable="yes">Scene</property>
             <attributes><attribute name="weight" value="bold"/></attributes>
           </object>
         </child>
@@ -418,15 +418,15 @@
               <packing><property name="left-attach">0</property><property name="top-attach">0</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Brightness</property><attributes><attribute name="scale" value="0.9"/></attributes></object>
+              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label" translatable="yes">Brightness</property><attributes><attribute name="scale" value="0.9"/></attributes></object>
               <packing><property name="left-attach">1</property><property name="top-attach">0</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Transparency</property><attributes><attribute name="scale" value="0.9"/></attributes></object>
+              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label" translatable="yes">Transparency</property><attributes><attribute name="scale" value="0.9"/></attributes></object>
               <packing><property name="left-attach">2</property><property name="top-attach">0</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Ground</property><property name="xalign">0</property></object>
+              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label" translatable="yes">Ground</property><property name="xalign">0</property></object>
               <packing><property name="left-attach">0</property><property name="top-attach">1</property></packing>
             </child>
             <child>
@@ -448,7 +448,7 @@
               <packing><property name="left-attach">2</property><property name="top-attach">1</property></packing>
             </child>
             <child>
-              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label">Axes</property><property name="xalign">0</property></object>
+              <object class="GtkLabel"><property name="visible">True</property><property name="can-focus">False</property><property name="label" translatable="yes">Axes</property><property name="xalign">0</property></object>
               <packing><property name="left-attach">0</property><property name="top-attach">2</property></packing>
             </child>
             <child>
@@ -481,7 +481,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_only_on_click">
                 <property name="visible">True</property><property name="can-focus">True</property>
-                <property name="label">Transparency Only on Click</property><property name="active">True</property><property name="margin-top">4</property>
+                <property name="label" translatable="yes">Transparency Only on Click</property><property name="active">True</property><property name="margin-top">4</property>
                 <property name="tooltip-text">Apply per-type transparency only while dragging; otherwise always active</property>
                 <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
               </object>
@@ -490,7 +490,7 @@
             <child>
               <object class="GtkCheckButton" id="chk_orthographic">
                 <property name="visible">True</property><property name="can-focus">True</property>
-                <property name="label">Orthographic Projection</property><property name="margin-top">4</property>
+                <property name="label" translatable="yes">Orthographic Projection</property><property name="margin-top">4</property>
                 <property name="tooltip-text">Use orthographic projection; disables perspective foreshortening.
 Enable for precise angular measurements or flat pattern inspection.</property>
                 <signal name="toggled" handler="on_config_widget_changed" swapped="no"/>
