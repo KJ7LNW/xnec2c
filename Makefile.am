@@ -352,16 +352,20 @@ check-po: check-potfiles-list check-po-exemptions check-po-clean
 check-potfiles-list:
 	@$(srcdir)/scripts/po/po-update.sh --check
 .PHONY: check-potfiles-list
+# Run command $(1) on each catalog po/LINGUAS registers, passing the catalog
+# path and then arguments $(2); stop at the first catalog whose command fails.
+po_foreach_catalog = \
+	lc=$$($(srcdir)/scripts/po/po-linguas.sh $(srcdir)/po/LINGUAS) || exit $$?; \
+	for lang in $$lc; do \
+	  $(1) $(srcdir)/po/$$lang.po $(2) || exit 1; \
+	done
 # Check the catalogs after the refresh sweep so the gate reads final tree
 # state rather than a pre-strip transient. The complete gate runs here: an
 # authoritative catalog answers every entry with a translation or with an
 # exemption comment recording why it holds none, so an entry carrying neither
 # fails rather than passing as work in progress.
 check-po-catalogs: po-refresh
-	@lc=$$($(srcdir)/scripts/po/po-linguas.sh $(srcdir)/po/LINGUAS) || exit $$?; \
-	for lang in $$lc; do \
-	  $(srcdir)/scripts/po/po-check.sh $(srcdir)/po/$$lang.po || exit 1; \
-	done
+	@$(call po_foreach_catalog,$(srcdir)/scripts/po/po-check.sh)
 .PHONY: check-po-catalogs
 # Compare source-based exemptions after the per-catalog sweep so both gates
 # read the same refreshed catalogs. Run from the source tree because the audit
@@ -404,10 +408,7 @@ po-template: check-potfiles-list
 # generation path leaves an obsolete entry or a backup; depends on po-template
 # so the template is regenerated before the per-catalog sweep.
 po-refresh: po-template
-	@lc=$$($(srcdir)/scripts/po/po-linguas.sh $(srcdir)/po/LINGUAS) || exit $$?; \
-	for lang in $$lc; do \
-	  $(srcdir)/scripts/po/po-refresh.sh $(srcdir)/po/$$lang.po $(srcdir)/po/$(PACKAGE).pot || exit 1; \
-	done
+	@$(call po_foreach_catalog,$(srcdir)/scripts/po/po-refresh.sh,$(srcdir)/po/$(PACKAGE).pot)
 .PHONY: po-refresh
 # Authoritative gallery deck membership: every NEC deck under examples/.
 gallery_decks = $(patsubst $(srcdir)/%,%,$(wildcard $(srcdir)/examples/*.nec))
