@@ -347,7 +347,7 @@ CLEANFILES += examples-automake.lst
 CLEANFILES += examples-srcdir.lst
 # Run the PO catalog maintenance gates on a development checkout. They
 # rewrite $(srcdir)/po and read git state, which a release tarball lacks.
-check-po: check-potfiles-list check-po-exemptions check-po-clean
+check-po: check-potfiles-list check-po-exemptions check-po-clean check-po-dist
 .PHONY: check-po
 check-potfiles-list:
 	@$(srcdir)/scripts/po/po-update.sh --check
@@ -390,6 +390,17 @@ check-po-clean: check-potfiles-list check-po-exemptions
 	  fi; \
 	fi
 .PHONY: check-po-clean
+# Bring the generated po/ makefile current, then run its make dist from a
+# staged copy and fail when a make compiles a catalog both directly and through
+# a nested make, the pairing parallel make dist runs at once. Depends on
+# po-refresh so the stage copies the refreshed catalogs. The script runs its
+# own serial make apart from the caller's jobs; it receives the make program
+# through po_dist_check_make so make -n only prints its line.
+po_dist_check_make = $(MAKE)
+check-po-dist: po-refresh
+	@$(MAKE) --directory=po Makefile
+	@$(srcdir)/scripts/po/po-dist-check.sh '$(po_dist_check_make)' po/Makefile $(srcdir)/po
+.PHONY: check-po-dist
 # Regenerate the template alone, then discard the creation-date churn xgettext
 # writes when no message changed. The list check completes first, so a
 # POTFILES.in that no longer names a source file cannot drive a template
