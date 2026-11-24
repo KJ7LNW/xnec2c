@@ -20,6 +20,7 @@
 set -o pipefail
 
 . "$(dirname "$0")/../pr-message.sh"
+. "$(dirname "$0")/po-stage.sh"
 
 if [ $# -ne 3 ]; then
 	echo "usage: ${0##*/} <make> <makefile> <current-targets>" >&2
@@ -106,8 +107,8 @@ run_gate() {
 	local tree=$1
 	local gate=$2
 
-	env --unset=MAKEFLAGS --unset=MFLAGS --unset=MAKELEVEL "$make_program" \
-		--no-print-directory --directory="$tree" --makefile="$makefile" \
+	run_without_make_state "$make_program" --no-print-directory \
+		--directory="$tree" --makefile="$makefile" \
 		"${old_file_options[@]}" srcdir=. top_srcdir=. "$gate" 2>&1
 	return $?
 }
@@ -185,15 +186,7 @@ mapfile -t git_local_vars <<< "$git_local_env"
 unset "${git_local_vars[@]}"
 export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
 
-# Stage under the build tree; the EXIT trap removes the directory mktemp
-# created, and the signal traps exit through it.
-if ! scratch=$(mktemp --directory "$PWD/po-checkout-check.XXXXXX"); then
-	pr_err "$PWD" "stage directory not created"
-	exit 2
-fi
-trap 'rm --recursive --force -- "$scratch"' EXIT
-trap 'exit 130' INT
-trap 'exit 143' TERM
+create_scratch_stage "$(basename "$0" .sh)" || exit 2
 
 failed=0
 for row in "${layout_rows[@]}"; do

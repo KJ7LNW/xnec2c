@@ -21,6 +21,7 @@
 set -o pipefail
 
 . "$(dirname "$0")/../pr-message.sh"
+. "$(dirname "$0")/po-stage.sh"
 
 if [ $# -ne 3 ]; then
 	echo "usage: ${0##*/} <make> <po-makefile> <po-srcdir>" >&2
@@ -120,10 +121,10 @@ run_dist() {
 
 	PO_DIST_CHECK_MAKE=$make_program PO_DIST_CHECK_MAKES=$make_log \
 		PO_DIST_CHECK_LOG=$compile_log PO_DIST_CHECK_STALE=$stale_time \
-		PO_DIST_CHECK_CHAIN= env --unset=MAKEFLAGS --unset=MFLAGS \
-		--unset=MAKELEVEL "$make_wrapper" --no-print-directory --jobs=1 \
-		--directory="$stage_po" dist distdir="$stage_dist" srcdir=. \
-		MAKE="$make_wrapper" GMSGFMT="$msgfmt_stub" > "$make_output" 2>&1
+		PO_DIST_CHECK_CHAIN= run_without_make_state "$make_wrapper" \
+		--no-print-directory --jobs=1 --directory="$stage_po" dist \
+		distdir="$stage_dist" srcdir=. MAKE="$make_wrapper" \
+		GMSGFMT="$msgfmt_stub" > "$make_output" 2>&1
 	return $?
 }
 
@@ -150,15 +151,7 @@ nested_catalogs() {
 	return $?
 }
 
-# Stage under the build tree; the EXIT trap removes the directory mktemp
-# created, and the signal traps exit through it.
-if ! scratch=$(mktemp --directory "$PWD/po-dist-check.XXXXXX"); then
-	pr_err "$PWD" "stage directory not created"
-	exit 2
-fi
-trap 'rm --recursive --force -- "$scratch"' EXIT
-trap 'exit 130' INT
-trap 'exit 143' TERM
+create_scratch_stage "$(basename "$0" .sh)" || exit 2
 
 # Place every stage file under the scratch directory; the staged makefile's
 # top_builddir, "..", reaches the config.status beside the staged po directory.
