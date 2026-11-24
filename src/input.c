@@ -808,7 +808,7 @@ datagn( void )
 
             if( (data.segments[i].si <= 1.0e-20) || (data.segments[i].bi <= 0.0) )
             {
-              pr_err("segment data error: tag=%d si=%lf, bi=%lf\n",
+              pr_err("segment data error: tag=%d si=%f, bi=%f\n",
                      i + 1, data.segments[i].si, data.segments[i].bi);
               Stop( ERR_OK, _("Segment data error, zero-length line?  See console.") );
               return( FALSE );

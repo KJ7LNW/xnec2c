@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-08 16:21-0800\n"
+"POT-Creation-Date: 2026-11-23 17:34-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -59,16 +59,16 @@ msgstr "বাম হাত"
 msgid "Animated"
 msgstr "অ্যানিমেটেড"
 
-#: resources/animate.glade:114 resources/xnec2c.glade:11114
+#: resources/animate.glade:114 resources/xnec2c.glade:11119
 msgid "_Reference Phase"
 msgstr "_রেফারেন্স দশা"
 
-#: resources/animate.glade:125 resources/xnec2c.glade:11125
+#: resources/animate.glade:125 resources/xnec2c.glade:11130
 msgid "_LIC Texture"
 msgstr "_LIC টেক্সচার"
 
-#: resources/animate.glade:136 resources/xnec2c.glade:11136
-#: resources/xnec2c.glade:12328
+#: resources/animate.glade:136 resources/xnec2c.glade:11141
+#: resources/xnec2c.glade:12333
 msgid "_Wireframe"
 msgstr "_ওয়্যারফ্রেম"
 
@@ -77,11 +77,11 @@ msgstr "_ওয়্যারফ্রেম"
 msgid "Static"
 msgstr "স্ট্যাটিক"
 
-#: resources/animate.glade:161 resources/xnec2c.glade:11161
+#: resources/animate.glade:161 resources/xnec2c.glade:11166
 msgid "Polarization _Axis"
 msgstr "পোলারাইজেশন _অক্ষ"
 
-#: resources/animate.glade:172 resources/xnec2c.glade:11172
+#: resources/animate.glade:172 resources/xnec2c.glade:11177
 msgid "Peak _Magnitude"
 msgstr "শীর্ষ _মান"
 
@@ -132,7 +132,7 @@ msgstr "কোনোটি নয় (জ্যামিতি)"
 msgid "Show the bare structure geometry with no quantity coloring."
 msgstr "কোনো পরিমাণ রং ছাড়াই কাঠামো জ্যামিতি দেখান।"
 
-#: resources/animate.glade:498 resources/xnec2c.glade:11279
+#: resources/animate.glade:498 resources/xnec2c.glade:11284
 msgid "Currents"
 msgstr "কারেন্ট"
 
@@ -140,7 +140,7 @@ msgstr "কারেন্ট"
 msgid "Animate current magnitude and direction along the wires."
 msgstr "তারের সাথে কারেন্টের মাত্রা ও দিক অ্যানিমেট করুন।"
 
-#: resources/animate.glade:515 resources/xnec2c.glade:11294
+#: resources/animate.glade:515 resources/xnec2c.glade:11299
 msgid "Charges"
 msgstr "চার্জ"
 
@@ -329,7 +329,7 @@ msgstr "গভীরতা বিন"
 
 #: resources/settings/cairo_settings.glade:184
 #: resources/settings/opengl_settings.glade:515
-#: resources/settings/render_settings.glade:201
+#: resources/settings/render_settings.glade:216
 msgid "Reset to _Defaults"
 msgstr "ডিফল্টে _পুনরায় সেট করুন"
 
@@ -517,8 +517,8 @@ msgstr ""
 "রঙে ক্লিপ হয়।"
 
 # xnec2c-exempt: notation
-#: resources/settings/color_settings.glade:285 resources/xnec2c.glade:11752
-#: resources/xnec2c.glade:13109
+#: resources/settings/color_settings.glade:285 resources/xnec2c.glade:11757
+#: resources/xnec2c.glade:13114
 msgid "dB"
 msgstr ""
 
@@ -785,15 +785,19 @@ msgstr "শুধু দৃশ্যমান — NEC2 মডেল গণনা
 msgid "_Color Theme"
 msgstr "_রঙের থিম"
 
-#: resources/settings/render_settings.glade:162
+#: resources/settings/render_settings.glade:153
+msgid "_Invert"
+msgstr "_ইনভার্ট"
+
+#: resources/settings/render_settings.glade:177
 msgid "_Wire Radius Scale"
 msgstr "তার ব্যাসার্ধ স্কেল (_W)"
 
-#: resources/settings/render_settings.glade:223
+#: resources/settings/render_settings.glade:238
 msgid "Rendering Settings"
 msgstr "রেন্ডারিং সেটিংস"
 
-#: resources/settings/render_settings.glade:267
+#: resources/settings/render_settings.glade:282
 #: resources/sy_overrides.glade:744
 msgid "_Close"
 msgstr "_বন্ধ করুন"
@@ -866,21 +870,21 @@ msgid "Arc Element (GA card)"
 msgstr "আর্ক উপাদান (GA কার্ড)"
 
 #: resources/xnec2c.glade:134 resources/xnec2c.glade:1169
-#: resources/xnec2c.glade:3596 resources/xnec2c.glade:14826 src/cmnd_edit.c:489
+#: resources/xnec2c.glade:3596 resources/xnec2c.glade:14831 src/cmnd_edit.c:489
 msgid "Tag Number"
 msgstr "ট্যাগ নম্বর"
 
-#: resources/xnec2c.glade:147 resources/xnec2c.glade:14921
+#: resources/xnec2c.glade:147 resources/xnec2c.glade:14926
 msgid "No. Segments"
 msgstr "সেগমেন্ট সংখ্যা"
 
 #: resources/xnec2c.glade:160 resources/xnec2c.glade:3622
-#: resources/xnec2c.glade:15017
+#: resources/xnec2c.glade:15022
 msgid "Segs % lambda"
 msgstr "সেগ % lambda"
 
 #: resources/xnec2c.glade:173 resources/xnec2c.glade:3635
-#: resources/xnec2c.glade:15113
+#: resources/xnec2c.glade:15118
 msgid "Wire Diameter"
 msgstr "তারের ব্যাস"
 
@@ -897,7 +901,7 @@ msgid "End 2 Angle"
 msgstr "প্রান্ত 2 কোণ"
 
 #: resources/xnec2c.glade:300 resources/xnec2c.glade:3832
-#: resources/xnec2c.glade:15178 src/cmnd_edit.c:2025
+#: resources/xnec2c.glade:15183 src/cmnd_edit.c:2025
 msgid "Conductivity S/m"
 msgstr "পরিবাহিতা S/m"
 
@@ -913,9 +917,9 @@ msgstr "তারের আর্ক ডেটা"
 #: resources/xnec2c.glade:4526 resources/xnec2c.glade:5058
 #: resources/xnec2c.glade:5694 resources/xnec2c.glade:7138
 #: resources/xnec2c.glade:8045 resources/xnec2c.glade:9051
-#: resources/xnec2c.glade:9331 resources/xnec2c.glade:13519
-#: resources/xnec2c.glade:14032 resources/xnec2c.glade:14631
-#: resources/xnec2c.glade:15467 resources/xnec2c.glade:15667
+#: resources/xnec2c.glade:9331 resources/xnec2c.glade:13524
+#: resources/xnec2c.glade:14037 resources/xnec2c.glade:14636
+#: resources/xnec2c.glade:15472 resources/xnec2c.glade:15672
 msgid "Delete Card"
 msgstr "কার্ড মুছুন"
 
@@ -1214,8 +1218,8 @@ msgid "5.00"
 msgstr ""
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:3710 resources/xnec2c.glade:11785
-#: resources/xnec2c.glade:12985
+#: resources/xnec2c.glade:3710 resources/xnec2c.glade:11790
+#: resources/xnec2c.glade:12990
 msgid "1"
 msgstr ""
 
@@ -1273,7 +1277,7 @@ msgstr "Y-এ ব্যাসার্ধ (B2)"
 msgid "GH Card"
 msgstr "GH কার্ড"
 
-#: resources/xnec2c.glade:4239 resources/xnec2c.glade:15541
+#: resources/xnec2c.glade:4239 resources/xnec2c.glade:15546
 msgid "Interaction Approx Range (KH Card)"
 msgstr "ইন্টার‍্যাকশন আনুমানিক পরিসীমা (KH Card)"
 
@@ -1391,8 +1395,8 @@ msgid "NX"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:5374 resources/xnec2c.glade:11309
-#: resources/xnec2c.glade:12520
+#: resources/xnec2c.glade:5374 resources/xnec2c.glade:11314
+#: resources/xnec2c.glade:12525
 msgid "X"
 msgstr ""
 
@@ -1407,8 +1411,8 @@ msgid "NY"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:5469 resources/xnec2c.glade:11324
-#: resources/xnec2c.glade:12535
+#: resources/xnec2c.glade:5469 resources/xnec2c.glade:11329
+#: resources/xnec2c.glade:12540
 msgid "Y"
 msgstr ""
 
@@ -1423,8 +1427,8 @@ msgid "NZ"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:5564 resources/xnec2c.glade:11339
-#: resources/xnec2c.glade:12550
+#: resources/xnec2c.glade:5564 resources/xnec2c.glade:11344
+#: resources/xnec2c.glade:12555
 msgid "Z"
 msgstr ""
 
@@ -1590,7 +1594,7 @@ msgstr "সেগমেন্ট নম্বর, পোর্ট 1"
 msgid "Segment Num, Port 2"
 msgstr "সেগমেন্ট নম্বর, পোর্ট 2"
 
-#: resources/xnec2c.glade:6851 resources/xnec2c.glade:14327
+#: resources/xnec2c.glade:6851 resources/xnec2c.glade:14332
 msgid "Segment Identity"
 msgstr "সেগমেন্ট পরিচিতি"
 
@@ -1878,80 +1882,80 @@ msgstr "XZ সমতলে প্রতিফলন"
 msgid "Reflect Options"
 msgstr "প্রতিফলন বিকল্প"
 
-#: resources/xnec2c.glade:9401
+#: resources/xnec2c.glade:9406
 msgid "Xnec2c: Frequency Data Plots"
 msgstr "Xnec2c: ফ্রিকোয়েন্সি ডেটা প্লট"
 
-#: resources/xnec2c.glade:9427 resources/xnec2c.glade:10455
-#: resources/xnec2c.glade:12009
+#: resources/xnec2c.glade:9432 resources/xnec2c.glade:10460
+#: resources/xnec2c.glade:12014
 msgid "_File"
 msgstr "_ফাইল"
 
-#: resources/xnec2c.glade:9489 resources/xnec2c.glade:10517
-#: resources/xnec2c.glade:12071
+#: resources/xnec2c.glade:9494 resources/xnec2c.glade:10522
+#: resources/xnec2c.glade:12076
 msgid "Save as _gnuplot"
 msgstr "_gnuplot হিসাবে সংরক্ষণ করুন"
 
-#: resources/xnec2c.glade:9500 resources/xnec2c.glade:12081
+#: resources/xnec2c.glade:9505 resources/xnec2c.glade:12086
 msgid "Save as _CSV"
 msgstr "_CSV হিসাবে সংরক্ষণ করুন"
 
-#: resources/xnec2c.glade:9512
+#: resources/xnec2c.glade:9517
 msgid "Save as _Touchstone (.SnP)"
 msgstr "_Touchstone (.SnP) হিসাবে সংরক্ষণ করুন"
 
-#: resources/xnec2c.glade:9519
+#: resources/xnec2c.glade:9524
 msgid "Save as S_1P: Reflection Only"
 msgstr "S_1P হিসাবে সংরক্ষণ করুন: শুধুমাত্র প্রতিফলন"
 
-#: resources/xnec2c.glade:9529
+#: resources/xnec2c.glade:9534
 msgid "Save as S2P: _Max Gain (S21)"
 msgstr "S2P হিসাবে সংরক্ষণ করুন: সর্বো_চ্চ গেইন (S21)"
 
-#: resources/xnec2c.glade:9539
+#: resources/xnec2c.glade:9544
 msgid "Save as S2P: _Viewer Gain (S21)"
 msgstr "S2P হিসাবে সংরক্ষণ করুন: _ভিউয়ার গেইন (S21)"
 
-#: resources/xnec2c.glade:9576 resources/xnec2c.glade:10892
-#: resources/xnec2c.glade:12115
+#: resources/xnec2c.glade:9581 resources/xnec2c.glade:10897
+#: resources/xnec2c.glade:12120
 msgid "_View"
 msgstr "_দেখুন"
 
-#: resources/xnec2c.glade:9585 resources/xnec2c.glade:10920
-#: resources/xnec2c.glade:12123
+#: resources/xnec2c.glade:9590 resources/xnec2c.glade:10925
+#: resources/xnec2c.glade:12128
 msgid "_Polarization"
 msgstr "_পোলারাইজেশন"
 
-#: resources/xnec2c.glade:9599 resources/xnec2c.glade:10934
-#: resources/xnec2c.glade:12137
+#: resources/xnec2c.glade:9604 resources/xnec2c.glade:10939
+#: resources/xnec2c.glade:12142
 msgid "_Total"
 msgstr "_মোট"
 
-#: resources/xnec2c.glade:9610 resources/xnec2c.glade:10945
-#: resources/xnec2c.glade:12148
+#: resources/xnec2c.glade:9615 resources/xnec2c.glade:10950
+#: resources/xnec2c.glade:12153
 msgid "_Horizontal"
 msgstr "_অনুভূমিক"
 
-#: resources/xnec2c.glade:9621 resources/xnec2c.glade:10956
-#: resources/xnec2c.glade:12159
+#: resources/xnec2c.glade:9626 resources/xnec2c.glade:10961
+#: resources/xnec2c.glade:12164
 msgid "_Vertical"
 msgstr "_উল্লম্ব"
 
-#: resources/xnec2c.glade:9632 resources/xnec2c.glade:10967
-#: resources/xnec2c.glade:12170
+#: resources/xnec2c.glade:9637 resources/xnec2c.glade:10972
+#: resources/xnec2c.glade:12175
 msgid "_Right Hand"
 msgstr "_ডান হাত"
 
-#: resources/xnec2c.glade:9643 resources/xnec2c.glade:10978
-#: resources/xnec2c.glade:12181
+#: resources/xnec2c.glade:9648 resources/xnec2c.glade:10983
+#: resources/xnec2c.glade:12186
 msgid "_Left Hand"
 msgstr "_বাম হাত"
 
-#: resources/xnec2c.glade:9658
+#: resources/xnec2c.glade:9663
 msgid "Max Gain _Second Trace"
 msgstr "সর্বোচ্চ গেইন _দ্বিতীয় ট্রেস"
 
-#: resources/xnec2c.glade:9667
+#: resources/xnec2c.glade:9672
 msgid ""
 "Plot the front-to-back ratio beside Max Gain: peak gain over the gain in the "
 "opposite direction."
@@ -1959,11 +1963,11 @@ msgstr ""
 "সর্বোচ্চ গেইনের পাশাপাশি সম্মুখ-পশ্চাৎ অনুপাত প্লট করুন: সর্বোচ্চ গেইন ও বিপরীত দিকের "
 "গেইনের অনুপাত।"
 
-#: resources/xnec2c.glade:9668
+#: resources/xnec2c.glade:9673
 msgid "F/_B Ratio"
 msgstr "F/_B অনুপাত"
 
-#: resources/xnec2c.glade:9678
+#: resources/xnec2c.glade:9683
 msgid ""
 "Plot the front-to-rear ratio beside Max Gain: peak gain over the strongest "
 "gain at the same elevation more than 90° away in azimuth."
@@ -1971,82 +1975,82 @@ msgstr ""
 "সর্বোচ্চ গেইনের পাশাপাশি সম্মুখ-পশ্চাদ্ভাগ অনুপাত প্লট করুন: সর্বোচ্চ গেইন ও একই "
 "এলিভেশনে অ্যাজিমুথে 90° থেকে বেশি দূরের সবচেয়ে শক্তিশালী গেইনের অনুপাত।"
 
-#: resources/xnec2c.glade:9679
+#: resources/xnec2c.glade:9684
 msgid "F/_R Ratio"
 msgstr "F/_R অনুপাত"
 
-#: resources/xnec2c.glade:9690
+#: resources/xnec2c.glade:9695
 msgid "_Net Gain"
 msgstr "_নেট গেইন"
 
-#: resources/xnec2c.glade:9705
+#: resources/xnec2c.glade:9710
 msgid "Show _Min/Max Values"
 msgstr "_ন্যূনতম/সর্বোচ্চ মান দেখান"
 
-#: resources/xnec2c.glade:9714
+#: resources/xnec2c.glade:9719
 msgid "Show _S11 (dB) Values"
 msgstr "_S11 (dB) মান দেখান"
 
-#: resources/xnec2c.glade:9723
+#: resources/xnec2c.glade:9728
 msgid "Clamp _VSWR Graph to 10"
 msgstr "_VSWR গ্রাফ 10-এ সীমাবদ্ধ করুন"
 
-#: resources/xnec2c.glade:9732
+#: resources/xnec2c.glade:9737
 msgid "Show Ta instead of TA"
 msgstr "TA-এর পরিবর্তে Ta দেখান"
 
-#: resources/xnec2c.glade:9741
+#: resources/xnec2c.glade:9746
 msgid "Round _X Axis Frequency Values"
 msgstr "_X অক্ষ ফ্রিকোয়েন্সি মান বৃত্তাকার করুন"
 
-#: resources/xnec2c.glade:9750
+#: resources/xnec2c.glade:9755
 msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "_বাম/ডান ক্লিক ফ্রিকোয়েন্সি নির্বাচন পরিবর্তন করুন"
 
-#: resources/xnec2c.glade:9774 resources/xnec2c.glade:9976
+#: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
 msgid "Max Gain"
 msgstr "সর্বোচ্চ গেইন"
 
-#: resources/xnec2c.glade:9789
+#: resources/xnec2c.glade:9794
 msgid "Direction"
 msgstr "দিক"
 
-#: resources/xnec2c.glade:9804
+#: resources/xnec2c.glade:9809
 msgid "Viewer"
 msgstr "ভিউয়ার"
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9819 resources/xnec2c.glade:10081
+#: resources/xnec2c.glade:9824 resources/xnec2c.glade:10086
 #: src/freqplots/freqplots_core.c:65 src/freqplots/graphs/vswr_graph.c:55
 msgid "VSWR"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9834
+#: resources/xnec2c.glade:9839
 msgid "Zr/Zi"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9849
+#: resources/xnec2c.glade:9854
 msgid "Zm/Zph"
 msgstr ""
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:9864
+#: resources/xnec2c.glade:9869
 msgid "Smith"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:9879
+#: resources/xnec2c.glade:9884
 msgid "G/Ta"
 msgstr ""
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:9893
+#: resources/xnec2c.glade:9898
 msgid "AGT"
 msgstr ""
 
-#: resources/xnec2c.glade:9897
+#: resources/xnec2c.glade:9902
 msgid ""
 "Plots the average power gain over the directions the radiation pattern "
 "samples, at each frequency.\n"
@@ -2073,11 +2077,11 @@ msgstr ""
 "দেখায়।\n"
 "পরীক্ষাটি চালানো ও পড়ার পদ্ধতির জন্য ম্যানুয়ালের \"মডেলের ভ্যালিডেশন\" অংশ দেখুন।"
 
-#: resources/xnec2c.glade:9912
+#: resources/xnec2c.glade:9917
 msgid "Cond"
 msgstr "কন্ড"
 
-#: resources/xnec2c.glade:9916
+#: resources/xnec2c.glade:9921
 msgid ""
 "Plots the precision lost solving the antenna at each frequency, in decimal "
 "digits.\n"
@@ -2103,186 +2107,186 @@ msgstr ""
 "AGT ট্রেসের পাশে পড়ার জন্য ম্যানুয়ালের \"মডেলের ভ্যালিডেশন\" অংশ দেখুন।"
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:9960 resources/xnec2c.glade:9995
-#: resources/xnec2c.glade:10030 resources/xnec2c.glade:10065
-#: resources/xnec2c.glade:10287 resources/xnec2c.glade:10322
-#: resources/xnec2c.glade:10357 resources/xnec2c.glade:13244
+#: resources/xnec2c.glade:9965 resources/xnec2c.glade:10000
+#: resources/xnec2c.glade:10035 resources/xnec2c.glade:10070
+#: resources/xnec2c.glade:10292 resources/xnec2c.glade:10327
+#: resources/xnec2c.glade:10362 resources/xnec2c.glade:13249
 msgid " - - -"
 msgstr ""
 
-#: resources/xnec2c.glade:10011 src/freqplots/graphs/impedance_graph.c:76
+#: resources/xnec2c.glade:10016 src/freqplots/graphs/impedance_graph.c:76
 msgid "Z-imag"
 msgstr "Z-কাল্পনিক"
 
-#: resources/xnec2c.glade:10046 src/freqplots/graphs/impedance_graph.c:74
+#: resources/xnec2c.glade:10051 src/freqplots/graphs/impedance_graph.c:74
 msgid "Z-real"
 msgstr "Z-বাস্তব"
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:10101
+#: resources/xnec2c.glade:10106
 msgid " - - - - "
 msgstr ""
 
-#: resources/xnec2c.glade:10117
+#: resources/xnec2c.glade:10122
 msgid "Freq MHz"
 msgstr "ফ্রিকোয়েন্সি MHz"
 
-#: resources/xnec2c.glade:10156 resources/xnec2c.glade:10169
+#: resources/xnec2c.glade:10161 resources/xnec2c.glade:10174
 msgid "Port"
 msgstr "পোর্ট"
 
-#: resources/xnec2c.glade:10181
+#: resources/xnec2c.glade:10186
 msgid "Tx Line Z<sub>0</sub>"
 msgstr "Tx লাইন Z<sub>0</sub>"
 
-#: resources/xnec2c.glade:10196 resources/xnec2c.glade:11800
-#: resources/xnec2c.glade:13016
+#: resources/xnec2c.glade:10201 resources/xnec2c.glade:11805
+#: resources/xnec2c.glade:13021
 msgid "Freq Loop"
 msgstr "ফ্রিকোয়েন্সি লুপ"
 
-#: resources/xnec2c.glade:10268 resources/xnec2c.glade:13122
+#: resources/xnec2c.glade:10273 resources/xnec2c.glade:13127
 msgid "T<sub>A</sub>(Elev.°)"
 msgstr "T<sub>A</sub>(উন্নতি°)"
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:10303
+#: resources/xnec2c.glade:10308
 msgid "T<sub>a</sub>"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:10338
+#: resources/xnec2c.glade:10343
 msgid "G/T<sub>a</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:10410
+#: resources/xnec2c.glade:10415
 msgid "Frequency Data Plots"
 msgstr "ফ্রিকোয়েন্সি ডেটা প্লট"
 
-#: resources/xnec2c.glade:10528
+#: resources/xnec2c.glade:10533
 msgid "Save _Currents/Charges as CSV"
 msgstr "_কারেন্ট/চার্জ CSV হিসাবে সংরক্ষণ করুন"
 
-#: resources/xnec2c.glade:10547
+#: resources/xnec2c.glade:10552
 msgid "Optimization Settings"
 msgstr "অপ্টিমাইজেশন সেটিংস"
 
-#: resources/xnec2c.glade:10562
+#: resources/xnec2c.glade:10567
 msgid "Reload and write data on .NEC file changes"
 msgstr ".NEC ফাইল পরিবর্তনে ডেটা পুনরায় লোড এবং লিখুন"
 
-#: resources/xnec2c.glade:10569
+#: resources/xnec2c.glade:10574
 msgid "_Write files selected below, now."
 msgstr "নীচে নির্বাচিত ফাইলগুলি এখন _লিখুন।"
 
-#: resources/xnec2c.glade:10584
+#: resources/xnec2c.glade:10589
 msgid "After calculation, write <file>.csv"
 msgstr "গণনার পরে, <file>.csv লিখুন"
 
-#: resources/xnec2c.glade:10593
+#: resources/xnec2c.glade:10598
 msgid "After calculation, write <file>.s_1p"
 msgstr "গণনার পরে, <file>.s_1p লিখুন"
 
-#: resources/xnec2c.glade:10602
+#: resources/xnec2c.glade:10607
 msgid "After calculation, write <file>-_maxgain.s2p"
 msgstr "গণনার পরে, <file>-_maxgain.s2p লিখুন"
 
-#: resources/xnec2c.glade:10611
+#: resources/xnec2c.glade:10616
 msgid "After calculation, write <file>-_viewergain.s2p"
 msgstr "গণনার পরে, <file>-_viewergain.s2p লিখুন"
 
-#: resources/xnec2c.glade:10620
+#: resources/xnec2c.glade:10625
 msgid "After calculation, write <file>-_radpattern.csv"
 msgstr "গণনার পরে, <file>-_radpattern.csv লিখুন"
 
-#: resources/xnec2c.glade:10629
+#: resources/xnec2c.glade:10634
 msgid "After calculation, write <file>-_currents.csv"
 msgstr "গণনার পরে, <file>-_currents.csv লিখুন"
 
-#: resources/xnec2c.glade:10638
+#: resources/xnec2c.glade:10643
 msgid "After calculation, write <file>-_structure.gplot"
 msgstr "গণনার পরে, <file>-_structure.gplot লিখুন"
 
-#: resources/xnec2c.glade:10647
+#: resources/xnec2c.glade:10652
 msgid "After calculation, write <file>-_patch-currents.csv"
 msgstr "গণনার পরে, <file>-_patch-currents.csv লিখুন"
 
-#: resources/xnec2c.glade:10662
+#: resources/xnec2c.glade:10667
 msgid "_Math Libraries"
 msgstr "_গণিত লাইব্রেরি"
 
-#: resources/xnec2c.glade:10671
+#: resources/xnec2c.glade:10676
 msgid "_Interactive"
 msgstr "_ইন্টারেক্টিভ"
 
-#: resources/xnec2c.glade:10691
+#: resources/xnec2c.glade:10696
 msgid "_Batch"
 msgstr "_ব্যাচ"
 
-#: resources/xnec2c.glade:10717
+#: resources/xnec2c.glade:10722
 msgid "Mathlib _Help"
 msgstr "Mathlib _সাহায্য"
 
-#: resources/xnec2c.glade:10730
+#: resources/xnec2c.glade:10735
 msgid "Mathlib _Benchmarks"
 msgstr "Mathlib _বেঞ্চমার্ক"
 
-#: resources/xnec2c.glade:10741
+#: resources/xnec2c.glade:10746
 msgid "_Selected Mathlibs"
 msgstr "_নির্বাচিত Mathlibs"
 
-#: resources/xnec2c.glade:10755
+#: resources/xnec2c.glade:10760
 msgid "Select All/None"
 msgstr "সব/কিছুই নয় নির্বাচন করুন"
 
-#: resources/xnec2c.glade:10780
+#: resources/xnec2c.glade:10785
 msgid "_Parallel (-j N):\t\tO(N/J)"
 msgstr "_সমান্তরাল (-j N):\t\tO(N/J)"
 
-#: resources/xnec2c.glade:10789
+#: resources/xnec2c.glade:10794
 msgid "_Single Job (-j 1):\tO(N)"
 msgstr "_একক কাজ (-j 1):\tO(N)"
 
-#: resources/xnec2c.glade:10798
+#: resources/xnec2c.glade:10803
 msgid "_Iterate -j N/=2:\tO(N*log2(J))"
 msgstr "_পুনরাবৃত্তি -j N/=2:\tO(N*log2(J))"
 
-#: resources/xnec2c.glade:10807
+#: resources/xnec2c.glade:10812
 msgid "_Iterate -j N-=1:\tO(N*J)"
 msgstr "_পুনরাবৃত্তি -j N-=1:\tO(N*J)"
 
-#: resources/xnec2c.glade:10816
+#: resources/xnec2c.glade:10821
 msgid "_Threads (-j 1, --threads N/=2):\tO(N*log2(T))"
 msgstr "_থ্রেড (-j 1, --threads N/=2):\\\tO(N*log2(T))"
 
-#: resources/xnec2c.glade:10831
+#: resources/xnec2c.glade:10836
 msgid "Benchmark _Help"
 msgstr "বেঞ্চমার্ক _সাহায্য"
 
-#: resources/xnec2c.glade:10850
+#: resources/xnec2c.glade:10855
 msgid "Begin Frequency Loop at Startup"
 msgstr "স্টার্টআপে ফ্রিকোয়েন্সি লুপ শুরু করুন"
 
-#: resources/xnec2c.glade:10861
+#: resources/xnec2c.glade:10866
 msgid "Confirm Quit"
 msgstr "প্রস্থান নিশ্চিত করুন"
 
-#: resources/xnec2c.glade:10900
+#: resources/xnec2c.glade:10905
 msgid "_Radiation Pattern"
 msgstr "_বিকিরণ প্যাটার্ন"
 
-#: resources/xnec2c.glade:10910
+#: resources/xnec2c.glade:10915
 msgid "_Frequency Plots"
 msgstr "_ফ্রিকোয়েন্সি প্লট"
 
-#: resources/xnec2c.glade:10993
+#: resources/xnec2c.glade:10998
 msgid "_Visualization"
 msgstr "_ভিজ্যুয়ালাইজেশন"
 
-#: resources/xnec2c.glade:11009
+#: resources/xnec2c.glade:11014
 msgid "Color Scale"
 msgstr "রং স্কেল"
 
-#: resources/xnec2c.glade:11016
+#: resources/xnec2c.glade:11021
 msgid ""
 "Power transfer n^γ relative to this frequency step's peak.\n"
 "γ = 0.5 expands weak regions, γ = 1 is linear amplitude, γ = 2 shows the "
@@ -2298,11 +2302,11 @@ msgstr ""
 "শক্তির সমানুপাতিক।\n"
 "অ্যানিমেট ডায়ালগে γ সমন্বয় করুন।"
 
-#: resources/xnec2c.glade:11017
+#: resources/xnec2c.glade:11022
 msgid "_Power"
 msgstr "_পাওয়ার"
 
-#: resources/xnec2c.glade:11028
+#: resources/xnec2c.glade:11033
 msgid ""
 "Logarithmic scale over a user-set range R below the peak.\n"
 "Reveals weak detail that linear display hides; adjust R in the animate "
@@ -2312,11 +2316,11 @@ msgstr ""
 "লিনিয়ার ডিসপ্লে যে দুর্বল বিবরণ লুকায় তা প্রকাশ করে; অ্যানিমেট ডায়ালগে R সমন্বয় করুন।"
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:11029
+#: resources/xnec2c.glade:11034
 msgid "_dB"
 msgstr ""
 
-#: resources/xnec2c.glade:11040
+#: resources/xnec2c.glade:11045
 msgid ""
 "Inverse hyperbolic sine transfer: linear below the softening knee k, "
 "logarithmic above.\n"
@@ -2327,11 +2331,11 @@ msgstr ""
 "অ্যানিমেট ডায়ালগে k সমন্বয় করুন।"
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:11041
+#: resources/xnec2c.glade:11046
 msgid "_Asinh"
 msgstr ""
 
-#: resources/xnec2c.glade:11052
+#: resources/xnec2c.glade:11057
 msgid ""
 "μ-law companding transfer: lifts weak detail with bounded compression.\n"
 "Adjust the compression in the animate dialog."
@@ -2340,11 +2344,11 @@ msgstr ""
 "অ্যানিমেট ডায়ালগে কম্প্রেশন সমন্বয় করুন।"
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:11053
+#: resources/xnec2c.glade:11058
 msgid "μ-_law"
 msgstr ""
 
-#: resources/xnec2c.glade:11064
+#: resources/xnec2c.glade:11069
 msgid ""
 "Reinhard rational soft-compressor with knee k.\n"
 "Adjust k in the animate dialog."
@@ -2353,11 +2357,11 @@ msgstr ""
 "অ্যানিমেট ডায়ালগে k সমন্বয় করুন।"
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:11065
+#: resources/xnec2c.glade:11070
 msgid "_Reinhard"
 msgstr ""
 
-#: resources/xnec2c.glade:11076
+#: resources/xnec2c.glade:11081
 msgid ""
 "Hyperbolic tangent transfer with contrast steepness a.\n"
 "Adjust a in the animate dialog."
@@ -2366,417 +2370,417 @@ msgstr ""
 "অ্যানিমেট ডায়ালগে a সমন্বয় করুন।"
 
 # xnec2c-exempt: name
-#: resources/xnec2c.glade:11077
+#: resources/xnec2c.glade:11082
 msgid "_Sigmoid"
 msgstr ""
 
-#: resources/xnec2c.glade:11088
+#: resources/xnec2c.glade:11093
 msgid ""
 "Full brightness for every magnitude; the color projection alone sets the "
 "rendering."
 msgstr "প্রতিটি মাত্রার জন্য সম্পূর্ণ উজ্জ্বলতা; কেবল রং প্রক্ষেপণ রেন্ডারিং নির্ধারণ করে।"
 
-#: resources/xnec2c.glade:11089
+#: resources/xnec2c.glade:11094
 msgid "_None"
 msgstr "_কোনোটি নয়"
 
-#: resources/xnec2c.glade:11107
+#: resources/xnec2c.glade:11112
 msgid "Patch Flow — Animated"
 msgstr "প্যাচ প্রবাহ — অ্যানিমেটেড"
 
-#: resources/xnec2c.glade:11154
+#: resources/xnec2c.glade:11159
 msgid "Patch Flow — Static"
 msgstr "প্যাচ প্রবাহ — স্ট্যাটিক"
 
-#: resources/xnec2c.glade:11187
+#: resources/xnec2c.glade:11192
 msgid "A_nimate"
 msgstr "অ্যা_নিমেট"
 
-#: resources/xnec2c.glade:11196 resources/xnec2c.glade:12445
+#: resources/xnec2c.glade:11201 resources/xnec2c.glade:12450
 msgid "Common _Projection"
 msgstr "সাধারণ _প্রক্ষেপণ"
 
-#: resources/xnec2c.glade:11206 resources/xnec2c.glade:12455
+#: resources/xnec2c.glade:11211 resources/xnec2c.glade:12460
 msgid "Common _Pan"
 msgstr "সাধারণ _প্যান"
 
-#: resources/xnec2c.glade:11223
+#: resources/xnec2c.glade:11228
 msgid "_Symbol Overrides"
 msgstr "_সিম্বল ওভাররাইড"
 
-#: resources/xnec2c.glade:11232
+#: resources/xnec2c.glade:11237
 msgid "Rendering _Settings..."
 msgstr "রেন্ডারিং _সেটিংস..."
 
-#: resources/xnec2c.glade:11243
+#: resources/xnec2c.glade:11248
 msgid "_Help"
 msgstr "_সাহায্য"
 
-#: resources/xnec2c.glade:11252
+#: resources/xnec2c.glade:11257
 msgid "_About"
 msgstr "_সম্পর্কে"
 
-#: resources/xnec2c.glade:11475
+#: resources/xnec2c.glade:11480
 msgid " Zoom"
 msgstr " জুম"
 
-#: resources/xnec2c.glade:11642 resources/xnec2c.glade:11703
-#: resources/xnec2c.glade:11751
+#: resources/xnec2c.glade:11647 resources/xnec2c.glade:11708
+#: resources/xnec2c.glade:11756
 msgid ""
 "Gain in the direction of the structure viewer, for the current view angles."
 msgstr "বর্তমান ভিউ কোণের জন্য স্ট্রাকচার ভিউয়ারের দিকে গেইন।"
 
-#: resources/xnec2c.glade:11643 resources/xnec2c.glade:12952
+#: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
 #: src/freqplots/freqplots_core.c:62
 msgid "Gain"
 msgstr "গেইন"
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:11658 resources/xnec2c.glade:11674
-#: resources/xnec2c.glade:12965 resources/xnec2c.glade:13226
+#: resources/xnec2c.glade:11663 resources/xnec2c.glade:11679
+#: resources/xnec2c.glade:12970 resources/xnec2c.glade:13231
 msgid "0.0"
 msgstr ""
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:11709
+#: resources/xnec2c.glade:11714
 msgid "- - - "
 msgstr ""
 
-#: resources/xnec2c.glade:11766 resources/xnec2c.glade:13001
+#: resources/xnec2c.glade:11771 resources/xnec2c.glade:13006
 msgid "Step"
 msgstr "ধাপ"
 
-#: resources/xnec2c.glade:11890 resources/xnec2c.glade:13049
+#: resources/xnec2c.glade:11895 resources/xnec2c.glade:13054
 msgid "Apply Freq"
 msgstr "ফ্রিক প্রয়োগ করুন"
 
-#: resources/xnec2c.glade:11910
+#: resources/xnec2c.glade:11915
 msgid "Frequency Mhz"
 msgstr "ফ্রিকোয়েন্সি MHz"
 
-#: resources/xnec2c.glade:11963
+#: resources/xnec2c.glade:11968
 msgid "Structure Geometry"
 msgstr "কাঠামো জ্যামিতি"
 
-#: resources/xnec2c.glade:11982
+#: resources/xnec2c.glade:11987
 msgid "Xnec2c: Radiation Patterns"
 msgstr "Xnec2c: বিকিরণ প্যাটার্ন"
 
-#: resources/xnec2c.glade:12196
+#: resources/xnec2c.glade:12201
 msgid "_Gain Scaling"
 msgstr "_গেইন স্কেলিং"
 
-#: resources/xnec2c.glade:12211
+#: resources/xnec2c.glade:12216
 msgid "Linear _Power"
 msgstr "লিনিয়ার _পাওয়ার"
 
-#: resources/xnec2c.glade:12222
+#: resources/xnec2c.glade:12227
 msgid "Linear _Voltage"
 msgstr "লিনিয়ার _ভোল্টেজ"
 
-#: resources/xnec2c.glade:12233
+#: resources/xnec2c.glade:12238
 msgid "_ARRL Style"
 msgstr "_ARRL স্টাইল"
 
-#: resources/xnec2c.glade:12244
+#: resources/xnec2c.glade:12249
 msgid "_Logarithmic"
 msgstr "_লগারিদমিক"
 
-#: resources/xnec2c.glade:12255
+#: resources/xnec2c.glade:12260
 msgid "_Noise Temperature"
 msgstr "_নয়েজ তাপমাত্রা"
 
-#: resources/xnec2c.glade:12266
+#: resources/xnec2c.glade:12271
 msgid "Noise Temp (_log scale)"
 msgstr "নয়েজ তাপমাত্রা (_লগ স্কেল)"
 
-#: resources/xnec2c.glade:12281
+#: resources/xnec2c.glade:12286
 msgid "Noise _Models"
 msgstr "নয়েজ _মডেল"
 
-#: resources/xnec2c.glade:12300
+#: resources/xnec2c.glade:12305
 msgid "_Gradient Key"
 msgstr "_গ্রেডিয়েন্ট কী"
 
-#: resources/xnec2c.glade:12310
+#: resources/xnec2c.glade:12315
 msgid "Draw St_yle"
 msgstr "ড্র _স্টাইল"
 
-#: resources/xnec2c.glade:12319
+#: resources/xnec2c.glade:12324
 msgid "S_urface"
 msgstr "পৃষ্ঠ_তল"
 
-#: resources/xnec2c.glade:12338
+#: resources/xnec2c.glade:12343
 msgid "_Both"
 msgstr "_উভয়"
 
-#: resources/xnec2c.glade:12353
+#: resources/xnec2c.glade:12358
 msgid "_Near Field"
 msgstr "_নিকট ক্ষেত্র"
 
-#: resources/xnec2c.glade:12368
+#: resources/xnec2c.glade:12373
 msgid "Near _E Field"
 msgstr "নিকট _E ক্ষেত্র"
 
-#: resources/xnec2c.glade:12378
+#: resources/xnec2c.glade:12383
 msgid "Near _H Field"
 msgstr "নিকট _H ক্ষেত্র"
 
-#: resources/xnec2c.glade:12388
+#: resources/xnec2c.glade:12393
 msgid "_Poynting Vector"
 msgstr "_পয়েন্টিং ভেক্টর"
 
-#: resources/xnec2c.glade:12397
+#: resources/xnec2c.glade:12402
 msgid "_Animate Dialog"
 msgstr "_অ্যানিমেট ডায়ালগ"
 
-#: resources/xnec2c.glade:12406
+#: resources/xnec2c.glade:12411
 msgid "_Total Field"
 msgstr "_মোট ক্ষেত্র"
 
-#: resources/xnec2c.glade:12415
+#: resources/xnec2c.glade:12420
 msgid "_Peak Value"
 msgstr "_শীর্ষ মান"
 
-#: resources/xnec2c.glade:12426
+#: resources/xnec2c.glade:12431
 msgid "_Instantaneous (φ=0)"
 msgstr "_তাৎক্ষণিক (φ=0)"
 
-#: resources/xnec2c.glade:12466
+#: resources/xnec2c.glade:12471
 msgid "_Overlay Structure"
 msgstr "_ওভারলে স্ট্রাকচার"
 
-#: resources/xnec2c.glade:12490
+#: resources/xnec2c.glade:12495
 msgid "Gain Pattern"
 msgstr "গেইন প্যাটার্ন"
 
-#: resources/xnec2c.glade:12505
+#: resources/xnec2c.glade:12510
 msgid "E/H Fields"
 msgstr "E/H ক্ষেত্র"
 
-#: resources/xnec2c.glade:12688
+#: resources/xnec2c.glade:12693
 msgid "Zoom % "
 msgstr "জুম % "
 
-#: resources/xnec2c.glade:12727
+#: resources/xnec2c.glade:12732
 msgid "Elev.°"
 msgstr "উন্নতি°"
 
-#: resources/xnec2c.glade:13069
+#: resources/xnec2c.glade:13074
 msgid "Frequency MHz"
 msgstr "ফ্রিকোয়েন্সি MHz"
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:13086
+#: resources/xnec2c.glade:13091
 msgid "0.010"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:13140 resources/xnec2c.glade:13173
-#: resources/xnec2c.glade:13208
+#: resources/xnec2c.glade:13145 resources/xnec2c.glade:13178
+#: resources/xnec2c.glade:13213
 msgid "— K"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:13155
+#: resources/xnec2c.glade:13160
 msgid "T<sub>earth</sub>"
 msgstr ""
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:13190
+#: resources/xnec2c.glade:13195
 msgid "T<sub>sky</sub>"
 msgstr ""
 
-#: resources/xnec2c.glade:13310 src/rdpattern_ui.c:939
+#: resources/xnec2c.glade:13315 src/rdpattern_ui.c:939
 msgid "Radiation Patterns"
 msgstr "বিকিরণ প্যাটার্ন"
 
-#: resources/xnec2c.glade:13345
+#: resources/xnec2c.glade:13350
 msgid "Scale Structure (GS card)"
 msgstr "স্কেল স্ট্রাকচার (GS card)"
 
-#: resources/xnec2c.glade:13376
+#: resources/xnec2c.glade:13381
 msgid "Structure Scale Factor"
 msgstr "স্ট্রাকচার স্কেল ফ্যাক্টর"
 
-#: resources/xnec2c.glade:13389
+#: resources/xnec2c.glade:13394
 msgid "From Tag No."
 msgstr "Tag নং থেকে"
 
-#: resources/xnec2c.glade:13439
+#: resources/xnec2c.glade:13444
 msgid "To Tag No."
 msgstr "Tag নং পর্যন্ত"
 
-#: resources/xnec2c.glade:13474
+#: resources/xnec2c.glade:13479
 msgid "Scale Structure"
 msgstr "স্কেল স্ট্রাকচার"
 
-#: resources/xnec2c.glade:13651
+#: resources/xnec2c.glade:13656
 msgid "Co-ordinate Transformation (GM card)"
 msgstr "স্থানাঙ্ক রূপান্তর (GM card)"
 
-#: resources/xnec2c.glade:13681
+#: resources/xnec2c.glade:13686
 msgid "Tag Increment"
 msgstr "Tag বৃদ্ধি"
 
-#: resources/xnec2c.glade:13712
+#: resources/xnec2c.glade:13717
 msgid "Rotate about X"
 msgstr "X অক্ষে ঘোরান"
 
-#: resources/xnec2c.glade:13744
+#: resources/xnec2c.glade:13749
 msgid "Move along X"
 msgstr "X বরাবর সরান"
 
-#: resources/xnec2c.glade:13776
+#: resources/xnec2c.glade:13781
 msgid "New Structures"
 msgstr "নতুন স্ট্রাকচার"
 
-#: resources/xnec2c.glade:13807
+#: resources/xnec2c.glade:13812
 msgid "Rotate about Y"
 msgstr "Y অক্ষে ঘোরান"
 
-#: resources/xnec2c.glade:13839
+#: resources/xnec2c.glade:13844
 msgid "Move along Y"
 msgstr "Y বরাবর সরান"
 
-#: resources/xnec2c.glade:13871
+#: resources/xnec2c.glade:13876
 msgid "Start From Tag"
 msgstr "Tag থেকে শুরু"
 
-#: resources/xnec2c.glade:13903
+#: resources/xnec2c.glade:13908
 msgid "Rotate about Z"
 msgstr "Z অক্ষে ঘোরান"
 
-#: resources/xnec2c.glade:13935
+#: resources/xnec2c.glade:13940
 msgid "Move along Z"
 msgstr "Z বরাবর সরান"
 
-#: resources/xnec2c.glade:13971
+#: resources/xnec2c.glade:13976
 msgid "Co-ordinate Transformation Data"
 msgstr "স্থানাঙ্ক রূপান্তর ডেটা"
 
-#: resources/xnec2c.glade:14167
+#: resources/xnec2c.glade:14172
 msgid "Trans. Line Command (TL Card)"
 msgstr "ট্রান্স. লাইন কমান্ড (TL Card)"
 
-#: resources/xnec2c.glade:14197
+#: resources/xnec2c.glade:14202
 msgid "Tag Number, End 1  "
 msgstr "Tag নম্বর, প্রান্ত 1  "
 
-#: resources/xnec2c.glade:14229
+#: resources/xnec2c.glade:14234
 msgid "Tag Number, End 2  "
 msgstr "Tag নম্বর, প্রান্ত 2  "
 
-#: resources/xnec2c.glade:14260
+#: resources/xnec2c.glade:14265
 msgid "Segment Num, End 1"
 msgstr "Segment নম্বর, প্রান্ত 1"
 
-#: resources/xnec2c.glade:14292
+#: resources/xnec2c.glade:14297
 msgid "Segment Num, End 2"
 msgstr "Segment নম্বর, প্রান্ত 2"
 
-#: resources/xnec2c.glade:14356
+#: resources/xnec2c.glade:14361
 msgid "Crossed Transmission Line"
 msgstr "ক্রসড ট্রান্সমিশন লাইন"
 
-#: resources/xnec2c.glade:14374
+#: resources/xnec2c.glade:14379
 msgid "Characteristic Impedance"
 msgstr "বৈশিষ্ট্যগত ইম্পিড্যান্স"
 
-#: resources/xnec2c.glade:14406
+#: resources/xnec2c.glade:14411
 msgid "End 1 Y Real Part (S)"
 msgstr "প্রান্ত 1 Y বাস্তব অংশ (S)"
 
-#: resources/xnec2c.glade:14438
+#: resources/xnec2c.glade:14443
 msgid "End 2 Y Real Part (S)"
 msgstr "প্রান্ত 2 Y বাস্তব অংশ (S)"
 
-#: resources/xnec2c.glade:14470
+#: resources/xnec2c.glade:14475
 msgid "Length of Tx Line (m)"
 msgstr "Tx লাইনের দৈর্ঘ্য (m)"
 
-#: resources/xnec2c.glade:14502
+#: resources/xnec2c.glade:14507
 msgid "End 1 Y Imag Part (S)"
 msgstr "প্রান্ত 1 Y কাল্পনিক অংশ (S)"
 
-#: resources/xnec2c.glade:14534
+#: resources/xnec2c.glade:14539
 msgid "End 2 Y Imag Part (S)"
 msgstr "প্রান্ত 2 Y কাল্পনিক অংশ (S)"
 
-#: resources/xnec2c.glade:14570
+#: resources/xnec2c.glade:14575
 msgid "Transmission Line"
 msgstr "ট্রান্সমিশন লাইন"
 
-#: resources/xnec2c.glade:14797
+#: resources/xnec2c.glade:14802
 msgid "Wire Element (GW & GC cards)"
 msgstr "তার উপাদান (GW & GC cards)"
 
-#: resources/xnec2c.glade:14857
+#: resources/xnec2c.glade:14862
 msgid "Wire X1"
 msgstr "তার X1"
 
-#: resources/xnec2c.glade:14889
+#: resources/xnec2c.glade:14894
 msgid "Wire X2"
 msgstr "তার X2"
 
-#: resources/xnec2c.glade:14952
+#: resources/xnec2c.glade:14957
 msgid "Wire Y1"
 msgstr "তার Y1"
 
-#: resources/xnec2c.glade:14985
+#: resources/xnec2c.glade:14990
 msgid "Wire Y2"
 msgstr "তার Y2"
 
-#: resources/xnec2c.glade:15049
+#: resources/xnec2c.glade:15054
 msgid "Wire Z1"
 msgstr "তার Z1"
 
-#: resources/xnec2c.glade:15081
+#: resources/xnec2c.glade:15086
 msgid "Wire Z2"
 msgstr "তার Z2"
 
-#: resources/xnec2c.glade:15146
+#: resources/xnec2c.glade:15151
 msgid "Wire Length"
 msgstr "তারের দৈর্ঘ্য"
 
-#: resources/xnec2c.glade:15217
+#: resources/xnec2c.glade:15222
 msgid "Wire Data"
 msgstr "তারের ডেটা"
 
-#: resources/xnec2c.glade:15229
+#: resources/xnec2c.glade:15234
 msgid "Tapered Wire"
 msgstr "টেপার্ড তার"
 
-#: resources/xnec2c.glade:15271
+#: resources/xnec2c.glade:15276
 msgid "Length Taper"
 msgstr "দৈর্ঘ্য টেপার"
 
-#: resources/xnec2c.glade:15303
+#: resources/xnec2c.glade:15308
 msgid "Diameter Seg 1"
 msgstr "ব্যাস Seg 1"
 
-#: resources/xnec2c.glade:15335
+#: resources/xnec2c.glade:15340
 msgid "Diameter Seg N"
 msgstr "ব্যাস Seg N"
 
-#: resources/xnec2c.glade:15367
+#: resources/xnec2c.glade:15372
 msgid "Diam. Taper"
 msgstr "ব্যাস টেপার"
 
-#: resources/xnec2c.glade:15403
+#: resources/xnec2c.glade:15408
 msgid "Wire Taper Data"
 msgstr "তার টেপার ডেটা"
 
-#: resources/xnec2c.glade:15568
+#: resources/xnec2c.glade:15573
 msgid "Impedance (Zo) Ohm"
 msgstr "ইম্পিড্যান্স (Zo) Ohm"
 
 # xnec2c-exempt: symbol
-#: resources/xnec2c.glade:15583
+#: resources/xnec2c.glade:15588
 msgid "50.00"
 msgstr ""
 
-#: resources/xnec2c.glade:15606
+#: resources/xnec2c.glade:15611
 msgid "Transmission Line Impedance (Zo)"
 msgstr "ট্রান্সমিশন লাইন ইম্পিড্যান্স (Zo)"
 
@@ -3173,7 +3177,7 @@ msgstr "অজানা রেন্ডারার: %s\n"
 msgid "--%s requires <width>x<height>: %s\n"
 msgstr "--%s-এর জন্য <width>x<height> প্রয়োজন: %s\n"
 
-#: src/cairo/cairo_fit.c:121
+#: src/cairo/cairo_fit.c:115
 #, c-format
 msgid ""
 "cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
@@ -3182,7 +3186,7 @@ msgstr ""
 "%dx%d\n"
 
 # xnec2c-exempt: notation
-#: src/cairo/cairo_frame.c:307
+#: src/cairo/cairo_frame.c:302
 #, c-format
 msgid ""
 "cairo: segs=%d groups=%d batch=%.1fx bins=%d deposit=%.2fms sort=%.2fms "
@@ -3605,15 +3609,15 @@ msgstr "প্রথম বিন্দু থিটা"
 msgid "Increment in R (m)"
 msgstr "R-এ বৃদ্ধি (m)"
 
-#: src/color/color_config_hooks.c:133
+#: src/color/color_config_hooks.c:134
 msgid "This overlay derives from wire-current segments; this model has none."
 msgstr "এই ওভারলে তার-কারেন্ট সেগমেন্ট থেকে উদ্ভূত; এই মডেলে তা নেই।"
 
-#: src/color/color_config_hooks.c:152
+#: src/color/color_config_hooks.c:153
 msgid "Highlight the moving wave crest as a bright comet head."
 msgstr "চলমান তরঙ্গ শীর্ষকে একটি উজ্জ্বল ধূমকেতু হেড হিসেবে হাইলাইট করুন।"
 
-#: src/color/color_config_hooks.c:153
+#: src/color/color_config_hooks.c:154
 msgid ""
 "Comet rides the animated wave crest; this projection is a static read with "
 "no moving phase."
@@ -3621,7 +3625,7 @@ msgstr ""
 "ধূমকেতু অ্যানিমেটেড তরঙ্গ শীর্ষে আরোহণ করে; এই প্রক্ষেপণ একটি স্ট্যাটিক পাঠ, যেখানে "
 "কোনো চলমান দশা নেই।"
 
-#: src/color/color_config_hooks.c:156
+#: src/color/color_config_hooks.c:157
 msgid "Mark current nodes (cyan) and antinodes (red) along the wires."
 msgstr "তার বরাবর কারেন্ট নোড (সায়ান) এবং অ্যান্টিনোড (লাল) চিহ্নিত করুন।"
 
@@ -3783,13 +3787,9 @@ msgstr "পয়েন্টগুলির জন্য মেমরি বর
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():পয়েন্টগুলির জন্য মেমরি বরাদ্দ ব্যর্থ"
 
-#: src/freqplots/freqplots_theme_menu.c:42
+#: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
 msgstr "এই থিমের কোনো ইনভার্টেড রূপ নেই"
-
-#: src/freqplots/freqplots_theme_menu.c:127
-msgid "_Invert"
-msgstr "_ইনভার্ট"
 
 #: src/freqplots/graphs/agt_graph.c:67
 msgid "Average gain"
@@ -4666,8 +4666,8 @@ msgstr "Read_Geometry: verify_segments() পাস হয়েছে\n"
 
 #: src/input.c:811
 #, c-format
-msgid "segment data error: tag=%d si=%lf, bi=%lf\n"
-msgstr "সেগমেন্ট ডেটা ত্রুটি: tag=%d si=%lf, bi=%lf\n"
+msgid "segment data error: tag=%d si=%f, bi=%f\n"
+msgstr "সেগমেন্ট ডেটা ত্রুটি: tag=%d si=%f, bi=%f\n"
 
 #: src/input.c:813
 msgid "Segment data error, zero-length line?  See console."
@@ -5010,48 +5010,48 @@ msgstr ""
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade লোড করতে ব্যর্থ: %s\n"
 
-#: src/main.c:130
+#: src/main.c:129
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s উইন্ডোয়িং ব্যাকএন্ড সনাক্ত হয়েছে\n"
 
-#: src/main.c:138
+#: src/main.c:137
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch এবং --optimize পারস্পরিক একচেটিয়া।\n"
 
-#: src/main.c:158
+#: src/main.c:157
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "ইনপুট ফাইল পাথ নাম অনেক দীর্ঘ ( > %d অক্ষর )\n"
 
-#: src/main.c:165
+#: src/main.c:164
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "অপ্রত্যাশিত আর্গুমেন্ট '%s' একটি .nec ফাইল বলে মনে হচ্ছে না\n"
 
-#: src/main.c:172
+#: src/main.c:171
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "অপ্রত্যাশিত আর্গুমেন্ট: %s\n"
 
-#: src/main.c:178
+#: src/main.c:177
 msgid "batch mode requires an input file\n"
 msgstr "ব্যাচ মোডে একটি ইনপুট ফাইল প্রয়োজন\n"
 
-#: src/main.c:188
+#: src/main.c:187
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "ডিসপ্লে খোলা যাচ্ছে না: একটি চলমান X11 বা Wayland সেশন প্রয়োজন\n"
 
-#: src/main.c:211
+#: src/main.c:210
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d প্রসেসরজুড়ে %d জব ফর্ক করা হচ্ছে।\n"
 
-#: src/main.c:224 src/main.c:232
+#: src/main.c:223 src/main.c:231
 msgid "exiting after fatal error: pipe() failed"
 msgstr "মারাত্মক ত্রুটির পর প্রস্থান: pipe() ব্যর্থ"
 
-#: src/main.c:241
+#: src/main.c:240
 msgid "exiting after fatal error: fork() failed"
 msgstr "মারাত্মক ত্রুটির পর প্রস্থান: fork() ব্যর্থ"
 
@@ -5679,7 +5679,7 @@ msgstr "Renderable সংখ্যা %u MAX_RENDERABLES (%d) অতিক্র
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "OpenGL নিষ্ক্রিয়: peel composite shader ব্যর্থ\n"
 
-#: src/opengl-engine/opengl_view_fit.c:190
+#: src/opengl-engine/opengl_view_fit.c:71
 #, c-format
 msgid ""
 "gl_view_fit_view: no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,"
@@ -5714,7 +5714,7 @@ msgstr "Peel accumulation FBO অসম্পূর্ণ\n"
 msgid "Layer depth FBO incomplete\n"
 msgstr "Layer depth FBO অসম্পূর্ণ\n"
 
-#: src/opengl-engine/opengl_view_render.c:310
+#: src/opengl-engine/opengl_view_render.c:339
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "স্বচ্ছ renderable এড়ানো হয়েছে: peel FBO অনুপলব্ধ\n"
 
@@ -6006,38 +6006,38 @@ msgid ""
 "sr\n"
 msgstr "গড় গেইন: %.4f (%.2f dBi), দক্ষতা: %.1f%%, সলিড অ্যাঙ্গেল: %.4f * pi sr\n"
 
-#: src/rc_config.c:1003
+#: src/rc_config.c:999
 #, c-format
 msgid "unable to getcwd(): %s\n"
 msgstr "getcwd() করতে অক্ষম: %s\n"
 
-#: src/rc_config.c:1007
+#: src/rc_config.c:1003
 #, c-format
 msgid "environment variable HOME is undefined, using %s\n"
 msgstr "পরিবেশ চলক HOME অনির্ধারিত, %s ব্যবহার করা হচ্ছে\n"
 
-#: src/rc_config.c:1092
+#: src/rc_config.c:1088
 #, c-format
 msgid ""
 "%s (locale=%s): only matchd %d of %lu chars, trying another locale: %s\n"
 msgstr "%s (locale=%s): মাত্র %d/%lu অক্ষর মিলেছে, অন্য locale চেষ্টা হচ্ছে: %s\n"
 
-#: src/rc_config.c:1311
+#: src/rc_config.c:1307
 #, c-format
 msgid "window: x=%-5d y=%-5d w=%-5d h=%-5d  title: \"%s\"\n"
 msgstr "উইন্ডো: x=%-5d y=%-5d w=%-5d h=%-5d  শিরোনাম: \"%s\"\n"
 
-#: src/rc_config.c:1345
+#: src/rc_config.c:1341
 #, c-format
 msgid "%s: EOF reading application version.\n"
 msgstr "%s: অ্যাপ্লিকেশন ভার্সন পড়তে EOF\n"
 
-#: src/rc_config.c:1351
+#: src/rc_config.c:1347
 #, c-format
 msgid "existing config file version differs: %s != %s\n"
 msgstr "বিদ্যমান কনফিগ ফাইল ভার্সন ভিন্ন: %s != %s\n"
 
-#: src/rc_config.c:1398
+#: src/rc_config.c:1394
 #, c-format
 msgid ""
 "gain readouts are scaled to %s, restored from the previous session; select "
@@ -6046,12 +6046,12 @@ msgstr ""
 "গেইন রিডআউট %s-এ স্কেল করা হয়েছে, পূর্ববর্তী সেশন থেকে পুনরুদ্ধার করা হয়েছে; মোট "
 "গেইন পড়তে মোট গেইন নির্বাচন করুন\n"
 
-#: src/rc_config.c:1521
+#: src/rc_config.c:1517
 #, c-format
 msgid "stat failed for %s: %s\n"
 msgstr "%s-এর জন্য stat ব্যর্থ: %s\n"
 
-#: src/rc_config.c:1527
+#: src/rc_config.c:1523
 #, c-format
 msgid ""
 "Fixed %s directory permissions from 0%o to 0%o from bug introduced in "
@@ -6060,46 +6060,46 @@ msgstr ""
 "%s ডিরেক্টরির অনুমতি 4e62893b-এ প্রবর্তিত বাগ থেকে 0%o থেকে 0%o-তে ঠিক করা "
 "হয়েছে।\n"
 
-#: src/rc_config.c:1560
+#: src/rc_config.c:1556
 #, c-format
 msgid "%s:%d: Line not parsed: %s\n"
 msgstr "%s:%d: লাইন পার্স করা হয়নি: %s\n"
 
-#: src/rc_config.c:1566
+#: src/rc_config.c:1562
 #, c-format
 msgid "%s:%d: Early end of file for %s: %s \n"
 msgstr "%s:%d: %s-এর জন্য ফাইলের অকালীন শেষ: %s \n"
 
-#: src/rc_config.c:1591
+#: src/rc_config.c:1587
 #, c-format
 msgid "%s:%d: parse error (%s): %s \n"
 msgstr "%s:%d: পার্স ত্রুটি (%s): %s \n"
 
-#: src/rc_config.c:1605
+#: src/rc_config.c:1601
 #, c-format
 msgid "Invalid sky model index %d in config, resetting to default\n"
 msgstr "কনফিগে অবৈধ sky মডেল সূচক %d, ডিফল্টে পুনরায় সেট করা হচ্ছে\n"
 
-#: src/rc_config.c:1611
+#: src/rc_config.c:1607
 #, c-format
 msgid "Invalid earth model index %d in config, resetting to default\n"
 msgstr "কনফিগে অবৈধ earth মডেল সূচক %d, ডিফল্টে পুনরায় সেট করা হচ্ছে\n"
 
-#: src/rc_config.c:1617
+#: src/rc_config.c:1613
 #, c-format
 msgid "Invalid interp method %d in config, resetting to default\n"
 msgstr "কনফিগে অবৈধ interp পদ্ধতি %d, ডিফল্টে পুনরায় সেট করা হচ্ছে\n"
 
-#: src/rc_config.c:1625
+#: src/rc_config.c:1621
 #, c-format
 msgid "Invalid flow visualization mode %d in config, resetting to default\n"
 msgstr "কনফিগে অবৈধ প্রবাহ ভিজ্যুয়ালাইজেশন মোড %d, ডিফল্টে রিসেট করা হচ্ছে\n"
 
-#: src/rc_config.c:1790
+#: src/rc_config.c:1786
 msgid "batch mode: skipping configuration save\n"
 msgstr "ব্যাচ মোড: কনফিগারেশন সংরক্ষণ এড়িয়ে যাওয়া হচ্ছে\n"
 
-#: src/rc_config.c:1812
+#: src/rc_config.c:1808
 #, c-format
 msgid "cannot open xnec2c's config file %s: %s\n"
 msgstr "xnec2c-এর কনফিগ ফাইল %s খোলা যাচ্ছে না: %s\n"
@@ -6301,7 +6301,7 @@ msgstr "fstep=%d সীমার বাইরে। calc_data.steps_total=%d"
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: সারফেস তৈরি ব্যর্থ হয়েছে (%dx%d)\n"
 
-#: src/render/render_fit.c:100
+#: src/render/render_fit.c:67
 msgid "render_fit_solve: no geometry to fit\n"
 msgstr "render_fit_solve: ফিট করার জন্য কোনো জ্যামিতি নেই\n"
 
@@ -6616,7 +6616,7 @@ msgstr "আউটপুট ডিরেক্টরি তৈরি করা �
 msgid "validation tree written to: %s\n"
 msgstr "ভ্যালিডেশন ট্রি লেখা হয়েছে: %s\n"
 
-#: src/xnec2c.c:314
+#: src/xnec2c.c:319
 #, c-format
 msgid ""
 "complex dielectric constant from file: %12.5E%+12.5Ej, requested: %12.5E"
@@ -6624,16 +6624,16 @@ msgid ""
 msgstr ""
 "ফাইল থেকে জটিল পরাবৈদ্যুতিক ধ্রুবক: %12.5E%+12.5Ej, অনুরোধকৃত: %12.5E%+12.5Ej\n"
 
-#: src/xnec2c.c:317
+#: src/xnec2c.c:322
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters():গ্রাউন্ড প্যারামিটারে ত্রুটি"
 
-#: src/xnec2c.c:741
+#: src/xnec2c.c:746
 #, c-format
 msgid "%.6f MHz: %f seconds. (%s)\n"
 msgstr "%.6f MHz: %f সেকেন্ড। (%s)\n"
 
-#: src/xnec2c.c:1072
+#: src/xnec2c.c:1077
 #, c-format
 msgid ""
 "step %d raced: dispatched %.6f MHz, current %.6f MHz; will recalculate\n"
@@ -6641,102 +6641,102 @@ msgstr ""
 "ধাপ %d রেস করেছে: প্রেরণ করা হয়েছে %.6f MHz, বর্তমান %.6f MHz; পুনরায় গণনা করা "
 "হবে\n"
 
-#: src/xnec2c.c:1198
+#: src/xnec2c.c:1205
 #, c-format
 msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "চাইল্ড %d ফর্কড কালেক্টের সময় অবৈধ পাইপ fd আছে\n"
 
-#: src/xnec2c.c:1251
+#: src/xnec2c.c:1258
 msgid "Failed to read data from forked child\n"
 msgstr "ফর্ক করা চাইল্ড থেকে ডেটা পড়তে ব্যর্থ\n"
 
-#: src/xnec2c.c:1525
+#: src/xnec2c.c:1532
 #, c-format
 msgid "nearest step %g MHz differs from requested %g MHz\n"
 msgstr "নিকটতম ধাপ %g MHz অনুরোধকৃত %g MHz থেকে ভিন্ন\n"
 
-#: src/xnec2c.c:1529
+#: src/xnec2c.c:1536
 #, c-format
 msgid "post-sweep frequency set to %.4f MHz (VSWR %.2f)\n"
 msgstr "সুইপ-পরবর্তী ফ্রিকোয়েন্সি %.4f MHz-এ নির্ধারিত (VSWR %.2f)\n"
 
-#: src/xnec2c.c:1567
+#: src/xnec2c.c:1574
 #, c-format
 msgid "Frequency loop elapsed time: %f seconds. (%s)\n"
 msgstr "ফ্রিকোয়েন্সি লুপ অতিবাহিত সময়: %f সেকেন্ড। (%s)\n"
 
-#: src/xnec2c.c:1612
+#: src/xnec2c.c:1619
 #, c-format
 msgid "batch canvas %d drew no frame at %dx%d\n"
 msgstr "ব্যাচ ক্যানভাস %d %dx%d-এ কোনো ফ্রেম আঁকেনি\n"
 
-#: src/xnec2c.c:1741
+#: src/xnec2c.c:1748
 #, c-format
 msgid "radiation pattern PNG capture: no computed step for %s\n"
 msgstr "বিকিরণ প্যাটার্ন PNG ক্যাপচার: %s-এর জন্য কোনো গণিতকৃত ধাপ নেই\n"
 
-#: src/xnec2c.c:1812
+#: src/xnec2c.c:1819
 #, c-format
 msgid "radiation pattern PNG capture failed for %s\n"
 msgstr "%s-এর জন্য বিকিরণ প্যাটার্ন PNG ক্যাপচার ব্যর্থ হয়েছে\n"
 
-#: src/xnec2c.c:1818
+#: src/xnec2c.c:1825
 #, c-format
 msgid "radiation pattern PNG save failed for %s: %s\n"
 msgstr "%s-এর জন্য বিকিরণ প্যাটার্ন PNG সংরক্ষণ ব্যর্থ হয়েছে: %s\n"
 
-#: src/xnec2c.c:1823
+#: src/xnec2c.c:1830
 #, c-format
 msgid "wrote radiation pattern PNG: %s\n"
 msgstr "বিকিরণ প্যাটার্ন PNG লেখা হয়েছে: %s\n"
 
-#: src/xnec2c.c:1860
+#: src/xnec2c.c:1867
 #, c-format
 msgid "multiple radiation pattern PNG formats require a .png filename: %s\n"
 msgstr "একাধিক বিকিরণ প্যাটার্ন PNG বিন্যাসের জন্য একটি .png ফাইলনাম প্রয়োজন: %s\n"
 
-#: src/xnec2c.c:1917
+#: src/xnec2c.c:1924
 #, c-format
 msgid "--%s capture failed for %s\n"
 msgstr "--%s %s-এর ক্যাপচার ব্যর্থ হয়েছে\n"
 
-#: src/xnec2c.c:1921
+#: src/xnec2c.c:1928
 #, c-format
 msgid "--%s save failed for %s: %s\n"
 msgstr "--%s %s-এর সংরক্ষণ ব্যর্থ হয়েছে: %s\n"
 
-#: src/xnec2c.c:1926
+#: src/xnec2c.c:1933
 #, c-format
 msgid "--%s wrote %s\n"
 msgstr "--%s %s লেখা হয়েছে\n"
 
-#: src/xnec2c.c:1967
+#: src/xnec2c.c:1974
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png-এর জন্য --batch প্রয়োজন\n"
 
-#: src/xnec2c.c:1976
+#: src/xnec2c.c:1983
 #, c-format
 msgid "--%s requires --batch\n"
 msgstr "--%s-এর জন্য --batch প্রয়োজন\n"
 
-#: src/xnec2c.c:2056
+#: src/xnec2c.c:2063
 #, c-format
 msgid "sweep runs %d workers of %d threads each\n"
 msgstr "সুইপ প্রতিটিতে %d থ্রেডের %d কর্মী চালায়\n"
 
-#: src/xnec2c.c:2348
+#: src/xnec2c.c:2355
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread শুরু করতে ব্যর্থ\n"
 
-#: src/xnec2c.c:2527
+#: src/xnec2c.c:2534
 msgid "Frequency Sweep"
 msgstr "ফ্রিকোয়েন্সি সুইপ"
 
-#: src/xnec2c.c:2528
+#: src/xnec2c.c:2535
 msgid "Recalculate the frequency sweep?"
 msgstr "ফ্রিকোয়েন্সি সুইপ কি পুনরায় গণনা করা হবে?"
 
-#: src/xnec2c.c:2529
+#: src/xnec2c.c:2536
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."
