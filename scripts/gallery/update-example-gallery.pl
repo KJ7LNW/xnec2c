@@ -16,6 +16,7 @@ use POSIX ();
 use FindBin qw($RealBin);
 use lib $RealBin;
 use GalleryBundle qw(
+	gallery_source_dir
 	load_file
 	build_deck_bundle
 	build_manifest_bundle
@@ -42,7 +43,9 @@ exit main() unless caller;
 # Print command-line usage.
 sub usage
 {
-	print <<'USAGE';
+	my $output_dir = gallery_source_dir();
+
+	print <<"USAGE";
 Usage: update-example-gallery.pl [options] <command> <deck.nec>...
 
 Commands:
@@ -54,7 +57,7 @@ Options:
   --binary <path>                xnec2c executable (default: src/xnec2c; render only)
   --config <path>                render configuration file (render only)
                                  (default: scripts/gallery/gallery-render.conf)
-  --output-dir <dir>             gallery output directory (default: doc/images/gallery)
+  --output-dir <dir>             gallery output directory (default: $output_dir)
   --rdpat-png-format <formats>   comma-separated x, y, z, iso, or quad values
                                  (default: x,y,z,iso)
   --force                        re-render image sets that already exist
@@ -704,12 +707,9 @@ sub main
 	my $context    = {
 		binary         => File::Spec->catfile($repo_root, 'src',     'xnec2c'),
 		config         => File::Spec->catfile($repo_root, 'scripts', 'gallery', 'gallery-render.conf'),
-		decks_js_label => File::Spec->catfile('doc', 'images', 'gallery', 'decks.js'),
 		force          => 0,
 		format_text    => 'x,y,z,iso',
-		manifest_js_label => File::Spec->catfile('doc', 'images', 'gallery', 'manifest.js'),
-		manifest_label => File::Spec->catfile('doc', 'images', 'gallery', 'manifest.json'),
-		output_dir     => File::Spec->catdir($repo_root, 'doc', 'images', 'gallery'),
+		output_dir     => gallery_source_dir($repo_root),
 		repo_root      => $repo_root,
 	};
 
@@ -741,6 +741,11 @@ sub main
 	$context->{manifest_path}    = File::Spec->catfile($context->{output_dir}, 'manifest.json');
 	$context->{decks_js_path}    = File::Spec->catfile($context->{output_dir}, 'decks.js');
 	$context->{manifest_js_path} = File::Spec->catfile($context->{output_dir}, 'manifest.js');
+
+	# Name each artifact in diagnostics by its path under the source tree.
+	$context->{manifest_label}    = File::Spec->abs2rel($context->{manifest_path},    $repo_root);
+	$context->{decks_js_label}    = File::Spec->abs2rel($context->{decks_js_path},    $repo_root);
+	$context->{manifest_js_label} = File::Spec->abs2rel($context->{manifest_js_path}, $repo_root);
 	my @decks = @ARGV;
 	validate_deck_arguments($repo_root, \@decks);
 	$context->{force} = ($context->{force} || $command eq 'render') ? 1 : 0;

@@ -12,6 +12,7 @@ Run from the top source directory.
 
 import argparse
 import re
+import subprocess
 import sys
 from dataclasses import dataclass
 from html.parser import HTMLParser
@@ -40,13 +41,27 @@ class AssetDirectory:
     assets: list[PurePosixPath]
 
 
-MANUAL_SPEC = FragmentSpec(
-    page=PurePosixPath('doc/xnec2c.html'),
-    generated_dirs=(PurePosixPath('images/gallery'),),
-    install_dir='$(docdir)',
-    variable_prefix='dochtml',
-    reference_attributes=frozenset({'src', 'href'}),
-)
+GALLERY_MODULE_DIR = 'scripts/gallery'
+
+
+def gallery_dir():
+    """Return the page-relative gallery directory the gallery module names."""
+    result = subprocess.run(
+        ['perl', '-I', GALLERY_MODULE_DIR, '-MGalleryBundle=GALLERY_DIR',
+         '-e', 'print STDOUT GALLERY_DIR'],
+        check=True, capture_output=True, text=True)
+    return PurePosixPath(result.stdout)
+
+
+def manual_spec():
+    """Return the manual's FragmentSpec, its generated gallery excluded."""
+    return FragmentSpec(
+        page=PurePosixPath('doc/xnec2c.html'),
+        generated_dirs=(gallery_dir(),),
+        install_dir='$(docdir)',
+        variable_prefix='dochtml',
+        reference_attributes=frozenset({'src', 'href'}),
+    )
 
 
 class ReferenceCollector(HTMLParser):
@@ -179,8 +194,9 @@ def parse_args():
 def main():
     """Write the manual's asset fragment to the path the command line names."""
     args = parse_args()
-    groups = group_by_directory(MANUAL_SPEC, page_assets(MANUAL_SPEC))
-    Path(args.fragment).write_text(render_fragment(MANUAL_SPEC, groups),
+    spec = manual_spec()
+    groups = group_by_directory(spec, page_assets(spec))
+    Path(args.fragment).write_text(render_fragment(spec, groups),
                                    encoding='utf-8')
     return 0
 

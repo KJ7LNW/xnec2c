@@ -12,7 +12,17 @@ use Exporter qw(import);
 use File::Spec;
 use JSON::PP qw(decode_json);
 
+# Name the gallery directory relative to the manual page that loads it; the
+# published site root serves the manual's directory. doc/xnec2c.html,
+# doc/js/gallery.js and .gitignore name it literally.
+use constant GALLERY_DIR => 'images/gallery';
+
+# Name the manual's directory relative to the top source directory.
+use constant MANUAL_DIR => 'doc';
+
 our @EXPORT_OK = qw(
+	GALLERY_DIR
+	gallery_source_dir
 	load_file
 	build_deck_bundle
 	build_manifest_bundle
@@ -21,6 +31,15 @@ our @EXPORT_OK = qw(
 	load_browser_assignment
 	validate_membership
 );
+
+# Join the leading directories, the manual's directory, and the gallery
+# directory into the gallery's source tree path.
+sub gallery_source_dir
+{
+	my (@leading_dirs) = @_;
+
+	return File::Spec->catdir(@leading_dirs, MANUAL_DIR, split m{/}, GALLERY_DIR);
+}
 
 # Read a complete file without changing its bytes.
 sub load_file

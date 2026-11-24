@@ -16,6 +16,7 @@ use HTTP::Tiny;
 use FindBin qw($RealBin);
 use lib $RealBin;
 use GalleryBundle qw(
+	GALLERY_DIR
 	build_deck_bundle
 	parse_browser_assignment
 	validate_membership
@@ -60,7 +61,7 @@ sub artifact_url
 	my ($base_url, $name) = @_;
 	(my $root = $base_url) =~ s{/+\z}{};
 
-	return "$root/images/gallery/$name";
+	return join '/', $root, GALLERY_DIR, $name;
 }
 
 # Compare the published deck-source bundle against the local examples tree.

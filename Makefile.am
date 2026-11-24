@@ -142,9 +142,9 @@ dist_docimages_DATA += doc/images/web-heading.xcf
 # membership from the manual, and automake re-reads the fragment whenever the
 # rule below rewrites it.
 include $(srcdir)/doc/doc_assets.am
-$(srcdir)/doc/doc_assets.am: $(srcdir)/doc/xnec2c.html $(srcdir)/scripts/doc/doc_assets_fragment.py
+$(srcdir)/doc/doc_assets.am: $(srcdir)/doc/xnec2c.html $(srcdir)/scripts/doc/doc_assets_fragment.py $(srcdir)/scripts/gallery/GalleryBundle.pm
 	$(AM_V_GEN)cd $(srcdir) && scripts/doc/doc_assets_fragment.py doc/doc_assets.am
-EXTRA_DIST += scripts/doc/doc_assets_fragment.py
+EXTRA_DIST += scripts/doc/doc_assets_fragment.py scripts/gallery/GalleryBundle.pm
 
 # Mark the manual's working-tree changes against a git revision, write the
 # resulting page beside the manual so its image references resolve, and open it
