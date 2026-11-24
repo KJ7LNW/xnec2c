@@ -56,8 +56,16 @@ get_line_ranges() {
   }
 }
 
-for po in po/*.po; do
-  lang=$(basename "$po" .po)
+# Read the registered languages first so the reader's exit status gates the
+# loop, then split them into words as the make recipes do.
+linguas_path=po/LINGUAS
+if ! languages=$(scripts/po/po-linguas.sh "$linguas_path"); then
+  echo "$0: err: $linguas_path: unreadable" >&2
+  exit 1
+fi
+
+for lang in $languages; do
+  po="po/$lang.po"
 
   # Read the statistics in the C locale, since gettext translates their wording.
   if ! stats=$(LC_ALL=C msgfmt --statistics -o /dev/null "$po" 2>&1); then

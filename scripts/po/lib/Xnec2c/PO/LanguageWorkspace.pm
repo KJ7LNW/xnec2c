@@ -6,7 +6,7 @@ use utf8;
 
 use Exporter qw(import);
 
-use Xnec2c::PO::CatalogState qw(catalog_exemption_records);
+use Xnec2c::PO::CatalogState qw(catalog_exemption_records catalog_path);
 use Xnec2c::PO::TranslationMap qw(map_path output_path prompt_path);
 
 our @EXPORT_OK = qw(
@@ -14,16 +14,41 @@ our @EXPORT_OK = qw(
 	preceding_exemptions validate_language
 );
 
-# Enumerate catalog languages from repository filenames.
-sub catalog_languages
+my $LINGUAS_PATH = 'po/LINGUAS';
+
+# Read the language codes po/LINGUAS registers, in file order, through the
+# LINGUAS reader the catalog gates share.
+sub registered_languages
 {
-	opendir my $directory, 'po' or die "po: unable to read directory: $!\n";
-	my @languages = sort map { /\A([A-Za-z_]+)\.po\z/ ? $1 : () }
-		readdir $directory;
-	closedir $directory or die "po: unable to close directory: $!\n";
-	die "po: no translation catalogs found\n" if !@languages;
+	my $reader_path = 'scripts/po/po-linguas.sh';
+
+	open my $reader, '-|', $reader_path, $LINGUAS_PATH
+		or die "$LINGUAS_PATH: unable to run $reader_path: $!\n";
+	chomp(my @languages = <$reader>);
+	close $reader;
+	die "$LINGUAS_PATH: $reader_path failed (wait status $?)\n" if $? != 0;
 
 	return @languages;
+}
+
+# Enumerate the languages po/LINGUAS registers in sorted order, holding each to
+# a valid code whose catalog exists, since consumers derive catalog paths from
+# every returned language.
+sub catalog_languages
+{
+	my @languages = registered_languages();
+
+	die "$LINGUAS_PATH: registers no language\n" if scalar(@languages) == 0;
+
+	for my $lang (@languages)
+	{
+		validate_language($lang);
+		my $catalog_path = catalog_path($lang);
+		die "$catalog_path: catalog absent (registered in $LINGUAS_PATH)\n"
+			if !-f $catalog_path;
+	}
+
+	return sort @languages;
 }
 
 # Validate a language before deriving repository paths from it.
