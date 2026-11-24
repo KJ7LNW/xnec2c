@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-23 17:34-0800\n"
+"POT-Creation-Date: 2026-11-24 00:43-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3101,6 +3101,7 @@ msgstr ""
 "앙값 사용"
 
 #: src/args.c:287
+#, c-format
 msgid "config file path too long\n"
 msgstr "설정 파일 경로가 너무 깁니다\n"
 
@@ -3149,6 +3150,7 @@ msgid "--threads and %s=%s both state a thread count, unset one\n"
 msgstr "--threads 및 %s=%s 모두 스레드 수를 지정하므로 하나를 해제합니다\n"
 
 #: src/args.c:943
+#, c-format
 msgid "Forking disabled!\n"
 msgstr "포크가 비활성화되었습니다!\n"
 
@@ -3189,6 +3191,7 @@ msgid "segment connection error for segment %5d\n"
 msgstr "세그먼트 %5d에 대한 세그먼트 연결 오류\n"
 
 #: src/calculations.c:118
+#, c-format
 msgid "Segment connection error in tbf()"
 msgstr "tbf()에서 세그먼트 연결 오류"
 
@@ -3203,10 +3206,12 @@ msgid "segment connection error for segment %d\n"
 msgstr "세그먼트 %d에 대한 세그먼트 연결 오류\n"
 
 #: src/calculations.c:1073
+#, c-format
 msgid "Segment connection error in sbf()"
 msgstr "sbf()에서 세그먼트 연결 오류"
 
 #: src/calculations.c:1291
+#, c-format
 msgid "Segment connection error in trio()"
 msgstr "trio()에서 세그먼트 연결 오류"
 
@@ -3284,6 +3289,7 @@ msgid "Antenna Temperature"
 msgstr "안테나 온도"
 
 #: src/callbacks.c:84
+#, c-format
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3326,6 +3332,7 @@ msgid "xnec2c geometry optimizer"
 msgstr "xnec2c 기하 최적화기"
 
 #: src/callbacks.c:447
+#, c-format
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
@@ -3336,6 +3343,7 @@ msgid "Xnec2c Optimizer"
 msgstr "Xnec2c 최적화기"
 
 #: src/callbacks.c:468
+#, c-format
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3350,12 +3358,14 @@ msgid "Are you sure you wish to close this window?"
 msgstr "이 창을 닫으시겠습니까?"
 
 #: src/callbacks.c:1503
+#, c-format
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr ""
 "이 디스플레이에서 OpenGL을 사용할 수 없습니다. 렌더러를 활성화할 수 없습니"
 "다.\n"
 
 #: src/callbacks.c:1811
+#, c-format
 msgid "No open NEC2 input file"
 msgstr "열린 NEC2 입력 파일 없음"
 
@@ -3373,6 +3383,7 @@ msgstr "제목없음.nec"
 
 #: src/callbacks.c:2401 src/callbacks.c:2421 src/callbacks.c:2441
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
+#, c-format
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
 "You may need to save the NEC2 Editor data first."
@@ -3391,10 +3402,12 @@ msgid "invalid segment scale encoding %d, using model radius\n"
 msgstr "잘못된 세그먼트 스케일 인코딩 %d, 모델 반경 사용\n"
 
 #: src/chroma/chroma_source.c:334
+#, c-format
 msgid "far-field contribution needs radiation pattern data\n"
 msgstr "원거리장 기여도에는 방사 패턴 데이터가 필요합니다\n"
 
 #: src/cmnd_edit.c:109
+#, c-format
 msgid ""
 "Get_Command_Data(): Error reading\n"
 "row data: Invalid list iterator"
@@ -3403,6 +3416,7 @@ msgstr ""
 "잘못된 리스트 반복자"
 
 #: src/cmnd_edit.c:152
+#, c-format
 msgid ""
 "Set_Command_Data(): Error writing row data\n"
 "Please re-select row"
@@ -3772,10 +3786,12 @@ msgid "Not available: excitation defines no feedpoint"
 msgstr "사용할 수 없음: 여기가 급전점을 정의하지 않음"
 
 #: src/freqplots/freqplots_graph.c:137 src/freqplots/graphs/smith_graph.c:565
+#, c-format
 msgid "memory allocation for points failed\n"
 msgstr "포인트 메모리 할당 실패\n"
 
 #: src/freqplots/freqplots_graph.c:138 src/freqplots/graphs/smith_graph.c:566
+#, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): 포인트 메모리 할당 실패"
 
@@ -3952,6 +3968,7 @@ msgstr "VSWR vs 주파수"
 
 #: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
 #: src/geom_edit.c:2703
+#, c-format
 msgid ""
 "Error reading row data\n"
 "Invalid list iterator"
@@ -3960,6 +3977,7 @@ msgstr ""
 "잘못된 리스트 반복자"
 
 #: src/geom_edit.c:151 src/geom_edit.c:181
+#, c-format
 msgid ""
 "Error writing row data\n"
 "Please re-select row"
@@ -3968,6 +3986,7 @@ msgstr ""
 "행을 다시 선택하십시오"
 
 #: src/geom_edit.c:583
+#, c-format
 msgid ""
 "GC card preceded by GW card\n"
 "with non-zero wire radius"
@@ -3976,10 +3995,12 @@ msgstr ""
 "GW 카드가 있습니다"
 
 #: src/geom_edit.c:587
+#, c-format
 msgid "No GW card before GC card"
 msgstr "GC 카드 앞에 GW 카드가 없습니다"
 
 #: src/geom_edit.c:611
+#, c-format
 msgid ""
 "No GC card after a GW card\n"
 "with a zero wire radius"
@@ -3988,6 +4009,7 @@ msgstr ""
 "GC 카드가 없습니다"
 
 #: src/geom_edit.c:620
+#, c-format
 msgid ""
 "GC card follows a GW card\n"
 "with non-zero wire radius"
@@ -3996,6 +4018,7 @@ msgstr ""
 "GW 카드 뒤에 있습니다"
 
 #: src/geom_edit.c:1025
+#, c-format
 msgid ""
 "SC card preceded by SP card\n"
 "with arbitrary patch type"
@@ -4004,10 +4027,12 @@ msgstr ""
 "SP 카드가 있습니다"
 
 #: src/geom_edit.c:1037
+#, c-format
 msgid "No SP or SM card before SC card"
 msgstr "SC 카드 앞에 SP 또는 SM 카드가 없습니다"
 
 #: src/geom_edit.c:1057
+#, c-format
 msgid ""
 "No SC card after an SP card\n"
 "with non-arbitrary patch type"
@@ -4016,6 +4041,7 @@ msgstr ""
 "SC 카드가 없습니다"
 
 #: src/geom_edit.c:1064
+#, c-format
 msgid ""
 "SC card follows an SP card\n"
 "with arbitrary patch type"
@@ -4024,6 +4050,7 @@ msgstr ""
 "SP 카드 뒤에 있습니다"
 
 #: src/geom_edit.c:1077
+#, c-format
 msgid "No SC card after an SM card"
 msgstr "SM 카드 뒤에 SC 카드가 없습니다"
 
@@ -4060,18 +4087,22 @@ msgid "SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"
 msgstr "SY 정의 (예: FREQ=146, LAMBDA=300/FREQ):"
 
 #: src/geom_edit.c:2970
+#, c-format
 msgid "NEC2 editor window not open"
 msgstr "NEC2 편집기 창이 열려 있지 않습니다"
 
 #: src/geometry.c:118
+#, c-format
 msgid "Number of segments < 1"
 msgstr "세그먼트 수 < 1"
 
 #: src/geometry.c:155
+#, c-format
 msgid "Arc angle exceeds 360 degrees"
 msgstr "호 각도가 360도를 초과합니다"
 
 #: src/geometry.c:294
+#, c-format
 msgid "Error in conect(): np > n"
 msgstr "conect() 오류: np > n"
 
@@ -4081,6 +4112,7 @@ msgid "geometry data error: segment %d extends below ground\n"
 msgstr "기하 데이터 오류: 세그먼트 %d이(가) 접지면 아래로 확장됩니다\n"
 
 #: src/geometry.c:326 src/geometry.c:374
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4094,6 +4126,7 @@ msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "기하 데이터 오류: 세그먼트 %d이(가) 접지면에 위치합니다\n"
 
 #: src/geometry.c:384
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4103,10 +4136,12 @@ msgstr ""
 
 # xnec2c-exempt: name
 #: src/geometry.c:474
+#, c-format
 msgid "ipsym = 0\n"
 msgstr ""
 
 #: src/geometry.c:475
+#, c-format
 msgid "Error: ipsym = 0"
 msgstr "오류: ipsym = 0"
 
@@ -4120,6 +4155,7 @@ msgstr ""
 "maxcon=%lu\n"
 
 #: src/geometry.c:530
+#, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4128,6 +4164,7 @@ msgstr ""
 "중첩되거나 거의 연결된 세그먼트를 확인하십시오\n"
 
 #: src/geometry.c:744
+#, c-format
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4136,6 +4173,7 @@ msgstr ""
 "니다\n"
 
 #: src/geometry.c:745
+#, c-format
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4149,6 +4187,7 @@ msgid "no segment has an itag of %d\n"
 msgstr "itag가 %d인 세그먼트가 없습니다\n"
 
 #: src/geometry.c:781
+#, c-format
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4172,10 +4211,12 @@ msgstr ""
 "기하에서 유효한 태그는 GW/GA/GH/SP 카드에 할당된 것들입니다."
 
 #: src/geometry.c:1064
+#, c-format
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "사변형 패치의 모서리가 동일 평면에 있지 않습니다\n"
 
 #: src/geometry.c:1065
+#, c-format
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4189,6 +4230,7 @@ msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "기하 데이터 오류: 세그먼트 %d이(가) 대칭면에 위치합니다\n"
 
 #: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4202,6 +4244,7 @@ msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "기하 데이터 오류: 패치 %d이(가) 대칭면에 위치합니다\n"
 
 #: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4381,6 +4424,7 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "%d개 세그먼트에 대한 중첩 검사를 강제 실행합니다\n"
 
 #: src/geometry.c:1849
+#, c-format
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr "verify_segments() 주파수 의존 검사 건너뜀 - 주파수 데이터 없음\n"
@@ -4390,6 +4434,7 @@ msgid "Gnuplot Data"
 msgstr "Gnuplot 데이터"
 
 #: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
+#, c-format
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "저장할 수 없습니다: 주파수 스윕이 완료되지 않았습니다"
 
@@ -4420,6 +4465,7 @@ msgid "Touchstone Data"
 msgstr "Touchstone 데이터"
 
 #: src/gnuplot.c:104
+#, c-format
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4480,6 +4526,7 @@ msgid "Save Currents and Charges to CSV"
 msgstr "전류 및 전하를 CSV로 저장"
 
 #: src/gnuplot.c:584
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4492,6 +4539,7 @@ msgid "Save Patch Currents to CSV"
 msgstr "패치 전류를 CSV로 저장"
 
 #: src/gnuplot.c:650
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4500,10 +4548,12 @@ msgstr ""
 "야 합니다."
 
 #: src/gnuplot.c:660
+#, c-format
 msgid "No surface patches in this model."
 msgstr "이 모델에 표면 패치가 없습니다."
 
 #: src/ground.c:110
+#, c-format
 msgid "b less than a"
 msgstr "b가 a보다 작습니다"
 
@@ -4513,6 +4563,7 @@ msgid "step size limited at z = %12.5E\n"
 msgstr "Z = %12.5E에서 스텝 크기가 제한되었습니다\n"
 
 #: src/input.c:150
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Unexpected EOF (End of File)"
@@ -4521,6 +4572,7 @@ msgstr ""
 "예기치 않은 EOF (파일 끝)"
 
 #: src/input.c:164
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Comment mnemonic short or missing"
@@ -4529,6 +4581,7 @@ msgstr ""
 "주석 니모닉이 짧거나 누락되었습니다"
 
 #: src/input.c:175
+#, c-format
 msgid ""
 "Read_Comments():\n"
 " Error reading input file\n"
@@ -4539,6 +4592,7 @@ msgstr ""
 "주석 니모닉이 올바르지 않습니다"
 
 #: src/input.c:215
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Tag number is negative"
@@ -4547,6 +4601,7 @@ msgstr ""
 "태그 번호가 음수입니다"
 
 #: src/input.c:222
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
@@ -4555,6 +4610,7 @@ msgstr ""
 "세그먼트 수가 1 미만입니다"
 
 #: src/input.c:229
+#, c-format
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "경고 - 세그먼트 수가 1000000을 초과합니다\n"
 
@@ -4575,6 +4631,7 @@ msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "%s 데이터 카드 오류: 잘못된 문자 '%c', 열 %d\n"
 
 #: src/input.c:301
+#, c-format
 msgid ""
 "Data card error\n"
 "Spurious character in card"
@@ -4588,18 +4645,22 @@ msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: \"%s\"에 대한 표현식 평가 실패\n"
 
 #: src/input.c:413
+#, c-format
 msgid "SY card: no line content available\n"
 msgstr "SY 카드: 사용 가능한 라인 내용이 없습니다\n"
 
 #: src/input.c:414
+#, c-format
 msgid "SY card: no line content available"
 msgstr "SY 카드: 사용 가능한 라인 내용이 없습니다"
 
 #: src/input.c:431
+#, c-format
 msgid "SY card: missing '=' in definition\n"
 msgstr "SY 카드: 정의에서 '='가 누락되었습니다\n"
 
 #: src/input.c:432
+#, c-format
 msgid "SY card: missing '=' in definition"
 msgstr "SY 카드: 정의에서 '='가 누락되었습니다"
 
@@ -4609,6 +4670,7 @@ msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "SY 카드: %s=%s에 대한 심볼 정의 실패\n"
 
 #: src/input.c:652
+#, c-format
 msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
@@ -4617,18 +4679,22 @@ msgstr ""
 "테이퍼 도선에 대한 GC 카드가 없습니다"
 
 #: src/input.c:659
+#, c-format
 msgid "Geometry GC data card error"
 msgstr "기하 GC 데이터 카드 오류"
 
 #: src/input.c:675
+#, c-format
 msgid "Geometry GX data card error"
 msgstr "기하 GX 데이터 카드 오류"
 
 #: src/input.c:698
+#, c-format
 msgid "Geometry GR data card error"
 msgstr "기하 GR 데이터 카드 오류"
 
 #: src/input.c:752
+#, c-format
 msgid "No geometry data cards"
 msgstr "기하 데이터 카드가 없습니다"
 
@@ -4637,6 +4703,7 @@ msgid "Probable invalid segment geometry.\n"
 msgstr "세그먼트 기하가 유효하지 않을 수 있습니다.\n"
 
 #: src/input.c:764
+#, c-format
 msgid ""
 "Invalid segment geometry.\n"
 "See warnings in the console for detail.\n"
@@ -4647,10 +4714,12 @@ msgstr ""
 "계속 시도 중..."
 
 #: src/input.c:770
+#, c-format
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "세그먼트 기하가 유효하지 않을 수 있습니다 (위 참조)\n"
 
 #: src/input.c:774
+#, c-format
 msgid "Read_Geometry: verify_segments() passed\n"
 msgstr "Read_Geometry: verify_segments() 통과\n"
 
@@ -4660,23 +4729,28 @@ msgid "segment data error: tag=%d si=%f, bi=%f\n"
 msgstr "세그먼트 데이터 오류: tag=%d si=%f, bi=%f\n"
 
 #: src/input.c:813
+#, c-format
 msgid "Segment data error, zero-length line?  See console."
 msgstr "세그먼트 데이터 오류, 길이가 0인 라인?  콘솔을 확인하십시오."
 
 #: src/input.c:853
+#, c-format
 msgid "Move GM data card error"
 msgstr "이동 GM 데이터 카드 오류"
 
 #: src/input.c:869 src/input.c:910 src/input.c:927 src/input.c:945
 #: src/input.c:953
+#, c-format
 msgid "Patch data card error"
 msgstr "패치 데이터 카드 오류"
 
 #: src/input.c:891
+#, c-format
 msgid "Patch data error"
 msgstr "패치 데이터 오류"
 
 #: src/input.c:1000
+#, c-format
 msgid ""
 "\"GF\" card (NGF solution)\n"
 "is not supported"
@@ -4685,6 +4759,7 @@ msgstr ""
 "지원되지 않습니다"
 
 #: src/input.c:1005
+#, c-format
 msgid "Ignoring CM card in geometry"
 msgstr "기하에서 CM 카드 무시"
 
@@ -4700,18 +4775,22 @@ msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
 #: src/input.c:1025
+#, c-format
 msgid "Command card in geometry section"
 msgstr "기하 섹션 내 명령 카드"
 
 #: src/input.c:1027
+#, c-format
 msgid "Unrecognized geometry card"
 msgstr "인식할 수 없는 기하 카드"
 
 #: src/input.c:1051
+#, c-format
 msgid "Failed to initialize symbol table\n"
 msgstr "심볼 테이블 초기화 실패\n"
 
 #: src/input.c:1052
+#, c-format
 msgid "Failed to initialize symbol table"
 msgstr "심볼 테이블 초기화 실패"
 
@@ -4721,14 +4800,17 @@ msgid "No FR card: computing one step at the NEC-2 default %g MHz\n"
 msgstr "FR 카드가 없습니다: NEC-2 기본값 %g MHz에서 한 단계를 계산합니다\n"
 
 #: src/input.c:1283
+#, c-format
 msgid "ignoring CM card in commands\n"
 msgstr "명령에서 CM 카드 무시\n"
 
 #: src/input.c:1284
+#, c-format
 msgid "Ignoring CM card in commands"
 msgstr "명령에서 CM 카드 무시"
 
 #: src/input.c:1296
+#, c-format
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "CP 카드를 무시합니다: 결합 계산이 구현되지 않았습니다\n"
 
@@ -4738,10 +4820,12 @@ msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "%g MHz에서 중복 FR 카드를 건너뜀\n"
 
 #: src/input.c:1457
+#, c-format
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "FR 카드에서 최대 주파수 <= 최소 주파수\n"
 
 #: src/input.c:1458
+#, c-format
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
@@ -4750,6 +4834,7 @@ msgstr ""
 "FR 카드 데이터를 확인하고 수정하십시오"
 
 #: src/input.c:1481
+#, c-format
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates "
@@ -4759,10 +4844,12 @@ msgstr ""
 "GE 카드는 접지가 있다고 지정하지만 GN은 그렇지 않습니다."
 
 #: src/input.c:1495
+#, c-format
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "접지가 지정된 상태에서 theta > 90도\n"
 
 #: src/input.c:1496 src/radiation.c:911
+#, c-format
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4771,6 +4858,7 @@ msgstr ""
 "RP 카드 데이터를 확인하고 수정하십시오"
 
 #: src/input.c:1505
+#, c-format
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
@@ -4778,6 +4866,7 @@ msgstr ""
 "래디얼 도선 g.s. 근사: Sommerfeld 접지 옵션과 함께 사용할 수 없습니다\n"
 
 #: src/input.c:1506
+#, c-format
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
@@ -4794,6 +4883,7 @@ msgstr ""
 "로딩 카드 번호 %d의 데이터 오류: itag step1 %d가 itag step2 %d보다 큽니다\n"
 
 #: src/input.c:1556
+#, c-format
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
@@ -4802,12 +4892,14 @@ msgstr ""
 "itag step1이 itag step2보다 큽니다"
 
 #: src/input.c:1685
+#, c-format
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr ""
 "전송선 임피던스 = 0: 유효하지 않습니다. NT 또는 TL 카드를 수정하십시오\n"
 
 #: src/input.c:1686
+#, c-format
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
@@ -4816,10 +4908,12 @@ msgstr ""
 "유효하지 않습니다. NT 또는 TL 카드를 수정하십시오"
 
 #: src/input.c:1697
+#, c-format
 msgid "Segment number error in TL or NT card\n"
 msgstr "TL 또는 NT 카드에서 세그먼트 번호 오류\n"
 
 #: src/input.c:1698
+#, c-format
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
@@ -4828,18 +4922,22 @@ msgstr ""
 "세그먼트 번호 오류"
 
 #: src/input.c:1720
+#, c-format
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr "PQ 및 PT 카드를 무시합니다: 파일 출력이 구현되지 않았습니다\n"
 
 #: src/input.c:1724
+#, c-format
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "PL 카드를 무시합니다: 파일 플로팅이 지원되지 않습니다\n"
 
 #: src/input.c:1730
+#, c-format
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "표면파 옵션 (I1=1): RP 명령이 구현되지 않았습니다\n"
 
 #: src/input.c:1731
+#, c-format
 msgid ""
 "Surface wave option (I1=1)\n"
 "of RP command not implemented"
@@ -4848,6 +4946,7 @@ msgstr ""
 "RP 명령이 구현되지 않았습니다"
 
 #: src/input.c:1763
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
@@ -4855,6 +4954,7 @@ msgstr ""
 "접지가 지정된 상태에서 Theta > 90도: RP 카드 데이터를 확인하고 수정하십시오\n"
 
 #: src/input.c:1764
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4871,16 +4971,19 @@ msgid "Unrecognized command card"
 msgstr "인식할 수 없는 명령 카드"
 
 #: src/input.c:1879
+#, c-format
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
 msgstr "RP 카드 누락 또는 표면파: 방사 패턴 및 이득 계산이 비활성화됨\n"
 
 #: src/input.c:1906
+#, c-format
 msgid "Unexpected exit from while loop"
 msgstr "while 루프에서 예기치 않은 종료"
 
 #: src/input.c:1997
+#, c-format
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
@@ -4888,6 +4991,7 @@ msgstr ""
 "명령 데이터 카드 오류: 입력 파일을 읽는 중 예기치 않은 EOF - EN 카드 추가\n"
 
 #: src/input.c:1998
+#, c-format
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4898,10 +5002,12 @@ msgstr ""
 "기본 EN 카드 추가"
 
 #: src/input.c:2015
+#, c-format
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr "명령 데이터 카드 오류: 카드의 니모닉 코드가 너무 짧거나 누락됨\n"
 
 #: src/input.c:2016
+#, c-format
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4910,6 +5016,7 @@ msgstr ""
 "니모닉 코드가 너무 짧거나 누락됨"
 
 #: src/input.c:2217
+#, c-format
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
@@ -4917,6 +5024,7 @@ msgstr ""
 "기하 데이터 카드 오류: 입력 파일을 읽는 중 예기치 않은 EOF - GE 카드 추가\n"
 
 #: src/input.c:2218
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4927,10 +5035,12 @@ msgstr ""
 "기본 GE 카드 추가"
 
 #: src/input.c:2235
+#, c-format
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr "기하 데이터 카드 오류: 카드의 니모닉 코드가 너무 짧거나 누락됨\n"
 
 #: src/input.c:2236
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -4969,6 +5079,7 @@ msgid "failed to add objects to builder: %s\n"
 msgstr "빌더에 객체 추가 실패: %s\n"
 
 #: src/interface.c:198
+#, c-format
 msgid "Listing Object Ids:\n"
 msgstr "객체 ID 목록:\n"
 
@@ -4980,6 +5091,7 @@ msgid "%s\n"
 msgstr ""
 
 #: src/interface.c:213 src/interface.c:216
+#, c-format
 msgid ""
 "libgmodule not supported: xnec2c may not function properly on this "
 "platform.\n"
@@ -5004,6 +5116,7 @@ msgid "Detected %s windowing backend\n"
 msgstr "%s 윈도잉 백엔드 감지됨\n"
 
 #: src/main.c:137
+#, c-format
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch와 --optimize는 함께 사용할 수 없습니다.\n"
 
@@ -5023,10 +5136,12 @@ msgid "unexpected argument: %s\n"
 msgstr "예기치 않은 인수: %s\n"
 
 #: src/main.c:177
+#, c-format
 msgid "batch mode requires an input file\n"
 msgstr "배치 모드에는 입력 파일이 필요합니다\n"
 
 #: src/main.c:187
+#, c-format
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "디스플레이를 열 수 없습니다: 실행 중인 X11 또는 Wayland 세션이 필요합니다\n"
@@ -5037,30 +5152,37 @@ msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d개 프로세서에 걸쳐 %d개 작업을 포크합니다.\n"
 
 #: src/main.c:223 src/main.c:231
+#, c-format
 msgid "exiting after fatal error: pipe() failed"
 msgstr "치명적 오류 후 종료: pipe() 실패"
 
 #: src/main.c:240
+#, c-format
 msgid "exiting after fatal error: fork() failed"
 msgstr "치명적 오류 후 종료: fork() 실패"
 
 #: src/main.c:840
+#, c-format
 msgid "exiting via user interrupt\n"
 msgstr "사용자 인터럽트로 종료 중\n"
 
 #: src/main.c:844
+#, c-format
 msgid "segmentation fault, exiting\n"
 msgstr "세그멘테이션 오류, 종료 중\n"
 
 #: src/main.c:848
+#, c-format
 msgid "floating point exception, exiting\n"
 msgstr "부동 소수점 예외, 종료 중\n"
 
 #: src/main.c:852
+#, c-format
 msgid "abort signal received, exiting\n"
 msgstr "중단 신호 수신, 종료 중\n"
 
 #: src/main.c:856
+#, c-format
 msgid "termination request received, exiting\n"
 msgstr "종료 요청 수신, 종료 중\n"
 
@@ -5158,6 +5280,7 @@ msgid "Batch Math Library"
 msgstr "배치 수학 라이브러리"
 
 #: src/mathlib.c:720
+#, c-format
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
 "command line. (However, this selection will be saved for next time xnec2c is "
@@ -5181,6 +5304,7 @@ msgid "Mathlib Benchmark Help"
 msgstr "Mathlib 벤치마크 도움말"
 
 #: src/mathlib.c:868
+#, c-format
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
 "the mathlib implementation to parallelize the linear algebra calculation of "
@@ -5286,14 +5410,17 @@ msgstr ""
 "시 시작합니다."
 
 #: src/mathlib.c:978
+#, c-format
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "최적화가 활성화된 동안에는 벤치마크가 비활성화됩니다."
 
 #: src/mathlib.c:985
+#, c-format
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr "벤치마크를 실행하기 전에 NEC2 입력 파일을 로드해야 합니다."
 
 #: src/mathlib.c:991
+#, c-format
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
 "specified on the command line."
@@ -5302,6 +5429,7 @@ msgstr ""
 "과가 없습니다."
 
 #: src/mathlib.c:1008
+#, c-format
 msgid "You must select at least one math library to benchmark"
 msgstr "벤치마크할 수학 라이브러리를 하나 이상 선택해야 합니다"
 
@@ -5427,6 +5555,7 @@ msgid "symmetry error - nrow:%d ncol:%d\n"
 msgstr "대칭 오류 - nrow:%d ncol:%d\n"
 
 #: src/matrix.c:1353
+#, c-format
 msgid "Symmetry error"
 msgstr "대칭 오류"
 
@@ -5436,6 +5565,7 @@ msgid "Solving Failed: %d\n"
 msgstr "계산 실패: %d\n"
 
 #: src/measurements.c:424
+#, c-format
 msgid ""
 "noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
 "to 0\n"
@@ -5478,6 +5608,7 @@ msgid "mem_backtrace(%p):\n"
 msgstr ""
 
 #: src/mem/mem.c:253
+#, c-format
 msgid "  m->backtrace is null, no backtrace data\n"
 msgstr "  m->backtrace가 null, 역추적 데이터 없음\n"
 
@@ -5522,6 +5653,7 @@ msgid "--- End Comments ---"
 msgstr "--- 주석 끝 ---"
 
 #: src/nec2_model.c:525
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5532,6 +5664,7 @@ msgstr ""
 "예기치 않은 EOF (파일 끝)"
 
 #: src/nec2_model.c:532
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5546,6 +5679,7 @@ msgid "End Comments"
 msgstr "주석 끝"
 
 #: src/nec2_model.c:916
+#, c-format
 msgid ""
 "Cannot save treeview data\n"
 "Please use the Save button\n"
@@ -5561,6 +5695,7 @@ msgid "improper load type chosen, requested type is %d\n"
 msgstr "부적절한 부하 유형 선택, 요청된 유형: %d\n"
 
 #: src/network.c:653
+#, c-format
 msgid "Improper load type chose"
 msgstr "부적절한 부하 유형 선택"
 
@@ -5570,6 +5705,7 @@ msgid "loading data card error, no segment has an itag = %d\n"
 msgstr "데이터 카드 로딩 오류, itag = %d인 세그먼트 없음\n"
 
 #: src/network.c:742
+#, c-format
 msgid ""
 "Loading data card\n"
 "Tag number mismatch error"
@@ -5583,26 +5719,32 @@ msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "레이블 텍스처 아틀라스 생성됨 (ID=%u)\n"
 
 #: src/opengl-engine/opengl_axes.c:161
+#, c-format
 msgid "Failed to load axes line shader\n"
 msgstr "축 선 셰이더 로드 실패\n"
 
 #: src/opengl-engine/opengl_axes.c:192
+#, c-format
 msgid "Axes renderer initialized\n"
 msgstr "축 렌더러 초기화됨\n"
 
 #: src/opengl-engine/opengl_axes.c:196
+#, c-format
 msgid "Failed to load text shaders\n"
 msgstr "텍스트 셰이더 로드 실패\n"
 
 #: src/opengl-engine/opengl_cairo_overlay.c:62
+#, c-format
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "cairo 오버레이 셰이더 로드 실패\n"
 
 #: src/opengl-engine/opengl_ground_plane.c:105
+#, c-format
 msgid "Failed to load ground plane shaders\n"
 msgstr "접지면 셰이더 로드 실패\n"
 
 #: src/opengl-engine/opengl_image_overlay.c:39
+#, c-format
 msgid "Failed to create cairo overlay base\n"
 msgstr "cairo 오버레이 베이스 생성 실패\n"
 
@@ -5627,28 +5769,34 @@ msgid "Shader link failed: %s + %s\n"
 msgstr "셰이더 링크 실패: %s + %s\n"
 
 #: src/opengl-engine/opengl_view.c:192
+#, c-format
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
 "OpenGL 컨텍스트 오류 — 이 디스플레이에서 사용 가능한 OpenGL 구현이 없습니다\n"
 
 #: src/opengl-engine/opengl_view.c:200
+#, c-format
 msgid "Disabling OpenGL: shader catalog failed\n"
 msgstr "OpenGL 비활성화: 셰이더 카탈로그 실패\n"
 
 #: src/opengl-engine/opengl_view.c:213
+#, c-format
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "OpenGL 비활성화: 씬 셰이더 실패\n"
 
 #: src/opengl-engine/opengl_view.c:228
+#, c-format
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "OpenGL 비활성화: 오버레이 셰이더 실패\n"
 
 #: src/opengl-engine/opengl_view.c:240
+#, c-format
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "OpenGL 비활성화: 축 렌더러 실패\n"
 
 #: src/opengl-engine/opengl_view.c:269
+#, c-format
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "OpenGL 비활성화: 접지면 셰이더 실패\n"
 
@@ -5658,6 +5806,7 @@ msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "렌더링 가능 개수 %u이(가) MAX_RENDERABLES (%d)를 초과\n"
 
 #: src/opengl-engine/opengl_view.c:372
+#, c-format
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "OpenGL 비활성화: 필 합성 셰이더 실패\n"
 
@@ -5671,10 +5820,12 @@ msgstr ""
 "box=[%g,%g,%g,%g]\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:141
+#, c-format
 msgid "MSAA framebuffer incomplete\n"
 msgstr "MSAA 프레임버퍼 불완전\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:173
+#, c-format
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "MSAA resolve 프레임버퍼 불완전\n"
 
@@ -5689,14 +5840,17 @@ msgid "Peel MSAA FBO %d incomplete\n"
 msgstr "필 MSAA FBO %d 불완전\n"
 
 #: src/opengl-engine/opengl_view_peel.c:276
+#, c-format
 msgid "Peel accumulation FBO incomplete\n"
 msgstr "필 누적 FBO 불완전\n"
 
 #: src/opengl-engine/opengl_view_peel.c:285
+#, c-format
 msgid "Layer depth FBO incomplete\n"
 msgstr "레이어 깊이 FBO 불완전\n"
 
 #: src/opengl-engine/opengl_view_render.c:339
+#, c-format
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "투명 렌더링 항목 건너뜀: 필 FBO 사용 불가\n"
 
@@ -5706,6 +5860,7 @@ msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: 잘못된 그리기 스타일 %d, 표면 사용\n"
 
 #: src/opengl/opengl_state.c:57
+#, c-format
 msgid ""
 "OpenGL is not available on this display; switching to Cairo renderer. See "
 "'OpenGL Renderer' in View > Rendering Settings.\n"
@@ -5746,6 +5901,7 @@ msgid "saving %s: %s\n"
 msgstr "%s 저장 중: %s\n"
 
 #: src/optimize.c:100
+#, c-format
 msgid "xnec2c was built without inotify.\n"
 msgstr "xnec2c가 inotify 없이 빌드되었습니다.\n"
 
@@ -5770,10 +5926,12 @@ msgid "inotify: file stat failed or zero bytes (errno=%s), retrying\n"
 msgstr "inotify: 파일 stat 실패 또는 0바이트 (errno=%s), 재시도\n"
 
 #: src/optimize.c:360
+#, c-format
 msgid "Exited optimizer thread.\n"
 msgstr "최적화기 스레드가 종료되었습니다.\n"
 
 #: src/optimize.c:366
+#, c-format
 msgid "optimize.c: exit because this is a child process.\n"
 msgstr "optimize.c: 자식 프로세스이므로 종료합니다.\n"
 
@@ -5808,19 +5966,23 @@ msgid "inotify: FILTER: target='%s' event_name='%s' match=%d\n"
 msgstr "inotify: 필터: target='%s' event_name='%s' match=%d\n"
 
 #: src/optimize.c:441
+#, c-format
 msgid "inotify: SKIP event (filename mismatch)\n"
 msgstr "inotify: 이벤트 건너뜀 (파일명 불일치)\n"
 
 #: src/optimize.c:448
+#, c-format
 msgid "inotify: IN_MODIFY on target, setting modify_seen=TRUE\n"
 msgstr "inotify: 대상에서 IN_MODIFY, modify_seen=TRUE 설정\n"
 
 #: src/optimize.c:456
+#, c-format
 msgid ""
 "inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n"
 msgstr "inotify: 대상에서 IN_MOVED_TO (원자적 쓰기 완료), 다시 로드 시작\n"
 
 #: src/optimize.c:473
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), "
 "triggering reload\n"
@@ -5829,6 +5991,7 @@ msgstr ""
 "작\n"
 
 #: src/optimize.c:485
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), "
 "skipping\n"
@@ -5842,10 +6005,12 @@ msgstr ""
 "inotify: 이벤트 건너뜀 (MODIFY/CLOSE_WRITE/MOVED_TO 아님, mask=0x%08x)\n"
 
 #: src/optimize.c:525
+#, c-format
 msgid "failed to create optimizer wake eventfd\n"
 msgstr "최적화기 웨이크 eventfd 생성 실패\n"
 
 #: src/optimize.c:536
+#, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "최적화기 출력 스레드 생성 실패\n"
 
@@ -5865,6 +6030,7 @@ msgid "nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n"
 msgstr "nec2_eval_signal: eval_mutex 경합, 블로킹 (thr=%lu)\n"
 
 #: src/optimizers/opt_nec2_eval.c:194
+#, c-format
 msgid "nec2_eval_run: not initialized\n"
 msgstr "nec2_eval_run: 초기화되지 않음\n"
 
@@ -5882,10 +6048,12 @@ msgid "opt: optimization complete, best fitness: %.6g\n"
 msgstr "opt: 최적화 완료, 최적 적합도: %.6g\n"
 
 #: src/optimizers/opt_session.c:194
+#, c-format
 msgid "opt_start: optimizer already running\n"
 msgstr "opt_start: 최적화기가 이미 실행 중\n"
 
 #: src/optimizers/opt_session.c:258
+#, c-format
 msgid "opt_start: simple_new failed\n"
 msgstr "opt_start: simple_new 실패\n"
 
@@ -6076,6 +6244,7 @@ msgid "Invalid flow visualization mode %d in config, resetting to default\n"
 msgstr "설정의 흐름 시각화 모드 %d이(가) 잘못되어 기본값으로 재설정합니다\n"
 
 #: src/rc_config.c:1786
+#, c-format
 msgid "batch mode: skipping configuration save\n"
 msgstr "배치 모드: 설정 저장을 건너뜀\n"
 
@@ -6281,6 +6450,7 @@ msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: 표면 생성 실패 (%dx%d)\n"
 
 #: src/render/render_fit.c:67
+#, c-format
 msgid "render_fit_solve: no geometry to fit\n"
 msgstr "render_fit_solve: 맞출 형상이 없습니다\n"
 
@@ -6329,6 +6499,7 @@ msgid "Waiting for frequency data"
 msgstr "주파수 데이터를 기다리는 중입니다."
 
 #: src/render/render_redraw.c:48
+#, c-format
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "최적화 루프 미완료, 중간 다시 그리기 억제.\n"
 
@@ -6352,14 +6523,17 @@ msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: cairo glade 로드 실패: %s\n"
 
 #: src/settings/render_settings_common.c:182
+#, c-format
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr "render_settings_init: glade에서 render_settings_window 가져오기 실패\n"
 
 #: src/somnec.c:302
+#, c-format
 msgid "Hankel not valid for z = 0"
 msgstr "Z = 0에서 Hankel 유효하지 않음"
 
 #: src/somnec.c:807
+#, c-format
 msgid "No convergence"
 msgstr "수렴 실패"
 
@@ -6447,6 +6621,7 @@ msgid "sy_overrides_init: failed to load glade: %s\n"
 msgstr "sy_overrides_init: glade 로드 실패: %s\n"
 
 #: src/sy_overrides.c:1107
+#, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: glade에서 위젯 가져오기 실패\n"
 
@@ -6532,6 +6707,7 @@ msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: 파일 열기 실패: %s\n"
 
 #: src/utils.c:1090
+#, c-format
 msgid "  Backtrace:\n"
 msgstr "  역추적:\n"
 
@@ -6548,6 +6724,7 @@ msgid "%s:\n"
 msgstr ""
 
 #: src/validation_dump.c:35
+#, c-format
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6556,19 +6733,23 @@ msgstr ""
 "수 있음\n"
 
 #: src/validation_dump.c:40
+#, c-format
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr "validation: 재현성을 위해 mathlib을 nec2-builtin으로 강제 설정함\n"
 
 #: src/validation_dump.c:59
+#, c-format
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr "validation: 재현성을 위해 안테나 온도 모델과 고각을 강제 설정함\n"
 
 #: src/validation_dump.c:69
+#, c-format
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr "validation: 재현성을 위해 편파를 전체로 강제 설정함\n"
 
 #: src/validation_dump.c:88
+#, c-format
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
@@ -6579,10 +6760,12 @@ msgid "Validation Tree"
 msgstr "검증 트리"
 
 #: src/validation_dump.c:621
+#, c-format
 msgid "Cannot save: frequency loop not done"
 msgstr "저장할 수 없음: 주파수 루프가 완료되지 않았습니다"
 
 #: src/validation_dump.c:627
+#, c-format
 msgid "Cannot create output directory"
 msgstr "출력 디렉터리를 생성할 수 없습니다"
 
@@ -6599,6 +6782,7 @@ msgid ""
 msgstr "파일의 복소 유전 상수: %12.5E%+12.5Ej, 요청됨: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:322
+#, c-format
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters(): 접지면 매개변수 오류"
 
@@ -6619,6 +6803,7 @@ msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "자식 프로세스 %d: 포크된 수집 중 파이프 fd가 유효하지 않습니다\n"
 
 #: src/xnec2c.c:1258
+#, c-format
 msgid "Failed to read data from forked child\n"
 msgstr "포크된 자식 프로세스에서 데이터 읽기 실패\n"
 
@@ -6683,6 +6868,7 @@ msgid "--%s wrote %s\n"
 msgstr "--%s 쓰기 완료: %s\n"
 
 #: src/xnec2c.c:1974
+#, c-format
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png에는 --batch가 필요합니다\n"
 
@@ -6697,6 +6883,7 @@ msgid "sweep runs %d workers of %d threads each\n"
 msgstr "스윕은 각각 %d개 스레드인 %d개 워커를 실행합니다\n"
 
 #: src/xnec2c.c:2355
+#, c-format
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread 시작 실패\n"
 
@@ -6709,6 +6896,7 @@ msgid "Recalculate the frequency sweep?"
 msgstr "주파수 스윕을 다시 계산하시겠습니까?"
 
 #: src/xnec2c.c:2536
+#, c-format
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

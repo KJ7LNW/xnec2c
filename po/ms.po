@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-23 17:34-0800\n"
+"POT-Creation-Date: 2026-11-24 00:43-0800\n"
 "PO-Revision-Date: 2026-07-11 10:31-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3155,6 +3155,7 @@ msgstr ""
 "sebelumnya, atau tengah jika tiada"
 
 #: src/args.c:287
+#, c-format
 msgid "config file path too long\n"
 msgstr "laluan fail konfigurasi terlalu panjang\n"
 
@@ -3205,6 +3206,7 @@ msgstr ""
 "satu\n"
 
 #: src/args.c:943
+#, c-format
 msgid "Forking disabled!\n"
 msgstr "Forking dilumpuhkan!\n"
 
@@ -3245,6 +3247,7 @@ msgid "segment connection error for segment %5d\n"
 msgstr "ralat sambungan segmen untuk segmen %5d\n"
 
 #: src/calculations.c:118
+#, c-format
 msgid "Segment connection error in tbf()"
 msgstr "Ralat sambungan segmen dalam tbf()"
 
@@ -3259,10 +3262,12 @@ msgid "segment connection error for segment %d\n"
 msgstr "ralat sambungan segmen untuk segmen %d\n"
 
 #: src/calculations.c:1073
+#, c-format
 msgid "Segment connection error in sbf()"
 msgstr "Ralat sambungan segmen dalam sbf()"
 
 #: src/calculations.c:1291
+#, c-format
 msgid "Segment connection error in trio()"
 msgstr "Ralat sambungan segmen dalam trio()"
 
@@ -3341,6 +3346,7 @@ msgid "Antenna Temperature"
 msgstr "Suhu Antena"
 
 #: src/callbacks.c:84
+#, c-format
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3384,6 +3390,7 @@ msgid "xnec2c geometry optimizer"
 msgstr "pengoptimum geometri xnec2c"
 
 #: src/callbacks.c:447
+#, c-format
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
@@ -3394,6 +3401,7 @@ msgid "Xnec2c Optimizer"
 msgstr "Pengoptimum Xnec2c"
 
 #: src/callbacks.c:468
+#, c-format
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3409,11 +3417,13 @@ msgid "Are you sure you wish to close this window?"
 msgstr "Adakah anda pasti mahu menutup tetingkap ini?"
 
 #: src/callbacks.c:1503
+#, c-format
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr ""
 "OpenGL tidak tersedia pada paparan ini; tidak dapat mendayakan pemapar.\n"
 
 #: src/callbacks.c:1811
+#, c-format
 msgid "No open NEC2 input file"
 msgstr "Tiada fail masukan NEC2 terbuka"
 
@@ -3431,6 +3441,7 @@ msgstr "tanpa-tajuk.nec"
 
 #: src/callbacks.c:2401 src/callbacks.c:2421 src/callbacks.c:2441
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
+#, c-format
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
 "You may need to save the NEC2 Editor data first."
@@ -3449,10 +3460,12 @@ msgid "invalid segment scale encoding %d, using model radius\n"
 msgstr "pengekodan skala segmen tidak sah %d, menggunakan jejari model\n"
 
 #: src/chroma/chroma_source.c:334
+#, c-format
 msgid "far-field contribution needs radiation pattern data\n"
 msgstr "sumbangan medan jauh memerlukan data corak sinaran\n"
 
 #: src/cmnd_edit.c:109
+#, c-format
 msgid ""
 "Get_Command_Data(): Error reading\n"
 "row data: Invalid list iterator"
@@ -3461,6 +3474,7 @@ msgstr ""
 "data baris: Iterator senarai tidak sah"
 
 #: src/cmnd_edit.c:152
+#, c-format
 msgid ""
 "Set_Command_Data(): Error writing row data\n"
 "Please re-select row"
@@ -3834,10 +3848,12 @@ msgid "Not available: excitation defines no feedpoint"
 msgstr "Tidak tersedia: pengujaan tidak mentakrifkan titik suapan"
 
 #: src/freqplots/freqplots_graph.c:137 src/freqplots/graphs/smith_graph.c:565
+#, c-format
 msgid "memory allocation for points failed\n"
 msgstr "peruntukan memori untuk titik gagal\n"
 
 #: src/freqplots/freqplots_graph.c:138 src/freqplots/graphs/smith_graph.c:566
+#, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): Peruntukan memori untuk titik gagal"
 
@@ -4013,6 +4029,7 @@ msgstr "VSWR berbanding Frekuensi"
 
 #: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
 #: src/geom_edit.c:2703
+#, c-format
 msgid ""
 "Error reading row data\n"
 "Invalid list iterator"
@@ -4021,6 +4038,7 @@ msgstr ""
 "Iterator senarai tidak sah"
 
 #: src/geom_edit.c:151 src/geom_edit.c:181
+#, c-format
 msgid ""
 "Error writing row data\n"
 "Please re-select row"
@@ -4029,6 +4047,7 @@ msgstr ""
 "Sila pilih semula baris"
 
 #: src/geom_edit.c:583
+#, c-format
 msgid ""
 "GC card preceded by GW card\n"
 "with non-zero wire radius"
@@ -4037,10 +4056,12 @@ msgstr ""
 "dengan jejari wayar bukan sifar"
 
 #: src/geom_edit.c:587
+#, c-format
 msgid "No GW card before GC card"
 msgstr "Tiada kad GW sebelum kad GC"
 
 #: src/geom_edit.c:611
+#, c-format
 msgid ""
 "No GC card after a GW card\n"
 "with a zero wire radius"
@@ -4049,6 +4070,7 @@ msgstr ""
 "dengan jejari wayar sifar"
 
 #: src/geom_edit.c:620
+#, c-format
 msgid ""
 "GC card follows a GW card\n"
 "with non-zero wire radius"
@@ -4057,6 +4079,7 @@ msgstr ""
 "dengan jejari wayar bukan sifar"
 
 #: src/geom_edit.c:1025
+#, c-format
 msgid ""
 "SC card preceded by SP card\n"
 "with arbitrary patch type"
@@ -4065,10 +4088,12 @@ msgstr ""
 "dengan jenis tampalan sebarangan"
 
 #: src/geom_edit.c:1037
+#, c-format
 msgid "No SP or SM card before SC card"
 msgstr "Tiada kad SP atau SM sebelum kad SC"
 
 #: src/geom_edit.c:1057
+#, c-format
 msgid ""
 "No SC card after an SP card\n"
 "with non-arbitrary patch type"
@@ -4077,6 +4102,7 @@ msgstr ""
 "dengan jenis tampalan bukan sebarangan"
 
 #: src/geom_edit.c:1064
+#, c-format
 msgid ""
 "SC card follows an SP card\n"
 "with arbitrary patch type"
@@ -4085,6 +4111,7 @@ msgstr ""
 "dengan jenis tampalan sebarangan"
 
 #: src/geom_edit.c:1077
+#, c-format
 msgid "No SC card after an SM card"
 msgstr "Tiada kad SC selepas kad SM"
 
@@ -4121,18 +4148,22 @@ msgid "SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"
 msgstr "Takrifan SY (cth. FREQ=146, LAMBDA=300/FREQ):"
 
 #: src/geom_edit.c:2970
+#, c-format
 msgid "NEC2 editor window not open"
 msgstr "Tetingkap penyunting NEC2 tidak dibuka"
 
 #: src/geometry.c:118
+#, c-format
 msgid "Number of segments < 1"
 msgstr "Bilangan segmen < 1"
 
 #: src/geometry.c:155
+#, c-format
 msgid "Arc angle exceeds 360 degrees"
 msgstr "Sudut lengkok melebihi 360 darjah"
 
 #: src/geometry.c:294
+#, c-format
 msgid "Error in conect(): np > n"
 msgstr "Ralat dalam conect(): np > n"
 
@@ -4142,6 +4173,7 @@ msgid "geometry data error: segment %d extends below ground\n"
 msgstr "ralat data geometri: segmen %d melampaui bawah bumi\n"
 
 #: src/geometry.c:326 src/geometry.c:374
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4155,6 +4187,7 @@ msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "ralat data geometri: segmen %d terletak pada satah bumi\n"
 
 #: src/geometry.c:384
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4164,10 +4197,12 @@ msgstr ""
 
 # xnec2c-exempt: name
 #: src/geometry.c:474
+#, c-format
 msgid "ipsym = 0\n"
 msgstr ""
 
 #: src/geometry.c:475
+#, c-format
 msgid "Error: ipsym = 0"
 msgstr "Ralat: ipsym = 0"
 
@@ -4181,6 +4216,7 @@ msgstr ""
 "n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:530
+#, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4189,6 +4225,7 @@ msgstr ""
 "Semak segmen yang bertindih atau hampir bersambung\n"
 
 #: src/geometry.c:744
+#, c-format
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4197,6 +4234,7 @@ msgstr ""
 "yang sama tidak boleh sifar\n"
 
 #: src/geometry.c:745
+#, c-format
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4210,6 +4248,7 @@ msgid "no segment has an itag of %d\n"
 msgstr "tiada segmen mempunyai itag %d\n"
 
 #: src/geometry.c:781
+#, c-format
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4234,10 +4273,12 @@ msgstr ""
 "Tag sah dalam geometri anda ialah yang diberikan kepada kad GW/GA/GH/SP."
 
 #: src/geometry.c:1064
+#, c-format
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "penjuru sisi empat: tampalan tidak terletak pada satah\n"
 
 #: src/geometry.c:1065
+#, c-format
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4251,6 +4292,7 @@ msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "ralat data geometri: segmen %d terletak pada satah simetri\n"
 
 #: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4264,6 +4306,7 @@ msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "ralat data geometri: tampalan %d terletak pada satah simetri\n"
 
 #: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4450,6 +4493,7 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "Memaksa semakan pertindihan untuk %d segmen\n"
 
 #: src/geometry.c:1849
+#, c-format
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
@@ -4461,6 +4505,7 @@ msgid "Gnuplot Data"
 msgstr "Data Gnuplot"
 
 #: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
+#, c-format
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "Tidak dapat simpan: imbasan frekuensi belum selesai"
 
@@ -4491,6 +4536,7 @@ msgid "Touchstone Data"
 msgstr "Data Touchstone"
 
 #: src/gnuplot.c:104
+#, c-format
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4551,6 +4597,7 @@ msgid "Save Currents and Charges to CSV"
 msgstr "Simpan Arus dan Cas ke CSV"
 
 #: src/gnuplot.c:584
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4563,6 +4610,7 @@ msgid "Save Patch Currents to CSV"
 msgstr "Simpan Arus Tampalan ke CSV"
 
 #: src/gnuplot.c:650
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4571,10 +4619,12 @@ msgstr ""
 "dalam tetingkap utama xnec2c."
 
 #: src/gnuplot.c:660
+#, c-format
 msgid "No surface patches in this model."
 msgstr "Tiada tampalan permukaan dalam model ini."
 
 #: src/ground.c:110
+#, c-format
 msgid "b less than a"
 msgstr "b kurang daripada a"
 
@@ -4584,6 +4634,7 @@ msgid "step size limited at z = %12.5E\n"
 msgstr "saiz langkah dihadkan pada z = %12.5E\n"
 
 #: src/input.c:150
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Unexpected EOF (End of File)"
@@ -4592,6 +4643,7 @@ msgstr ""
 "EOF Tidak Dijangka (Penghujung Fail)"
 
 #: src/input.c:164
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Comment mnemonic short or missing"
@@ -4600,6 +4652,7 @@ msgstr ""
 "Mnemonik komen terlalu pendek atau tiada"
 
 #: src/input.c:175
+#, c-format
 msgid ""
 "Read_Comments():\n"
 " Error reading input file\n"
@@ -4610,6 +4663,7 @@ msgstr ""
 "Mnemonik komen tidak betul"
 
 #: src/input.c:215
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Tag number is negative"
@@ -4618,6 +4672,7 @@ msgstr ""
 "Nombor tag adalah negatif"
 
 #: src/input.c:222
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
@@ -4626,6 +4681,7 @@ msgstr ""
 "Bilangan segmen kurang daripada 1"
 
 #: src/input.c:229
+#, c-format
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "amaran - bilangan segmen melebihi 1000000\n"
 
@@ -4646,6 +4702,7 @@ msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "Ralat kad data %s: Aksara ganjil '%c' pada lajur %d\n"
 
 #: src/input.c:301
+#, c-format
 msgid ""
 "Data card error\n"
 "Spurious character in card"
@@ -4659,18 +4716,22 @@ msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: penilaian ungkapan gagal untuk \"%s\"\n"
 
 #: src/input.c:413
+#, c-format
 msgid "SY card: no line content available\n"
 msgstr "Kad SY: tiada kandungan baris tersedia\n"
 
 #: src/input.c:414
+#, c-format
 msgid "SY card: no line content available"
 msgstr "Kad SY: tiada kandungan baris tersedia"
 
 #: src/input.c:431
+#, c-format
 msgid "SY card: missing '=' in definition\n"
 msgstr "Kad SY: '=' tiada dalam takrifan\n"
 
 #: src/input.c:432
+#, c-format
 msgid "SY card: missing '=' in definition"
 msgstr "Kad SY: '=' tiada dalam takrifan"
 
@@ -4680,6 +4741,7 @@ msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "Kad SY: takrifan simbol gagal untuk %s=%s\n"
 
 #: src/input.c:652
+#, c-format
 msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
@@ -4688,18 +4750,22 @@ msgstr ""
 "Tiada kad GC untuk wayar tirus"
 
 #: src/input.c:659
+#, c-format
 msgid "Geometry GC data card error"
 msgstr "Ralat kad data geometri GC"
 
 #: src/input.c:675
+#, c-format
 msgid "Geometry GX data card error"
 msgstr "Ralat kad data geometri GX"
 
 #: src/input.c:698
+#, c-format
 msgid "Geometry GR data card error"
 msgstr "Ralat kad data geometri GR"
 
 #: src/input.c:752
+#, c-format
 msgid "No geometry data cards"
 msgstr "Tiada kad data geometri"
 
@@ -4708,6 +4774,7 @@ msgid "Probable invalid segment geometry.\n"
 msgstr "Kemungkinan geometri segmen tidak sah.\n"
 
 #: src/input.c:764
+#, c-format
 msgid ""
 "Invalid segment geometry.\n"
 "See warnings in the console for detail.\n"
@@ -4718,10 +4785,12 @@ msgstr ""
 "Cuba untuk terus..."
 
 #: src/input.c:770
+#, c-format
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "Kemungkinan geometri segmen tidak sah (lihat di atas)\n"
 
 #: src/input.c:774
+#, c-format
 msgid "Read_Geometry: verify_segments() passed\n"
 msgstr "Read_Geometry: verify_segments() lulus\n"
 
@@ -4731,23 +4800,28 @@ msgid "segment data error: tag=%d si=%f, bi=%f\n"
 msgstr "ralat data segmen: tag=%d si=%f, bi=%f\n"
 
 #: src/input.c:813
+#, c-format
 msgid "Segment data error, zero-length line?  See console."
 msgstr "Ralat data segmen, baris panjang sifar?  Lihat konsol."
 
 #: src/input.c:853
+#, c-format
 msgid "Move GM data card error"
 msgstr "Ralat kad data alih GM"
 
 #: src/input.c:869 src/input.c:910 src/input.c:927 src/input.c:945
 #: src/input.c:953
+#, c-format
 msgid "Patch data card error"
 msgstr "Ralat kad data tampalan"
 
 #: src/input.c:891
+#, c-format
 msgid "Patch data error"
 msgstr "Ralat data tampalan"
 
 #: src/input.c:1000
+#, c-format
 msgid ""
 "\"GF\" card (NGF solution)\n"
 "is not supported"
@@ -4756,6 +4830,7 @@ msgstr ""
 "tidak disokong"
 
 #: src/input.c:1005
+#, c-format
 msgid "Ignoring CM card in geometry"
 msgstr "Mengabaikan kad CM dalam geometri"
 
@@ -4771,18 +4846,22 @@ msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
 #: src/input.c:1025
+#, c-format
 msgid "Command card in geometry section"
 msgstr "Kad arahan dalam bahagian geometri"
 
 #: src/input.c:1027
+#, c-format
 msgid "Unrecognized geometry card"
 msgstr "Kad geometri tidak dikenali"
 
 #: src/input.c:1051
+#, c-format
 msgid "Failed to initialize symbol table\n"
 msgstr "Gagal memulakan jadual simbol\n"
 
 #: src/input.c:1052
+#, c-format
 msgid "Failed to initialize symbol table"
 msgstr "Gagal memulakan jadual simbol"
 
@@ -4792,14 +4871,17 @@ msgid "No FR card: computing one step at the NEC-2 default %g MHz\n"
 msgstr "Tiada kad FR: mengira satu langkah pada %g MHz lalai NEC-2\n"
 
 #: src/input.c:1283
+#, c-format
 msgid "ignoring CM card in commands\n"
 msgstr "mengabaikan kad CM dalam arahan\n"
 
 #: src/input.c:1284
+#, c-format
 msgid "Ignoring CM card in commands"
 msgstr "Mengabaikan kad CM dalam arahan"
 
 #: src/input.c:1296
+#, c-format
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "Kad CP diabaikan: pengiraan gandingan belum dilaksanakan\n"
 
@@ -4809,10 +4891,12 @@ msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "Melangkau kad FR pendua pada %g MHz\n"
 
 #: src/input.c:1457
+#, c-format
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "Frekuensi maksimum <= frekuensi minimum dalam kad FR\n"
 
 #: src/input.c:1458
+#, c-format
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
@@ -4821,6 +4905,7 @@ msgstr ""
 "Sila semak data kad FR dan betulkan"
 
 #: src/input.c:1481
+#, c-format
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates "
@@ -4830,10 +4915,12 @@ msgstr ""
 "Kad GE menyatakan bumi hadir, tetapi GN menunjukkan sebaliknya."
 
 #: src/input.c:1495
+#, c-format
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "theta > 90 darjah dengan bumi ditentukan\n"
 
 #: src/input.c:1496 src/radiation.c:911
+#, c-format
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4842,6 +4929,7 @@ msgstr ""
 "Sila semak data kad RP dan betulkan"
 
 #: src/input.c:1505
+#, c-format
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
@@ -4850,6 +4938,7 @@ msgstr ""
 "Sommerfeld\n"
 
 #: src/input.c:1506
+#, c-format
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
@@ -4867,6 +4956,7 @@ msgstr ""
 "daripada itag step2 %d\n"
 
 #: src/input.c:1556
+#, c-format
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
@@ -4875,12 +4965,14 @@ msgstr ""
 "itag step1 lebih besar daripada itag step2"
 
 #: src/input.c:1685
+#, c-format
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr ""
 "Galangan Talian Penghantaran = 0: tidak sah. Sila betulkan kad NT atau TL\n"
 
 #: src/input.c:1686
+#, c-format
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
@@ -4889,10 +4981,12 @@ msgstr ""
 "tidak sah. Sila betulkan kad NT atau TL"
 
 #: src/input.c:1697
+#, c-format
 msgid "Segment number error in TL or NT card\n"
 msgstr "Ralat nombor segmen dalam kad TL atau NT\n"
 
 #: src/input.c:1698
+#, c-format
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
@@ -4901,19 +4995,23 @@ msgstr ""
 "ralat dalam kad NT atau TL"
 
 #: src/input.c:1720
+#, c-format
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr "Kad PQ dan PT diabaikan: pencetakan ke fail belum dilaksanakan\n"
 
 #: src/input.c:1724
+#, c-format
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "Kad PL diabaikan: pemplotan ke fail tidak disokong\n"
 
 #: src/input.c:1730
+#, c-format
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr ""
 "Pilihan gelombang permukaan (I1=1): bagi arahan RP tidak dilaksanakan\n"
 
 #: src/input.c:1731
+#, c-format
 msgid ""
 "Surface wave option (I1=1)\n"
 "of RP command not implemented"
@@ -4922,6 +5020,7 @@ msgstr ""
 "bagi arahan RP tidak dilaksanakan"
 
 #: src/input.c:1763
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
@@ -4930,6 +5029,7 @@ msgstr ""
 "betulkan\n"
 
 #: src/input.c:1764
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4946,6 +5046,7 @@ msgid "Unrecognized command card"
 msgstr "Kad arahan tidak dikenali"
 
 #: src/input.c:1879
+#, c-format
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
@@ -4954,10 +5055,12 @@ msgstr ""
 "dilumpuhkan\n"
 
 #: src/input.c:1906
+#, c-format
 msgid "Unexpected exit from while loop"
 msgstr "Keluar tidak dijangka daripada gelung while"
 
 #: src/input.c:1997
+#, c-format
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
@@ -4966,6 +5069,7 @@ msgstr ""
 "menambah kad EN\n"
 
 #: src/input.c:1998
+#, c-format
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4976,10 +5080,12 @@ msgstr ""
 "Menambah kad EN lalai"
 
 #: src/input.c:2015
+#, c-format
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr "ralat kad data arahan: kod mnemonik kad terlalu pendek atau tiada\n"
 
 #: src/input.c:2016
+#, c-format
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4988,6 +5094,7 @@ msgstr ""
 "Kod mnemonik terlalu pendek atau tiada"
 
 #: src/input.c:2217
+#, c-format
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
@@ -4996,6 +5103,7 @@ msgstr ""
 "menambah kad GE\n"
 
 #: src/input.c:2218
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -5006,10 +5114,12 @@ msgstr ""
 "Menambah kad GE lalai"
 
 #: src/input.c:2235
+#, c-format
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr "ralat kad data geometri: kod mnemonik kad terlalu pendek atau tiada\n"
 
 #: src/input.c:2236
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -5048,6 +5158,7 @@ msgid "failed to add objects to builder: %s\n"
 msgstr "gagal menambah objek ke builder: %s\n"
 
 #: src/interface.c:198
+#, c-format
 msgid "Listing Object Ids:\n"
 msgstr "Menyenaraikan Id Objek:\n"
 
@@ -5059,6 +5170,7 @@ msgid "%s\n"
 msgstr ""
 
 #: src/interface.c:213 src/interface.c:216
+#, c-format
 msgid ""
 "libgmodule not supported: xnec2c may not function properly on this "
 "platform.\n"
@@ -5083,6 +5195,7 @@ msgid "Detected %s windowing backend\n"
 msgstr "Dikesan bahagian belakang tetingkap %s\n"
 
 #: src/main.c:137
+#, c-format
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch dan --optimize saling eksklusif.\n"
 
@@ -5102,10 +5215,12 @@ msgid "unexpected argument: %s\n"
 msgstr "argumen tidak dijangka: %s\n"
 
 #: src/main.c:177
+#, c-format
 msgid "batch mode requires an input file\n"
 msgstr "mod kelompok memerlukan fail input\n"
 
 #: src/main.c:187
+#, c-format
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "tidak dapat membuka paparan: sesi X11 atau Wayland yang sedang berjalan "
@@ -5117,30 +5232,37 @@ msgid "Forking %d jobs across %d processors.\n"
 msgstr "Memfork %d kerja merentasi %d pemproses.\n"
 
 #: src/main.c:223 src/main.c:231
+#, c-format
 msgid "exiting after fatal error: pipe() failed"
 msgstr "keluar selepas ralat maut: pipe() gagal"
 
 #: src/main.c:240
+#, c-format
 msgid "exiting after fatal error: fork() failed"
 msgstr "keluar selepas ralat maut: fork() gagal"
 
 #: src/main.c:840
+#, c-format
 msgid "exiting via user interrupt\n"
 msgstr "keluar melalui gangguan pengguna\n"
 
 #: src/main.c:844
+#, c-format
 msgid "segmentation fault, exiting\n"
 msgstr "segmentation fault, keluar\n"
 
 #: src/main.c:848
+#, c-format
 msgid "floating point exception, exiting\n"
 msgstr "floating point exception, keluar\n"
 
 #: src/main.c:852
+#, c-format
 msgid "abort signal received, exiting\n"
 msgstr "isyarat abort diterima, keluar\n"
 
 #: src/main.c:856
+#, c-format
 msgid "termination request received, exiting\n"
 msgstr "permintaan penamatan diterima, keluar\n"
 
@@ -5240,6 +5362,7 @@ msgid "Batch Math Library"
 msgstr "Pustaka Matematik Kelompok"
 
 #: src/mathlib.c:720
+#, c-format
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
 "command line. (However, this selection will be saved for next time xnec2c is "
@@ -5264,6 +5387,7 @@ msgid "Mathlib Benchmark Help"
 msgstr "Bantuan Penanda Aras Mathlib"
 
 #: src/mathlib.c:868
+#, c-format
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
 "the mathlib implementation to parallelize the linear algebra calculation of "
@@ -5381,14 +5505,17 @@ msgstr ""
 "Nyahsetkan dan mulakan semula untuk menanda aras bilangan benang."
 
 #: src/mathlib.c:978
+#, c-format
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "Penanda aras dilumpuhkan semasa pengoptimuman diaktifkan."
 
 #: src/mathlib.c:985
+#, c-format
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr "Anda perlu memuatkan fail input NEC2 sebelum menjalankan penanda aras."
 
 #: src/mathlib.c:991
+#, c-format
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
 "specified on the command line."
@@ -5397,6 +5524,7 @@ msgstr ""
 "j dinyatakan pada baris arahan."
 
 #: src/mathlib.c:1008
+#, c-format
 msgid "You must select at least one math library to benchmark"
 msgstr ""
 "Anda perlu memilih sekurang-kurangnya satu pustaka matematik untuk ditanda "
@@ -5534,6 +5662,7 @@ msgid "symmetry error - nrow:%d ncol:%d\n"
 msgstr "ralat simetri - nrow:%d ncol:%d\n"
 
 #: src/matrix.c:1353
+#, c-format
 msgid "Symmetry error"
 msgstr "Ralat simetri"
 
@@ -5543,6 +5672,7 @@ msgid "Solving Failed: %d\n"
 msgstr "Penyelesaian Gagal: %d\n"
 
 #: src/measurements.c:424
+#, c-format
 msgid ""
 "noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
 "to 0\n"
@@ -5587,6 +5717,7 @@ msgid "mem_backtrace(%p):\n"
 msgstr ""
 
 #: src/mem/mem.c:253
+#, c-format
 msgid "  m->backtrace is null, no backtrace data\n"
 msgstr "  m->backtrace adalah null, tiada data backtrace\n"
 
@@ -5631,6 +5762,7 @@ msgid "--- End Comments ---"
 msgstr "--- Tamat Ulasan ---"
 
 #: src/nec2_model.c:525
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5641,6 +5773,7 @@ msgstr ""
 "EOF Tidak Dijangka (Penghujung Fail)"
 
 #: src/nec2_model.c:532
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5655,6 +5788,7 @@ msgid "End Comments"
 msgstr "Akhir Komen"
 
 #: src/nec2_model.c:916
+#, c-format
 msgid ""
 "Cannot save treeview data\n"
 "Please use the Save button\n"
@@ -5670,6 +5804,7 @@ msgid "improper load type chosen, requested type is %d\n"
 msgstr "jenis beban yang dipilih tidak wajar, jenis yang diminta ialah %d\n"
 
 #: src/network.c:653
+#, c-format
 msgid "Improper load type chose"
 msgstr "Jenis beban yang dipilih tidak wajar"
 
@@ -5679,6 +5814,7 @@ msgid "loading data card error, no segment has an itag = %d\n"
 msgstr "ralat kad data pemuatan, tiada segmen mempunyai itag = %d\n"
 
 #: src/network.c:742
+#, c-format
 msgid ""
 "Loading data card\n"
 "Tag number mismatch error"
@@ -5692,26 +5828,32 @@ msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "Atlas tekstur label dijana (ID=%u)\n"
 
 #: src/opengl-engine/opengl_axes.c:161
+#, c-format
 msgid "Failed to load axes line shader\n"
 msgstr "Gagal memuatkan shader garis paksi\n"
 
 #: src/opengl-engine/opengl_axes.c:192
+#, c-format
 msgid "Axes renderer initialized\n"
 msgstr "Penerap paksi dimulakan\n"
 
 #: src/opengl-engine/opengl_axes.c:196
+#, c-format
 msgid "Failed to load text shaders\n"
 msgstr "Gagal memuatkan shader teks\n"
 
 #: src/opengl-engine/opengl_cairo_overlay.c:62
+#, c-format
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "Gagal memuatkan shader lapisan tindanan cairo\n"
 
 #: src/opengl-engine/opengl_ground_plane.c:105
+#, c-format
 msgid "Failed to load ground plane shaders\n"
 msgstr "Gagal memuatkan shader satah bumi\n"
 
 #: src/opengl-engine/opengl_image_overlay.c:39
+#, c-format
 msgid "Failed to create cairo overlay base\n"
 msgstr "Gagal mencipta asas lapisan tindanan cairo\n"
 
@@ -5736,28 +5878,34 @@ msgid "Shader link failed: %s + %s\n"
 msgstr "Pautan shader gagal: %s + %s\n"
 
 #: src/opengl-engine/opengl_view.c:192
+#, c-format
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
 "Ralat konteks OpenGL — tiada pelaksanaan OpenGL tersedia pada paparan ini\n"
 
 #: src/opengl-engine/opengl_view.c:200
+#, c-format
 msgid "Disabling OpenGL: shader catalog failed\n"
 msgstr "Melumpuhkan OpenGL: katalog shader gagal\n"
 
 #: src/opengl-engine/opengl_view.c:213
+#, c-format
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "Melumpuhkan OpenGL: shader adegan gagal\n"
 
 #: src/opengl-engine/opengl_view.c:228
+#, c-format
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "Melumpuhkan OpenGL: shader lapisan tindanan gagal\n"
 
 #: src/opengl-engine/opengl_view.c:240
+#, c-format
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "Melumpuhkan OpenGL: penerap paksi gagal\n"
 
 #: src/opengl-engine/opengl_view.c:269
+#, c-format
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "Melumpuhkan OpenGL: shader satah bumi gagal\n"
 
@@ -5767,6 +5915,7 @@ msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "Bilangan renderable %u melebihi MAX_RENDERABLES (%d)\n"
 
 #: src/opengl-engine/opengl_view.c:372
+#, c-format
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "Melumpuhkan OpenGL: shader komposit peel gagal\n"
 
@@ -5780,10 +5929,12 @@ msgstr ""
 "box=[%g,%g,%g,%g]\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:141
+#, c-format
 msgid "MSAA framebuffer incomplete\n"
 msgstr "Framebuffer MSAA tidak lengkap\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:173
+#, c-format
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "Framebuffer resolusi MSAA tidak lengkap\n"
 
@@ -5798,14 +5949,17 @@ msgid "Peel MSAA FBO %d incomplete\n"
 msgstr "FBO MSAA peel %d tidak lengkap\n"
 
 #: src/opengl-engine/opengl_view_peel.c:276
+#, c-format
 msgid "Peel accumulation FBO incomplete\n"
 msgstr "FBO pengumpulan peel tidak lengkap\n"
 
 #: src/opengl-engine/opengl_view_peel.c:285
+#, c-format
 msgid "Layer depth FBO incomplete\n"
 msgstr "FBO kedalaman lapisan tidak lengkap\n"
 
 #: src/opengl-engine/opengl_view_render.c:339
+#, c-format
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Renderable lutsinar dilangkau: FBO peel tidak tersedia\n"
 
@@ -5815,6 +5969,7 @@ msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: gaya lukis %d tidak sah, menggunakan surface\n"
 
 #: src/opengl/opengl_state.c:57
+#, c-format
 msgid ""
 "OpenGL is not available on this display; switching to Cairo renderer. See "
 "'OpenGL Renderer' in View > Rendering Settings.\n"
@@ -5855,6 +6010,7 @@ msgid "saving %s: %s\n"
 msgstr "menyimpan %s: %s\n"
 
 #: src/optimize.c:100
+#, c-format
 msgid "xnec2c was built without inotify.\n"
 msgstr "xnec2c dibina tanpa inotify.\n"
 
@@ -5880,10 +6036,12 @@ msgid "inotify: file stat failed or zero bytes (errno=%s), retrying\n"
 msgstr "inotify: stat fail gagal atau sifar bait (errno=%s), mencuba semula\n"
 
 #: src/optimize.c:360
+#, c-format
 msgid "Exited optimizer thread.\n"
 msgstr "Bebenang pengoptimum telah keluar.\n"
 
 #: src/optimize.c:366
+#, c-format
 msgid "optimize.c: exit because this is a child process.\n"
 msgstr "optimize.c: keluar kerana ini adalah proses anak.\n"
 
@@ -5920,14 +6078,17 @@ msgid "inotify: FILTER: target='%s' event_name='%s' match=%d\n"
 msgstr ""
 
 #: src/optimize.c:441
+#, c-format
 msgid "inotify: SKIP event (filename mismatch)\n"
 msgstr "inotify: LANGKAU peristiwa (nama fail tidak sepadan)\n"
 
 #: src/optimize.c:448
+#, c-format
 msgid "inotify: IN_MODIFY on target, setting modify_seen=TRUE\n"
 msgstr "inotify: IN_MODIFY pada sasaran, menetapkan modify_seen=TRUE\n"
 
 #: src/optimize.c:456
+#, c-format
 msgid ""
 "inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n"
 msgstr ""
@@ -5935,6 +6096,7 @@ msgstr ""
 "semula\n"
 
 #: src/optimize.c:473
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), "
 "triggering reload\n"
@@ -5943,6 +6105,7 @@ msgstr ""
 "selesai), mencetuskan muat semula\n"
 
 #: src/optimize.c:485
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), "
 "skipping\n"
@@ -5957,10 +6120,12 @@ msgstr ""
 "inotify: LANGKAU peristiwa (bukan MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n"
 
 #: src/optimize.c:525
+#, c-format
 msgid "failed to create optimizer wake eventfd\n"
 msgstr "gagal mencipta eventfd bangun pengoptimum\n"
 
 #: src/optimize.c:536
+#, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "gagal mencipta benang Output Pengoptimum\n"
 
@@ -5980,6 +6145,7 @@ msgid "nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n"
 msgstr "nec2_eval_signal: pertelingkahan eval_mutex, menyekat (thr=%lu)\n"
 
 #: src/optimizers/opt_nec2_eval.c:194
+#, c-format
 msgid "nec2_eval_run: not initialized\n"
 msgstr "nec2_eval_run: belum dimulakan\n"
 
@@ -5997,10 +6163,12 @@ msgid "opt: optimization complete, best fitness: %.6g\n"
 msgstr "opt: pengoptimuman selesai, fitness terbaik: %.6g\n"
 
 #: src/optimizers/opt_session.c:194
+#, c-format
 msgid "opt_start: optimizer already running\n"
 msgstr "opt_start: pengoptimum sudah berjalan\n"
 
 #: src/optimizers/opt_session.c:258
+#, c-format
 msgid "opt_start: simple_new failed\n"
 msgstr "opt_start: simple_new gagal\n"
 
@@ -6204,6 +6372,7 @@ msgstr ""
 "kepada lalai\n"
 
 #: src/rc_config.c:1786
+#, c-format
 msgid "batch mode: skipping configuration save\n"
 msgstr "mod kelompok: melangkau penyimpanan konfigurasi\n"
 
@@ -6414,6 +6583,7 @@ msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: penciptaan surface gagal (%dx%d)\n"
 
 #: src/render/render_fit.c:67
+#, c-format
 msgid "render_fit_solve: no geometry to fit\n"
 msgstr "render_fit_solve: tiada geometri untuk dipadankan\n"
 
@@ -6462,6 +6632,7 @@ msgid "Waiting for frequency data"
 msgstr "Menunggu data frekuensi"
 
 #: src/render/render_redraw.c:48
+#, c-format
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr ""
 "Gelung pengoptimum tidak lengkap, melangkau lukis semula perantaraan.\n"
@@ -6486,16 +6657,19 @@ msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: gagal memuatkan glade cairo: %s\n"
 
 #: src/settings/render_settings_common.c:182
+#, c-format
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: gagal mendapatkan render_settings_window daripada "
 "glade\n"
 
 #: src/somnec.c:302
+#, c-format
 msgid "Hankel not valid for z = 0"
 msgstr "Hankel tidak sah untuk z = 0"
 
 #: src/somnec.c:807
+#, c-format
 msgid "No convergence"
 msgstr "Tiada penumpuan"
 
@@ -6583,6 +6757,7 @@ msgid "sy_overrides_init: failed to load glade: %s\n"
 msgstr "sy_overrides_init: gagal memuatkan glade: %s\n"
 
 #: src/sy_overrides.c:1107
+#, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: gagal mendapatkan widget daripada glade\n"
 
@@ -6668,6 +6843,7 @@ msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Gagal membuka fail: %s\n"
 
 #: src/utils.c:1090
+#, c-format
 msgid "  Backtrace:\n"
 msgstr "  Jejak balik:\n"
 
@@ -6684,6 +6860,7 @@ msgid "%s:\n"
 msgstr ""
 
 #: src/validation_dump.c:35
+#, c-format
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6692,20 +6869,24 @@ msgstr ""
 "berbeza daripada rujukan\n"
 
 #: src/validation_dump.c:40
+#, c-format
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr "pengesahan: memaksa mathlib kepada nec2-builtin untuk kebolehulangan\n"
 
 #: src/validation_dump.c:59
+#, c-format
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr ""
 "pengesahan: memaksa model suhu-antena dan elevasi untuk kebolehulangan\n"
 
 #: src/validation_dump.c:69
+#, c-format
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr "pengesahan: memaksa polarisasi kepada jumlah untuk kebolehulangan\n"
 
 #: src/validation_dump.c:88
+#, c-format
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
@@ -6718,10 +6899,12 @@ msgid "Validation Tree"
 msgstr "Pepohon Pengesahan"
 
 #: src/validation_dump.c:621
+#, c-format
 msgid "Cannot save: frequency loop not done"
 msgstr "Tidak dapat menyimpan: gelung frekuensi belum selesai"
 
 #: src/validation_dump.c:627
+#, c-format
 msgid "Cannot create output directory"
 msgstr "Tidak dapat mencipta direktori output"
 
@@ -6740,6 +6923,7 @@ msgstr ""
 "%+12.5Ej\n"
 
 #: src/xnec2c.c:322
+#, c-format
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters(): Ralat dalam parameter bumi"
 
@@ -6762,6 +6946,7 @@ msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "anak %d mempunyai fd paip tidak sah semasa kutipan forked\n"
 
 #: src/xnec2c.c:1258
+#, c-format
 msgid "Failed to read data from forked child\n"
 msgstr "Gagal membaca data daripada anak yang di-fork\n"
 
@@ -6826,6 +7011,7 @@ msgid "--%s wrote %s\n"
 msgstr "--%s menulis %s\n"
 
 #: src/xnec2c.c:1974
+#, c-format
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png memerlukan --batch\n"
 
@@ -6840,6 +7026,7 @@ msgid "sweep runs %d workers of %d threads each\n"
 msgstr "sapuan menjalankan %d pekerja dengan %d benang setiap satu\n"
 
 #: src/xnec2c.c:2355
+#, c-format
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "gagal memulakan Frequency_Loop_Thread\n"
 
@@ -6852,6 +7039,7 @@ msgid "Recalculate the frequency sweep?"
 msgstr "Kira semula imbasan frekuensi?"
 
 #: src/xnec2c.c:2536
+#, c-format
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

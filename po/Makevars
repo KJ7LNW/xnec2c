@@ -8,6 +8,8 @@ subdir = po
 top_builddir = ..
 
 # These options get passed to xgettext.
+# Each --flag marks a printf-style function's format argument, so
+# msgfmt --check-format compares a translation's directives against its msgid.
 XGETTEXT_OPTIONS = --from-code=UTF-8 --keyword=_ --keyword=N_ \
 	--keyword=Notice:2 \
 	--keyword=Notice:3 \
@@ -18,7 +20,18 @@ XGETTEXT_OPTIONS = --from-code=UTF-8 --keyword=_ --keyword=N_ \
 	--keyword=pr_warn:1 \
 	--keyword=pr_notice:1 \
 	--keyword=pr_info:1 \
-	--keyword=pr_debug:1
+	--keyword=pr_debug:1 \
+	--flag=pr_alert:1:c-format \
+	--flag=pr_crit:1:c-format \
+	--flag=pr_err:1:c-format \
+	--flag=pr_warn:1:c-format \
+	--flag=pr_notice:1:c-format \
+	--flag=pr_info:1:c-format \
+	--flag=pr_debug:1:c-format \
+	--flag=Stop:2:c-format \
+	--flag=Notice:3:c-format \
+	--flag=Notice_Question:4:c-format \
+	--flag=Notice_Deferred:3:c-format
 
 # This is the copyright holder that gets inserted into the header of the
 # $(DOMAIN).pot file.  Set this to the copyright holder of the surrounding

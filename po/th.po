@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-23 17:34-0800\n"
+"POT-Creation-Date: 2026-11-24 00:43-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3079,6 +3079,7 @@ msgid ""
 msgstr "ความถี่ที่เลือกหลังการกวาด; หากไม่มี ให้คงความถี่ที่บันทึกไว้ก่อนหน้า หรือใช้ค่ากลางหากไม่มี"
 
 #: src/args.c:287
+#, c-format
 msgid "config file path too long\n"
 msgstr "เส้นทางไฟล์กำหนดค่ายาวเกินไป\n"
 
@@ -3127,6 +3128,7 @@ msgid "--threads and %s=%s both state a thread count, unset one\n"
 msgstr "--threads และ %s=%s ต่างระบุจำนวนเธรด ให้ยกเลิกการตั้งค่าหนึ่งรายการ\n"
 
 #: src/args.c:943
+#, c-format
 msgid "Forking disabled!\n"
 msgstr "ปิดใช้งานการ fork!\n"
 
@@ -3166,6 +3168,7 @@ msgid "segment connection error for segment %5d\n"
 msgstr "ข้อผิดพลาดการเชื่อมต่อ segment สำหรับ segment %5d\n"
 
 #: src/calculations.c:118
+#, c-format
 msgid "Segment connection error in tbf()"
 msgstr "ข้อผิดพลาดการเชื่อมต่อ segment ใน tbf()"
 
@@ -3180,10 +3183,12 @@ msgid "segment connection error for segment %d\n"
 msgstr "ข้อผิดพลาดการเชื่อมต่อ segment สำหรับ segment %d\n"
 
 #: src/calculations.c:1073
+#, c-format
 msgid "Segment connection error in sbf()"
 msgstr "ข้อผิดพลาดการเชื่อมต่อ segment ใน sbf()"
 
 #: src/calculations.c:1291
+#, c-format
 msgid "Segment connection error in trio()"
 msgstr "ข้อผิดพลาดการเชื่อมต่อ segment ใน trio()"
 
@@ -3260,6 +3265,7 @@ msgid "Antenna Temperature"
 msgstr "อุณหภูมิเสาอากาศ"
 
 #: src/callbacks.c:84
+#, c-format
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3302,6 +3308,7 @@ msgid "xnec2c geometry optimizer"
 msgstr "ตัวปรับแต่งเรขาคณิต xnec2c"
 
 #: src/callbacks.c:447
+#, c-format
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr "xnec2c ถูกสร้างโดยไม่มีการสนับสนุน inotify: ไม่สามารถเปิดใช้งานตัวปรับแต่งได้"
@@ -3311,6 +3318,7 @@ msgid "Xnec2c Optimizer"
 msgstr "ตัวปรับแต่ง Xnec2c"
 
 #: src/callbacks.c:468
+#, c-format
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3325,10 +3333,12 @@ msgid "Are you sure you wish to close this window?"
 msgstr "คุณแน่ใจหรือไม่ว่าต้องการปิดหน้าต่างนี้?"
 
 #: src/callbacks.c:1503
+#, c-format
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr "OpenGL ไม่พร้อมใช้งานบนจอแสดงผลนี้ ไม่สามารถเปิดใช้ตัวเรนเดอร์ได้\n"
 
 #: src/callbacks.c:1811
+#, c-format
 msgid "No open NEC2 input file"
 msgstr "ไม่มีไฟล์ข้อมูลนำเข้า NEC2 ที่เปิดอยู่"
 
@@ -3346,6 +3356,7 @@ msgstr "ไม่มีชื่อ.nec"
 
 #: src/callbacks.c:2401 src/callbacks.c:2421 src/callbacks.c:2441
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
+#, c-format
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
 "You may need to save the NEC2 Editor data first."
@@ -3364,10 +3375,12 @@ msgid "invalid segment scale encoding %d, using model radius\n"
 msgstr "การเข้ารหัสสเกลเซกเมนต์ %d ไม่ถูกต้อง ใช้รัศมีแบบจำลองแทน\n"
 
 #: src/chroma/chroma_source.c:334
+#, c-format
 msgid "far-field contribution needs radiation pattern data\n"
 msgstr "ส่วนสนับสนุนสนามไกลต้องการข้อมูลแบบรูปการแผ่คลื่น\n"
 
 #: src/cmnd_edit.c:109
+#, c-format
 msgid ""
 "Get_Command_Data(): Error reading\n"
 "row data: Invalid list iterator"
@@ -3376,6 +3389,7 @@ msgstr ""
 "ข้อมูลแถว: ตัววนซ้ำรายการไม่ถูกต้อง"
 
 #: src/cmnd_edit.c:152
+#, c-format
 msgid ""
 "Set_Command_Data(): Error writing row data\n"
 "Please re-select row"
@@ -3738,10 +3752,12 @@ msgid "Not available: excitation defines no feedpoint"
 msgstr "ไม่พร้อมใช้งาน: การกระตุ้นไม่ได้กำหนดจุดป้อนสัญญาณ"
 
 #: src/freqplots/freqplots_graph.c:137 src/freqplots/graphs/smith_graph.c:565
+#, c-format
 msgid "memory allocation for points failed\n"
 msgstr "การจัดสรรหน่วยความจำสำหรับจุดล้มเหลว\n"
 
 #: src/freqplots/freqplots_graph.c:138 src/freqplots/graphs/smith_graph.c:566
+#, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():การจัดสรรหน่วยความจำสำหรับจุดล้มเหลว"
 
@@ -3917,6 +3933,7 @@ msgstr "VSWR vs ความถี่"
 
 #: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
 #: src/geom_edit.c:2703
+#, c-format
 msgid ""
 "Error reading row data\n"
 "Invalid list iterator"
@@ -3925,6 +3942,7 @@ msgstr ""
 "ตัววนซ้ำรายการไม่ถูกต้อง"
 
 #: src/geom_edit.c:151 src/geom_edit.c:181
+#, c-format
 msgid ""
 "Error writing row data\n"
 "Please re-select row"
@@ -3933,6 +3951,7 @@ msgstr ""
 "กรุณาเลือกแถวใหม่"
 
 #: src/geom_edit.c:583
+#, c-format
 msgid ""
 "GC card preceded by GW card\n"
 "with non-zero wire radius"
@@ -3941,10 +3960,12 @@ msgstr ""
 "ที่มีรัศมีลวดไม่เป็นศูนย์"
 
 #: src/geom_edit.c:587
+#, c-format
 msgid "No GW card before GC card"
 msgstr "ไม่มีการ์ด GW ก่อนการ์ด GC"
 
 #: src/geom_edit.c:611
+#, c-format
 msgid ""
 "No GC card after a GW card\n"
 "with a zero wire radius"
@@ -3953,6 +3974,7 @@ msgstr ""
 "ที่มีรัศมีลวดเป็นศูนย์"
 
 #: src/geom_edit.c:620
+#, c-format
 msgid ""
 "GC card follows a GW card\n"
 "with non-zero wire radius"
@@ -3961,6 +3983,7 @@ msgstr ""
 "ที่มีรัศมีลวดไม่เป็นศูนย์"
 
 #: src/geom_edit.c:1025
+#, c-format
 msgid ""
 "SC card preceded by SP card\n"
 "with arbitrary patch type"
@@ -3969,10 +3992,12 @@ msgstr ""
 "ที่มีประเภท patch แบบกำหนดเอง"
 
 #: src/geom_edit.c:1037
+#, c-format
 msgid "No SP or SM card before SC card"
 msgstr "ไม่มีการ์ด SP หรือ SM ก่อนการ์ด SC"
 
 #: src/geom_edit.c:1057
+#, c-format
 msgid ""
 "No SC card after an SP card\n"
 "with non-arbitrary patch type"
@@ -3981,6 +4006,7 @@ msgstr ""
 "ที่มีประเภท patch แบบไม่กำหนดเอง"
 
 #: src/geom_edit.c:1064
+#, c-format
 msgid ""
 "SC card follows an SP card\n"
 "with arbitrary patch type"
@@ -3989,6 +4015,7 @@ msgstr ""
 "ที่มีประเภท patch แบบกำหนดเอง"
 
 #: src/geom_edit.c:1077
+#, c-format
 msgid "No SC card after an SM card"
 msgstr "ไม่มีการ์ด SC หลังการ์ด SM"
 
@@ -4025,18 +4052,22 @@ msgid "SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"
 msgstr "คำจำกัดความ SY (เช่น FREQ=146, LAMBDA=300/FREQ):"
 
 #: src/geom_edit.c:2970
+#, c-format
 msgid "NEC2 editor window not open"
 msgstr "หน้าต่างตัวแก้ไข NEC2 ไม่ได้เปิด"
 
 #: src/geometry.c:118
+#, c-format
 msgid "Number of segments < 1"
 msgstr "จำนวน segment < 1"
 
 #: src/geometry.c:155
+#, c-format
 msgid "Arc angle exceeds 360 degrees"
 msgstr "มุมส่วนโค้งเกิน 360 องศา"
 
 #: src/geometry.c:294
+#, c-format
 msgid "Error in conect(): np > n"
 msgstr "ข้อผิดพลาดใน conect(): np > n"
 
@@ -4046,6 +4077,7 @@ msgid "geometry data error: segment %d extends below ground\n"
 msgstr "ข้อผิดพลาดข้อมูลเรขาคณิต: segment %d ยื่นต่ำกว่าระนาบกราวด์\n"
 
 #: src/geometry.c:326 src/geometry.c:374
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4059,6 +4091,7 @@ msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "ข้อผิดพลาดข้อมูลเรขาคณิต: segment %d อยู่ในระนาบกราวด์\n"
 
 #: src/geometry.c:384
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4068,10 +4101,12 @@ msgstr ""
 
 # xnec2c-exempt: name
 #: src/geometry.c:474
+#, c-format
 msgid "ipsym = 0\n"
 msgstr ""
 
 #: src/geometry.c:475
+#, c-format
 msgid "Error: ipsym = 0"
 msgstr "ข้อผิดพลาด: ipsym = 0"
 
@@ -4085,6 +4120,7 @@ msgstr ""
 "%lu\n"
 
 #: src/geometry.c:530
+#, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4093,12 +4129,14 @@ msgstr ""
 "ตรวจสอบ segment ที่ซ้อนทับหรือเกือบเชื่อมต่อกัน\n"
 
 #: src/geometry.c:744
+#, c-format
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
 msgstr "ตรวจสอบข้อมูล พารามิเตอร์ระบุ segment: ตำแหน่งในกลุ่ม tag ที่เท่ากันต้องไม่เป็นศูนย์\n"
 
 #: src/geometry.c:745
+#, c-format
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4112,6 +4150,7 @@ msgid "no segment has an itag of %d\n"
 msgstr "ไม่มี segment ที่มี itag เป็น %d\n"
 
 #: src/geometry.c:781
+#, c-format
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4134,10 +4173,12 @@ msgstr ""
 "tag ที่ถูกต้องในเรขาคณิตของคุณคือ tag ที่กำหนดให้กับการ์ด GW/GA/GH/SP"
 
 #: src/geometry.c:1064
+#, c-format
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "มุมของรูปสี่เหลี่ยม: patch ไม่อยู่ในระนาบ\n"
 
 #: src/geometry.c:1065
+#, c-format
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4151,6 +4192,7 @@ msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "ข้อผิดพลาดข้อมูลเรขาคณิต: segment %d อยู่ในระนาบสมมาตร\n"
 
 #: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4164,6 +4206,7 @@ msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "ข้อผิดพลาดข้อมูลเรขาคณิต: patch %d อยู่ในระนาบสมมาตร\n"
 
 #: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4344,6 +4387,7 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "บังคับตรวจสอบการซ้อนทับสำหรับ %d segment\n"
 
 #: src/geometry.c:1849
+#, c-format
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr "verify_segments() ข้ามการตรวจสอบที่ขึ้นกับความถี่ - ไม่มีข้อมูลความถี่\n"
@@ -4353,6 +4397,7 @@ msgid "Gnuplot Data"
 msgstr "ข้อมูล Gnuplot"
 
 #: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
+#, c-format
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "ไม่สามารถบันทึกได้: การกวาดความถี่ยังไม่เสร็จสมบูรณ์"
 
@@ -4383,6 +4428,7 @@ msgid "Touchstone Data"
 msgstr "ข้อมูล Touchstone"
 
 #: src/gnuplot.c:104
+#, c-format
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4441,6 +4487,7 @@ msgid "Save Currents and Charges to CSV"
 msgstr "บันทึกกระแสและประจุเป็น CSV"
 
 #: src/gnuplot.c:584
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4453,6 +4500,7 @@ msgid "Save Patch Currents to CSV"
 msgstr "บันทึกกระแส Patch เป็น CSV"
 
 #: src/gnuplot.c:650
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4461,10 +4509,12 @@ msgstr ""
 "xnec2c"
 
 #: src/gnuplot.c:660
+#, c-format
 msgid "No surface patches in this model."
 msgstr "ไม่มีพื้นผิว patch ในโมเดลนี้"
 
 #: src/ground.c:110
+#, c-format
 msgid "b less than a"
 msgstr "b น้อยกว่า a"
 
@@ -4474,6 +4524,7 @@ msgid "step size limited at z = %12.5E\n"
 msgstr "ขนาดขั้นถูกจำกัดที่ Z = %12.5E\n"
 
 #: src/input.c:150
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Unexpected EOF (End of File)"
@@ -4482,6 +4533,7 @@ msgstr ""
 "EOF (สิ้นสุดไฟล์) ที่ไม่คาดคิด"
 
 #: src/input.c:164
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Comment mnemonic short or missing"
@@ -4490,6 +4542,7 @@ msgstr ""
 "ตัวช่วยจำความคิดเห็นสั้นหรือหายไป"
 
 #: src/input.c:175
+#, c-format
 msgid ""
 "Read_Comments():\n"
 " Error reading input file\n"
@@ -4500,6 +4553,7 @@ msgstr ""
 "ตัวช่วยจำความคิดเห็นไม่ถูกต้อง"
 
 #: src/input.c:215
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Tag number is negative"
@@ -4508,6 +4562,7 @@ msgstr ""
 "หมายเลขแท็กเป็นค่าลบ"
 
 #: src/input.c:222
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
@@ -4516,6 +4571,7 @@ msgstr ""
 "จำนวน segment น้อยกว่า 1"
 
 #: src/input.c:229
+#, c-format
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "คำเตือน - จำนวน segment มากกว่า 1000000\n"
 
@@ -4535,6 +4591,7 @@ msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "ข้อผิดพลาดการ์ดข้อมูล %s: อักขระที่ไม่ถูกต้อง '%c' ที่คอลัมน์ %d\n"
 
 #: src/input.c:301
+#, c-format
 msgid ""
 "Data card error\n"
 "Spurious character in card"
@@ -4548,18 +4605,22 @@ msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: การประเมินนิพจน์ล้มเหลวสำหรับ \"%s\"\n"
 
 #: src/input.c:413
+#, c-format
 msgid "SY card: no line content available\n"
 msgstr "การ์ด SY: ไม่มีเนื้อหาบรรทัด\n"
 
 #: src/input.c:414
+#, c-format
 msgid "SY card: no line content available"
 msgstr "การ์ด SY: ไม่มีเนื้อหาบรรทัด"
 
 #: src/input.c:431
+#, c-format
 msgid "SY card: missing '=' in definition\n"
 msgstr "การ์ด SY: ไม่มี '=' ในการกำหนดค่า\n"
 
 #: src/input.c:432
+#, c-format
 msgid "SY card: missing '=' in definition"
 msgstr "การ์ด SY: ไม่มี '=' ในการกำหนดค่า"
 
@@ -4569,6 +4630,7 @@ msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "การ์ด SY: การกำหนดสัญลักษณ์ล้มเหลวสำหรับ %s=%s\n"
 
 #: src/input.c:652
+#, c-format
 msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
@@ -4577,18 +4639,22 @@ msgstr ""
 "ไม่มีการ์ด GC สำหรับเส้นลวดเรียว"
 
 #: src/input.c:659
+#, c-format
 msgid "Geometry GC data card error"
 msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต GC"
 
 #: src/input.c:675
+#, c-format
 msgid "Geometry GX data card error"
 msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต GX"
 
 #: src/input.c:698
+#, c-format
 msgid "Geometry GR data card error"
 msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต GR"
 
 #: src/input.c:752
+#, c-format
 msgid "No geometry data cards"
 msgstr "ไม่มีการ์ดข้อมูลเรขาคณิต"
 
@@ -4597,6 +4663,7 @@ msgid "Probable invalid segment geometry.\n"
 msgstr "เรขาคณิต segment อาจไม่ถูกต้อง\n"
 
 #: src/input.c:764
+#, c-format
 msgid ""
 "Invalid segment geometry.\n"
 "See warnings in the console for detail.\n"
@@ -4607,10 +4674,12 @@ msgstr ""
 "กำลังพยายามดำเนินการต่อ..."
 
 #: src/input.c:770
+#, c-format
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "เรขาคณิต segment อาจไม่ถูกต้อง (ดูข้างบน)\n"
 
 #: src/input.c:774
+#, c-format
 msgid "Read_Geometry: verify_segments() passed\n"
 msgstr "Read_Geometry: verify_segments() ผ่าน\n"
 
@@ -4620,23 +4689,28 @@ msgid "segment data error: tag=%d si=%f, bi=%f\n"
 msgstr "ข้อผิดพลาดข้อมูล segment: tag=%d si=%f, bi=%f\n"
 
 #: src/input.c:813
+#, c-format
 msgid "Segment data error, zero-length line?  See console."
 msgstr "ข้อผิดพลาดข้อมูล segment เส้นความยาวศูนย์? ดูคอนโซล"
 
 #: src/input.c:853
+#, c-format
 msgid "Move GM data card error"
 msgstr "ข้อผิดพลาดการ์ดข้อมูลย้าย GM"
 
 #: src/input.c:869 src/input.c:910 src/input.c:927 src/input.c:945
 #: src/input.c:953
+#, c-format
 msgid "Patch data card error"
 msgstr "ข้อผิดพลาดการ์ดข้อมูล Patch"
 
 #: src/input.c:891
+#, c-format
 msgid "Patch data error"
 msgstr "ข้อผิดพลาดข้อมูล Patch"
 
 #: src/input.c:1000
+#, c-format
 msgid ""
 "\"GF\" card (NGF solution)\n"
 "is not supported"
@@ -4645,6 +4719,7 @@ msgstr ""
 "ไม่รองรับ"
 
 #: src/input.c:1005
+#, c-format
 msgid "Ignoring CM card in geometry"
 msgstr "ละเว้นการ์ด CM ในเรขาคณิต"
 
@@ -4660,18 +4735,22 @@ msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
 #: src/input.c:1025
+#, c-format
 msgid "Command card in geometry section"
 msgstr "การ์ดคำสั่งอยู่ในส่วนเรขาคณิต"
 
 #: src/input.c:1027
+#, c-format
 msgid "Unrecognized geometry card"
 msgstr "ไม่รู้จักการ์ดเรขาคณิต"
 
 #: src/input.c:1051
+#, c-format
 msgid "Failed to initialize symbol table\n"
 msgstr "ล้มเหลวในการเริ่มต้นตารางสัญลักษณ์\n"
 
 #: src/input.c:1052
+#, c-format
 msgid "Failed to initialize symbol table"
 msgstr "ล้มเหลวในการเริ่มต้นตารางสัญลักษณ์"
 
@@ -4681,14 +4760,17 @@ msgid "No FR card: computing one step at the NEC-2 default %g MHz\n"
 msgstr "ไม่มีการ์ด FR: คำนวณหนึ่งขั้นที่ค่าเริ่มต้น NEC-2 %g MHz\n"
 
 #: src/input.c:1283
+#, c-format
 msgid "ignoring CM card in commands\n"
 msgstr "ละเว้นการ์ด CM ในคำสั่ง\n"
 
 #: src/input.c:1284
+#, c-format
 msgid "Ignoring CM card in commands"
 msgstr "ละเว้นการ์ด CM ในคำสั่ง"
 
 #: src/input.c:1296
+#, c-format
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "ละเว้นการ์ด CP: ยังไม่ได้จัดทำการคำนวณการคัปปลิง\n"
 
@@ -4698,10 +4780,12 @@ msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "ข้ามการ์ด FR ที่ซ้ำที่ %g MHz\n"
 
 #: src/input.c:1457
+#, c-format
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "ความถี่สูงสุด <= ความถี่ต่ำสุดในการ์ด FR\n"
 
 #: src/input.c:1458
+#, c-format
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
@@ -4710,6 +4794,7 @@ msgstr ""
 "กรุณาตรวจสอบข้อมูลการ์ด FR และแก้ไข"
 
 #: src/input.c:1481
+#, c-format
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates "
@@ -4719,10 +4804,12 @@ msgstr ""
 "การ์ด GE ระบุว่ามีกราวด์อยู่ แต่ GN ระบุเป็นอย่างอื่น"
 
 #: src/input.c:1495
+#, c-format
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "theta > 90 องศา โดยมีการระบุกราวด์\n"
 
 #: src/input.c:1496 src/radiation.c:911
+#, c-format
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4731,12 +4818,14 @@ msgstr ""
 "กรุณาตรวจสอบข้อมูลการ์ด RP และแก้ไข"
 
 #: src/input.c:1505
+#, c-format
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
 msgstr "การประมาณค่า radial wire g.s.: ไม่สามารถใช้กับตัวเลือกกราวด์ Sommerfeld ได้\n"
 
 #: src/input.c:1506
+#, c-format
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
@@ -4752,6 +4841,7 @@ msgid ""
 msgstr "ข้อผิดพลาดข้อมูลบนการ์ดโหลดหมายเลข %d: itag step1 %d มากกว่า itag step2 %d\n"
 
 #: src/input.c:1556
+#, c-format
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
@@ -4760,11 +4850,13 @@ msgstr ""
 "itag step1 มากกว่า itag step2"
 
 #: src/input.c:1685
+#, c-format
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr "อิมพีแดนซ์สายส่ง = 0: ไม่ถูกต้อง กรุณาแก้ไขการ์ด NT หรือ TL\n"
 
 #: src/input.c:1686
+#, c-format
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
@@ -4773,10 +4865,12 @@ msgstr ""
 "ไม่ถูกต้อง กรุณาแก้ไขการ์ด NT หรือ TL"
 
 #: src/input.c:1697
+#, c-format
 msgid "Segment number error in TL or NT card\n"
 msgstr "ข้อผิดพลาดหมายเลข segment ในการ์ด TL หรือ NT\n"
 
 #: src/input.c:1698
+#, c-format
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
@@ -4785,18 +4879,22 @@ msgstr ""
 "ในการ์ด NT หรือ TL"
 
 #: src/input.c:1720
+#, c-format
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr "ละเว้นการ์ด PQ และ PT: ยังไม่ได้จัดทำการพิมพ์ลงไฟล์\n"
 
 #: src/input.c:1724
+#, c-format
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "ละเว้นการ์ด PL: ไม่รองรับการพล็อตลงไฟล์\n"
 
 #: src/input.c:1730
+#, c-format
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "ตัวเลือกคลื่นผิว (I1=1): ของคำสั่ง RP ไม่ได้ถูกนำมาใช้\n"
 
 #: src/input.c:1731
+#, c-format
 msgid ""
 "Surface wave option (I1=1)\n"
 "of RP command not implemented"
@@ -4805,12 +4903,14 @@ msgstr ""
 "ของคำสั่ง RP ไม่ได้ถูกนำมาใช้"
 
 #: src/input.c:1763
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
 msgstr "Theta > 90 องศา โดยมีการระบุกราวด์: กรุณาตรวจสอบข้อมูลการ์ด RP และแก้ไข\n"
 
 #: src/input.c:1764
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4827,6 +4927,7 @@ msgid "Unrecognized command card"
 msgstr "ไม่รู้จักการ์ดคำสั่ง"
 
 #: src/input.c:1879
+#, c-format
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
@@ -4834,16 +4935,19 @@ msgstr ""
 "ไม่มีการ์ด RP หรือเป็นการ์ดคลื่นผิว: การคำนวณแบบรูปการแผ่คลื่นและอัตราขยายถูกปิดใช้งาน\n"
 
 #: src/input.c:1906
+#, c-format
 msgid "Unexpected exit from while loop"
 msgstr "ออกจากลูป while โดยไม่คาดคิด"
 
 #: src/input.c:1997
+#, c-format
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
 msgstr "ข้อผิดพลาดการ์ดข้อมูลคำสั่ง: พบ EOF ที่ไม่คาดคิดขณะอ่านไฟล์อินพุต - กำลังเพิ่มการ์ด EN\n"
 
 #: src/input.c:1998
+#, c-format
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4854,10 +4958,12 @@ msgstr ""
 "กำลังเพิ่มการ์ด EN เริ่มต้น"
 
 #: src/input.c:2015
+#, c-format
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr "ข้อผิดพลาดการ์ดข้อมูลคำสั่ง: รหัสช่วยจำของการ์ดสั้นเกินไปหรือไม่มี\n"
 
 #: src/input.c:2016
+#, c-format
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4866,6 +4972,7 @@ msgstr ""
 "รหัสช่วยจำสั้นเกินไปหรือไม่มี"
 
 #: src/input.c:2217
+#, c-format
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
@@ -4873,6 +4980,7 @@ msgstr ""
 "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต: พบ EOF ที่ไม่คาดคิดขณะอ่านไฟล์อินพุต - กำลังเพิ่มการ์ด GE\n"
 
 #: src/input.c:2218
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4883,10 +4991,12 @@ msgstr ""
 "กำลังเพิ่มการ์ด GE เริ่มต้น"
 
 #: src/input.c:2235
+#, c-format
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr "ข้อผิดพลาดการ์ดข้อมูลเรขาคณิต: รหัสช่วยจำของการ์ดสั้นเกินไปหรือไม่มี\n"
 
 #: src/input.c:2236
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -4925,6 +5035,7 @@ msgid "failed to add objects to builder: %s\n"
 msgstr "ไม่สามารถเพิ่มออบเจกต์ลง builder: %s\n"
 
 #: src/interface.c:198
+#, c-format
 msgid "Listing Object Ids:\n"
 msgstr "แสดงรายการ Object Ids:\n"
 
@@ -4936,6 +5047,7 @@ msgid "%s\n"
 msgstr ""
 
 #: src/interface.c:213 src/interface.c:216
+#, c-format
 msgid ""
 "libgmodule not supported: xnec2c may not function properly on this "
 "platform.\n"
@@ -4958,6 +5070,7 @@ msgid "Detected %s windowing backend\n"
 msgstr "ตรวจพบ windowing backend %s\n"
 
 #: src/main.c:137
+#, c-format
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch และ --optimize ใช้พร้อมกันไม่ได้\n"
 
@@ -4977,10 +5090,12 @@ msgid "unexpected argument: %s\n"
 msgstr "อาร์กิวเมนต์ที่ไม่คาดคิด: %s\n"
 
 #: src/main.c:177
+#, c-format
 msgid "batch mode requires an input file\n"
 msgstr "โหมด batch ต้องการไฟล์อินพุต\n"
 
 #: src/main.c:187
+#, c-format
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "ไม่สามารถเปิดจอแสดงผล: ต้องการเซสชัน X11 หรือ Wayland ที่กำลังทำงาน\n"
 
@@ -4990,30 +5105,37 @@ msgid "Forking %d jobs across %d processors.\n"
 msgstr "กำลังฟอร์ก %d งานบนตัวประมวลผล %d ตัว\n"
 
 #: src/main.c:223 src/main.c:231
+#, c-format
 msgid "exiting after fatal error: pipe() failed"
 msgstr "ออกหลังจากข้อผิดพลาดร้ายแรง: pipe() ล้มเหลว"
 
 #: src/main.c:240
+#, c-format
 msgid "exiting after fatal error: fork() failed"
 msgstr "ออกหลังจากข้อผิดพลาดร้ายแรง: fork() ล้มเหลว"
 
 #: src/main.c:840
+#, c-format
 msgid "exiting via user interrupt\n"
 msgstr "ออกตามการขัดจังหวะของผู้ใช้\n"
 
 #: src/main.c:844
+#, c-format
 msgid "segmentation fault, exiting\n"
 msgstr "segmentation fault กำลังออก\n"
 
 #: src/main.c:848
+#, c-format
 msgid "floating point exception, exiting\n"
 msgstr "ข้อผิดพลาดจุดทศนิยมลอยตัว กำลังออก\n"
 
 #: src/main.c:852
+#, c-format
 msgid "abort signal received, exiting\n"
 msgstr "ได้รับสัญญาณยกเลิก กำลังออก\n"
 
 #: src/main.c:856
+#, c-format
 msgid "termination request received, exiting\n"
 msgstr "ได้รับคำขอยุติการทำงาน กำลังออก\n"
 
@@ -5109,6 +5231,7 @@ msgid "Batch Math Library"
 msgstr "ไลบรารีคณิตศาสตร์แบบแบตช์"
 
 #: src/mathlib.c:720
+#, c-format
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
 "command line. (However, this selection will be saved for next time xnec2c is "
@@ -5132,6 +5255,7 @@ msgid "Mathlib Benchmark Help"
 msgstr "ช่วยเหลือเบนช์มาร์ก Mathlib"
 
 #: src/mathlib.c:868
+#, c-format
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
 "the mathlib implementation to parallelize the linear algebra calculation of "
@@ -5235,20 +5359,24 @@ msgstr ""
 "ให้ยกเลิกการตั้งค่าแล้วเริ่มใหม่เพื่อทำเบนช์มาร์กจำนวนเธรด"
 
 #: src/mathlib.c:978
+#, c-format
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "เบนช์มาร์กถูกปิดใช้งานขณะที่การปรับแต่งเปิดใช้งานอยู่"
 
 #: src/mathlib.c:985
+#, c-format
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr "ต้องโหลดไฟล์อินพุต NEC2 ก่อนเรียกใช้เบนช์มาร์ก"
 
 #: src/mathlib.c:991
+#, c-format
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
 "specified on the command line."
 msgstr "การเลือกเบนช์มาร์กอื่นที่ไม่ใช่ \"Single Job\" จะไม่มีผลเว้นแต่จะระบุ -j บนบรรทัดคำสั่ง"
 
 #: src/mathlib.c:1008
+#, c-format
 msgid "You must select at least one math library to benchmark"
 msgstr "ต้องเลือกไลบรารีคณิตศาสตร์อย่างน้อยหนึ่งรายการเพื่อทดสอบเบนช์มาร์ก"
 
@@ -5373,6 +5501,7 @@ msgid "symmetry error - nrow:%d ncol:%d\n"
 msgstr "ข้อผิดพลาดสมมาตร - nrow:%d ncol:%d\n"
 
 #: src/matrix.c:1353
+#, c-format
 msgid "Symmetry error"
 msgstr "ข้อผิดพลาดสมมาตร"
 
@@ -5382,6 +5511,7 @@ msgid "Solving Failed: %d\n"
 msgstr "การแก้สมการล้มเหลว: %d\n"
 
 #: src/measurements.c:424
+#, c-format
 msgid ""
 "noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
 "to 0\n"
@@ -5426,6 +5556,7 @@ msgid "mem_backtrace(%p):\n"
 msgstr ""
 
 #: src/mem/mem.c:253
+#, c-format
 msgid "  m->backtrace is null, no backtrace data\n"
 msgstr "  m->backtrace เป็น null ไม่มีข้อมูล backtrace\n"
 
@@ -5470,6 +5601,7 @@ msgid "--- End Comments ---"
 msgstr "--- จบความคิดเห็น ---"
 
 #: src/nec2_model.c:525
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5480,6 +5612,7 @@ msgstr ""
 "พบ EOF (สิ้นสุดไฟล์) โดยไม่คาดคิด"
 
 #: src/nec2_model.c:532
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5494,6 +5627,7 @@ msgid "End Comments"
 msgstr "จบความคิดเห็น"
 
 #: src/nec2_model.c:916
+#, c-format
 msgid ""
 "Cannot save treeview data\n"
 "Please use the Save button\n"
@@ -5509,6 +5643,7 @@ msgid "improper load type chosen, requested type is %d\n"
 msgstr "เลือกประเภทโหลดไม่ถูกต้อง ประเภทที่ร้องขอคือ %d\n"
 
 #: src/network.c:653
+#, c-format
 msgid "Improper load type chose"
 msgstr "เลือกประเภทโหลดไม่ถูกต้อง"
 
@@ -5518,6 +5653,7 @@ msgid "loading data card error, no segment has an itag = %d\n"
 msgstr "ข้อผิดพลาดการ์ดข้อมูลการโหลด ไม่มี segment ที่มี itag = %d\n"
 
 #: src/network.c:742
+#, c-format
 msgid ""
 "Loading data card\n"
 "Tag number mismatch error"
@@ -5531,26 +5667,32 @@ msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "สร้าง label texture atlas แล้ว (ID=%u)\n"
 
 #: src/opengl-engine/opengl_axes.c:161
+#, c-format
 msgid "Failed to load axes line shader\n"
 msgstr "ไม่สามารถโหลด axes line shader\n"
 
 #: src/opengl-engine/opengl_axes.c:192
+#, c-format
 msgid "Axes renderer initialized\n"
 msgstr "เริ่มต้น axes renderer แล้ว\n"
 
 #: src/opengl-engine/opengl_axes.c:196
+#, c-format
 msgid "Failed to load text shaders\n"
 msgstr "ไม่สามารถโหลด text shaders\n"
 
 #: src/opengl-engine/opengl_cairo_overlay.c:62
+#, c-format
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "ไม่สามารถโหลด cairo overlay shaders\n"
 
 #: src/opengl-engine/opengl_ground_plane.c:105
+#, c-format
 msgid "Failed to load ground plane shaders\n"
 msgstr "ไม่สามารถโหลด ground plane shaders\n"
 
 #: src/opengl-engine/opengl_image_overlay.c:39
+#, c-format
 msgid "Failed to create cairo overlay base\n"
 msgstr "ไม่สามารถสร้าง cairo overlay base\n"
 
@@ -5575,27 +5717,33 @@ msgid "Shader link failed: %s + %s\n"
 msgstr "การลิงก์ shader ล้มเหลว: %s + %s\n"
 
 #: src/opengl-engine/opengl_view.c:192
+#, c-format
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr "ข้อผิดพลาด OpenGL context — ไม่มีการใช้งาน OpenGL บนจอแสดงผลนี้\n"
 
 #: src/opengl-engine/opengl_view.c:200
+#, c-format
 msgid "Disabling OpenGL: shader catalog failed\n"
 msgstr "ปิดใช้งาน OpenGL: แคตตาล็อกเชดเดอร์ล้มเหลว\n"
 
 #: src/opengl-engine/opengl_view.c:213
+#, c-format
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "ปิดใช้งาน OpenGL: scene shader ล้มเหลว\n"
 
 #: src/opengl-engine/opengl_view.c:228
+#, c-format
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "ปิดใช้งาน OpenGL: overlay shader ล้มเหลว\n"
 
 #: src/opengl-engine/opengl_view.c:240
+#, c-format
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "ปิดใช้งาน OpenGL: axes renderer ล้มเหลว\n"
 
 #: src/opengl-engine/opengl_view.c:269
+#, c-format
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "ปิดใช้งาน OpenGL: ground plane shader ล้มเหลว\n"
 
@@ -5605,6 +5753,7 @@ msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "จำนวน renderable %u เกิน MAX_RENDERABLES (%d)\n"
 
 #: src/opengl-engine/opengl_view.c:372
+#, c-format
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "ปิดใช้งาน OpenGL: peel composite shader ล้มเหลว\n"
 
@@ -5618,10 +5767,12 @@ msgstr ""
 "%g,%g,%g]\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:141
+#, c-format
 msgid "MSAA framebuffer incomplete\n"
 msgstr "MSAA framebuffer ไม่สมบูรณ์\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:173
+#, c-format
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "MSAA resolve framebuffer ไม่สมบูรณ์\n"
 
@@ -5636,14 +5787,17 @@ msgid "Peel MSAA FBO %d incomplete\n"
 msgstr "Peel MSAA FBO %d ไม่สมบูรณ์\n"
 
 #: src/opengl-engine/opengl_view_peel.c:276
+#, c-format
 msgid "Peel accumulation FBO incomplete\n"
 msgstr "Peel accumulation FBO ไม่สมบูรณ์\n"
 
 #: src/opengl-engine/opengl_view_peel.c:285
+#, c-format
 msgid "Layer depth FBO incomplete\n"
 msgstr "Layer depth FBO ไม่สมบูรณ์\n"
 
 #: src/opengl-engine/opengl_view_render.c:339
+#, c-format
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "ข้าม renderables โปร่งใส: peel FBOs ไม่พร้อมใช้งาน\n"
 
@@ -5653,6 +5807,7 @@ msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: รูปแบบการวาดไม่ถูกต้อง %d ใช้พื้นผิว\n"
 
 #: src/opengl/opengl_state.c:57
+#, c-format
 msgid ""
 "OpenGL is not available on this display; switching to Cairo renderer. See "
 "'OpenGL Renderer' in View > Rendering Settings.\n"
@@ -5693,6 +5848,7 @@ msgid "saving %s: %s\n"
 msgstr "กำลังบันทึก %s: %s\n"
 
 #: src/optimize.c:100
+#, c-format
 msgid "xnec2c was built without inotify.\n"
 msgstr "xnec2c ถูกสร้างโดยไม่มี inotify\n"
 
@@ -5717,10 +5873,12 @@ msgid "inotify: file stat failed or zero bytes (errno=%s), retrying\n"
 msgstr "inotify: file stat ล้มเหลวหรือศูนย์ไบต์ (errno=%s) กำลังลองใหม่\n"
 
 #: src/optimize.c:360
+#, c-format
 msgid "Exited optimizer thread.\n"
 msgstr "ออกจากเธรดตัวปรับแต่งแล้ว\n"
 
 #: src/optimize.c:366
+#, c-format
 msgid "optimize.c: exit because this is a child process.\n"
 msgstr "optimize.c: ออกเนื่องจากนี่เป็นโปรเซสลูก\n"
 
@@ -5755,20 +5913,24 @@ msgid "inotify: FILTER: target='%s' event_name='%s' match=%d\n"
 msgstr ""
 
 #: src/optimize.c:441
+#, c-format
 msgid "inotify: SKIP event (filename mismatch)\n"
 msgstr "inotify: ข้ามเหตุการณ์ (ชื่อไฟล์ไม่ตรงกัน)\n"
 
 #: src/optimize.c:448
+#, c-format
 msgid "inotify: IN_MODIFY on target, setting modify_seen=TRUE\n"
 msgstr "inotify: IN_MODIFY บนเป้าหมาย ตั้ง modify_seen=TRUE\n"
 
 #: src/optimize.c:456
+#, c-format
 msgid ""
 "inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n"
 msgstr ""
 "inotify: IN_MOVED_TO บนเป้าหมาย (เขียน atomic เสร็จสมบูรณ์) เรียกใช้การโหลดซ้ำ\n"
 
 #: src/optimize.c:473
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), "
 "triggering reload\n"
@@ -5777,6 +5939,7 @@ msgstr ""
 "เรียกใช้การโหลดซ้ำ\n"
 
 #: src/optimize.c:485
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), "
 "skipping\n"
@@ -5789,10 +5952,12 @@ msgid "inotify: SKIP event (not MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n"
 msgstr "inotify: ข้ามเหตุการณ์ (ไม่ใช่ MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n"
 
 #: src/optimize.c:525
+#, c-format
 msgid "failed to create optimizer wake eventfd\n"
 msgstr "ไม่สามารถสร้าง eventfd สำหรับปลุกตัวปรับแต่งได้\n"
 
 #: src/optimize.c:536
+#, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "ไม่สามารถสร้างเธรดเอาต์พุตตัวปรับแต่งได้\n"
 
@@ -5812,6 +5977,7 @@ msgid "nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n"
 msgstr "nec2_eval_signal: eval_mutex มีการแย่งใช้, กำลังรอ (thr=%lu)\n"
 
 #: src/optimizers/opt_nec2_eval.c:194
+#, c-format
 msgid "nec2_eval_run: not initialized\n"
 msgstr "nec2_eval_run: ยังไม่ได้เริ่มต้น\n"
 
@@ -5830,10 +5996,12 @@ msgid "opt: optimization complete, best fitness: %.6g\n"
 msgstr "opt: การปรับแต่งเสร็จสมบูรณ์ ค่า fitness ดีที่สุด: %.6g\n"
 
 #: src/optimizers/opt_session.c:194
+#, c-format
 msgid "opt_start: optimizer already running\n"
 msgstr "opt_start: ตัวปรับแต่งกำลังทำงานอยู่แล้ว\n"
 
 #: src/optimizers/opt_session.c:258
+#, c-format
 msgid "opt_start: simple_new failed\n"
 msgstr "opt_start: simple_new ล้มเหลว\n"
 
@@ -6021,6 +6189,7 @@ msgid "Invalid flow visualization mode %d in config, resetting to default\n"
 msgstr "โหมดการแสดงภาพการไหล %d ในการตั้งค่าไม่ถูกต้อง กำลังตั้งกลับเป็นค่าเริ่มต้น\n"
 
 #: src/rc_config.c:1786
+#, c-format
 msgid "batch mode: skipping configuration save\n"
 msgstr "โหมดแบตช์: ข้ามการบันทึกการกำหนดค่า\n"
 
@@ -6224,6 +6393,7 @@ msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: สร้าง surface ล้มเหลว (%dx%d)\n"
 
 #: src/render/render_fit.c:67
+#, c-format
 msgid "render_fit_solve: no geometry to fit\n"
 msgstr "render_fit_solve: ไม่มีเรขาคณิตให้ปรับพอดี\n"
 
@@ -6272,6 +6442,7 @@ msgid "Waiting for frequency data"
 msgstr "กำลังรอข้อมูลความถี่"
 
 #: src/render/render_redraw.c:48
+#, c-format
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "การวนซ้ำตัวปรับแต่งไม่สมบูรณ์ ระงับการวาดซ้ำชั่วคราว\n"
 
@@ -6295,14 +6466,17 @@ msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: ไม่สามารถโหลด cairo glade: %s\n"
 
 #: src/settings/render_settings_common.c:182
+#, c-format
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr "render_settings_init: ไม่สามารถรับ render_settings_window จาก glade\n"
 
 #: src/somnec.c:302
+#, c-format
 msgid "Hankel not valid for z = 0"
 msgstr "Hankel ไม่ถูกต้องสำหรับ Z = 0"
 
 #: src/somnec.c:807
+#, c-format
 msgid "No convergence"
 msgstr "ไม่ลู่เข้า"
 
@@ -6390,6 +6564,7 @@ msgid "sy_overrides_init: failed to load glade: %s\n"
 msgstr "sy_overrides_init: ไม่สามารถโหลด glade: %s\n"
 
 #: src/sy_overrides.c:1107
+#, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: ไม่สามารถรับวิดเจ็ตจาก glade\n"
 
@@ -6475,6 +6650,7 @@ msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: ไม่สามารถเปิดไฟล์: %s\n"
 
 #: src/utils.c:1090
+#, c-format
 msgid "  Backtrace:\n"
 msgstr "  แบ็กเทรซ:\n"
 
@@ -6491,6 +6667,7 @@ msgid "%s:\n"
 msgstr ""
 
 #: src/validation_dump.c:35
+#, c-format
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6498,19 +6675,23 @@ msgstr ""
 "validation: ไม่มี mathlib แบบ nec2-builtin; ผลลัพธ์ตัวเลขอาจแตกต่างจากค่าอ้างอิง\n"
 
 #: src/validation_dump.c:40
+#, c-format
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr "validation: บังคับใช้ mathlib เป็น nec2-builtin เพื่อการทำซ้ำได้\n"
 
 #: src/validation_dump.c:59
+#, c-format
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr "validation: บังคับใช้โมเดลอุณหภูมิสายอากาศและมุมเงยเพื่อการทำซ้ำได้\n"
 
 #: src/validation_dump.c:69
+#, c-format
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr "validation: บังคับโพลาไรเซชันเป็นแบบรวมเพื่อการทำซ้ำได้\n"
 
 #: src/validation_dump.c:88
+#, c-format
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
@@ -6521,10 +6702,12 @@ msgid "Validation Tree"
 msgstr "โครงสร้างการตรวจสอบ"
 
 #: src/validation_dump.c:621
+#, c-format
 msgid "Cannot save: frequency loop not done"
 msgstr "ไม่สามารถบันทึกได้: ลูปความถี่ยังไม่เสร็จสิ้น"
 
 #: src/validation_dump.c:627
+#, c-format
 msgid "Cannot create output directory"
 msgstr "ไม่สามารถสร้างไดเรกทอรีเอาต์พุตได้"
 
@@ -6541,6 +6724,7 @@ msgid ""
 msgstr "ค่าคงที่ไดอิเล็กทริกเชิงซ้อนจากไฟล์: %12.5E%+12.5Ej ที่ร้องขอ: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:322
+#, c-format
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters():ข้อผิดพลาดในพารามิเตอร์กราวด์"
 
@@ -6561,6 +6745,7 @@ msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "โปรเซสลูก %d มี pipe fd ไม่ถูกต้องระหว่าง forked collect\n"
 
 #: src/xnec2c.c:1258
+#, c-format
 msgid "Failed to read data from forked child\n"
 msgstr "ไม่สามารถอ่านข้อมูลจากโปรเซสลูกที่ fork\n"
 
@@ -6625,6 +6810,7 @@ msgid "--%s wrote %s\n"
 msgstr "--%s เขียน %s แล้ว\n"
 
 #: src/xnec2c.c:1974
+#, c-format
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png ต้องใช้ --batch\n"
 
@@ -6639,6 +6825,7 @@ msgid "sweep runs %d workers of %d threads each\n"
 msgstr "การกวาดรันตัวทำงาน %d ตัว ตัวละ %d เธรด\n"
 
 #: src/xnec2c.c:2355
+#, c-format
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "ไม่สามารถเริ่ม Frequency_Loop_Thread\n"
 
@@ -6651,6 +6838,7 @@ msgid "Recalculate the frequency sweep?"
 msgstr "คำนวณการกวาดความถี่ใหม่หรือไม่"
 
 #: src/xnec2c.c:2536
+#, c-format
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

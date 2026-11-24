@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-23 17:34-0800\n"
+"POT-Creation-Date: 2026-11-24 00:43-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3106,6 +3106,7 @@ msgstr ""
 "केंद्र रखें"
 
 #: src/args.c:287
+#, c-format
 msgid "config file path too long\n"
 msgstr "कॉन्फ़िग फ़ाइल पथ बहुत लंबा है\n"
 
@@ -3154,6 +3155,7 @@ msgid "--threads and %s=%s both state a thread count, unset one\n"
 msgstr "--threads और %s=%s दोनों थ्रेड संख्या निर्दिष्ट करते हैं, एक को अनसेट करें।\n"
 
 #: src/args.c:943
+#, c-format
 msgid "Forking disabled!\n"
 msgstr "फोर्किंग अक्षम!\n"
 
@@ -3193,6 +3195,7 @@ msgid "segment connection error for segment %5d\n"
 msgstr "segment %5d के लिए segment connection त्रुटि\n"
 
 #: src/calculations.c:118
+#, c-format
 msgid "Segment connection error in tbf()"
 msgstr "tbf() में Segment connection त्रुटि"
 
@@ -3207,10 +3210,12 @@ msgid "segment connection error for segment %d\n"
 msgstr "segment %d के लिए segment connection त्रुटि\n"
 
 #: src/calculations.c:1073
+#, c-format
 msgid "Segment connection error in sbf()"
 msgstr "sbf() में Segment connection त्रुटि"
 
 #: src/calculations.c:1291
+#, c-format
 msgid "Segment connection error in trio()"
 msgstr "trio() में Segment connection त्रुटि"
 
@@ -3287,6 +3292,7 @@ msgid "Antenna Temperature"
 msgstr "एंटीना तापमान"
 
 #: src/callbacks.c:84
+#, c-format
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3329,6 +3335,7 @@ msgid "xnec2c geometry optimizer"
 msgstr "xnec2c ज्यामिति अनुकूलक"
 
 #: src/callbacks.c:447
+#, c-format
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr "xnec2c बिना inotify समर्थन के बनाया गया था: अनुकूलक सक्षम नहीं किया जा सकता।"
@@ -3338,6 +3345,7 @@ msgid "Xnec2c Optimizer"
 msgstr "Xnec2c अनुकूलक"
 
 #: src/callbacks.c:468
+#, c-format
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3352,10 +3360,12 @@ msgid "Are you sure you wish to close this window?"
 msgstr "क्या आप वाकई इस विंडो को बंद करना चाहते हैं?"
 
 #: src/callbacks.c:1503
+#, c-format
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr "इस डिस्प्ले पर OpenGL उपलब्ध नहीं है; रेंडरर सक्षम नहीं किया जा सकता।\n"
 
 #: src/callbacks.c:1811
+#, c-format
 msgid "No open NEC2 input file"
 msgstr "कोई NEC2 इनपुट फ़ाइल खुली नहीं है"
 
@@ -3373,6 +3383,7 @@ msgstr "अनाम.nec"
 
 #: src/callbacks.c:2401 src/callbacks.c:2421 src/callbacks.c:2441
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
+#, c-format
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
 "You may need to save the NEC2 Editor data first."
@@ -3391,10 +3402,12 @@ msgid "invalid segment scale encoding %d, using model radius\n"
 msgstr "अमान्य segment स्केल एन्कोडिंग %d, मॉडल त्रिज्या का उपयोग किया जा रहा है\n"
 
 #: src/chroma/chroma_source.c:334
+#, c-format
 msgid "far-field contribution needs radiation pattern data\n"
 msgstr "दूर-क्षेत्र योगदान के लिए विकिरण प्रतिरूप डेटा आवश्यक है\n"
 
 #: src/cmnd_edit.c:109
+#, c-format
 msgid ""
 "Get_Command_Data(): Error reading\n"
 "row data: Invalid list iterator"
@@ -3403,6 +3416,7 @@ msgstr ""
 "अमान्य सूची इटरेटर"
 
 #: src/cmnd_edit.c:152
+#, c-format
 msgid ""
 "Set_Command_Data(): Error writing row data\n"
 "Please re-select row"
@@ -3769,10 +3783,12 @@ msgid "Not available: excitation defines no feedpoint"
 msgstr "उपलब्ध नहीं: उत्तेजन कोई फ़ीडपॉइंट परिभाषित नहीं करता"
 
 #: src/freqplots/freqplots_graph.c:137 src/freqplots/graphs/smith_graph.c:565
+#, c-format
 msgid "memory allocation for points failed\n"
 msgstr "पॉइंट्स के लिए मेमोरी आवंटन विफल\n"
 
 #: src/freqplots/freqplots_graph.c:138 src/freqplots/graphs/smith_graph.c:566
+#, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): पॉइंट्स के लिए मेमोरी आवंटन विफल"
 
@@ -3951,6 +3967,7 @@ msgstr "VSWR बनाम आवृत्ति"
 
 #: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
 #: src/geom_edit.c:2703
+#, c-format
 msgid ""
 "Error reading row data\n"
 "Invalid list iterator"
@@ -3959,6 +3976,7 @@ msgstr ""
 "अमान्य सूची इटरेटर"
 
 #: src/geom_edit.c:151 src/geom_edit.c:181
+#, c-format
 msgid ""
 "Error writing row data\n"
 "Please re-select row"
@@ -3967,6 +3985,7 @@ msgstr ""
 "कृपया पंक्ति पुनः चुनें"
 
 #: src/geom_edit.c:583
+#, c-format
 msgid ""
 "GC card preceded by GW card\n"
 "with non-zero wire radius"
@@ -3975,10 +3994,12 @@ msgstr ""
 "गैर-शून्य तार त्रिज्या के साथ"
 
 #: src/geom_edit.c:587
+#, c-format
 msgid "No GW card before GC card"
 msgstr "GC कार्ड से पहले कोई GW कार्ड नहीं"
 
 #: src/geom_edit.c:611
+#, c-format
 msgid ""
 "No GC card after a GW card\n"
 "with a zero wire radius"
@@ -3987,6 +4008,7 @@ msgstr ""
 "के बाद कोई GC कार्ड नहीं"
 
 #: src/geom_edit.c:620
+#, c-format
 msgid ""
 "GC card follows a GW card\n"
 "with non-zero wire radius"
@@ -3995,6 +4017,7 @@ msgstr ""
 "GW कार्ड के बाद है"
 
 #: src/geom_edit.c:1025
+#, c-format
 msgid ""
 "SC card preceded by SP card\n"
 "with arbitrary patch type"
@@ -4003,10 +4026,12 @@ msgstr ""
 "यादृच्छिक patch प्रकार के साथ"
 
 #: src/geom_edit.c:1037
+#, c-format
 msgid "No SP or SM card before SC card"
 msgstr "SC कार्ड से पहले कोई SP या SM कार्ड नहीं"
 
 #: src/geom_edit.c:1057
+#, c-format
 msgid ""
 "No SC card after an SP card\n"
 "with non-arbitrary patch type"
@@ -4015,6 +4040,7 @@ msgstr ""
 "के बाद कोई SC कार्ड नहीं"
 
 #: src/geom_edit.c:1064
+#, c-format
 msgid ""
 "SC card follows an SP card\n"
 "with arbitrary patch type"
@@ -4023,6 +4049,7 @@ msgstr ""
 "SP कार्ड के बाद है"
 
 #: src/geom_edit.c:1077
+#, c-format
 msgid "No SC card after an SM card"
 msgstr "SM कार्ड के बाद कोई SC कार्ड नहीं"
 
@@ -4059,18 +4086,22 @@ msgid "SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"
 msgstr "SY परिभाषा (उदा. FREQ=146, LAMBDA=300/FREQ):"
 
 #: src/geom_edit.c:2970
+#, c-format
 msgid "NEC2 editor window not open"
 msgstr "NEC2 संपादक विंडो खुली नहीं है"
 
 #: src/geometry.c:118
+#, c-format
 msgid "Number of segments < 1"
 msgstr "segment की संख्या < 1"
 
 #: src/geometry.c:155
+#, c-format
 msgid "Arc angle exceeds 360 degrees"
 msgstr "चाप कोण 360 डिग्री से अधिक है"
 
 #: src/geometry.c:294
+#, c-format
 msgid "Error in conect(): np > n"
 msgstr "conect() में त्रुटि: np > n"
 
@@ -4080,6 +4111,7 @@ msgid "geometry data error: segment %d extends below ground\n"
 msgstr "ज्यामिति डेटा त्रुटि: segment %d ग्राउंड से नीचे फैला है\n"
 
 #: src/geometry.c:326 src/geometry.c:374
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4093,6 +4125,7 @@ msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "ज्यामिति डेटा त्रुटि: segment %d ग्राउंड प्लेन में है\n"
 
 #: src/geometry.c:384
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4102,10 +4135,12 @@ msgstr ""
 
 # xnec2c-exempt: name
 #: src/geometry.c:474
+#, c-format
 msgid "ipsym = 0\n"
 msgstr ""
 
 #: src/geometry.c:475
+#, c-format
 msgid "Error: ipsym = 0"
 msgstr "त्रुटि: ipsym = 0"
 
@@ -4119,6 +4154,7 @@ msgstr ""
 "%lu\n"
 
 #: src/geometry.c:530
+#, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4127,6 +4163,7 @@ msgstr ""
 "ओवरलैपिंग या लगभग-जुड़े segment की जाँच करें\n"
 
 #: src/geometry.c:744
+#, c-format
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4135,6 +4172,7 @@ msgstr ""
 "होनी चाहिए\n"
 
 #: src/geometry.c:745
+#, c-format
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4148,6 +4186,7 @@ msgid "no segment has an itag of %d\n"
 msgstr "किसी segment का itag %d नहीं है\n"
 
 #: src/geometry.c:781
+#, c-format
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4171,10 +4210,12 @@ msgstr ""
 "आपकी ज्यामिति में मान्य tag वे हैं जो GW/GA/GH/SP कार्ड को असाइन किए गए हैं।"
 
 #: src/geometry.c:1064
+#, c-format
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "चतुर्भुज के कोने: patch एक समतल में नहीं हैं\n"
 
 #: src/geometry.c:1065
+#, c-format
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4188,6 +4229,7 @@ msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "ज्यामिति डेटा त्रुटि: segment %d समरूपता के समतल में है\n"
 
 #: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4201,6 +4243,7 @@ msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "ज्यामिति डेटा त्रुटि: patch %d समरूपता के समतल में है\n"
 
 #: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4381,6 +4424,7 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "%d segment के लिए ओवरलैप जाँच बाध्य की जा रही है\n"
 
 #: src/geometry.c:1849
+#, c-format
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr "verify_segments() आवृत्ति-निर्भर जाँचें छोड़ रहा है - कोई आवृत्ति डेटा नहीं\n"
@@ -4390,6 +4434,7 @@ msgid "Gnuplot Data"
 msgstr "Gnuplot डेटा"
 
 #: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
+#, c-format
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "सहेज नहीं सकते: आवृत्ति स्वीप अधूरा है"
 
@@ -4420,6 +4465,7 @@ msgid "Touchstone Data"
 msgstr "Touchstone डेटा"
 
 #: src/gnuplot.c:104
+#, c-format
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4480,6 +4526,7 @@ msgid "Save Currents and Charges to CSV"
 msgstr "धाराओं और आवेशों को CSV में सहेजें"
 
 #: src/gnuplot.c:584
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4492,6 +4539,7 @@ msgid "Save Patch Currents to CSV"
 msgstr "Patch धाराओं को CSV में सहेजें"
 
 #: src/gnuplot.c:650
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4500,10 +4548,12 @@ msgstr ""
 "करना होगा।"
 
 #: src/gnuplot.c:660
+#, c-format
 msgid "No surface patches in this model."
 msgstr "इस मॉडल में कोई सरफेस patch नहीं हैं।"
 
 #: src/ground.c:110
+#, c-format
 msgid "b less than a"
 msgstr "b, a से कम है"
 
@@ -4513,6 +4563,7 @@ msgid "step size limited at z = %12.5E\n"
 msgstr "z = %12.5E पर चरण आकार सीमित\n"
 
 #: src/input.c:150
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Unexpected EOF (End of File)"
@@ -4521,6 +4572,7 @@ msgstr ""
 "अप्रत्याशित EOF (फ़ाइल का अंत)"
 
 #: src/input.c:164
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Comment mnemonic short or missing"
@@ -4529,6 +4581,7 @@ msgstr ""
 "टिप्पणी स्मरक छोटा या अनुपस्थित"
 
 #: src/input.c:175
+#, c-format
 msgid ""
 "Read_Comments():\n"
 " Error reading input file\n"
@@ -4539,6 +4592,7 @@ msgstr ""
 "टिप्पणी स्मरक गलत है"
 
 #: src/input.c:215
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Tag number is negative"
@@ -4547,6 +4601,7 @@ msgstr ""
 "Tag संख्या ऋणात्मक है"
 
 #: src/input.c:222
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
@@ -4555,6 +4610,7 @@ msgstr ""
 "Segment की संख्या 1 से कम है"
 
 #: src/input.c:229
+#, c-format
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "चेतावनी - segment की संख्या 1000000 से अधिक है\n"
 
@@ -4575,6 +4631,7 @@ msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "%s डेटा कार्ड त्रुटि: अनावश्यक वर्ण '%c' कॉलम %d पर\n"
 
 #: src/input.c:301
+#, c-format
 msgid ""
 "Data card error\n"
 "Spurious character in card"
@@ -4588,18 +4645,22 @@ msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: \"%s\" के लिए व्यंजक मूल्यांकन विफल\n"
 
 #: src/input.c:413
+#, c-format
 msgid "SY card: no line content available\n"
 msgstr "SY कार्ड: कोई लाइन सामग्री उपलब्ध नहीं\n"
 
 #: src/input.c:414
+#, c-format
 msgid "SY card: no line content available"
 msgstr "SY कार्ड: कोई लाइन सामग्री उपलब्ध नहीं"
 
 #: src/input.c:431
+#, c-format
 msgid "SY card: missing '=' in definition\n"
 msgstr "SY कार्ड: परिभाषा में '=' गायब है\n"
 
 #: src/input.c:432
+#, c-format
 msgid "SY card: missing '=' in definition"
 msgstr "SY कार्ड: परिभाषा में '=' गायब है"
 
@@ -4609,6 +4670,7 @@ msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "SY कार्ड: %s=%s के लिए प्रतीक परिभाषा विफल\n"
 
 #: src/input.c:652
+#, c-format
 msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
@@ -4617,18 +4679,22 @@ msgstr ""
 "टेपर्ड वायर के लिए GC कार्ड नहीं है"
 
 #: src/input.c:659
+#, c-format
 msgid "Geometry GC data card error"
 msgstr "ज्यामिति GC डेटा कार्ड त्रुटि"
 
 #: src/input.c:675
+#, c-format
 msgid "Geometry GX data card error"
 msgstr "ज्यामिति GX डेटा कार्ड त्रुटि"
 
 #: src/input.c:698
+#, c-format
 msgid "Geometry GR data card error"
 msgstr "ज्यामिति GR डेटा कार्ड त्रुटि"
 
 #: src/input.c:752
+#, c-format
 msgid "No geometry data cards"
 msgstr "कोई ज्यामिति डेटा कार्ड नहीं"
 
@@ -4637,6 +4703,7 @@ msgid "Probable invalid segment geometry.\n"
 msgstr "संभावित अमान्य segment ज्यामिति।\n"
 
 #: src/input.c:764
+#, c-format
 msgid ""
 "Invalid segment geometry.\n"
 "See warnings in the console for detail.\n"
@@ -4647,10 +4714,12 @@ msgstr ""
 "जारी रखने का प्रयास..."
 
 #: src/input.c:770
+#, c-format
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "संभावित अमान्य segment ज्यामिति (ऊपर देखें)\n"
 
 #: src/input.c:774
+#, c-format
 msgid "Read_Geometry: verify_segments() passed\n"
 msgstr "Read_Geometry: verify_segments() पास हुआ\n"
 
@@ -4660,23 +4729,28 @@ msgid "segment data error: tag=%d si=%f, bi=%f\n"
 msgstr "Segment डेटा त्रुटि: tag=%d si=%f, bi=%f\n"
 
 #: src/input.c:813
+#, c-format
 msgid "Segment data error, zero-length line?  See console."
 msgstr "Segment डेटा त्रुटि, शून्य-लंबाई वाली लाइन? कंसोल देखें।"
 
 #: src/input.c:853
+#, c-format
 msgid "Move GM data card error"
 msgstr "Move GM डेटा कार्ड त्रुटि"
 
 #: src/input.c:869 src/input.c:910 src/input.c:927 src/input.c:945
 #: src/input.c:953
+#, c-format
 msgid "Patch data card error"
 msgstr "Patch डेटा कार्ड त्रुटि"
 
 #: src/input.c:891
+#, c-format
 msgid "Patch data error"
 msgstr "Patch डेटा त्रुटि"
 
 #: src/input.c:1000
+#, c-format
 msgid ""
 "\"GF\" card (NGF solution)\n"
 "is not supported"
@@ -4685,6 +4759,7 @@ msgstr ""
 "समर्थित नहीं है"
 
 #: src/input.c:1005
+#, c-format
 msgid "Ignoring CM card in geometry"
 msgstr "ज्यामिति में CM कार्ड को अनदेखा किया जा रहा है"
 
@@ -4700,18 +4775,22 @@ msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
 #: src/input.c:1025
+#, c-format
 msgid "Command card in geometry section"
 msgstr "ज्यामिति सेक्शन में कमांड कार्ड"
 
 #: src/input.c:1027
+#, c-format
 msgid "Unrecognized geometry card"
 msgstr "अपरिचित ज्यामिति कार्ड"
 
 #: src/input.c:1051
+#, c-format
 msgid "Failed to initialize symbol table\n"
 msgstr "प्रतीक तालिका को आरंभ करने में विफल\n"
 
 #: src/input.c:1052
+#, c-format
 msgid "Failed to initialize symbol table"
 msgstr "प्रतीक तालिका को आरंभ करने में विफल"
 
@@ -4721,14 +4800,17 @@ msgid "No FR card: computing one step at the NEC-2 default %g MHz\n"
 msgstr "FR कार्ड नहीं है: NEC-2 डिफ़ॉल्ट %g MHz पर एक चरण की गणना की जा रही है।\n"
 
 #: src/input.c:1283
+#, c-format
 msgid "ignoring CM card in commands\n"
 msgstr "कमांड में CM कार्ड को अनदेखा किया जा रहा है\n"
 
 #: src/input.c:1284
+#, c-format
 msgid "Ignoring CM card in commands"
 msgstr "कमांड में CM कार्ड को अनदेखा किया जा रहा है"
 
 #: src/input.c:1296
+#, c-format
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "CP कार्ड अनदेखा किया गया है: युग्मन गणना लागू नहीं है।\n"
 
@@ -4738,10 +4820,12 @@ msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "%g MHz पर डुप्लिकेट FR कार्ड छोड़ा जा रहा है\n"
 
 #: src/input.c:1457
+#, c-format
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "FR कार्ड में अधिकतम आवृत्ति <= न्यूनतम आवृत्ति\n"
 
 #: src/input.c:1458
+#, c-format
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
@@ -4750,6 +4834,7 @@ msgstr ""
 "कृपया FR कार्ड डेटा की जाँच करें और सही करें"
 
 #: src/input.c:1481
+#, c-format
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates "
@@ -4759,10 +4844,12 @@ msgstr ""
 "GE कार्ड इंगित करता है कि ग्राउंड मौजूद है, लेकिन GN अन्यथा इंगित करता है।"
 
 #: src/input.c:1495
+#, c-format
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "ग्राउंड निर्दिष्ट होने पर theta > 90 डिग्री\n"
 
 #: src/input.c:1496 src/radiation.c:911
+#, c-format
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4771,6 +4858,7 @@ msgstr ""
 "कृपया RP कार्ड डेटा की जाँच करें और सही करें"
 
 #: src/input.c:1505
+#, c-format
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
@@ -4779,6 +4867,7 @@ msgstr ""
 "सकता\n"
 
 #: src/input.c:1506
+#, c-format
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
@@ -4794,6 +4883,7 @@ msgid ""
 msgstr "लोडिंग कार्ड संख्या %d पर डेटा दोष: itag step1 %d, itag step2 %d से अधिक है\n"
 
 #: src/input.c:1556
+#, c-format
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
@@ -4802,11 +4892,13 @@ msgstr ""
 "itag step1, itag step2 से अधिक है"
 
 #: src/input.c:1685
+#, c-format
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr "ट्रांसमिशन लाइन प्रतिबाधा = 0: मान्य नहीं है। कृपया NT या TL कार्ड सही करें\n"
 
 #: src/input.c:1686
+#, c-format
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
@@ -4815,10 +4907,12 @@ msgstr ""
 "मान्य नहीं है। कृपया NT या TL कार्ड सही करें"
 
 #: src/input.c:1697
+#, c-format
 msgid "Segment number error in TL or NT card\n"
 msgstr "TL या NT कार्ड में Segment संख्या त्रुटि\n"
 
 #: src/input.c:1698
+#, c-format
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
@@ -4827,18 +4921,22 @@ msgstr ""
 "Segment संख्या त्रुटि"
 
 #: src/input.c:1720
+#, c-format
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr "PQ और PT कार्ड अनदेखे किए गए हैं: फ़ाइल में मुद्रण लागू नहीं है।\n"
 
 #: src/input.c:1724
+#, c-format
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "PL कार्ड अनदेखा किया गया है: फ़ाइल में प्लॉटिंग समर्थित नहीं है।\n"
 
 #: src/input.c:1730
+#, c-format
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "सरफेस वेव विकल्प (I1=1): RP कमांड का लागू नहीं है\n"
 
 #: src/input.c:1731
+#, c-format
 msgid ""
 "Surface wave option (I1=1)\n"
 "of RP command not implemented"
@@ -4847,6 +4945,7 @@ msgstr ""
 "RP कमांड का लागू नहीं है"
 
 #: src/input.c:1763
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
@@ -4854,6 +4953,7 @@ msgstr ""
 "ग्राउंड निर्दिष्ट होने पर Theta > 90 डिग्री: कृपया RP कार्ड डेटा की जाँच करें और सही करें\n"
 
 #: src/input.c:1764
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4870,16 +4970,19 @@ msgid "Unrecognized command card"
 msgstr "अपरिचित कमांड कार्ड"
 
 #: src/input.c:1879
+#, c-format
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
 msgstr "गायब या सरफेस-वेव RP कार्ड: विकिरण प्रतिरूप और लाभ गणनाएँ अक्षम\n"
 
 #: src/input.c:1906
+#, c-format
 msgid "Unexpected exit from while loop"
 msgstr "while लूप से अप्रत्याशित निकास"
 
 #: src/input.c:1997
+#, c-format
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
@@ -4887,6 +4990,7 @@ msgstr ""
 "कमांड डेटा कार्ड त्रुटि: इनपुट फ़ाइल पढ़ते समय अप्रत्याशित EOF - EN कार्ड जोड़ा जा रहा है\n"
 
 #: src/input.c:1998
+#, c-format
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4897,10 +5001,12 @@ msgstr ""
 "डिफ़ॉल्ट EN कार्ड जोड़ा जा रहा है"
 
 #: src/input.c:2015
+#, c-format
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr "कमांड डेटा कार्ड त्रुटि: कार्ड का निमोनिक कोड बहुत छोटा है या गायब है\n"
 
 #: src/input.c:2016
+#, c-format
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4909,6 +5015,7 @@ msgstr ""
 "निमोनिक कोड बहुत छोटा है या गायब है"
 
 #: src/input.c:2217
+#, c-format
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
@@ -4917,6 +5024,7 @@ msgstr ""
 "है\n"
 
 #: src/input.c:2218
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4927,10 +5035,12 @@ msgstr ""
 "डिफ़ॉल्ट GE कार्ड जोड़ा जा रहा है"
 
 #: src/input.c:2235
+#, c-format
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr "ज्यामिति डेटा कार्ड त्रुटि: कार्ड का निमोनिक कोड बहुत छोटा है या गायब है\n"
 
 #: src/input.c:2236
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -4969,6 +5079,7 @@ msgid "failed to add objects to builder: %s\n"
 msgstr "builder में ऑब्जेक्ट जोड़ने में विफल: %s\n"
 
 #: src/interface.c:198
+#, c-format
 msgid "Listing Object Ids:\n"
 msgstr "ऑब्जेक्ट ID सूचीबद्ध कर रहा है:\n"
 
@@ -4980,6 +5091,7 @@ msgid "%s\n"
 msgstr ""
 
 #: src/interface.c:213 src/interface.c:216
+#, c-format
 msgid ""
 "libgmodule not supported: xnec2c may not function properly on this "
 "platform.\n"
@@ -5002,6 +5114,7 @@ msgid "Detected %s windowing backend\n"
 msgstr "विंडोइंग बैकएंड पाया गया: %s\n"
 
 #: src/main.c:137
+#, c-format
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch और --optimize परस्पर अनन्य हैं।\n"
 
@@ -5021,10 +5134,12 @@ msgid "unexpected argument: %s\n"
 msgstr "अप्रत्याशित तर्क: %s\n"
 
 #: src/main.c:177
+#, c-format
 msgid "batch mode requires an input file\n"
 msgstr "बैच मोड के लिए एक इनपुट फ़ाइल आवश्यक है\n"
 
 #: src/main.c:187
+#, c-format
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "डिस्प्ले नहीं खोला जा सकता: एक चालू X11 या Wayland सत्र आवश्यक है\n"
 
@@ -5034,30 +5149,37 @@ msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d जॉब को %d प्रोसेसरों पर fork किया जा रहा है।\n"
 
 #: src/main.c:223 src/main.c:231
+#, c-format
 msgid "exiting after fatal error: pipe() failed"
 msgstr "घातक त्रुटि के बाद बाहर निकल रहा है: pipe() विफल"
 
 #: src/main.c:240
+#, c-format
 msgid "exiting after fatal error: fork() failed"
 msgstr "घातक त्रुटि के बाद बाहर निकल रहा है: fork() विफल"
 
 #: src/main.c:840
+#, c-format
 msgid "exiting via user interrupt\n"
 msgstr "उपयोगकर्ता इंटरप्ट द्वारा बाहर निकल रहा है\n"
 
 #: src/main.c:844
+#, c-format
 msgid "segmentation fault, exiting\n"
 msgstr "सेगमेंटेशन फॉल्ट, बाहर निकल रहा है\n"
 
 #: src/main.c:848
+#, c-format
 msgid "floating point exception, exiting\n"
 msgstr "फ्लोटिंग पॉइंट अपवाद, बाहर निकल रहा है\n"
 
 #: src/main.c:852
+#, c-format
 msgid "abort signal received, exiting\n"
 msgstr "एबॉर्ट सिग्नल प्राप्त हुआ, बाहर निकल रहा है\n"
 
 #: src/main.c:856
+#, c-format
 msgid "termination request received, exiting\n"
 msgstr "समाप्ति अनुरोध प्राप्त हुआ, बाहर निकल रहा है\n"
 
@@ -5155,6 +5277,7 @@ msgid "Batch Math Library"
 msgstr "बैच गणित लाइब्रेरी"
 
 #: src/mathlib.c:720
+#, c-format
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
 "command line. (However, this selection will be saved for next time xnec2c is "
@@ -5178,6 +5301,7 @@ msgid "Mathlib Benchmark Help"
 msgstr "Mathlib बेंचमार्क सहायता"
 
 #: src/mathlib.c:868
+#, c-format
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
 "the mathlib implementation to parallelize the linear algebra calculation of "
@@ -5284,14 +5408,17 @@ msgstr ""
 "करें और पुनः आरंभ करें।"
 
 #: src/mathlib.c:978
+#, c-format
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "अनुकूलन सक्रिय होने पर बेंचमार्क अक्षम हैं।"
 
 #: src/mathlib.c:985
+#, c-format
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr "बेंचमार्क चलाने से पहले NEC2 इनपुट फ़ाइल लोड करनी होगी।"
 
 #: src/mathlib.c:991
+#, c-format
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
 "specified on the command line."
@@ -5300,6 +5427,7 @@ msgstr ""
 "निर्दिष्ट हो।"
 
 #: src/mathlib.c:1008
+#, c-format
 msgid "You must select at least one math library to benchmark"
 msgstr "बेंचमार्क के लिए कम से कम एक गणित लाइब्रेरी चुनें"
 
@@ -5424,6 +5552,7 @@ msgid "symmetry error - nrow:%d ncol:%d\n"
 msgstr "सममिति त्रुटि - nrow:%d ncol:%d\n"
 
 #: src/matrix.c:1353
+#, c-format
 msgid "Symmetry error"
 msgstr "सममिति त्रुटि"
 
@@ -5433,6 +5562,7 @@ msgid "Solving Failed: %d\n"
 msgstr "हल करना विफल: %d\n"
 
 #: src/measurements.c:424
+#, c-format
 msgid ""
 "noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
 "to 0\n"
@@ -5477,6 +5607,7 @@ msgid "mem_backtrace(%p):\n"
 msgstr ""
 
 #: src/mem/mem.c:253
+#, c-format
 msgid "  m->backtrace is null, no backtrace data\n"
 msgstr "  m->backtrace शून्य है, कोई backtrace डेटा नहीं\n"
 
@@ -5521,6 +5652,7 @@ msgid "--- End Comments ---"
 msgstr "--- टिप्पणियाँ समाप्त ---"
 
 #: src/nec2_model.c:525
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5531,6 +5663,7 @@ msgstr ""
 "अप्रत्याशित EOF (फ़ाइल का अंत)"
 
 #: src/nec2_model.c:532
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5545,6 +5678,7 @@ msgid "End Comments"
 msgstr "टिप्पणियाँ समाप्त"
 
 #: src/nec2_model.c:916
+#, c-format
 msgid ""
 "Cannot save treeview data\n"
 "Please use the Save button\n"
@@ -5560,6 +5694,7 @@ msgid "improper load type chosen, requested type is %d\n"
 msgstr "अनुचित लोड प्रकार चुना गया, अनुरोधित प्रकार %d है\n"
 
 #: src/network.c:653
+#, c-format
 msgid "Improper load type chose"
 msgstr "अनुचित लोड प्रकार चुना गया"
 
@@ -5569,6 +5704,7 @@ msgid "loading data card error, no segment has an itag = %d\n"
 msgstr "डेटा कार्ड लोड करने में त्रुटि, किसी भी segment में itag = %d नहीं है\n"
 
 #: src/network.c:742
+#, c-format
 msgid ""
 "Loading data card\n"
 "Tag number mismatch error"
@@ -5582,26 +5718,32 @@ msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "लेबल टेक्सचर एटलस जनरेट किया गया (ID=%u)\n"
 
 #: src/opengl-engine/opengl_axes.c:161
+#, c-format
 msgid "Failed to load axes line shader\n"
 msgstr "अक्ष रेखा शेडर लोड करने में विफल\n"
 
 #: src/opengl-engine/opengl_axes.c:192
+#, c-format
 msgid "Axes renderer initialized\n"
 msgstr "अक्ष रेंडरर आरंभ किया गया\n"
 
 #: src/opengl-engine/opengl_axes.c:196
+#, c-format
 msgid "Failed to load text shaders\n"
 msgstr "टेक्स्ट शेडर लोड करने में विफल\n"
 
 #: src/opengl-engine/opengl_cairo_overlay.c:62
+#, c-format
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "cairo overlay शेडर लोड करने में विफल\n"
 
 #: src/opengl-engine/opengl_ground_plane.c:105
+#, c-format
 msgid "Failed to load ground plane shaders\n"
 msgstr "ground plane शेडर लोड करने में विफल\n"
 
 #: src/opengl-engine/opengl_image_overlay.c:39
+#, c-format
 msgid "Failed to create cairo overlay base\n"
 msgstr "cairo overlay आधार बनाने में विफल\n"
 
@@ -5626,28 +5768,34 @@ msgid "Shader link failed: %s + %s\n"
 msgstr "शेडर लिंक विफल: %s + %s\n"
 
 #: src/opengl-engine/opengl_view.c:192
+#, c-format
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
 "OpenGL context त्रुटि — इस डिस्प्ले पर कोई OpenGL implementation उपलब्ध नहीं\n"
 
 #: src/opengl-engine/opengl_view.c:200
+#, c-format
 msgid "Disabling OpenGL: shader catalog failed\n"
 msgstr "OpenGL अक्षम किया जा रहा है: शेडर कैटलॉग विफल\n"
 
 #: src/opengl-engine/opengl_view.c:213
+#, c-format
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "OpenGL अक्षम हो रहा है: scene shader विफल\n"
 
 #: src/opengl-engine/opengl_view.c:228
+#, c-format
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "OpenGL अक्षम हो रहा है: overlay shader विफल\n"
 
 #: src/opengl-engine/opengl_view.c:240
+#, c-format
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "OpenGL अक्षम हो रहा है: axes renderer विफल\n"
 
 #: src/opengl-engine/opengl_view.c:269
+#, c-format
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "OpenGL अक्षम हो रहा है: ground plane shader विफल\n"
 
@@ -5657,6 +5805,7 @@ msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "Renderable संख्या %u, MAX_RENDERABLES (%d) से अधिक\n"
 
 #: src/opengl-engine/opengl_view.c:372
+#, c-format
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "OpenGL अक्षम हो रहा है: peel composite shader विफल\n"
 
@@ -5670,10 +5819,12 @@ msgstr ""
 "%g,%g]\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:141
+#, c-format
 msgid "MSAA framebuffer incomplete\n"
 msgstr "MSAA framebuffer अपूर्ण\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:173
+#, c-format
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "MSAA resolve framebuffer अपूर्ण\n"
 
@@ -5688,14 +5839,17 @@ msgid "Peel MSAA FBO %d incomplete\n"
 msgstr "Peel MSAA FBO %d अपूर्ण\n"
 
 #: src/opengl-engine/opengl_view_peel.c:276
+#, c-format
 msgid "Peel accumulation FBO incomplete\n"
 msgstr "Peel accumulation FBO अपूर्ण\n"
 
 #: src/opengl-engine/opengl_view_peel.c:285
+#, c-format
 msgid "Layer depth FBO incomplete\n"
 msgstr "Layer depth FBO अपूर्ण\n"
 
 #: src/opengl-engine/opengl_view_render.c:339
+#, c-format
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "पारदर्शी renderables छोड़े गए: peel FBOs अनुपलब्ध\n"
 
@@ -5705,6 +5859,7 @@ msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: अमान्य ड्रा शैली %d, सतह उपयोग की जा रही है\n"
 
 #: src/opengl/opengl_state.c:57
+#, c-format
 msgid ""
 "OpenGL is not available on this display; switching to Cairo renderer. See "
 "'OpenGL Renderer' in View > Rendering Settings.\n"
@@ -5745,6 +5900,7 @@ msgid "saving %s: %s\n"
 msgstr "सहेजा जा रहा है %s: %s\n"
 
 #: src/optimize.c:100
+#, c-format
 msgid "xnec2c was built without inotify.\n"
 msgstr "xnec2c को inotify के बिना बनाया गया था।\n"
 
@@ -5770,10 +5926,12 @@ msgstr ""
 "inotify: फ़ाइल stat विफल या शून्य bytes (errno=%s), पुनः प्रयास किया जा रहा है\n"
 
 #: src/optimize.c:360
+#, c-format
 msgid "Exited optimizer thread.\n"
 msgstr "अनुकूलक थ्रेड से बाहर निकला।\n"
 
 #: src/optimize.c:366
+#, c-format
 msgid "optimize.c: exit because this is a child process.\n"
 msgstr "optimize.c: बाहर निकल रहा है क्योंकि यह एक child process है।\n"
 
@@ -5808,14 +5966,17 @@ msgid "inotify: FILTER: target='%s' event_name='%s' match=%d\n"
 msgstr ""
 
 #: src/optimize.c:441
+#, c-format
 msgid "inotify: SKIP event (filename mismatch)\n"
 msgstr "inotify: event छोड़ा गया (फ़ाइलनाम बेमेल)\n"
 
 #: src/optimize.c:448
+#, c-format
 msgid "inotify: IN_MODIFY on target, setting modify_seen=TRUE\n"
 msgstr "inotify: target पर IN_MODIFY, modify_seen=TRUE सेट किया जा रहा है\n"
 
 #: src/optimize.c:456
+#, c-format
 msgid ""
 "inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n"
 msgstr ""
@@ -5823,6 +5984,7 @@ msgstr ""
 "है\n"
 
 #: src/optimize.c:473
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), "
 "triggering reload\n"
@@ -5831,6 +5993,7 @@ msgstr ""
 "ट्रिगर किया जा रहा है\n"
 
 #: src/optimize.c:485
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), "
 "skipping\n"
@@ -5845,10 +6008,12 @@ msgstr ""
 "inotify: event छोड़ा गया (MODIFY/CLOSE_WRITE/MOVED_TO नहीं, mask=0x%08x)\n"
 
 #: src/optimize.c:525
+#, c-format
 msgid "failed to create optimizer wake eventfd\n"
 msgstr "अनुकूलक wake eventfd बनाने में विफल\n"
 
 #: src/optimize.c:536
+#, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "अनुकूलक आउटपुट थ्रेड बनाने में विफल\n"
 
@@ -5868,6 +6033,7 @@ msgid "nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n"
 msgstr "nec2_eval_signal: eval_mutex प्रतिस्पर्धा, अवरोधित (thr=%lu)\n"
 
 #: src/optimizers/opt_nec2_eval.c:194
+#, c-format
 msgid "nec2_eval_run: not initialized\n"
 msgstr "nec2_eval_run: आरंभीकृत नहीं\n"
 
@@ -5885,10 +6051,12 @@ msgid "opt: optimization complete, best fitness: %.6g\n"
 msgstr "opt: अनुकूलन पूर्ण, सर्वश्रेष्ठ फिटनेस: %.6g\n"
 
 #: src/optimizers/opt_session.c:194
+#, c-format
 msgid "opt_start: optimizer already running\n"
 msgstr "opt_start: optimizer पहले से चल रहा है\n"
 
 #: src/optimizers/opt_session.c:258
+#, c-format
 msgid "opt_start: simple_new failed\n"
 msgstr "opt_start: simple_new विफल\n"
 
@@ -6080,6 +6248,7 @@ msgid "Invalid flow visualization mode %d in config, resetting to default\n"
 msgstr "config में अमान्य प्रवाह विज़ुअलाइज़ेशन मोड %d, डिफ़ॉल्ट पर रीसेट किया जा रहा है\n"
 
 #: src/rc_config.c:1786
+#, c-format
 msgid "batch mode: skipping configuration save\n"
 msgstr "बैच मोड: कॉन्फ़िगरेशन सहेजना छोड़ा जा रहा है\n"
 
@@ -6285,6 +6454,7 @@ msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: सतह निर्माण विफल (%dx%d)\n"
 
 #: src/render/render_fit.c:67
+#, c-format
 msgid "render_fit_solve: no geometry to fit\n"
 msgstr "render_fit_solve: फ़िट करने के लिए कोई ज्यामिति नहीं\n"
 
@@ -6333,6 +6503,7 @@ msgid "Waiting for frequency data"
 msgstr "आवृत्ति डेटा की प्रतीक्षा है"
 
 #: src/render/render_redraw.c:48
+#, c-format
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "ऑप्टिमाइज़र लूप अपूर्ण, मध्यवर्ती पुनः चित्रण दबा रहा है।\n"
 
@@ -6356,15 +6527,18 @@ msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: cairo glade लोड करने में विफल: %s\n"
 
 #: src/settings/render_settings_common.c:182
+#, c-format
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: glade से render_settings_window प्राप्त करने में विफल\n"
 
 #: src/somnec.c:302
+#, c-format
 msgid "Hankel not valid for z = 0"
 msgstr "Hankel z = 0 के लिए मान्य नहीं है"
 
 #: src/somnec.c:807
+#, c-format
 msgid "No convergence"
 msgstr "अभिसरण नहीं हुआ"
 
@@ -6452,6 +6626,7 @@ msgid "sy_overrides_init: failed to load glade: %s\n"
 msgstr "sy_overrides_init: glade लोड करने में विफल: %s\n"
 
 #: src/sy_overrides.c:1107
+#, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: glade से विजेट प्राप्त करने में विफल\n"
 
@@ -6537,6 +6712,7 @@ msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: फ़ाइल खोलने में विफल: %s\n"
 
 #: src/utils.c:1090
+#, c-format
 msgid "  Backtrace:\n"
 msgstr "  बैकट्रेस:\n"
 
@@ -6553,6 +6729,7 @@ msgid "%s:\n"
 msgstr ""
 
 #: src/validation_dump.c:35
+#, c-format
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6561,21 +6738,25 @@ msgstr ""
 "सकते हैं\n"
 
 #: src/validation_dump.c:40
+#, c-format
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr ""
 "validation: reproducibility हेतु mathlib को nec2-builtin पर बाध्य किया गया\n"
 
 #: src/validation_dump.c:59
+#, c-format
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr ""
 "validation: reproducibility हेतु antenna-temp मॉडल और elevation बाध्य किए गए\n"
 
 #: src/validation_dump.c:69
+#, c-format
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr "validation: reproducibility हेतु ध्रुवण को total पर बाध्य किया गया\n"
 
 #: src/validation_dump.c:88
+#, c-format
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
@@ -6588,10 +6769,12 @@ msgid "Validation Tree"
 msgstr "सत्यापन ट्री"
 
 #: src/validation_dump.c:621
+#, c-format
 msgid "Cannot save: frequency loop not done"
 msgstr "सहेजा नहीं जा सकता: आवृत्ति लूप पूर्ण नहीं हुआ है"
 
 #: src/validation_dump.c:627
+#, c-format
 msgid "Cannot create output directory"
 msgstr "आउटपुट डायरेक्टरी नहीं बनाई जा सकती"
 
@@ -6608,6 +6791,7 @@ msgid ""
 msgstr "फ़ाइल से जटिल परावैद्युत स्थिरांक: %12.5E%+12.5Ej, अनुरोधित: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:322
+#, c-format
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters(): ग्राउंड पैरामीटर में त्रुटि"
 
@@ -6628,6 +6812,7 @@ msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "child %d का forked collect के दौरान अमान्य pipe fd है\n"
 
 #: src/xnec2c.c:1258
+#, c-format
 msgid "Failed to read data from forked child\n"
 msgstr "फोर्क किए गए चाइल्ड से डेटा पढ़ने में विफल\n"
 
@@ -6692,6 +6877,7 @@ msgid "--%s wrote %s\n"
 msgstr "--%s %s लिखा गया\n"
 
 #: src/xnec2c.c:1974
+#, c-format
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png के लिए --batch आवश्यक है\n"
 
@@ -6706,6 +6892,7 @@ msgid "sweep runs %d workers of %d threads each\n"
 msgstr "स्वीप %d कार्यकर्ता चलाता है, प्रत्येक में %d थ्रेड्स हैं।\n"
 
 #: src/xnec2c.c:2355
+#, c-format
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread प्रारंभ करने में विफल\n"
 
@@ -6718,6 +6905,7 @@ msgid "Recalculate the frequency sweep?"
 msgstr "क्या फ़्रीक्वेंसी स्वीप की पुनर्गणना करें?"
 
 #: src/xnec2c.c:2536
+#, c-format
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

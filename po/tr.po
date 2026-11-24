@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-23 17:34-0800\n"
+"POT-Creation-Date: 2026-11-24 00:43-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3145,6 +3145,7 @@ msgstr ""
 "yoksa merkezi koru"
 
 #: src/args.c:287
+#, c-format
 msgid "config file path too long\n"
 msgstr "yapılandırma dosyası yolu çok uzun\n"
 
@@ -3194,6 +3195,7 @@ msgstr ""
 "--threads ve %s=%s ikisi de iş parçacığı sayısını belirtir, birini kaldırın\n"
 
 #: src/args.c:943
+#, c-format
 msgid "Forking disabled!\n"
 msgstr "Çatallama devre dışı!\n"
 
@@ -3233,6 +3235,7 @@ msgid "segment connection error for segment %5d\n"
 msgstr "segment %5d için segment bağlantı hatası\n"
 
 #: src/calculations.c:118
+#, c-format
 msgid "Segment connection error in tbf()"
 msgstr "tbf() içinde segment bağlantı hatası"
 
@@ -3247,10 +3250,12 @@ msgid "segment connection error for segment %d\n"
 msgstr "segment %d için segment bağlantı hatası\n"
 
 #: src/calculations.c:1073
+#, c-format
 msgid "Segment connection error in sbf()"
 msgstr "sbf() içinde segment bağlantı hatası"
 
 #: src/calculations.c:1291
+#, c-format
 msgid "Segment connection error in trio()"
 msgstr "trio() içinde segment bağlantı hatası"
 
@@ -3329,6 +3334,7 @@ msgid "Antenna Temperature"
 msgstr "Anten Sıcaklığı"
 
 #: src/callbacks.c:84
+#, c-format
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3373,6 +3379,7 @@ msgid "xnec2c geometry optimizer"
 msgstr "xnec2c geometri optimize edici"
 
 #: src/callbacks.c:447
+#, c-format
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
@@ -3383,6 +3390,7 @@ msgid "Xnec2c Optimizer"
 msgstr "Xnec2c Optimize Edici"
 
 #: src/callbacks.c:468
+#, c-format
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3397,10 +3405,12 @@ msgid "Are you sure you wish to close this window?"
 msgstr "Bu pencereyi kapatmak istediğinizden emin misiniz?"
 
 #: src/callbacks.c:1503
+#, c-format
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr "Bu ekranda OpenGL kullanılamıyor; işleyici etkinleştirilemiyor.\n"
 
 #: src/callbacks.c:1811
+#, c-format
 msgid "No open NEC2 input file"
 msgstr "Açık NEC2 girdi dosyası yok"
 
@@ -3418,6 +3428,7 @@ msgstr "isimsiz.nec"
 
 #: src/callbacks.c:2401 src/callbacks.c:2421 src/callbacks.c:2441
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
+#, c-format
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
 "You may need to save the NEC2 Editor data first."
@@ -3436,10 +3447,12 @@ msgid "invalid segment scale encoding %d, using model radius\n"
 msgstr "geçersiz segment ölçeği kodlaması %d, model yarıçapı kullanılıyor\n"
 
 #: src/chroma/chroma_source.c:334
+#, c-format
 msgid "far-field contribution needs radiation pattern data\n"
 msgstr "uzak alan katkısı ışınım örüntüsü verisi gerektirir\n"
 
 #: src/cmnd_edit.c:109
+#, c-format
 msgid ""
 "Get_Command_Data(): Error reading\n"
 "row data: Invalid list iterator"
@@ -3448,6 +3461,7 @@ msgstr ""
 "Geçersiz liste yineleyici"
 
 #: src/cmnd_edit.c:152
+#, c-format
 msgid ""
 "Set_Command_Data(): Error writing row data\n"
 "Please re-select row"
@@ -3822,10 +3836,12 @@ msgid "Not available: excitation defines no feedpoint"
 msgstr "Kullanılamıyor: uyarım besleme noktası tanımlamıyor"
 
 #: src/freqplots/freqplots_graph.c:137 src/freqplots/graphs/smith_graph.c:565
+#, c-format
 msgid "memory allocation for points failed\n"
 msgstr "noktalar için bellek ayırma başarısız\n"
 
 #: src/freqplots/freqplots_graph.c:138 src/freqplots/graphs/smith_graph.c:566
+#, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():Noktalar için bellek ayırma başarısız"
 
@@ -4001,6 +4017,7 @@ msgstr "VSWR - Frekans"
 
 #: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
 #: src/geom_edit.c:2703
+#, c-format
 msgid ""
 "Error reading row data\n"
 "Invalid list iterator"
@@ -4009,6 +4026,7 @@ msgstr ""
 "Geçersiz liste yineleyici"
 
 #: src/geom_edit.c:151 src/geom_edit.c:181
+#, c-format
 msgid ""
 "Error writing row data\n"
 "Please re-select row"
@@ -4017,6 +4035,7 @@ msgstr ""
 "Lütfen satırı yeniden seçin"
 
 #: src/geom_edit.c:583
+#, c-format
 msgid ""
 "GC card preceded by GW card\n"
 "with non-zero wire radius"
@@ -4025,10 +4044,12 @@ msgstr ""
 "tel yarıçaplı GW kartı var"
 
 #: src/geom_edit.c:587
+#, c-format
 msgid "No GW card before GC card"
 msgstr "GC kartından önce GW kartı yok"
 
 #: src/geom_edit.c:611
+#, c-format
 msgid ""
 "No GC card after a GW card\n"
 "with a zero wire radius"
@@ -4037,6 +4058,7 @@ msgstr ""
 "sonra GC kartı yok"
 
 #: src/geom_edit.c:620
+#, c-format
 msgid ""
 "GC card follows a GW card\n"
 "with non-zero wire radius"
@@ -4045,6 +4067,7 @@ msgstr ""
 "GW kartını takip ediyor"
 
 #: src/geom_edit.c:1025
+#, c-format
 msgid ""
 "SC card preceded by SP card\n"
 "with arbitrary patch type"
@@ -4053,10 +4076,12 @@ msgstr ""
 "SP kartı var"
 
 #: src/geom_edit.c:1037
+#, c-format
 msgid "No SP or SM card before SC card"
 msgstr "SC kartından önce SP veya SM kartı yok"
 
 #: src/geom_edit.c:1057
+#, c-format
 msgid ""
 "No SC card after an SP card\n"
 "with non-arbitrary patch type"
@@ -4065,6 +4090,7 @@ msgstr ""
 "sonra SC kartı yok"
 
 #: src/geom_edit.c:1064
+#, c-format
 msgid ""
 "SC card follows an SP card\n"
 "with arbitrary patch type"
@@ -4073,6 +4099,7 @@ msgstr ""
 "SP kartını takip ediyor"
 
 #: src/geom_edit.c:1077
+#, c-format
 msgid "No SC card after an SM card"
 msgstr "SM kartından sonra SC kartı yok"
 
@@ -4109,18 +4136,22 @@ msgid "SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"
 msgstr "SY tanımı (ör. FREQ=146, LAMBDA=300/FREQ):"
 
 #: src/geom_edit.c:2970
+#, c-format
 msgid "NEC2 editor window not open"
 msgstr "NEC2 düzenleyici penceresi açık değil"
 
 #: src/geometry.c:118
+#, c-format
 msgid "Number of segments < 1"
 msgstr "Segment sayısı < 1"
 
 #: src/geometry.c:155
+#, c-format
 msgid "Arc angle exceeds 360 degrees"
 msgstr "Yay açısı 360 dereceyi aşıyor"
 
 #: src/geometry.c:294
+#, c-format
 msgid "Error in conect(): np > n"
 msgstr "conect() içinde hata: np > n"
 
@@ -4130,6 +4161,7 @@ msgid "geometry data error: segment %d extends below ground\n"
 msgstr "geometri veri hatası: segment %d toprak altına uzanıyor\n"
 
 #: src/geometry.c:326 src/geometry.c:374
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4143,6 +4175,7 @@ msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "geometri veri hatası: segment %d toprak düzleminde bulunuyor\n"
 
 #: src/geometry.c:384
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4152,10 +4185,12 @@ msgstr ""
 
 # xnec2c-exempt: name
 #: src/geometry.c:474
+#, c-format
 msgid "ipsym = 0\n"
 msgstr ""
 
 #: src/geometry.c:475
+#, c-format
 msgid "Error: ipsym = 0"
 msgstr "Hata: ipsym = 0"
 
@@ -4169,6 +4204,7 @@ msgstr ""
 "segj.maxcon=%lu\n"
 
 #: src/geometry.c:530
+#, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4177,6 +4213,7 @@ msgstr ""
 "Örtüşen veya neredeyse bağlı segmentleri kontrol edin\n"
 
 #: src/geometry.c:744
+#, c-format
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4185,6 +4222,7 @@ msgstr ""
 "konum sıfır olmamalı\n"
 
 #: src/geometry.c:745
+#, c-format
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4198,6 +4236,7 @@ msgid "no segment has an itag of %d\n"
 msgstr "itag değeri %d olan segment yok\n"
 
 #: src/geometry.c:781
+#, c-format
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4222,10 +4261,12 @@ msgstr ""
 "Geometrinizde geçerli etiketler GW/GA/GH/SP kartlarına atanmış olanlardır."
 
 #: src/geometry.c:1064
+#, c-format
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "dörtgenin köşeleri: yama bir düzlemde bulunmuyor\n"
 
 #: src/geometry.c:1065
+#, c-format
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4239,6 +4280,7 @@ msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "geometri veri hatası: segment %d simetri düzleminde bulunuyor\n"
 
 #: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4252,6 +4294,7 @@ msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "geometri veri hatası: yama %d simetri düzleminde bulunuyor\n"
 
 #: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4437,6 +4480,7 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "%d segment için örtüşme kontrolü zorlanıyor\n"
 
 #: src/geometry.c:1849
+#, c-format
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
@@ -4447,6 +4491,7 @@ msgid "Gnuplot Data"
 msgstr "Gnuplot Verisi"
 
 #: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
+#, c-format
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "Kaydedilemiyor: frekans taraması tamamlanmadı"
 
@@ -4477,6 +4522,7 @@ msgid "Touchstone Data"
 msgstr "Touchstone Verisi"
 
 #: src/gnuplot.c:104
+#, c-format
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4537,6 +4583,7 @@ msgid "Save Currents and Charges to CSV"
 msgstr "Akımları ve Yükleri CSV'ye Kaydet"
 
 #: src/gnuplot.c:584
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4549,6 +4596,7 @@ msgid "Save Patch Currents to CSV"
 msgstr "Yama Akımlarını CSV'ye Kaydet"
 
 #: src/gnuplot.c:650
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4557,10 +4605,12 @@ msgstr ""
 "verilerini etkinleştirmelisiniz."
 
 #: src/gnuplot.c:660
+#, c-format
 msgid "No surface patches in this model."
 msgstr "Bu modelde yüzey yaması yok."
 
 #: src/ground.c:110
+#, c-format
 msgid "b less than a"
 msgstr "b, a'dan küçük"
 
@@ -4570,6 +4620,7 @@ msgid "step size limited at z = %12.5E\n"
 msgstr "adım boyutu Z = %12.5E'de sınırlandı\n"
 
 #: src/input.c:150
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Unexpected EOF (End of File)"
@@ -4578,6 +4629,7 @@ msgstr ""
 "Beklenmeyen EOF (Dosya Sonu)"
 
 #: src/input.c:164
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Comment mnemonic short or missing"
@@ -4586,6 +4638,7 @@ msgstr ""
 "Yorum anımsatıcısı kısa veya eksik"
 
 #: src/input.c:175
+#, c-format
 msgid ""
 "Read_Comments():\n"
 " Error reading input file\n"
@@ -4596,6 +4649,7 @@ msgstr ""
 "Yorum anımsatıcısı yanlış"
 
 #: src/input.c:215
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Tag number is negative"
@@ -4604,6 +4658,7 @@ msgstr ""
 "Etiket numarası negatif"
 
 #: src/input.c:222
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
@@ -4612,6 +4667,7 @@ msgstr ""
 "Segment sayısı 1'den küçük"
 
 #: src/input.c:229
+#, c-format
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "uyarı - segment sayısı 1000000'dan büyük\n"
 
@@ -4632,6 +4688,7 @@ msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "%s veri kartı hatası: beklenmeyen karakter '%c' %d sütununda\n"
 
 #: src/input.c:301
+#, c-format
 msgid ""
 "Data card error\n"
 "Spurious character in card"
@@ -4645,18 +4702,22 @@ msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: \"%s\" için ifade değerlendirmesi başarısız oldu\n"
 
 #: src/input.c:413
+#, c-format
 msgid "SY card: no line content available\n"
 msgstr "SY kartı: satır içeriği mevcut değil\n"
 
 #: src/input.c:414
+#, c-format
 msgid "SY card: no line content available"
 msgstr "SY kartı: satır içeriği mevcut değil"
 
 #: src/input.c:431
+#, c-format
 msgid "SY card: missing '=' in definition\n"
 msgstr "SY kartı: tanımda '=' eksik\n"
 
 #: src/input.c:432
+#, c-format
 msgid "SY card: missing '=' in definition"
 msgstr "SY kartı: tanımda '=' eksik"
 
@@ -4666,6 +4727,7 @@ msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "SY kartı: %s=%s için sembol tanımı başarısız oldu\n"
 
 #: src/input.c:652
+#, c-format
 msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
@@ -4674,18 +4736,22 @@ msgstr ""
 "Konik tel için GC kartı yok"
 
 #: src/input.c:659
+#, c-format
 msgid "Geometry GC data card error"
 msgstr "Geometri GC veri kartı hatası"
 
 #: src/input.c:675
+#, c-format
 msgid "Geometry GX data card error"
 msgstr "Geometri GX veri kartı hatası"
 
 #: src/input.c:698
+#, c-format
 msgid "Geometry GR data card error"
 msgstr "Geometri GR veri kartı hatası"
 
 #: src/input.c:752
+#, c-format
 msgid "No geometry data cards"
 msgstr "Geometri veri kartı yok"
 
@@ -4694,6 +4760,7 @@ msgid "Probable invalid segment geometry.\n"
 msgstr "Muhtemelen geçersiz segment geometrisi.\n"
 
 #: src/input.c:764
+#, c-format
 msgid ""
 "Invalid segment geometry.\n"
 "See warnings in the console for detail.\n"
@@ -4704,10 +4771,12 @@ msgstr ""
 "Devam etmeye çalışılıyor..."
 
 #: src/input.c:770
+#, c-format
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "Muhtemelen geçersiz segment geometrisi (yukarıya bakın)\n"
 
 #: src/input.c:774
+#, c-format
 msgid "Read_Geometry: verify_segments() passed\n"
 msgstr "Read_Geometry: verify_segments() başarılı\n"
 
@@ -4717,23 +4786,28 @@ msgid "segment data error: tag=%d si=%f, bi=%f\n"
 msgstr "segment veri hatası: tag=%d si=%f, bi=%f\n"
 
 #: src/input.c:813
+#, c-format
 msgid "Segment data error, zero-length line?  See console."
 msgstr "Segment veri hatası, sıfır uzunluklu çizgi mi? Konsola bakın."
 
 #: src/input.c:853
+#, c-format
 msgid "Move GM data card error"
 msgstr "Taşıma GM veri kartı hatası"
 
 #: src/input.c:869 src/input.c:910 src/input.c:927 src/input.c:945
 #: src/input.c:953
+#, c-format
 msgid "Patch data card error"
 msgstr "Yama veri kartı hatası"
 
 #: src/input.c:891
+#, c-format
 msgid "Patch data error"
 msgstr "Yama veri hatası"
 
 #: src/input.c:1000
+#, c-format
 msgid ""
 "\"GF\" card (NGF solution)\n"
 "is not supported"
@@ -4742,6 +4816,7 @@ msgstr ""
 "desteklenmiyor"
 
 #: src/input.c:1005
+#, c-format
 msgid "Ignoring CM card in geometry"
 msgstr "Geometride CM kartı yoksayılıyor"
 
@@ -4757,18 +4832,22 @@ msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
 #: src/input.c:1025
+#, c-format
 msgid "Command card in geometry section"
 msgstr "Geometri bölümünde komut kartı"
 
 #: src/input.c:1027
+#, c-format
 msgid "Unrecognized geometry card"
 msgstr "Tanınmayan geometri kartı"
 
 #: src/input.c:1051
+#, c-format
 msgid "Failed to initialize symbol table\n"
 msgstr "Sembol tablosu başlatılamadı\n"
 
 #: src/input.c:1052
+#, c-format
 msgid "Failed to initialize symbol table"
 msgstr "Sembol tablosu başlatılamadı"
 
@@ -4778,14 +4857,17 @@ msgid "No FR card: computing one step at the NEC-2 default %g MHz\n"
 msgstr "FR kartı yok: NEC-2 varsayılanı olan %g MHz'de bir adım hesaplanıyor\n"
 
 #: src/input.c:1283
+#, c-format
 msgid "ignoring CM card in commands\n"
 msgstr "komutlarda CM kartı yoksayılıyor\n"
 
 #: src/input.c:1284
+#, c-format
 msgid "Ignoring CM card in commands"
 msgstr "Komutlarda CM kartı yoksayılıyor"
 
 #: src/input.c:1296
+#, c-format
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "CP kartı yoksayılıyor: kuplaj hesabı uygulanmadı\n"
 
@@ -4795,10 +4877,12 @@ msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "Yinelenen FR kartı %g MHz'de atlanıyor\n"
 
 #: src/input.c:1457
+#, c-format
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "FR kartında maksimum frekans <= minimum frekans\n"
 
 #: src/input.c:1458
+#, c-format
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
@@ -4807,6 +4891,7 @@ msgstr ""
 "Lütfen FR kartı verilerini kontrol edip düzeltin"
 
 #: src/input.c:1481
+#, c-format
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates "
@@ -4816,10 +4901,12 @@ msgstr ""
 "GE kartı toprak olduğunu belirtiyor, ancak GN aksini gösteriyor."
 
 #: src/input.c:1495
+#, c-format
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "toprak belirtilmiş durumda theta > 90 derece\n"
 
 #: src/input.c:1496 src/radiation.c:911
+#, c-format
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4828,6 +4915,7 @@ msgstr ""
 "Lütfen RP kartı verilerini kontrol edip düzeltin"
 
 #: src/input.c:1505
+#, c-format
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
@@ -4836,6 +4924,7 @@ msgstr ""
 "kullanılamaz\n"
 
 #: src/input.c:1506
+#, c-format
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
@@ -4853,6 +4942,7 @@ msgstr ""
 "değerinden büyük\n"
 
 #: src/input.c:1556
+#, c-format
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
@@ -4861,6 +4951,7 @@ msgstr ""
 "itag step1, itag step2 değerinden büyük"
 
 #: src/input.c:1685
+#, c-format
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr ""
@@ -4868,6 +4959,7 @@ msgstr ""
 "düzeltin\n"
 
 #: src/input.c:1686
+#, c-format
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
@@ -4876,10 +4968,12 @@ msgstr ""
 "geçerli değil. Lütfen NT veya TL kartını düzeltin"
 
 #: src/input.c:1697
+#, c-format
 msgid "Segment number error in TL or NT card\n"
 msgstr "TL veya NT kartında segment numarası hatası\n"
 
 #: src/input.c:1698
+#, c-format
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
@@ -4888,18 +4982,22 @@ msgstr ""
 "segment numarası hatası"
 
 #: src/input.c:1720
+#, c-format
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr "PQ ve PT kartları yoksayılıyor: dosyaya yazdırma uygulanmadı\n"
 
 #: src/input.c:1724
+#, c-format
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "PL kartı yoksayılıyor: dosyaya çizim desteklenmiyor\n"
 
 #: src/input.c:1730
+#, c-format
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "Yüzey dalgası seçeneği (I1=1): RP komutu uygulanmadı\n"
 
 #: src/input.c:1731
+#, c-format
 msgid ""
 "Surface wave option (I1=1)\n"
 "of RP command not implemented"
@@ -4908,6 +5006,7 @@ msgstr ""
 "RP komutu uygulanmadı"
 
 #: src/input.c:1763
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
@@ -4916,6 +5015,7 @@ msgstr ""
 "kontrol edip düzeltin\n"
 
 #: src/input.c:1764
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4932,6 +5032,7 @@ msgid "Unrecognized command card"
 msgstr "Tanınmayan komut kartı"
 
 #: src/input.c:1879
+#, c-format
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
@@ -4940,10 +5041,12 @@ msgstr ""
 "devre dışı\n"
 
 #: src/input.c:1906
+#, c-format
 msgid "Unexpected exit from while loop"
 msgstr "While döngüsünden beklenmeyen çıkış"
 
 #: src/input.c:1997
+#, c-format
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
@@ -4952,6 +5055,7 @@ msgstr ""
 "ekleniyor\n"
 
 #: src/input.c:1998
+#, c-format
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4962,10 +5066,12 @@ msgstr ""
 "Varsayılan EN kartı ekleniyor"
 
 #: src/input.c:2015
+#, c-format
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr "komut veri kartı hatası: kartın mnemonik kodu çok kısa veya eksik\n"
 
 #: src/input.c:2016
+#, c-format
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4974,6 +5080,7 @@ msgstr ""
 "Mnemonik kod çok kısa veya eksik"
 
 #: src/input.c:2217
+#, c-format
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
@@ -4982,6 +5089,7 @@ msgstr ""
 "kartı ekleniyor\n"
 
 #: src/input.c:2218
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4992,10 +5100,12 @@ msgstr ""
 "Varsayılan GE kartı ekleniyor"
 
 #: src/input.c:2235
+#, c-format
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr "geometri veri kartı hatası: kartın mnemonik kodu çok kısa veya eksik\n"
 
 #: src/input.c:2236
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -5034,6 +5144,7 @@ msgid "failed to add objects to builder: %s\n"
 msgstr "builder'a nesneler eklenemedi: %s\n"
 
 #: src/interface.c:198
+#, c-format
 msgid "Listing Object Ids:\n"
 msgstr "Nesne kimlikleri listeleniyor:\n"
 
@@ -5045,6 +5156,7 @@ msgid "%s\n"
 msgstr ""
 
 #: src/interface.c:213 src/interface.c:216
+#, c-format
 msgid ""
 "libgmodule not supported: xnec2c may not function properly on this "
 "platform.\n"
@@ -5068,6 +5180,7 @@ msgid "Detected %s windowing backend\n"
 msgstr "Algılanan %s pencereleme arka ucu\n"
 
 #: src/main.c:137
+#, c-format
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch ve --optimize birbirini dışlar.\n"
 
@@ -5087,10 +5200,12 @@ msgid "unexpected argument: %s\n"
 msgstr "beklenmeyen argüman: %s\n"
 
 #: src/main.c:177
+#, c-format
 msgid "batch mode requires an input file\n"
 msgstr "toplu mod bir girdi dosyası gerektirir\n"
 
 #: src/main.c:187
+#, c-format
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "ekran açılamıyor: çalışan bir X11 veya Wayland oturumu gereklidir\n"
 
@@ -5100,30 +5215,37 @@ msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d iş, %d işlemciye fork ediliyor.\n"
 
 #: src/main.c:223 src/main.c:231
+#, c-format
 msgid "exiting after fatal error: pipe() failed"
 msgstr "ölümcül hatadan sonra çıkılıyor: pipe() başarısız oldu"
 
 #: src/main.c:240
+#, c-format
 msgid "exiting after fatal error: fork() failed"
 msgstr "ölümcül hatadan sonra çıkılıyor: fork() başarısız oldu"
 
 #: src/main.c:840
+#, c-format
 msgid "exiting via user interrupt\n"
 msgstr "kullanıcı kesintisi ile çıkılıyor\n"
 
 #: src/main.c:844
+#, c-format
 msgid "segmentation fault, exiting\n"
 msgstr "segmentasyon hatası, çıkılıyor\n"
 
 #: src/main.c:848
+#, c-format
 msgid "floating point exception, exiting\n"
 msgstr "kayan nokta istisnası, çıkılıyor\n"
 
 #: src/main.c:852
+#, c-format
 msgid "abort signal received, exiting\n"
 msgstr "iptal sinyali alındı, çıkılıyor\n"
 
 #: src/main.c:856
+#, c-format
 msgid "termination request received, exiting\n"
 msgstr "sonlandırma isteği alındı, çıkılıyor\n"
 
@@ -5223,6 +5345,7 @@ msgid "Batch Math Library"
 msgstr "Toplu Matematik Kütüphanesi"
 
 #: src/mathlib.c:720
+#, c-format
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
 "command line. (However, this selection will be saved for next time xnec2c is "
@@ -5246,6 +5369,7 @@ msgid "Mathlib Benchmark Help"
 msgstr "Mathlib Karşılaştırma Yardımı"
 
 #: src/mathlib.c:868
+#, c-format
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
 "the mathlib implementation to parallelize the linear algebra calculation of "
@@ -5358,15 +5482,18 @@ msgstr ""
 "sayılarını kıyaslamak için bunu kaldırın ve yeniden başlatın."
 
 #: src/mathlib.c:978
+#, c-format
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "Optimizasyon etkinken karşılaştırmalar devre dışıdır."
 
 #: src/mathlib.c:985
+#, c-format
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr ""
 "Karşılaştırma çalıştırmadan önce bir NEC2 girdi dosyası yüklemelisiniz."
 
 #: src/mathlib.c:991
+#, c-format
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
 "specified on the command line."
@@ -5375,6 +5502,7 @@ msgstr ""
 "seçmenin etkisi yoktur."
 
 #: src/mathlib.c:1008
+#, c-format
 msgid "You must select at least one math library to benchmark"
 msgstr "Karşılaştırma için en az bir matematik kütüphanesi seçmelisiniz"
 
@@ -5507,6 +5635,7 @@ msgid "symmetry error - nrow:%d ncol:%d\n"
 msgstr "simetri hatası - nrow:%d ncol:%d\n"
 
 #: src/matrix.c:1353
+#, c-format
 msgid "Symmetry error"
 msgstr "Simetri hatası"
 
@@ -5516,6 +5645,7 @@ msgid "Solving Failed: %d\n"
 msgstr "Çözüm Başarısız: %d\n"
 
 #: src/measurements.c:424
+#, c-format
 msgid ""
 "noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
 "to 0\n"
@@ -5560,6 +5690,7 @@ msgid "mem_backtrace(%p):\n"
 msgstr ""
 
 #: src/mem/mem.c:253
+#, c-format
 msgid "  m->backtrace is null, no backtrace data\n"
 msgstr "  m->backtrace boş, geri izleme verisi yok\n"
 
@@ -5602,6 +5733,7 @@ msgid "--- End Comments ---"
 msgstr "--- Açıklamalar Sonu ---"
 
 #: src/nec2_model.c:525
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5612,6 +5744,7 @@ msgstr ""
 "Beklenmeyen EOF (Dosya Sonu)"
 
 #: src/nec2_model.c:532
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5626,6 +5759,7 @@ msgid "End Comments"
 msgstr "Açıklamalar Sonu"
 
 #: src/nec2_model.c:916
+#, c-format
 msgid ""
 "Cannot save treeview data\n"
 "Please use the Save button\n"
@@ -5641,6 +5775,7 @@ msgid "improper load type chosen, requested type is %d\n"
 msgstr "uygun olmayan yük türü seçildi, istenen tür %d\n"
 
 #: src/network.c:653
+#, c-format
 msgid "Improper load type chose"
 msgstr "Uygun olmayan yük türü seçildi"
 
@@ -5650,6 +5785,7 @@ msgid "loading data card error, no segment has an itag = %d\n"
 msgstr "veri kartı yükleme hatası, itag = %d olan segment yok\n"
 
 #: src/network.c:742
+#, c-format
 msgid ""
 "Loading data card\n"
 "Tag number mismatch error"
@@ -5663,26 +5799,32 @@ msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "Etiket doku atlası oluşturuldu (ID=%u)\n"
 
 #: src/opengl-engine/opengl_axes.c:161
+#, c-format
 msgid "Failed to load axes line shader\n"
 msgstr "Eksen çizgisi gölgelendiricisi yüklenemedi\n"
 
 #: src/opengl-engine/opengl_axes.c:192
+#, c-format
 msgid "Axes renderer initialized\n"
 msgstr "Eksen işleyicisi başlatıldı\n"
 
 #: src/opengl-engine/opengl_axes.c:196
+#, c-format
 msgid "Failed to load text shaders\n"
 msgstr "Metin gölgelendiricileri yüklenemedi\n"
 
 #: src/opengl-engine/opengl_cairo_overlay.c:62
+#, c-format
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "Cairo kaplama gölgelendiricileri yüklenemedi\n"
 
 #: src/opengl-engine/opengl_ground_plane.c:105
+#, c-format
 msgid "Failed to load ground plane shaders\n"
 msgstr "Toprak düzlemi gölgelendiricileri yüklenemedi\n"
 
 #: src/opengl-engine/opengl_image_overlay.c:39
+#, c-format
 msgid "Failed to create cairo overlay base\n"
 msgstr "Cairo kaplama tabanı oluşturulamadı\n"
 
@@ -5707,29 +5849,35 @@ msgid "Shader link failed: %s + %s\n"
 msgstr "Gölgelendirici bağlantısı başarısız: %s + %s\n"
 
 #: src/opengl-engine/opengl_view.c:192
+#, c-format
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
 "OpenGL bağlam hatası — bu ekranda kullanılabilir OpenGL uygulaması yok\n"
 
 #: src/opengl-engine/opengl_view.c:200
+#, c-format
 msgid "Disabling OpenGL: shader catalog failed\n"
 msgstr ""
 "OpenGL devre dışı bırakılıyor: gölgelendirici kataloğu başarısız oldu\n"
 
 #: src/opengl-engine/opengl_view.c:213
+#, c-format
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "OpenGL devre dışı: sahne gölgelendiricisi başarısız\n"
 
 #: src/opengl-engine/opengl_view.c:228
+#, c-format
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "OpenGL devre dışı: kaplama gölgelendiricisi başarısız\n"
 
 #: src/opengl-engine/opengl_view.c:240
+#, c-format
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "OpenGL devre dışı: eksen işleyicisi başarısız\n"
 
 #: src/opengl-engine/opengl_view.c:269
+#, c-format
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "OpenGL devre dışı: toprak düzlemi gölgelendiricisi başarısız\n"
 
@@ -5739,6 +5887,7 @@ msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "İşlenebilir sayısı %u, MAX_RENDERABLES (%d) değerini aşıyor\n"
 
 #: src/opengl-engine/opengl_view.c:372
+#, c-format
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "OpenGL devre dışı: soyma bileşik gölgelendiricisi başarısız\n"
 
@@ -5752,10 +5901,12 @@ msgstr ""
 "%g,%g,%g]\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:141
+#, c-format
 msgid "MSAA framebuffer incomplete\n"
 msgstr "MSAA çerçeve arabelleği tamamlanmadı\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:173
+#, c-format
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "MSAA çözümleme çerçeve arabelleği tamamlanmadı\n"
 
@@ -5770,14 +5921,17 @@ msgid "Peel MSAA FBO %d incomplete\n"
 msgstr "Soyma MSAA FBO %d tamamlanmadı\n"
 
 #: src/opengl-engine/opengl_view_peel.c:276
+#, c-format
 msgid "Peel accumulation FBO incomplete\n"
 msgstr "Soyma birikim FBO'su tamamlanmadı\n"
 
 #: src/opengl-engine/opengl_view_peel.c:285
+#, c-format
 msgid "Layer depth FBO incomplete\n"
 msgstr "Katman derinliği FBO tamamlanmadı\n"
 
 #: src/opengl-engine/opengl_view_render.c:339
+#, c-format
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Saydam işlenebilirler atlandı: soyma FBO'ları kullanılamıyor\n"
 
@@ -5787,6 +5941,7 @@ msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: geçersiz çizim stili %d, yüzey kullanılıyor\n"
 
 #: src/opengl/opengl_state.c:57
+#, c-format
 msgid ""
 "OpenGL is not available on this display; switching to Cairo renderer. See "
 "'OpenGL Renderer' in View > Rendering Settings.\n"
@@ -5829,6 +5984,7 @@ msgid "saving %s: %s\n"
 msgstr "%s kaydediliyor: %s\n"
 
 #: src/optimize.c:100
+#, c-format
 msgid "xnec2c was built without inotify.\n"
 msgstr "xnec2c inotify desteği olmadan derlendi.\n"
 
@@ -5854,10 +6010,12 @@ msgstr ""
 "inotify: dosya stat başarısız veya sıfır bayt (errno=%s), yeniden deneniyor\n"
 
 #: src/optimize.c:360
+#, c-format
 msgid "Exited optimizer thread.\n"
 msgstr "Optimize edici iş parçacığından çıkıldı.\n"
 
 #: src/optimize.c:366
+#, c-format
 msgid "optimize.c: exit because this is a child process.\n"
 msgstr "optimize.c: alt süreç olduğu için çıkılıyor.\n"
 
@@ -5892,14 +6050,17 @@ msgid "inotify: FILTER: target='%s' event_name='%s' match=%d\n"
 msgstr "inotify: FİLTRE: hedef='%s' olay_adı='%s' eşleşme=%d\n"
 
 #: src/optimize.c:441
+#, c-format
 msgid "inotify: SKIP event (filename mismatch)\n"
 msgstr "inotify: olay atlanıyor (dosya adı uyuşmazlığı)\n"
 
 #: src/optimize.c:448
+#, c-format
 msgid "inotify: IN_MODIFY on target, setting modify_seen=TRUE\n"
 msgstr "inotify: hedefte IN_MODIFY, modify_seen=TRUE ayarlanıyor\n"
 
 #: src/optimize.c:456
+#, c-format
 msgid ""
 "inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n"
 msgstr ""
@@ -5907,6 +6068,7 @@ msgstr ""
 "tetikleniyor\n"
 
 #: src/optimize.c:473
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), "
 "triggering reload\n"
@@ -5915,6 +6077,7 @@ msgstr ""
 "tamamlandı), yeniden yükleme tetikleniyor\n"
 
 #: src/optimize.c:485
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), "
 "skipping\n"
@@ -5929,10 +6092,12 @@ msgstr ""
 "inotify: olay atlanıyor (MODIFY/CLOSE_WRITE/MOVED_TO değil, maske=0x%08x)\n"
 
 #: src/optimize.c:525
+#, c-format
 msgid "failed to create optimizer wake eventfd\n"
 msgstr "optimize edici uyandırma eventfd'si oluşturulamadı\n"
 
 #: src/optimize.c:536
+#, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "Optimize Edici Çıktı iş parçacığı oluşturulamadı\n"
 
@@ -5952,6 +6117,7 @@ msgid "nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n"
 msgstr "nec2_eval_signal: eval_mutex çekişmesi, engelleniyor (thr=%lu)\n"
 
 #: src/optimizers/opt_nec2_eval.c:194
+#, c-format
 msgid "nec2_eval_run: not initialized\n"
 msgstr "nec2_eval_run: başlatılmadı\n"
 
@@ -5970,10 +6136,12 @@ msgid "opt: optimization complete, best fitness: %.6g\n"
 msgstr "opt: optimizasyon tamamlandı, en iyi uygunluk: %.6g\n"
 
 #: src/optimizers/opt_session.c:194
+#, c-format
 msgid "opt_start: optimizer already running\n"
 msgstr "opt_start: optimize edici zaten çalışıyor\n"
 
 #: src/optimizers/opt_session.c:258
+#, c-format
 msgid "opt_start: simple_new failed\n"
 msgstr "opt_start: simple_new başarısız\n"
 
@@ -6172,6 +6340,7 @@ msgstr ""
 "sıfırlanıyor\n"
 
 #: src/rc_config.c:1786
+#, c-format
 msgid "batch mode: skipping configuration save\n"
 msgstr "toplu iş modu: yapılandırma kaydı atlanıyor\n"
 
@@ -6384,6 +6553,7 @@ msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: yüzey oluşturma başarısız (%dx%d)\n"
 
 #: src/render/render_fit.c:67
+#, c-format
 msgid "render_fit_solve: no geometry to fit\n"
 msgstr "render_fit_solve: sığdırılacak geometri yok\n"
 
@@ -6432,6 +6602,7 @@ msgid "Waiting for frequency data"
 msgstr "Frekans verisi bekleniyor"
 
 #: src/render/render_redraw.c:48
+#, c-format
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Optimize edici döngüsü tamamlanmadı, ara yeniden çizim bastırılıyor.\n"
 
@@ -6455,14 +6626,17 @@ msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: cairo glade yüklenemedi: %s\n"
 
 #: src/settings/render_settings_common.c:182
+#, c-format
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr "render_settings_init: glade'den render_settings_window alınamadı\n"
 
 #: src/somnec.c:302
+#, c-format
 msgid "Hankel not valid for z = 0"
 msgstr "Z = 0 için Hankel geçerli değil"
 
 #: src/somnec.c:807
+#, c-format
 msgid "No convergence"
 msgstr "Yakınsama yok"
 
@@ -6551,6 +6725,7 @@ msgid "sy_overrides_init: failed to load glade: %s\n"
 msgstr "sy_overrides_init: glade yüklenemedi: %s\n"
 
 #: src/sy_overrides.c:1107
+#, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: glade'den bileşenler alınamadı\n"
 
@@ -6636,6 +6811,7 @@ msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Dosya açılamadı: %s\n"
 
 #: src/utils.c:1090
+#, c-format
 msgid "  Backtrace:\n"
 msgstr "  Geri İzleme:\n"
 
@@ -6652,6 +6828,7 @@ msgid "%s:\n"
 msgstr ""
 
 #: src/validation_dump.c:35
+#, c-format
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6660,12 +6837,14 @@ msgstr ""
 "sonuçlar referanstan farklı olabilir\n"
 
 #: src/validation_dump.c:40
+#, c-format
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr ""
 "doğrulama: yeniden üretilebilirlik için matematik kütüphanesi nec2-builtin "
 "olarak zorlandı\n"
 
 #: src/validation_dump.c:59
+#, c-format
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr ""
@@ -6673,11 +6852,13 @@ msgstr ""
 "yükselti zorlandı\n"
 
 #: src/validation_dump.c:69
+#, c-format
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr ""
 "doğrulama: yeniden üretilebilirlik için polarizasyon toplam olarak zorlandı\n"
 
 #: src/validation_dump.c:88
+#, c-format
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
@@ -6690,10 +6871,12 @@ msgid "Validation Tree"
 msgstr "Doğrulama Ağacı"
 
 #: src/validation_dump.c:621
+#, c-format
 msgid "Cannot save: frequency loop not done"
 msgstr "Kaydedilemiyor: frekans döngüsü tamamlanmadı"
 
 #: src/validation_dump.c:627
+#, c-format
 msgid "Cannot create output directory"
 msgstr "Çıktı dizini oluşturulamıyor"
 
@@ -6712,6 +6895,7 @@ msgstr ""
 "%+12.5Ej\n"
 
 #: src/xnec2c.c:322
+#, c-format
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters():Toprak parametrelerinde hata"
 
@@ -6736,6 +6920,7 @@ msgstr ""
 "sahip\n"
 
 #: src/xnec2c.c:1258
+#, c-format
 msgid "Failed to read data from forked child\n"
 msgstr "Fork edilmiş alt işlemden veri okunamadı\n"
 
@@ -6801,6 +6986,7 @@ msgid "--%s wrote %s\n"
 msgstr "--%s %s dosyasını yazdı\n"
 
 #: src/xnec2c.c:1974
+#, c-format
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png, --batch gerektirir\n"
 
@@ -6815,6 +7001,7 @@ msgid "sweep runs %d workers of %d threads each\n"
 msgstr "tarama, her biri %d iş parçacıklı %d çalışan çalıştırıyor\n"
 
 #: src/xnec2c.c:2355
+#, c-format
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread başlatılamadı\n"
 
@@ -6827,6 +7014,7 @@ msgid "Recalculate the frequency sweep?"
 msgstr "Frekans taraması yeniden hesaplansın mı?"
 
 #: src/xnec2c.c:2536
+#, c-format
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

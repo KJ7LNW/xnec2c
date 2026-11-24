@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-23 17:34-0800\n"
+"POT-Creation-Date: 2026-11-24 00:43-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3038,6 +3038,7 @@ msgid ""
 msgstr "扫描后选择的频率；未指定时保留先前保存的频率，若无则使用中心频率"
 
 #: src/args.c:287
+#, c-format
 msgid "config file path too long\n"
 msgstr "配置文件路径过长\n"
 
@@ -3086,6 +3087,7 @@ msgid "--threads and %s=%s both state a thread count, unset one\n"
 msgstr "--threads 和 %s=%s 均指定线程数，请取消设置其中之一\n"
 
 #: src/args.c:943
+#, c-format
 msgid "Forking disabled!\n"
 msgstr "已禁用 fork！\n"
 
@@ -3125,6 +3127,7 @@ msgid "segment connection error for segment %5d\n"
 msgstr "分段 %5d 的分段连接错误\n"
 
 #: src/calculations.c:118
+#, c-format
 msgid "Segment connection error in tbf()"
 msgstr "tbf() 中的分段连接错误"
 
@@ -3139,10 +3142,12 @@ msgid "segment connection error for segment %d\n"
 msgstr "分段 %d 的分段连接错误\n"
 
 #: src/calculations.c:1073
+#, c-format
 msgid "Segment connection error in sbf()"
 msgstr "sbf() 中的分段连接错误"
 
 #: src/calculations.c:1291
+#, c-format
 msgid "Segment connection error in trio()"
 msgstr "trio() 中的分段连接错误"
 
@@ -3219,6 +3224,7 @@ msgid "Antenna Temperature"
 msgstr "天线温度"
 
 #: src/callbacks.c:84
+#, c-format
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3261,6 +3267,7 @@ msgid "xnec2c geometry optimizer"
 msgstr "xnec2c 几何优化器"
 
 #: src/callbacks.c:447
+#, c-format
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr "xnec2c 构建时未包含 inotify 支持：无法启用优化器。"
@@ -3270,6 +3277,7 @@ msgid "Xnec2c Optimizer"
 msgstr "Xnec2c 优化器"
 
 #: src/callbacks.c:468
+#, c-format
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3283,10 +3291,12 @@ msgid "Are you sure you wish to close this window?"
 msgstr "您确定要关闭此窗口吗？"
 
 #: src/callbacks.c:1503
+#, c-format
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr "OpenGL 在此显示器上不可用；无法启用渲染器。\n"
 
 #: src/callbacks.c:1811
+#, c-format
 msgid "No open NEC2 input file"
 msgstr "没有打开的 NEC2 输入文件"
 
@@ -3304,6 +3314,7 @@ msgstr "未命名.nec"
 
 #: src/callbacks.c:2401 src/callbacks.c:2421 src/callbacks.c:2441
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
+#, c-format
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
 "You may need to save the NEC2 Editor data first."
@@ -3322,10 +3333,12 @@ msgid "invalid segment scale encoding %d, using model radius\n"
 msgstr "分段缩放编码 %d 无效，改用模型半径\n"
 
 #: src/chroma/chroma_source.c:334
+#, c-format
 msgid "far-field contribution needs radiation pattern data\n"
 msgstr "远场贡献需要辐射方向图数据\n"
 
 #: src/cmnd_edit.c:109
+#, c-format
 msgid ""
 "Get_Command_Data(): Error reading\n"
 "row data: Invalid list iterator"
@@ -3334,6 +3347,7 @@ msgstr ""
 "行数据出错：无效的列表迭代器"
 
 #: src/cmnd_edit.c:152
+#, c-format
 msgid ""
 "Set_Command_Data(): Error writing row data\n"
 "Please re-select row"
@@ -3695,10 +3709,12 @@ msgid "Not available: excitation defines no feedpoint"
 msgstr "不可用：激励未定义馈电点"
 
 #: src/freqplots/freqplots_graph.c:137 src/freqplots/graphs/smith_graph.c:565
+#, c-format
 msgid "memory allocation for points failed\n"
 msgstr "点的内存分配失败\n"
 
 #: src/freqplots/freqplots_graph.c:138 src/freqplots/graphs/smith_graph.c:566
+#, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph()：点的内存分配失败"
 
@@ -3875,6 +3891,7 @@ msgstr "VSWR 与频率关系"
 
 #: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
 #: src/geom_edit.c:2703
+#, c-format
 msgid ""
 "Error reading row data\n"
 "Invalid list iterator"
@@ -3883,6 +3900,7 @@ msgstr ""
 "无效的列表迭代器"
 
 #: src/geom_edit.c:151 src/geom_edit.c:181
+#, c-format
 msgid ""
 "Error writing row data\n"
 "Please re-select row"
@@ -3891,6 +3909,7 @@ msgstr ""
 "请重新选择行"
 
 #: src/geom_edit.c:583
+#, c-format
 msgid ""
 "GC card preceded by GW card\n"
 "with non-zero wire radius"
@@ -3899,22 +3918,26 @@ msgstr ""
 "且线半径非零"
 
 #: src/geom_edit.c:587
+#, c-format
 msgid "No GW card before GC card"
 msgstr "GC 卡前没有 GW 卡"
 
 #: src/geom_edit.c:611
+#, c-format
 msgid ""
 "No GC card after a GW card\n"
 "with a zero wire radius"
 msgstr "线半径为零的 GW 卡后没有 GC 卡"
 
 #: src/geom_edit.c:620
+#, c-format
 msgid ""
 "GC card follows a GW card\n"
 "with non-zero wire radius"
 msgstr "GC 卡跟在线半径非零的 GW 卡后"
 
 #: src/geom_edit.c:1025
+#, c-format
 msgid ""
 "SC card preceded by SP card\n"
 "with arbitrary patch type"
@@ -3923,16 +3946,19 @@ msgstr ""
 "且为任意面片类型"
 
 #: src/geom_edit.c:1037
+#, c-format
 msgid "No SP or SM card before SC card"
 msgstr "SC 卡前没有 SP 或 SM 卡"
 
 #: src/geom_edit.c:1057
+#, c-format
 msgid ""
 "No SC card after an SP card\n"
 "with non-arbitrary patch type"
 msgstr "非任意面片类型的 SP 卡后没有 SC 卡"
 
 #: src/geom_edit.c:1064
+#, c-format
 msgid ""
 "SC card follows an SP card\n"
 "with arbitrary patch type"
@@ -3941,6 +3967,7 @@ msgstr ""
 "面片类型的 SP 卡之后"
 
 #: src/geom_edit.c:1077
+#, c-format
 msgid "No SC card after an SM card"
 msgstr "SM 卡之后没有 SC 卡"
 
@@ -3977,18 +4004,22 @@ msgid "SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"
 msgstr "SY 定义（例如 FREQ=146, LAMBDA=300/FREQ）："
 
 #: src/geom_edit.c:2970
+#, c-format
 msgid "NEC2 editor window not open"
 msgstr "NEC2 编辑器窗口未打开"
 
 #: src/geometry.c:118
+#, c-format
 msgid "Number of segments < 1"
 msgstr "分段数 < 1"
 
 #: src/geometry.c:155
+#, c-format
 msgid "Arc angle exceeds 360 degrees"
 msgstr "弧角超过 360 度"
 
 #: src/geometry.c:294
+#, c-format
 msgid "Error in conect(): np > n"
 msgstr "conect() 中的错误：np > n"
 
@@ -3998,6 +4029,7 @@ msgid "geometry data error: segment %d extends below ground\n"
 msgstr "几何数据错误：分段 %d 延伸至地平面以下\n"
 
 #: src/geometry.c:326 src/geometry.c:374
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4011,6 +4043,7 @@ msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "几何数据错误：分段 %d 位于地平面内\n"
 
 #: src/geometry.c:384
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4020,10 +4053,12 @@ msgstr ""
 
 # xnec2c-exempt: name
 #: src/geometry.c:474
+#, c-format
 msgid "ipsym = 0\n"
 msgstr ""
 
 #: src/geometry.c:475
+#, c-format
 msgid "Error: ipsym = 0"
 msgstr "错误：ipsym = 0"
 
@@ -4035,6 +4070,7 @@ msgid ""
 msgstr "分段连接计数超出完整网格，这不太可能：data.n=%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:530
+#, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4043,12 +4079,14 @@ msgstr ""
 "检查重叠或几乎连接的分段\n"
 
 #: src/geometry.c:744
+#, c-format
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
 msgstr "检查数据，指定分段的参数：相同标签组中的位置不得为零\n"
 
 #: src/geometry.c:745
+#, c-format
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4062,6 +4100,7 @@ msgid "no segment has an itag of %d\n"
 msgstr "没有分段的标签为 %d\n"
 
 #: src/geometry.c:781
+#, c-format
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4084,10 +4123,12 @@ msgstr ""
 "几何中的有效标签是分配给 GW/GA/GH/SP 卡片的标签。"
 
 #: src/geometry.c:1064
+#, c-format
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "四边形的角点：面片不在同一平面上\n"
 
 #: src/geometry.c:1065
+#, c-format
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4101,6 +4142,7 @@ msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "几何数据错误：分段 %d 位于对称平面内\n"
 
 #: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4114,6 +4156,7 @@ msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "几何数据错误：面片 %d 位于对称平面上\n"
 
 #: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4288,6 +4331,7 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "强制检查 %d 个分段的重叠\n"
 
 #: src/geometry.c:1849
+#, c-format
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr "verify_segments() 跳过频率相关检查 - 无频率数据\n"
@@ -4297,6 +4341,7 @@ msgid "Gnuplot Data"
 msgstr "Gnuplot 数据"
 
 #: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
+#, c-format
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "无法保存：频率扫描未完成"
 
@@ -4326,6 +4371,7 @@ msgid "Touchstone Data"
 msgstr "Touchstone 数据"
 
 #: src/gnuplot.c:104
+#, c-format
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4384,6 +4430,7 @@ msgid "Save Currents and Charges to CSV"
 msgstr "保存电流和电荷到 CSV"
 
 #: src/gnuplot.c:584
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4394,16 +4441,19 @@ msgid "Save Patch Currents to CSV"
 msgstr "保存面片电流到 CSV"
 
 #: src/gnuplot.c:650
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
 msgstr "您必须在 xnec2c 主窗口中点击\"电流\"或\"电荷\"来启用电流数据。"
 
 #: src/gnuplot.c:660
+#, c-format
 msgid "No surface patches in this model."
 msgstr "此模型中没有表面面片。"
 
 #: src/ground.c:110
+#, c-format
 msgid "b less than a"
 msgstr "b 小于 a"
 
@@ -4413,6 +4463,7 @@ msgid "step size limited at z = %12.5E\n"
 msgstr "步长在 Z = %12.5E 处受限\n"
 
 #: src/input.c:150
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Unexpected EOF (End of File)"
@@ -4421,6 +4472,7 @@ msgstr ""
 "意外的 EOF（文件结束）"
 
 #: src/input.c:164
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Comment mnemonic short or missing"
@@ -4429,6 +4481,7 @@ msgstr ""
 "注释助记符过短或缺失"
 
 #: src/input.c:175
+#, c-format
 msgid ""
 "Read_Comments():\n"
 " Error reading input file\n"
@@ -4439,6 +4492,7 @@ msgstr ""
 "注释助记符不正确"
 
 #: src/input.c:215
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Tag number is negative"
@@ -4447,6 +4501,7 @@ msgstr ""
 "标签号为负数"
 
 #: src/input.c:222
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
@@ -4455,6 +4510,7 @@ msgstr ""
 "分段数小于 1"
 
 #: src/input.c:229
+#, c-format
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "警告 - 分段数大于 1000000\n"
 
@@ -4474,6 +4530,7 @@ msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "%s 数据卡错误：无效字符 '%c' 于第 %d 列\n"
 
 #: src/input.c:301
+#, c-format
 msgid ""
 "Data card error\n"
 "Spurious character in card"
@@ -4487,18 +4544,22 @@ msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s：表达式求值失败 \"%s\"\n"
 
 #: src/input.c:413
+#, c-format
 msgid "SY card: no line content available\n"
 msgstr "SY 卡：无可用行内容\n"
 
 #: src/input.c:414
+#, c-format
 msgid "SY card: no line content available"
 msgstr "SY 卡：无可用行内容"
 
 #: src/input.c:431
+#, c-format
 msgid "SY card: missing '=' in definition\n"
 msgstr "SY 卡：定义中缺少 '='\n"
 
 #: src/input.c:432
+#, c-format
 msgid "SY card: missing '=' in definition"
 msgstr "SY 卡：定义中缺少 '='"
 
@@ -4508,6 +4569,7 @@ msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "SY 卡：符号定义失败 %s=%s\n"
 
 #: src/input.c:652
+#, c-format
 msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
@@ -4516,18 +4578,22 @@ msgstr ""
 "锥形导线缺少 GC 卡"
 
 #: src/input.c:659
+#, c-format
 msgid "Geometry GC data card error"
 msgstr "几何 GC 数据卡错误"
 
 #: src/input.c:675
+#, c-format
 msgid "Geometry GX data card error"
 msgstr "几何 GX 数据卡错误"
 
 #: src/input.c:698
+#, c-format
 msgid "Geometry GR data card error"
 msgstr "几何 GR 数据卡错误"
 
 #: src/input.c:752
+#, c-format
 msgid "No geometry data cards"
 msgstr "无几何数据卡"
 
@@ -4536,6 +4602,7 @@ msgid "Probable invalid segment geometry.\n"
 msgstr "可能存在无效的分段几何。\n"
 
 #: src/input.c:764
+#, c-format
 msgid ""
 "Invalid segment geometry.\n"
 "See warnings in the console for detail.\n"
@@ -4546,10 +4613,12 @@ msgstr ""
 "正在尝试继续..."
 
 #: src/input.c:770
+#, c-format
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "可能存在无效的分段几何（见上文）\n"
 
 #: src/input.c:774
+#, c-format
 msgid "Read_Geometry: verify_segments() passed\n"
 msgstr "Read_Geometry: verify_segments() 已通过\n"
 
@@ -4559,23 +4628,28 @@ msgid "segment data error: tag=%d si=%f, bi=%f\n"
 msgstr "分段数据错误：tag=%d si=%f, bi=%f\n"
 
 #: src/input.c:813
+#, c-format
 msgid "Segment data error, zero-length line?  See console."
 msgstr "分段数据错误，零长度线段？请查看控制台。"
 
 #: src/input.c:853
+#, c-format
 msgid "Move GM data card error"
 msgstr "移动 GM 数据卡错误"
 
 #: src/input.c:869 src/input.c:910 src/input.c:927 src/input.c:945
 #: src/input.c:953
+#, c-format
 msgid "Patch data card error"
 msgstr "面片数据卡错误"
 
 #: src/input.c:891
+#, c-format
 msgid "Patch data error"
 msgstr "面片数据错误"
 
 #: src/input.c:1000
+#, c-format
 msgid ""
 "\"GF\" card (NGF solution)\n"
 "is not supported"
@@ -4584,6 +4658,7 @@ msgstr ""
 "（NGF 解法）"
 
 #: src/input.c:1005
+#, c-format
 msgid "Ignoring CM card in geometry"
 msgstr "忽略几何中的 CM 卡"
 
@@ -4599,18 +4674,22 @@ msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
 #: src/input.c:1025
+#, c-format
 msgid "Command card in geometry section"
 msgstr "几何数据段中出现命令卡"
 
 #: src/input.c:1027
+#, c-format
 msgid "Unrecognized geometry card"
 msgstr "无法识别的几何数据卡"
 
 #: src/input.c:1051
+#, c-format
 msgid "Failed to initialize symbol table\n"
 msgstr "初始化符号表失败\n"
 
 #: src/input.c:1052
+#, c-format
 msgid "Failed to initialize symbol table"
 msgstr "初始化符号表失败"
 
@@ -4620,14 +4699,17 @@ msgid "No FR card: computing one step at the NEC-2 default %g MHz\n"
 msgstr "未提供 FR 卡：按 NEC-2 默认值 %g MHz 计算一个步长\n"
 
 #: src/input.c:1283
+#, c-format
 msgid "ignoring CM card in commands\n"
 msgstr "忽略命令中的 CM 卡\n"
 
 #: src/input.c:1284
+#, c-format
 msgid "Ignoring CM card in commands"
 msgstr "忽略命令中的 CM 卡"
 
 #: src/input.c:1296
+#, c-format
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "CP 卡已忽略：尚未实现耦合计算\n"
 
@@ -4637,10 +4719,12 @@ msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "跳过 %g MHz 处的重复 FR 卡\n"
 
 #: src/input.c:1457
+#, c-format
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "FR 卡中最大频率 <= 最小频率\n"
 
 #: src/input.c:1458
+#, c-format
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
@@ -4649,6 +4733,7 @@ msgstr ""
 "请检查 FR 卡数据并更正"
 
 #: src/input.c:1481
+#, c-format
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates "
@@ -4658,10 +4743,12 @@ msgstr ""
 "GE 卡指定存在地面，但 GN 卡指示相反。"
 
 #: src/input.c:1495
+#, c-format
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "指定地面时 theta > 90 度\n"
 
 #: src/input.c:1496 src/radiation.c:911
+#, c-format
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4670,12 +4757,14 @@ msgstr ""
 "请检查 RP 卡数据并更正"
 
 #: src/input.c:1505
+#, c-format
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
 msgstr "径向导线接地系统近似：不能与 Sommerfeld 地面选项一起使用\n"
 
 #: src/input.c:1506
+#, c-format
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
@@ -4691,6 +4780,7 @@ msgid ""
 msgstr "加载卡 %d 数据错误：itag step1 %d 大于 itag step2 %d\n"
 
 #: src/input.c:1556
+#, c-format
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
@@ -4699,11 +4789,13 @@ msgstr ""
 "itag step1 大于 itag step2"
 
 #: src/input.c:1685
+#, c-format
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr "传输线阻抗 = 0：无效。请更正 NT 或 TL 卡\n"
 
 #: src/input.c:1686
+#, c-format
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
@@ -4712,10 +4804,12 @@ msgstr ""
 "无效。请更正 NT 或 TL 卡"
 
 #: src/input.c:1697
+#, c-format
 msgid "Segment number error in TL or NT card\n"
 msgstr "TL 或 NT 卡中分段号错误\n"
 
 #: src/input.c:1698
+#, c-format
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
@@ -4724,18 +4818,22 @@ msgstr ""
 "分段号错误"
 
 #: src/input.c:1720
+#, c-format
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr "PQ 和 PT 卡已忽略：尚未实现打印到文件\n"
 
 #: src/input.c:1724
+#, c-format
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "PL 卡已忽略：不支持绘制到文件\n"
 
 #: src/input.c:1730
+#, c-format
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "表面波选项 (I1=1)：RP 命令未实现\n"
 
 #: src/input.c:1731
+#, c-format
 msgid ""
 "Surface wave option (I1=1)\n"
 "of RP command not implemented"
@@ -4744,12 +4842,14 @@ msgstr ""
 "RP 命令未实现"
 
 #: src/input.c:1763
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
 msgstr "指定地面时 Theta > 90 度：请检查 RP 卡数据并更正\n"
 
 #: src/input.c:1764
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4766,22 +4866,26 @@ msgid "Unrecognized command card"
 msgstr "无法识别的命令卡"
 
 #: src/input.c:1879
+#, c-format
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
 msgstr "缺少 RP 卡或为表面波 RP 卡：辐射方向图和增益计算已禁用\n"
 
 #: src/input.c:1906
+#, c-format
 msgid "Unexpected exit from while loop"
 msgstr "意外退出 while 循环"
 
 #: src/input.c:1997
+#, c-format
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
 msgstr "命令数据卡错误：读取输入文件时遇到意外 EOF - 正在追加 EN 卡\n"
 
 #: src/input.c:1998
+#, c-format
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4792,10 +4896,12 @@ msgstr ""
 "正在追加默认 EN 卡"
 
 #: src/input.c:2015
+#, c-format
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr "命令数据卡错误：卡的助记符代码太短或缺失\n"
 
 #: src/input.c:2016
+#, c-format
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4804,12 +4910,14 @@ msgstr ""
 "助记符代码太短或缺失"
 
 #: src/input.c:2217
+#, c-format
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
 msgstr "几何数据卡错误：读取输入文件时遇到意外 EOF - 正在追加 GE 卡\n"
 
 #: src/input.c:2218
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4820,10 +4928,12 @@ msgstr ""
 "正在追加默认 GE 卡"
 
 #: src/input.c:2235
+#, c-format
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr "几何数据卡错误：卡的助记符代码太短或缺失\n"
 
 #: src/input.c:2236
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -4862,6 +4972,7 @@ msgid "failed to add objects to builder: %s\n"
 msgstr "向 builder 添加对象失败：%s\n"
 
 #: src/interface.c:198
+#, c-format
 msgid "Listing Object Ids:\n"
 msgstr "对象 ID 列表：\n"
 
@@ -4873,6 +4984,7 @@ msgid "%s\n"
 msgstr ""
 
 #: src/interface.c:213 src/interface.c:216
+#, c-format
 msgid ""
 "libgmodule not supported: xnec2c may not function properly on this "
 "platform.\n"
@@ -4894,6 +5006,7 @@ msgid "Detected %s windowing backend\n"
 msgstr "检测到 %s 窗口后端\n"
 
 #: src/main.c:137
+#, c-format
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch 和 --optimize 互斥。\n"
 
@@ -4913,10 +5026,12 @@ msgid "unexpected argument: %s\n"
 msgstr "意外参数：%s\n"
 
 #: src/main.c:177
+#, c-format
 msgid "batch mode requires an input file\n"
 msgstr "批处理模式需要输入文件\n"
 
 #: src/main.c:187
+#, c-format
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "无法打开显示器：需要正在运行的 X11 或 Wayland 会话\n"
 
@@ -4926,30 +5041,37 @@ msgid "Forking %d jobs across %d processors.\n"
 msgstr "正在跨 %d 个处理器 fork %d 个任务。\n"
 
 #: src/main.c:223 src/main.c:231
+#, c-format
 msgid "exiting after fatal error: pipe() failed"
 msgstr "发生致命错误后退出：pipe() 失败"
 
 #: src/main.c:240
+#, c-format
 msgid "exiting after fatal error: fork() failed"
 msgstr "发生致命错误后退出：fork() 失败"
 
 #: src/main.c:840
+#, c-format
 msgid "exiting via user interrupt\n"
 msgstr "通过用户中断退出\n"
 
 #: src/main.c:844
+#, c-format
 msgid "segmentation fault, exiting\n"
 msgstr "段错误，正在退出\n"
 
 #: src/main.c:848
+#, c-format
 msgid "floating point exception, exiting\n"
 msgstr "浮点异常，正在退出\n"
 
 #: src/main.c:852
+#, c-format
 msgid "abort signal received, exiting\n"
 msgstr "收到中止信号，正在退出\n"
 
 #: src/main.c:856
+#, c-format
 msgid "termination request received, exiting\n"
 msgstr "收到终止请求，正在退出\n"
 
@@ -5044,6 +5166,7 @@ msgid "Batch Math Library"
 msgstr "批处理数学库"
 
 #: src/mathlib.c:720
+#, c-format
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
 "command line. (However, this selection will be saved for next time xnec2c is "
@@ -5066,6 +5189,7 @@ msgid "Mathlib Benchmark Help"
 msgstr "数学库基准测试帮助"
 
 #: src/mathlib.c:868
+#, c-format
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
 "the mathlib implementation to parallelize the linear algebra calculation of "
@@ -5163,20 +5287,24 @@ msgstr ""
 "线程数。请取消设置它并重新启动，以测试线程数。"
 
 #: src/mathlib.c:978
+#, c-format
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "优化激活时基准测试被禁用。"
 
 #: src/mathlib.c:985
+#, c-format
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr "运行基准测试前必须加载 NEC2 输入文件。"
 
 #: src/mathlib.c:991
+#, c-format
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
 "specified on the command line."
 msgstr "除非在命令行指定 -j，否则选择\"单任务\"以外的基准测试不会生效。"
 
 #: src/mathlib.c:1008
+#, c-format
 msgid "You must select at least one math library to benchmark"
 msgstr "必须至少选择一个数学库进行基准测试"
 
@@ -5295,6 +5423,7 @@ msgid "symmetry error - nrow:%d ncol:%d\n"
 msgstr "对称性错误 - nrow:%d ncol:%d\n"
 
 #: src/matrix.c:1353
+#, c-format
 msgid "Symmetry error"
 msgstr "对称性错误"
 
@@ -5304,6 +5433,7 @@ msgid "Solving Failed: %d\n"
 msgstr "求解失败：%d\n"
 
 #: src/measurements.c:424
+#, c-format
 msgid ""
 "noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
 "to 0\n"
@@ -5345,6 +5475,7 @@ msgid "mem_backtrace(%p):\n"
 msgstr "mem_backtrace(%p)：\n"
 
 #: src/mem/mem.c:253
+#, c-format
 msgid "  m->backtrace is null, no backtrace data\n"
 msgstr "  m->backtrace 为空，无回溯数据\n"
 
@@ -5389,6 +5520,7 @@ msgid "--- End Comments ---"
 msgstr "--- 注释结束 ---"
 
 #: src/nec2_model.c:525
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5399,6 +5531,7 @@ msgstr ""
 "意外的 EOF（文件结束）"
 
 #: src/nec2_model.c:532
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5413,6 +5546,7 @@ msgid "End Comments"
 msgstr "注释结束"
 
 #: src/nec2_model.c:916
+#, c-format
 msgid ""
 "Cannot save treeview data\n"
 "Please use the Save button\n"
@@ -5428,6 +5562,7 @@ msgid "improper load type chosen, requested type is %d\n"
 msgstr "选择了不正确的负载类型，请求的类型是 %d\n"
 
 #: src/network.c:653
+#, c-format
 msgid "Improper load type chose"
 msgstr "选择了不正确的负载类型"
 
@@ -5437,6 +5572,7 @@ msgid "loading data card error, no segment has an itag = %d\n"
 msgstr "加载数据卡片错误，没有 itag = %d 的分段\n"
 
 #: src/network.c:742
+#, c-format
 msgid ""
 "Loading data card\n"
 "Tag number mismatch error"
@@ -5450,26 +5586,32 @@ msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "已生成标签纹理图集 (ID=%u)\n"
 
 #: src/opengl-engine/opengl_axes.c:161
+#, c-format
 msgid "Failed to load axes line shader\n"
 msgstr "加载坐标轴线着色器失败\n"
 
 #: src/opengl-engine/opengl_axes.c:192
+#, c-format
 msgid "Axes renderer initialized\n"
 msgstr "坐标轴渲染器已初始化\n"
 
 #: src/opengl-engine/opengl_axes.c:196
+#, c-format
 msgid "Failed to load text shaders\n"
 msgstr "加载文本着色器失败\n"
 
 #: src/opengl-engine/opengl_cairo_overlay.c:62
+#, c-format
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "加载 cairo 叠加着色器失败\n"
 
 #: src/opengl-engine/opengl_ground_plane.c:105
+#, c-format
 msgid "Failed to load ground plane shaders\n"
 msgstr "加载接地面着色器失败\n"
 
 #: src/opengl-engine/opengl_image_overlay.c:39
+#, c-format
 msgid "Failed to create cairo overlay base\n"
 msgstr "创建 cairo 叠加基础失败\n"
 
@@ -5494,27 +5636,33 @@ msgid "Shader link failed: %s + %s\n"
 msgstr "着色器链接失败：%s + %s\n"
 
 #: src/opengl-engine/opengl_view.c:192
+#, c-format
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr "OpenGL 上下文错误——此显示器上无可用的 OpenGL 实现\n"
 
 #: src/opengl-engine/opengl_view.c:200
+#, c-format
 msgid "Disabling OpenGL: shader catalog failed\n"
 msgstr "正在禁用 OpenGL：着色器目录加载失败\n"
 
 #: src/opengl-engine/opengl_view.c:213
+#, c-format
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "正在禁用 OpenGL：场景着色器失败\n"
 
 #: src/opengl-engine/opengl_view.c:228
+#, c-format
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "正在禁用 OpenGL：叠加着色器失败\n"
 
 #: src/opengl-engine/opengl_view.c:240
+#, c-format
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "正在禁用 OpenGL：坐标轴渲染器失败\n"
 
 #: src/opengl-engine/opengl_view.c:269
+#, c-format
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "正在禁用 OpenGL：接地面着色器失败\n"
 
@@ -5524,6 +5672,7 @@ msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "可渲染对象数量 %u 超过 MAX_RENDERABLES (%d)\n"
 
 #: src/opengl-engine/opengl_view.c:372
+#, c-format
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "正在禁用 OpenGL：剥离合成着色器失败\n"
 
@@ -5537,10 +5686,12 @@ msgstr ""
 "%g]\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:141
+#, c-format
 msgid "MSAA framebuffer incomplete\n"
 msgstr "MSAA 帧缓冲不完整\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:173
+#, c-format
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "MSAA 解析帧缓冲不完整\n"
 
@@ -5555,14 +5706,17 @@ msgid "Peel MSAA FBO %d incomplete\n"
 msgstr "剥离 MSAA FBO %d 不完整\n"
 
 #: src/opengl-engine/opengl_view_peel.c:276
+#, c-format
 msgid "Peel accumulation FBO incomplete\n"
 msgstr "剥离累积 FBO 不完整\n"
 
 #: src/opengl-engine/opengl_view_peel.c:285
+#, c-format
 msgid "Layer depth FBO incomplete\n"
 msgstr "图层深度 FBO 不完整\n"
 
 #: src/opengl-engine/opengl_view_render.c:339
+#, c-format
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "跳过透明可渲染对象：剥离 FBO 不可用\n"
 
@@ -5572,6 +5726,7 @@ msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern：无效的绘制样式 %d，使用曲面\n"
 
 #: src/opengl/opengl_state.c:57
+#, c-format
 msgid ""
 "OpenGL is not available on this display; switching to Cairo renderer. See "
 "'OpenGL Renderer' in View > Rendering Settings.\n"
@@ -5610,6 +5765,7 @@ msgid "saving %s: %s\n"
 msgstr "正在保存 %s：%s\n"
 
 #: src/optimize.c:100
+#, c-format
 msgid "xnec2c was built without inotify.\n"
 msgstr "xnec2c 编译时未包含 inotify 支持。\n"
 
@@ -5634,10 +5790,12 @@ msgid "inotify: file stat failed or zero bytes (errno=%s), retrying\n"
 msgstr "inotify：文件 stat 失败或字节数为零 (errno=%s)，重试\n"
 
 #: src/optimize.c:360
+#, c-format
 msgid "Exited optimizer thread.\n"
 msgstr "优化器线程已退出。\n"
 
 #: src/optimize.c:366
+#, c-format
 msgid "optimize.c: exit because this is a child process.\n"
 msgstr "optimize.c：退出，因为这是子进程。\n"
 
@@ -5671,19 +5829,23 @@ msgid "inotify: FILTER: target='%s' event_name='%s' match=%d\n"
 msgstr "inotify：过滤：target='%s' event_name='%s' match=%d\n"
 
 #: src/optimize.c:441
+#, c-format
 msgid "inotify: SKIP event (filename mismatch)\n"
 msgstr "inotify：跳过事件（文件名不匹配）\n"
 
 #: src/optimize.c:448
+#, c-format
 msgid "inotify: IN_MODIFY on target, setting modify_seen=TRUE\n"
 msgstr "inotify：目标文件 IN_MODIFY，设置 modify_seen=TRUE\n"
 
 #: src/optimize.c:456
+#, c-format
 msgid ""
 "inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n"
 msgstr "inotify：目标文件 IN_MOVED_TO（原子写入完成），触发重新加载\n"
 
 #: src/optimize.c:473
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), "
 "triggering reload\n"
@@ -5691,6 +5853,7 @@ msgstr ""
 "inotify：modify_seen=TRUE 后 IN_CLOSE_WRITE（直接写入完成），触发重新加载\n"
 
 #: src/optimize.c:485
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), "
 "skipping\n"
@@ -5703,10 +5866,12 @@ msgid "inotify: SKIP event (not MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n"
 msgstr "inotify：跳过事件（非 MODIFY/CLOSE_WRITE/MOVED_TO，mask=0x%08x）\n"
 
 #: src/optimize.c:525
+#, c-format
 msgid "failed to create optimizer wake eventfd\n"
 msgstr "创建优化器唤醒 eventfd 失败\n"
 
 #: src/optimize.c:536
+#, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "创建优化器输出线程失败\n"
 
@@ -5726,6 +5891,7 @@ msgid "nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n"
 msgstr "nec2_eval_signal：eval_mutex 争用，正在阻塞 (thr=%lu)\n"
 
 #: src/optimizers/opt_nec2_eval.c:194
+#, c-format
 msgid "nec2_eval_run: not initialized\n"
 msgstr "nec2_eval_run：未初始化\n"
 
@@ -5743,10 +5909,12 @@ msgid "opt: optimization complete, best fitness: %.6g\n"
 msgstr "opt：优化完成，最优适应度：%.6g\n"
 
 #: src/optimizers/opt_session.c:194
+#, c-format
 msgid "opt_start: optimizer already running\n"
 msgstr "opt_start：优化器已在运行\n"
 
 #: src/optimizers/opt_session.c:258
+#, c-format
 msgid "opt_start: simple_new failed\n"
 msgstr "opt_start：simple_new 失败\n"
 
@@ -5930,6 +6098,7 @@ msgid "Invalid flow visualization mode %d in config, resetting to default\n"
 msgstr "配置中的流向可视化模式 %d 无效，正在重置为默认值\n"
 
 #: src/rc_config.c:1786
+#, c-format
 msgid "batch mode: skipping configuration save\n"
 msgstr "批处理模式：跳过配置保存\n"
 
@@ -6128,6 +6297,7 @@ msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update：曲面创建失败 (%dx%d)\n"
 
 #: src/render/render_fit.c:67
+#, c-format
 msgid "render_fit_solve: no geometry to fit\n"
 msgstr "render_fit_solve：无可适配的几何\n"
 
@@ -6176,6 +6346,7 @@ msgid "Waiting for frequency data"
 msgstr "正在等待频率数据"
 
 #: src/render/render_redraw.c:48
+#, c-format
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "优化器循环未完成，抑制中间重绘。\n"
 
@@ -6199,14 +6370,17 @@ msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init：加载 cairo glade 失败：%s\n"
 
 #: src/settings/render_settings_common.c:182
+#, c-format
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr "render_settings_init：从 glade 获取 render_settings_window 失败\n"
 
 #: src/somnec.c:302
+#, c-format
 msgid "Hankel not valid for z = 0"
 msgstr "Hankel 对 Z = 0 无效"
 
 #: src/somnec.c:807
+#, c-format
 msgid "No convergence"
 msgstr "不收敛"
 
@@ -6294,6 +6468,7 @@ msgid "sy_overrides_init: failed to load glade: %s\n"
 msgstr "sy_overrides_init：加载 glade 失败：%s\n"
 
 #: src/sy_overrides.c:1107
+#, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init：从 glade 获取控件失败\n"
 
@@ -6379,6 +6554,7 @@ msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]：%s：打开文件失败：%s\n"
 
 #: src/utils.c:1090
+#, c-format
 msgid "  Backtrace:\n"
 msgstr "  回溯：\n"
 
@@ -6394,25 +6570,30 @@ msgid "%s:\n"
 msgstr "%s：\n"
 
 #: src/validation_dump.c:35
+#, c-format
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
 msgstr "校验：nec2-builtin 数学库不可用；数值结果可能与参考值不同\n"
 
 #: src/validation_dump.c:40
+#, c-format
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr "校验：为保证可复现性，已强制使用 nec2-builtin 数学库\n"
 
 #: src/validation_dump.c:59
+#, c-format
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr "校验：为保证可复现性，已强制使用天线温度模型与仰角\n"
 
 #: src/validation_dump.c:69
+#, c-format
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr "校验：为保证可复现性，已强制极化方式为总极化\n"
 
 #: src/validation_dump.c:88
+#, c-format
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
@@ -6423,10 +6604,12 @@ msgid "Validation Tree"
 msgstr "校验树"
 
 #: src/validation_dump.c:621
+#, c-format
 msgid "Cannot save: frequency loop not done"
 msgstr "频率循环运行期间无法保存数据"
 
 #: src/validation_dump.c:627
+#, c-format
 msgid "Cannot create output directory"
 msgstr "无法创建输出目录"
 
@@ -6443,6 +6626,7 @@ msgid ""
 msgstr "来自文件的复介电常数：%12.5E%+12.5Ej，请求值：%12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:322
+#, c-format
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters()：地面参数错误"
 
@@ -6463,6 +6647,7 @@ msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "子进程 %d 在分叉收集期间管道文件描述符无效\n"
 
 #: src/xnec2c.c:1258
+#, c-format
 msgid "Failed to read data from forked child\n"
 msgstr "从分叉子进程读取数据失败\n"
 
@@ -6527,6 +6712,7 @@ msgid "--%s wrote %s\n"
 msgstr "--%s 已写入 %s\n"
 
 #: src/xnec2c.c:1974
+#, c-format
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png 要求 --batch\n"
 
@@ -6541,6 +6727,7 @@ msgid "sweep runs %d workers of %d threads each\n"
 msgstr "扫描运行 %d 个工作线程，每个使用 %d 个线程\n"
 
 #: src/xnec2c.c:2355
+#, c-format
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "启动 Frequency_Loop_Thread 失败\n"
 
@@ -6553,6 +6740,7 @@ msgid "Recalculate the frequency sweep?"
 msgstr "您要重新计算频率扫描吗？"
 
 #: src/xnec2c.c:2536
+#, c-format
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-23 17:34-0800\n"
+"POT-Creation-Date: 2026-11-24 00:43-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3119,6 +3119,7 @@ msgstr ""
 "は中央周波数"
 
 #: src/args.c:287
+#, c-format
 msgid "config file path too long\n"
 msgstr "設定ファイルのパスが長すぎます\n"
 
@@ -3168,6 +3169,7 @@ msgstr ""
 "--threadsと%s=%sの両方がスレッド数を指定しています。一方を解除してください\n"
 
 #: src/args.c:943
+#, c-format
 msgid "Forking disabled!\n"
 msgstr "フォークが無効です！\n"
 
@@ -3208,6 +3210,7 @@ msgid "segment connection error for segment %5d\n"
 msgstr "セグメント %5d のセグメント接続エラー\n"
 
 #: src/calculations.c:118
+#, c-format
 msgid "Segment connection error in tbf()"
 msgstr "tbf() でのセグメント接続エラー"
 
@@ -3222,10 +3225,12 @@ msgid "segment connection error for segment %d\n"
 msgstr "セグメント %d のセグメント接続エラー\n"
 
 #: src/calculations.c:1073
+#, c-format
 msgid "Segment connection error in sbf()"
 msgstr "sbf() でのセグメント接続エラー"
 
 #: src/calculations.c:1291
+#, c-format
 msgid "Segment connection error in trio()"
 msgstr "trio() でのセグメント接続エラー"
 
@@ -3304,6 +3309,7 @@ msgid "Antenna Temperature"
 msgstr "アンテナ温度"
 
 #: src/callbacks.c:84
+#, c-format
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3346,6 +3352,7 @@ msgid "xnec2c geometry optimizer"
 msgstr "xnec2c ジオメトリオプティマイザ"
 
 #: src/callbacks.c:447
+#, c-format
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
@@ -3357,6 +3364,7 @@ msgid "Xnec2c Optimizer"
 msgstr "Xnec2c オプティマイザ"
 
 #: src/callbacks.c:468
+#, c-format
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3371,11 +3379,13 @@ msgid "Are you sure you wish to close this window?"
 msgstr "このウィンドウを閉じてもよろしいですか？"
 
 #: src/callbacks.c:1503
+#, c-format
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr ""
 "このディスプレイでは OpenGL を使用できません。レンダラを有効にできません。\n"
 
 #: src/callbacks.c:1811
+#, c-format
 msgid "No open NEC2 input file"
 msgstr "NEC2入力ファイルが開かれていません"
 
@@ -3393,6 +3403,7 @@ msgstr "無題.nec"
 
 #: src/callbacks.c:2401 src/callbacks.c:2421 src/callbacks.c:2441
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
+#, c-format
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
 "You may need to save the NEC2 Editor data first."
@@ -3411,10 +3422,12 @@ msgid "invalid segment scale encoding %d, using model radius\n"
 msgstr "不正なセグメントスケールエンコーディング %d、モデル半径を使用\n"
 
 #: src/chroma/chroma_source.c:334
+#, c-format
 msgid "far-field contribution needs radiation pattern data\n"
 msgstr "遠方界寄与には放射パターンデータが必要です\n"
 
 #: src/cmnd_edit.c:109
+#, c-format
 msgid ""
 "Get_Command_Data(): Error reading\n"
 "row data: Invalid list iterator"
@@ -3423,6 +3436,7 @@ msgstr ""
 "無効なリストイテレータ"
 
 #: src/cmnd_edit.c:152
+#, c-format
 msgid ""
 "Set_Command_Data(): Error writing row data\n"
 "Please re-select row"
@@ -3794,10 +3808,12 @@ msgid "Not available: excitation defines no feedpoint"
 msgstr "利用不可: 励振がフィードポイントを定義していません"
 
 #: src/freqplots/freqplots_graph.c:137 src/freqplots/graphs/smith_graph.c:565
+#, c-format
 msgid "memory allocation for points failed\n"
 msgstr "ポイントのメモリ割り当てに失敗しました\n"
 
 #: src/freqplots/freqplots_graph.c:138 src/freqplots/graphs/smith_graph.c:566
+#, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): ポイントのメモリ割り当てに失敗しました"
 
@@ -3974,6 +3990,7 @@ msgstr "VSWR vs 周波数"
 
 #: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
 #: src/geom_edit.c:2703
+#, c-format
 msgid ""
 "Error reading row data\n"
 "Invalid list iterator"
@@ -3982,6 +3999,7 @@ msgstr ""
 "無効なリストイテレータ"
 
 #: src/geom_edit.c:151 src/geom_edit.c:181
+#, c-format
 msgid ""
 "Error writing row data\n"
 "Please re-select row"
@@ -3990,6 +4008,7 @@ msgstr ""
 "行を再選択してください"
 
 #: src/geom_edit.c:583
+#, c-format
 msgid ""
 "GC card preceded by GW card\n"
 "with non-zero wire radius"
@@ -3998,10 +4017,12 @@ msgstr ""
 "非ゼロのGWカードがあります"
 
 #: src/geom_edit.c:587
+#, c-format
 msgid "No GW card before GC card"
 msgstr "GCカードの前にGWカードがありません"
 
 #: src/geom_edit.c:611
+#, c-format
 msgid ""
 "No GC card after a GW card\n"
 "with a zero wire radius"
@@ -4010,6 +4031,7 @@ msgstr ""
 "GCカードがありません"
 
 #: src/geom_edit.c:620
+#, c-format
 msgid ""
 "GC card follows a GW card\n"
 "with non-zero wire radius"
@@ -4018,6 +4040,7 @@ msgstr ""
 "GWカードの後にあります"
 
 #: src/geom_edit.c:1025
+#, c-format
 msgid ""
 "SC card preceded by SP card\n"
 "with arbitrary patch type"
@@ -4026,10 +4049,12 @@ msgstr ""
 "SPカードがあります"
 
 #: src/geom_edit.c:1037
+#, c-format
 msgid "No SP or SM card before SC card"
 msgstr "SCカードの前にSPまたはSMカードがありません"
 
 #: src/geom_edit.c:1057
+#, c-format
 msgid ""
 "No SC card after an SP card\n"
 "with non-arbitrary patch type"
@@ -4038,6 +4063,7 @@ msgstr ""
 "SCカードがありません"
 
 #: src/geom_edit.c:1064
+#, c-format
 msgid ""
 "SC card follows an SP card\n"
 "with arbitrary patch type"
@@ -4046,6 +4072,7 @@ msgstr ""
 "SPカードの後にあります"
 
 #: src/geom_edit.c:1077
+#, c-format
 msgid "No SC card after an SM card"
 msgstr "SMカードの後にSCカードがありません"
 
@@ -4082,18 +4109,22 @@ msgid "SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"
 msgstr "SY定義 (例: FREQ=146, LAMBDA=300/FREQ):"
 
 #: src/geom_edit.c:2970
+#, c-format
 msgid "NEC2 editor window not open"
 msgstr "NEC2エディタウィンドウが開いていません"
 
 #: src/geometry.c:118
+#, c-format
 msgid "Number of segments < 1"
 msgstr "セグメント数 < 1"
 
 #: src/geometry.c:155
+#, c-format
 msgid "Arc angle exceeds 360 degrees"
 msgstr "円弧角度が360度を超えています"
 
 #: src/geometry.c:294
+#, c-format
 msgid "Error in conect(): np > n"
 msgstr "conect()でエラー: np > n"
 
@@ -4104,6 +4135,7 @@ msgstr ""
 "ジオメトリデータエラー: セグメント %d がグラウンドより下に延びています\n"
 
 #: src/geometry.c:326 src/geometry.c:374
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4118,6 +4150,7 @@ msgstr ""
 "ジオメトリデータエラー: セグメント %d がグラウンドプレーン内にあります\n"
 
 #: src/geometry.c:384
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4127,10 +4160,12 @@ msgstr ""
 
 # xnec2c-exempt: name
 #: src/geometry.c:474
+#, c-format
 msgid "ipsym = 0\n"
 msgstr ""
 
 #: src/geometry.c:475
+#, c-format
 msgid "Error: ipsym = 0"
 msgstr "エラー: ipsym = 0"
 
@@ -4144,6 +4179,7 @@ msgstr ""
 "segj.maxcon=%lu\n"
 
 #: src/geometry.c:530
+#, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4152,6 +4188,7 @@ msgstr ""
 "重複または近接しているセグメントを確認してください\n"
 
 #: src/geometry.c:744
+#, c-format
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4160,6 +4197,7 @@ msgstr ""
 "はゼロであってはなりません\n"
 
 #: src/geometry.c:745
+#, c-format
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4173,6 +4211,7 @@ msgid "no segment has an itag of %d\n"
 msgstr "itag %d を持つセグメントがありません\n"
 
 #: src/geometry.c:781
+#, c-format
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4197,10 +4236,12 @@ msgstr ""
 "ジオメトリ内の有効なタグはGW/GA/GH/SPカードに割り当てられたものです。"
 
 #: src/geometry.c:1064
+#, c-format
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "四辺形パッチのコーナーが同一平面上にありません\n"
 
 #: src/geometry.c:1065
+#, c-format
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4214,6 +4255,7 @@ msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "ジオメトリデータエラー: セグメント %d が対称面内にあります\n"
 
 #: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4227,6 +4269,7 @@ msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "ジオメトリデータエラー: パッチ %d が対称面内にあります\n"
 
 #: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4405,6 +4448,7 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "%d セグメントの重複チェックを強制実行しています\n"
 
 #: src/geometry.c:1849
+#, c-format
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
@@ -4415,6 +4459,7 @@ msgid "Gnuplot Data"
 msgstr "Gnuplotデータ"
 
 #: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
+#, c-format
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "保存できません: 周波数スイープが完了していません"
 
@@ -4445,6 +4490,7 @@ msgid "Touchstone Data"
 msgstr "Touchstoneデータ"
 
 #: src/gnuplot.c:104
+#, c-format
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4505,6 +4551,7 @@ msgid "Save Currents and Charges to CSV"
 msgstr "電流と電荷をCSVに保存"
 
 #: src/gnuplot.c:584
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4517,6 +4564,7 @@ msgid "Save Patch Currents to CSV"
 msgstr "パッチ電流をCSVに保存"
 
 #: src/gnuplot.c:650
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4525,10 +4573,12 @@ msgstr ""
 "効にしてください。"
 
 #: src/gnuplot.c:660
+#, c-format
 msgid "No surface patches in this model."
 msgstr "このモデルにはサーフェスパッチがありません。"
 
 #: src/ground.c:110
+#, c-format
 msgid "b less than a"
 msgstr "bがa未満です"
 
@@ -4538,6 +4588,7 @@ msgid "step size limited at z = %12.5E\n"
 msgstr "Z = %12.5E でステップサイズが制限されました\n"
 
 #: src/input.c:150
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Unexpected EOF (End of File)"
@@ -4546,6 +4597,7 @@ msgstr ""
 "予期しないEOF（ファイル終端）"
 
 #: src/input.c:164
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Comment mnemonic short or missing"
@@ -4554,6 +4606,7 @@ msgstr ""
 "コメントニーモニックが短いか欠落しています"
 
 #: src/input.c:175
+#, c-format
 msgid ""
 "Read_Comments():\n"
 " Error reading input file\n"
@@ -4564,6 +4617,7 @@ msgstr ""
 "コメントニーモニックが不正です"
 
 #: src/input.c:215
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Tag number is negative"
@@ -4572,6 +4626,7 @@ msgstr ""
 "タグ番号が負です"
 
 #: src/input.c:222
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
@@ -4580,6 +4635,7 @@ msgstr ""
 "セグメント数が1未満です"
 
 #: src/input.c:229
+#, c-format
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "警告 - セグメント数が1000000を超えています\n"
 
@@ -4600,6 +4656,7 @@ msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "%sデータカードエラー: 不正な文字'%c'が列%dに\n"
 
 #: src/input.c:301
+#, c-format
 msgid ""
 "Data card error\n"
 "Spurious character in card"
@@ -4613,18 +4670,22 @@ msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: \"%s\"の式の評価に失敗しました\n"
 
 #: src/input.c:413
+#, c-format
 msgid "SY card: no line content available\n"
 msgstr "SYカード: 行の内容がありません\n"
 
 #: src/input.c:414
+#, c-format
 msgid "SY card: no line content available"
 msgstr "SYカード: 行の内容がありません"
 
 #: src/input.c:431
+#, c-format
 msgid "SY card: missing '=' in definition\n"
 msgstr "SYカード: 定義に'='がありません\n"
 
 #: src/input.c:432
+#, c-format
 msgid "SY card: missing '=' in definition"
 msgstr "SYカード: 定義に'='がありません"
 
@@ -4634,6 +4695,7 @@ msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "SYカード: %s=%sのシンボル定義に失敗しました\n"
 
 #: src/input.c:652
+#, c-format
 msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
@@ -4642,18 +4704,22 @@ msgstr ""
 "テーパワイヤ用のGCカードがありません"
 
 #: src/input.c:659
+#, c-format
 msgid "Geometry GC data card error"
 msgstr "ジオメトリGCデータカードエラー"
 
 #: src/input.c:675
+#, c-format
 msgid "Geometry GX data card error"
 msgstr "ジオメトリGXデータカードエラー"
 
 #: src/input.c:698
+#, c-format
 msgid "Geometry GR data card error"
 msgstr "ジオメトリGRデータカードエラー"
 
 #: src/input.c:752
+#, c-format
 msgid "No geometry data cards"
 msgstr "ジオメトリデータカードがありません"
 
@@ -4662,6 +4728,7 @@ msgid "Probable invalid segment geometry.\n"
 msgstr "セグメントジオメトリが無効である可能性があります。\n"
 
 #: src/input.c:764
+#, c-format
 msgid ""
 "Invalid segment geometry.\n"
 "See warnings in the console for detail.\n"
@@ -4672,10 +4739,12 @@ msgstr ""
 "続行を試みています..."
 
 #: src/input.c:770
+#, c-format
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "セグメントジオメトリが無効である可能性があります (上記参照)\n"
 
 #: src/input.c:774
+#, c-format
 msgid "Read_Geometry: verify_segments() passed\n"
 msgstr "Read_Geometry: verify_segments()が成功しました\n"
 
@@ -4685,23 +4754,28 @@ msgid "segment data error: tag=%d si=%f, bi=%f\n"
 msgstr "セグメントデータエラー: tag=%d si=%f, bi=%f\n"
 
 #: src/input.c:813
+#, c-format
 msgid "Segment data error, zero-length line?  See console."
 msgstr "セグメントデータエラー、長さゼロの線分? コンソールを参照してください。"
 
 #: src/input.c:853
+#, c-format
 msgid "Move GM data card error"
 msgstr "移動GMデータカードエラー"
 
 #: src/input.c:869 src/input.c:910 src/input.c:927 src/input.c:945
 #: src/input.c:953
+#, c-format
 msgid "Patch data card error"
 msgstr "パッチデータカードエラー"
 
 #: src/input.c:891
+#, c-format
 msgid "Patch data error"
 msgstr "パッチデータエラー"
 
 #: src/input.c:1000
+#, c-format
 msgid ""
 "\"GF\" card (NGF solution)\n"
 "is not supported"
@@ -4710,6 +4784,7 @@ msgstr ""
 "サポートされていません"
 
 #: src/input.c:1005
+#, c-format
 msgid "Ignoring CM card in geometry"
 msgstr "ジオメトリ内のCMカードを無視しています"
 
@@ -4725,18 +4800,22 @@ msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
 #: src/input.c:1025
+#, c-format
 msgid "Command card in geometry section"
 msgstr "ジオメトリセクション内のコマンドカード"
 
 #: src/input.c:1027
+#, c-format
 msgid "Unrecognized geometry card"
 msgstr "認識できないジオメトリカード"
 
 #: src/input.c:1051
+#, c-format
 msgid "Failed to initialize symbol table\n"
 msgstr "シンボルテーブルの初期化に失敗しました\n"
 
 #: src/input.c:1052
+#, c-format
 msgid "Failed to initialize symbol table"
 msgstr "シンボルテーブルの初期化に失敗しました"
 
@@ -4746,14 +4825,17 @@ msgid "No FR card: computing one step at the NEC-2 default %g MHz\n"
 msgstr "FRカードなし: NEC-2デフォルト%g MHzで1ステップを計算中\n"
 
 #: src/input.c:1283
+#, c-format
 msgid "ignoring CM card in commands\n"
 msgstr "コマンド内のCMカードを無視しています\n"
 
 #: src/input.c:1284
+#, c-format
 msgid "Ignoring CM card in commands"
 msgstr "コマンド内のCMカードを無視しています"
 
 #: src/input.c:1296
+#, c-format
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "CPカードは無視されます: 結合計算は実装されていません\n"
 
@@ -4763,10 +4845,12 @@ msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "%g MHz で重複するFRカードをスキップしています\n"
 
 #: src/input.c:1457
+#, c-format
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "FRカードで最大周波数 <= 最小周波数\n"
 
 #: src/input.c:1458
+#, c-format
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
@@ -4775,6 +4859,7 @@ msgstr ""
 "FRカードのデータを確認して修正してください"
 
 #: src/input.c:1481
+#, c-format
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates "
@@ -4785,10 +4870,12 @@ msgstr ""
 "ん。"
 
 #: src/input.c:1495
+#, c-format
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "グラウンド指定時にtheta > 90度\n"
 
 #: src/input.c:1496 src/radiation.c:911
+#, c-format
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4797,6 +4884,7 @@ msgstr ""
 "RPカードのデータを確認して修正してください"
 
 #: src/input.c:1505
+#, c-format
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
@@ -4804,6 +4892,7 @@ msgstr ""
 "ラジアルワイヤg.s.近似: Sommerfeldグラウンドオプションとは併用できません\n"
 
 #: src/input.c:1506
+#, c-format
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
@@ -4820,6 +4909,7 @@ msgstr ""
 "ロードカード番号%dでデータ障害: itag step1 %dがitag step2 %dより大きいです\n"
 
 #: src/input.c:1556
+#, c-format
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
@@ -4828,12 +4918,14 @@ msgstr ""
 "itag step1がitag step2より大きいです"
 
 #: src/input.c:1685
+#, c-format
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr ""
 "伝送線路インピーダンス = 0: 無効です。NTまたはTLカードを修正してください\n"
 
 #: src/input.c:1686
+#, c-format
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
@@ -4842,10 +4934,12 @@ msgstr ""
 "無効です。NTまたはTLカードを修正してください"
 
 #: src/input.c:1697
+#, c-format
 msgid "Segment number error in TL or NT card\n"
 msgstr "TLまたはNTカードでセグメント番号エラー\n"
 
 #: src/input.c:1698
+#, c-format
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
@@ -4854,18 +4948,22 @@ msgstr ""
 "セグメント番号エラー"
 
 #: src/input.c:1720
+#, c-format
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr "PQおよびPTカードは無視されます: ファイルへの出力は実装されていません\n"
 
 #: src/input.c:1724
+#, c-format
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "PLカードは無視されます: ファイルへのプロットはサポートされていません\n"
 
 #: src/input.c:1730
+#, c-format
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "表面波オプション (I1=1): RPコマンドでは実装されていません\n"
 
 #: src/input.c:1731
+#, c-format
 msgid ""
 "Surface wave option (I1=1)\n"
 "of RP command not implemented"
@@ -4874,6 +4972,7 @@ msgstr ""
 "RPコマンドでは実装されていません"
 
 #: src/input.c:1763
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
@@ -4881,6 +4980,7 @@ msgstr ""
 "グラウンド指定時にTheta > 90度: RPカードのデータを確認して修正してください\n"
 
 #: src/input.c:1764
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4897,6 +4997,7 @@ msgid "Unrecognized command card"
 msgstr "認識できないコマンドカード"
 
 #: src/input.c:1879
+#, c-format
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
@@ -4905,10 +5006,12 @@ msgstr ""
 "た\n"
 
 #: src/input.c:1906
+#, c-format
 msgid "Unexpected exit from while loop"
 msgstr "whileループからの予期しない終了"
 
 #: src/input.c:1997
+#, c-format
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
@@ -4917,6 +5020,7 @@ msgstr ""
 "を追加しています\n"
 
 #: src/input.c:1998
+#, c-format
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4927,12 +5031,14 @@ msgstr ""
 "デフォルトのENカードを追加しています"
 
 #: src/input.c:2015
+#, c-format
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "コマンドデータカードエラー: カードのニーモニックコードが短すぎるか見つかりま"
 "せん\n"
 
 #: src/input.c:2016
+#, c-format
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4941,6 +5047,7 @@ msgstr ""
 "ニーモニックコードが短すぎるか見つかりません"
 
 #: src/input.c:2217
+#, c-format
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
@@ -4949,6 +5056,7 @@ msgstr ""
 "ドを追加しています\n"
 
 #: src/input.c:2218
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4959,12 +5067,14 @@ msgstr ""
 "デフォルトのGEカードを追加しています"
 
 #: src/input.c:2235
+#, c-format
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "ジオメトリデータカードエラー: カードのニーモニックコードが短すぎるか見つかり"
 "ません\n"
 
 #: src/input.c:2236
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -5003,6 +5113,7 @@ msgid "failed to add objects to builder: %s\n"
 msgstr "ビルダーへのオブジェクト追加に失敗しました: %s\n"
 
 #: src/interface.c:198
+#, c-format
 msgid "Listing Object Ids:\n"
 msgstr "オブジェクトIDの一覧:\n"
 
@@ -5014,6 +5125,7 @@ msgid "%s\n"
 msgstr ""
 
 #: src/interface.c:213 src/interface.c:216
+#, c-format
 msgid ""
 "libgmodule not supported: xnec2c may not function properly on this "
 "platform.\n"
@@ -5038,6 +5150,7 @@ msgid "Detected %s windowing backend\n"
 msgstr "%s ウィンドウシステムバックエンドを検出しました\n"
 
 #: src/main.c:137
+#, c-format
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batchと--optimizeは相互排他的です。\n"
 
@@ -5057,10 +5170,12 @@ msgid "unexpected argument: %s\n"
 msgstr "予期しない引数: %s\n"
 
 #: src/main.c:177
+#, c-format
 msgid "batch mode requires an input file\n"
 msgstr "バッチモードには入力ファイルが必要です\n"
 
 #: src/main.c:187
+#, c-format
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "ディスプレイを開けません: 実行中の X11 または Wayland セッションが必要です\n"
@@ -5071,30 +5186,37 @@ msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d個のジョブを%d個のプロセッサにフォークしています。\n"
 
 #: src/main.c:223 src/main.c:231
+#, c-format
 msgid "exiting after fatal error: pipe() failed"
 msgstr "致命的エラーのため終了: pipe()が失敗しました"
 
 #: src/main.c:240
+#, c-format
 msgid "exiting after fatal error: fork() failed"
 msgstr "致命的エラーのため終了: fork()が失敗しました"
 
 #: src/main.c:840
+#, c-format
 msgid "exiting via user interrupt\n"
 msgstr "ユーザー割り込みにより終了します\n"
 
 #: src/main.c:844
+#, c-format
 msgid "segmentation fault, exiting\n"
 msgstr "セグメンテーション違反、終了します\n"
 
 #: src/main.c:848
+#, c-format
 msgid "floating point exception, exiting\n"
 msgstr "浮動小数点例外、終了します\n"
 
 #: src/main.c:852
+#, c-format
 msgid "abort signal received, exiting\n"
 msgstr "中止シグナルを受信、終了します\n"
 
 #: src/main.c:856
+#, c-format
 msgid "termination request received, exiting\n"
 msgstr "終了要求を受信、終了します\n"
 
@@ -5192,6 +5314,7 @@ msgid "Batch Math Library"
 msgstr "バッチ数学ライブラリ"
 
 #: src/mathlib.c:720
+#, c-format
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
 "command line. (However, this selection will be saved for next time xnec2c is "
@@ -5215,6 +5338,7 @@ msgid "Mathlib Benchmark Help"
 msgstr "Mathlibベンチマークヘルプ"
 
 #: src/mathlib.c:868
+#, c-format
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
 "the mathlib implementation to parallelize the linear algebra calculation of "
@@ -5323,14 +5447,17 @@ msgstr ""
 "を解除して再起動してください。"
 
 #: src/mathlib.c:978
+#, c-format
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "最適化が有効な間はベンチマークが無効です。"
 
 #: src/mathlib.c:985
+#, c-format
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr "ベンチマークを実行する前に NEC2 入力ファイルを読み込む必要があります。"
 
 #: src/mathlib.c:991
+#, c-format
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
 "specified on the command line."
@@ -5339,6 +5466,7 @@ msgstr ""
 "しない限り効果がありません。"
 
 #: src/mathlib.c:1008
+#, c-format
 msgid "You must select at least one math library to benchmark"
 msgstr ""
 "ベンチマークするには少なくとも1つの数学ライブラリを選択する必要があります"
@@ -5467,6 +5595,7 @@ msgid "symmetry error - nrow:%d ncol:%d\n"
 msgstr "対称性エラー - nrow:%d ncol:%d\n"
 
 #: src/matrix.c:1353
+#, c-format
 msgid "Symmetry error"
 msgstr "対称性エラー"
 
@@ -5476,6 +5605,7 @@ msgid "Solving Failed: %d\n"
 msgstr "求解に失敗しました: %d\n"
 
 #: src/measurements.c:424
+#, c-format
 msgid ""
 "noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
 "to 0\n"
@@ -5520,6 +5650,7 @@ msgid "mem_backtrace(%p):\n"
 msgstr ""
 
 #: src/mem/mem.c:253
+#, c-format
 msgid "  m->backtrace is null, no backtrace data\n"
 msgstr "  m->backtrace が null、バックトレースデータがありません\n"
 
@@ -5564,6 +5695,7 @@ msgid "--- End Comments ---"
 msgstr "--- コメント終了 ---"
 
 #: src/nec2_model.c:525
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5574,6 +5706,7 @@ msgstr ""
 "予期しないEOF (ファイル終端)"
 
 #: src/nec2_model.c:532
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5588,6 +5721,7 @@ msgid "End Comments"
 msgstr "コメント終了"
 
 #: src/nec2_model.c:916
+#, c-format
 msgid ""
 "Cannot save treeview data\n"
 "Please use the Save button\n"
@@ -5603,6 +5737,7 @@ msgid "improper load type chosen, requested type is %d\n"
 msgstr "不適切な負荷タイプが選択されました、要求されたタイプは %d です\n"
 
 #: src/network.c:653
+#, c-format
 msgid "Improper load type chose"
 msgstr "不適切な負荷タイプが選択されました"
 
@@ -5612,6 +5747,7 @@ msgid "loading data card error, no segment has an itag = %d\n"
 msgstr "データカード読み込みエラー、itag = %d を持つセグメントがありません\n"
 
 #: src/network.c:742
+#, c-format
 msgid ""
 "Loading data card\n"
 "Tag number mismatch error"
@@ -5625,26 +5761,32 @@ msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "ラベルテクスチャアトラスを生成しました (ID=%u)\n"
 
 #: src/opengl-engine/opengl_axes.c:161
+#, c-format
 msgid "Failed to load axes line shader\n"
 msgstr "軸ラインシェーダの読み込みに失敗しました\n"
 
 #: src/opengl-engine/opengl_axes.c:192
+#, c-format
 msgid "Axes renderer initialized\n"
 msgstr "軸レンダラを初期化しました\n"
 
 #: src/opengl-engine/opengl_axes.c:196
+#, c-format
 msgid "Failed to load text shaders\n"
 msgstr "テキストシェーダの読み込みに失敗しました\n"
 
 #: src/opengl-engine/opengl_cairo_overlay.c:62
+#, c-format
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "Cairoオーバーレイシェーダの読み込みに失敗しました\n"
 
 #: src/opengl-engine/opengl_ground_plane.c:105
+#, c-format
 msgid "Failed to load ground plane shaders\n"
 msgstr "グラウンドプレーンシェーダの読み込みに失敗しました\n"
 
 #: src/opengl-engine/opengl_image_overlay.c:39
+#, c-format
 msgid "Failed to create cairo overlay base\n"
 msgstr "Cairoオーバーレイベースの作成に失敗しました\n"
 
@@ -5669,6 +5811,7 @@ msgid "Shader link failed: %s + %s\n"
 msgstr "シェーダのリンクに失敗しました: %s + %s\n"
 
 #: src/opengl-engine/opengl_view.c:192
+#, c-format
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
@@ -5676,22 +5819,27 @@ msgstr ""
 "せん\n"
 
 #: src/opengl-engine/opengl_view.c:200
+#, c-format
 msgid "Disabling OpenGL: shader catalog failed\n"
 msgstr "OpenGLを無効化: シェーダーカタログが失敗\n"
 
 #: src/opengl-engine/opengl_view.c:213
+#, c-format
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "OpenGL を無効化: シーンシェーダが失敗しました\n"
 
 #: src/opengl-engine/opengl_view.c:228
+#, c-format
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "OpenGL を無効化: オーバーレイシェーダが失敗しました\n"
 
 #: src/opengl-engine/opengl_view.c:240
+#, c-format
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "OpenGL を無効化: 軸レンダラが失敗しました\n"
 
 #: src/opengl-engine/opengl_view.c:269
+#, c-format
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "OpenGL を無効化: グラウンドプレーンシェーダが失敗しました\n"
 
@@ -5701,6 +5849,7 @@ msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "レンダラブル数 %u が MAX_RENDERABLES (%d) を超過しています\n"
 
 #: src/opengl-engine/opengl_view.c:372
+#, c-format
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "OpenGL を無効化: ピールコンポジットシェーダが失敗しました\n"
 
@@ -5714,10 +5863,12 @@ msgstr ""
 "%d box=[%g,%g,%g,%g]\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:141
+#, c-format
 msgid "MSAA framebuffer incomplete\n"
 msgstr "MSAA フレームバッファが不完全です\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:173
+#, c-format
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "MSAA リゾルブフレームバッファが不完全です\n"
 
@@ -5732,14 +5883,17 @@ msgid "Peel MSAA FBO %d incomplete\n"
 msgstr "ピール MSAA FBO %d が不完全です\n"
 
 #: src/opengl-engine/opengl_view_peel.c:276
+#, c-format
 msgid "Peel accumulation FBO incomplete\n"
 msgstr "ピール累積 FBO が不完全です\n"
 
 #: src/opengl-engine/opengl_view_peel.c:285
+#, c-format
 msgid "Layer depth FBO incomplete\n"
 msgstr "レイヤー深度 FBO が不完全です\n"
 
 #: src/opengl-engine/opengl_view_render.c:339
+#, c-format
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "透明レンダラブルをスキップ: ピール FBO が利用できません\n"
 
@@ -5749,6 +5903,7 @@ msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: 無効な描画スタイル %d、サーフェスを使用します\n"
 
 #: src/opengl/opengl_state.c:57
+#, c-format
 msgid ""
 "OpenGL is not available on this display; switching to Cairo renderer. See "
 "'OpenGL Renderer' in View > Rendering Settings.\n"
@@ -5789,6 +5944,7 @@ msgid "saving %s: %s\n"
 msgstr "%s を保存中: %s\n"
 
 #: src/optimize.c:100
+#, c-format
 msgid "xnec2c was built without inotify.\n"
 msgstr "xnec2c は inotify なしでビルドされました。\n"
 
@@ -5813,10 +5969,12 @@ msgid "inotify: file stat failed or zero bytes (errno=%s), retrying\n"
 msgstr "inotify: ファイル stat 失敗またはゼロバイト (errno=%s)、リトライ中\n"
 
 #: src/optimize.c:360
+#, c-format
 msgid "Exited optimizer thread.\n"
 msgstr "オプティマイザスレッドを終了しました。\n"
 
 #: src/optimize.c:366
+#, c-format
 msgid "optimize.c: exit because this is a child process.\n"
 msgstr "optimize.c: 子プロセスのため終了します。\n"
 
@@ -5852,14 +6010,17 @@ msgid "inotify: FILTER: target='%s' event_name='%s' match=%d\n"
 msgstr "inotify: フィルタ: target='%s' event_name='%s' match=%d\n"
 
 #: src/optimize.c:441
+#, c-format
 msgid "inotify: SKIP event (filename mismatch)\n"
 msgstr "inotify: イベントをスキップ (ファイル名不一致)\n"
 
 #: src/optimize.c:448
+#, c-format
 msgid "inotify: IN_MODIFY on target, setting modify_seen=TRUE\n"
 msgstr "inotify: ターゲットに IN_MODIFY、modify_seen=TRUE に設定\n"
 
 #: src/optimize.c:456
+#, c-format
 msgid ""
 "inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n"
 msgstr ""
@@ -5867,6 +6028,7 @@ msgstr ""
 "始\n"
 
 #: src/optimize.c:473
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), "
 "triggering reload\n"
@@ -5875,6 +6037,7 @@ msgstr ""
 "を開始\n"
 
 #: src/optimize.c:485
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), "
 "skipping\n"
@@ -5890,10 +6053,12 @@ msgstr ""
 "%08x)\n"
 
 #: src/optimize.c:525
+#, c-format
 msgid "failed to create optimizer wake eventfd\n"
 msgstr "オプティマイザのウェイクイベントfdの作成に失敗しました\n"
 
 #: src/optimize.c:536
+#, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "オプティマイザ出力スレッドの作成に失敗しました\n"
 
@@ -5913,6 +6078,7 @@ msgid "nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n"
 msgstr "nec2_eval_signal: eval_mutex の競合、ブロック中 (thr=%lu)\n"
 
 #: src/optimizers/opt_nec2_eval.c:194
+#, c-format
 msgid "nec2_eval_run: not initialized\n"
 msgstr "nec2_eval_run: 初期化されていません\n"
 
@@ -5931,10 +6097,12 @@ msgid "opt: optimization complete, best fitness: %.6g\n"
 msgstr "opt: 最適化完了、最良適応度: %.6g\n"
 
 #: src/optimizers/opt_session.c:194
+#, c-format
 msgid "opt_start: optimizer already running\n"
 msgstr "opt_start: オプティマイザはすでに実行中です\n"
 
 #: src/optimizers/opt_session.c:258
+#, c-format
 msgid "opt_start: simple_new failed\n"
 msgstr "opt_start: simple_new が失敗しました\n"
 
@@ -6126,6 +6294,7 @@ msgid "Invalid flow visualization mode %d in config, resetting to default\n"
 msgstr "設定内の不正なフロー可視化モード %d、デフォルトにリセット\n"
 
 #: src/rc_config.c:1786
+#, c-format
 msgid "batch mode: skipping configuration save\n"
 msgstr "バッチモード: 設定の保存をスキップします\n"
 
@@ -6331,6 +6500,7 @@ msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: サーフェス作成に失敗しました (%dx%d)\n"
 
 #: src/render/render_fit.c:67
+#, c-format
 msgid "render_fit_solve: no geometry to fit\n"
 msgstr "render_fit_solve: フィットするジオメトリがありません\n"
 
@@ -6379,6 +6549,7 @@ msgid "Waiting for frequency data"
 msgstr "周波数データを待機中"
 
 #: src/render/render_redraw.c:48
+#, c-format
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "オプティマイザループ未完了、中間の再描画を抑制します。\n"
 
@@ -6402,16 +6573,19 @@ msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: cairo glade の読み込みに失敗しました: %s\n"
 
 #: src/settings/render_settings_common.c:182
+#, c-format
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: glade から render_settings_window の取得に失敗しまし"
 "た\n"
 
 #: src/somnec.c:302
+#, c-format
 msgid "Hankel not valid for z = 0"
 msgstr "z = 0 ではハンケル関数は無効です"
 
 #: src/somnec.c:807
+#, c-format
 msgid "No convergence"
 msgstr "収束しません"
 
@@ -6499,6 +6673,7 @@ msgid "sy_overrides_init: failed to load glade: %s\n"
 msgstr "sy_overrides_init: glade の読み込みに失敗しました: %s\n"
 
 #: src/sy_overrides.c:1107
+#, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: glade からウィジェットの取得に失敗しました\n"
 
@@ -6585,6 +6760,7 @@ msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: ファイルを開けませんでした: %s\n"
 
 #: src/utils.c:1090
+#, c-format
 msgid "  Backtrace:\n"
 msgstr "  バックトレース:\n"
 
@@ -6601,6 +6777,7 @@ msgid "%s:\n"
 msgstr ""
 
 #: src/validation_dump.c:35
+#, c-format
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6609,19 +6786,23 @@ msgstr ""
 "があります\n"
 
 #: src/validation_dump.c:40
+#, c-format
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr "validation: 再現性のためmathlibをnec2-builtinに強制しました\n"
 
 #: src/validation_dump.c:59
+#, c-format
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr "validation: 再現性のためアンテナ温度モデルと仰角を強制しました\n"
 
 #: src/validation_dump.c:69
+#, c-format
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr "validation: 再現性のため偏波をtotalに強制しました\n"
 
 #: src/validation_dump.c:88
+#, c-format
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
@@ -6633,10 +6814,12 @@ msgid "Validation Tree"
 msgstr "検証ツリー"
 
 #: src/validation_dump.c:621
+#, c-format
 msgid "Cannot save: frequency loop not done"
 msgstr "周波数ループの実行中はデータを保存できません"
 
 #: src/validation_dump.c:627
+#, c-format
 msgid "Cannot create output directory"
 msgstr "出力ディレクトリを作成できません"
 
@@ -6653,6 +6836,7 @@ msgid ""
 msgstr "ファイルからの複素誘電率: %12.5E%+12.5Ej、要求値: %12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:322
+#, c-format
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters(): グラウンドパラメータにエラーがあります"
 
@@ -6674,6 +6858,7 @@ msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "子プロセス %d はフォーク収集中に無効なパイプ fd を持っています\n"
 
 #: src/xnec2c.c:1258
+#, c-format
 msgid "Failed to read data from forked child\n"
 msgstr "フォークされた子プロセスからのデータ読み取りに失敗しました\n"
 
@@ -6738,6 +6923,7 @@ msgid "--%s wrote %s\n"
 msgstr "--%s: %sを書き出し\n"
 
 #: src/xnec2c.c:1974
+#, c-format
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-pngには--batchが必要です\n"
 
@@ -6752,6 +6938,7 @@ msgid "sweep runs %d workers of %d threads each\n"
 msgstr "スイープは各%dスレッドの%dワーカーで実行します\n"
 
 #: src/xnec2c.c:2355
+#, c-format
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "Frequency_Loop_Thread の開始に失敗しました\n"
 
@@ -6764,6 +6951,7 @@ msgid "Recalculate the frequency sweep?"
 msgstr "周波数掃引を再計算しますか?"
 
 #: src/xnec2c.c:2536
+#, c-format
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."

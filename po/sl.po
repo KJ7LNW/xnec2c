@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-23 17:34-0800\n"
+"POT-Creation-Date: 2026-11-24 00:43-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3107,6 +3107,7 @@ msgstr ""
 "frekvenco ali sredino, če je ni"
 
 #: src/args.c:287
+#, c-format
 msgid "config file path too long\n"
 msgstr "pot do konfiguracijske datoteke je predolga\n"
 
@@ -3156,6 +3157,7 @@ msgstr ""
 "--threads in %s=%s oba določata število niti, eno nastavitev odstranite\n"
 
 #: src/args.c:943
+#, c-format
 msgid "Forking disabled!\n"
 msgstr "Vejitev onemogočena!\n"
 
@@ -3195,6 +3197,7 @@ msgid "segment connection error for segment %5d\n"
 msgstr "napaka povezave segmenta za segment %5d\n"
 
 #: src/calculations.c:118
+#, c-format
 msgid "Segment connection error in tbf()"
 msgstr "Napaka povezave segmenta v tbf()"
 
@@ -3209,10 +3212,12 @@ msgid "segment connection error for segment %d\n"
 msgstr "napaka povezave segmenta za segment %d\n"
 
 #: src/calculations.c:1073
+#, c-format
 msgid "Segment connection error in sbf()"
 msgstr "Napaka povezave segmenta v sbf()"
 
 #: src/calculations.c:1291
+#, c-format
 msgid "Segment connection error in trio()"
 msgstr "Napaka povezave segmenta v trio()"
 
@@ -3290,6 +3295,7 @@ msgid "Antenna Temperature"
 msgstr "Temperatura antene"
 
 #: src/callbacks.c:84
+#, c-format
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
 "Free-space models are standard for antenna temperature evaluation."
@@ -3333,6 +3339,7 @@ msgid "xnec2c geometry optimizer"
 msgstr "xnec2c optimizator geometrije"
 
 #: src/callbacks.c:447
+#, c-format
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
@@ -3344,6 +3351,7 @@ msgid "Xnec2c Optimizer"
 msgstr "Xnec2c optimizator"
 
 #: src/callbacks.c:468
+#, c-format
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
 "recalculate the input file on modification when triggered by inotify.Select "
@@ -3358,10 +3366,12 @@ msgid "Are you sure you wish to close this window?"
 msgstr "Ali ste prepričani, da želite zapreti to okno?"
 
 #: src/callbacks.c:1503
+#, c-format
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr "OpenGL ni na voljo za ta zaslon; upodabljanja ni mogoče omogočiti.\n"
 
 #: src/callbacks.c:1811
+#, c-format
 msgid "No open NEC2 input file"
 msgstr "Ni odprte vhodne datoteke NEC2"
 
@@ -3379,6 +3389,7 @@ msgstr "neimenovano.nec"
 
 #: src/callbacks.c:2401 src/callbacks.c:2421 src/callbacks.c:2441
 #: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
+#, c-format
 msgid ""
 "Frequency (FR) cards not yet processed.\n"
 "You may need to save the NEC2 Editor data first."
@@ -3397,10 +3408,12 @@ msgid "invalid segment scale encoding %d, using model radius\n"
 msgstr "neveljavno kodiranje merila segmenta %d, uporabljam modelni radij\n"
 
 #: src/chroma/chroma_source.c:334
+#, c-format
 msgid "far-field contribution needs radiation pattern data\n"
 msgstr "prispevek daljnega polja zahteva podatke sevalnega diagrama\n"
 
 #: src/cmnd_edit.c:109
+#, c-format
 msgid ""
 "Get_Command_Data(): Error reading\n"
 "row data: Invalid list iterator"
@@ -3409,6 +3422,7 @@ msgstr ""
 "podatkov vrstice: Neveljaven iterator seznama"
 
 #: src/cmnd_edit.c:152
+#, c-format
 msgid ""
 "Set_Command_Data(): Error writing row data\n"
 "Please re-select row"
@@ -3779,10 +3793,12 @@ msgid "Not available: excitation defines no feedpoint"
 msgstr "Ni na voljo: vzbujanje ne določa napajalne točke"
 
 #: src/freqplots/freqplots_graph.c:137 src/freqplots/graphs/smith_graph.c:565
+#, c-format
 msgid "memory allocation for points failed\n"
 msgstr "dodeljevanje pomnilnika za točke ni uspelo\n"
 
 #: src/freqplots/freqplots_graph.c:138 src/freqplots/graphs/smith_graph.c:566
+#, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): Dodeljevanje pomnilnika za točke ni uspelo"
 
@@ -3958,6 +3974,7 @@ msgstr "VSWR glede na frekvenco"
 
 #: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
 #: src/geom_edit.c:2703
+#, c-format
 msgid ""
 "Error reading row data\n"
 "Invalid list iterator"
@@ -3966,6 +3983,7 @@ msgstr ""
 "Neveljaven iterator seznama"
 
 #: src/geom_edit.c:151 src/geom_edit.c:181
+#, c-format
 msgid ""
 "Error writing row data\n"
 "Please re-select row"
@@ -3974,6 +3992,7 @@ msgstr ""
 "Prosimo, ponovno izberite vrstico"
 
 #: src/geom_edit.c:583
+#, c-format
 msgid ""
 "GC card preceded by GW card\n"
 "with non-zero wire radius"
@@ -3982,10 +4001,12 @@ msgstr ""
 "z neničelnim polmerom žice"
 
 #: src/geom_edit.c:587
+#, c-format
 msgid "No GW card before GC card"
 msgstr "Pred kartico GC ni kartice GW"
 
 #: src/geom_edit.c:611
+#, c-format
 msgid ""
 "No GC card after a GW card\n"
 "with a zero wire radius"
@@ -3994,6 +4015,7 @@ msgstr ""
 "z ničelnim polmerom žice ni kartice GC"
 
 #: src/geom_edit.c:620
+#, c-format
 msgid ""
 "GC card follows a GW card\n"
 "with non-zero wire radius"
@@ -4002,6 +4024,7 @@ msgstr ""
 "z neničelnim polmerom žice"
 
 #: src/geom_edit.c:1025
+#, c-format
 msgid ""
 "SC card preceded by SP card\n"
 "with arbitrary patch type"
@@ -4010,10 +4033,12 @@ msgstr ""
 "z arbitrarnim tipom patcha"
 
 #: src/geom_edit.c:1037
+#, c-format
 msgid "No SP or SM card before SC card"
 msgstr "Pred kartico SC ni kartice SP ali SM"
 
 #: src/geom_edit.c:1057
+#, c-format
 msgid ""
 "No SC card after an SP card\n"
 "with non-arbitrary patch type"
@@ -4022,6 +4047,7 @@ msgstr ""
 "z nearbitrarnim tipom patcha ni kartice SC"
 
 #: src/geom_edit.c:1064
+#, c-format
 msgid ""
 "SC card follows an SP card\n"
 "with arbitrary patch type"
@@ -4030,6 +4056,7 @@ msgstr ""
 "z arbitrarnim tipom patcha"
 
 #: src/geom_edit.c:1077
+#, c-format
 msgid "No SC card after an SM card"
 msgstr "Za kartico SM ni kartice SC"
 
@@ -4066,18 +4093,22 @@ msgid "SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"
 msgstr "Definicija SY (npr. FREQ=146, LAMBDA=300/FREQ):"
 
 #: src/geom_edit.c:2970
+#, c-format
 msgid "NEC2 editor window not open"
 msgstr "Okno urejevalnika NEC2 ni odprto"
 
 #: src/geometry.c:118
+#, c-format
 msgid "Number of segments < 1"
 msgstr "Število segmentov < 1"
 
 #: src/geometry.c:155
+#, c-format
 msgid "Arc angle exceeds 360 degrees"
 msgstr "Kot loka presega 360 stopinj"
 
 #: src/geometry.c:294
+#, c-format
 msgid "Error in conect(): np > n"
 msgstr "Napaka v conect(): np > n"
 
@@ -4087,6 +4118,7 @@ msgid "geometry data error: segment %d extends below ground\n"
 msgstr "napaka geometrijskih podatkov: segment %d sega pod zemljo\n"
 
 #: src/geometry.c:326 src/geometry.c:374
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment extends below ground"
@@ -4100,6 +4132,7 @@ msgid "geometry data error: segment %d lies in ground plane\n"
 msgstr "napaka geometrijskih podatkov: segment %d leži v ravnini zemlje\n"
 
 #: src/geometry.c:384
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in ground plane"
@@ -4109,10 +4142,12 @@ msgstr ""
 
 # xnec2c-exempt: name
 #: src/geometry.c:474
+#, c-format
 msgid "ipsym = 0\n"
 msgstr ""
 
 #: src/geometry.c:475
+#, c-format
 msgid "Error: ipsym = 0"
 msgstr "Napaka: ipsym = 0"
 
@@ -4126,6 +4161,7 @@ msgstr ""
 "%ld segj.maxcon=%lu\n"
 
 #: src/geometry.c:530
+#, c-format
 msgid ""
 "Segment connection count exceeds a full mesh, which is unlikely!\n"
 "Check for overlapping or nearly-connected segments\n"
@@ -4134,6 +4170,7 @@ msgstr ""
 "Preveri prekrivajoče se ali skoraj povezane segmente\n"
 
 #: src/geometry.c:744
+#, c-format
 msgid ""
 "check data, parameter specifying segment: position in a group of equal tags "
 "must not be zero\n"
@@ -4142,6 +4179,7 @@ msgstr ""
 "oznak ne sme biti nič\n"
 
 #: src/geometry.c:745
+#, c-format
 msgid ""
 "Parameter specifying segment\n"
 "position in a group of equal tags is zero"
@@ -4155,6 +4193,7 @@ msgid "no segment has an itag of %d\n"
 msgstr "noben segment nima oznake itag %d\n"
 
 #: src/geometry.c:781
+#, c-format
 msgid ""
 "Segment tag number error: Tag 0 is reserved and cannot be used.\n"
 "Check your geometry cards (especially GM cards) to ensure tag values are "
@@ -4179,10 +4218,12 @@ msgstr ""
 "Veljavne oznake v vaši geometriji so tiste, dodeljene karticam GW/GA/GH/SP."
 
 #: src/geometry.c:1064
+#, c-format
 msgid "corners of quadrilateral: patch do not lie in a plane\n"
 msgstr "vogali štirikotnega patcha ne ležijo v ravnini\n"
 
 #: src/geometry.c:1065
+#, c-format
 msgid ""
 "Corners of quadrilateral\n"
 "patch do not lie in a plane"
@@ -4196,6 +4237,7 @@ msgid "geometry data error: segment %d lies in plane of symmetry\n"
 msgstr "napaka geometrijskih podatkov: segment %d leži v ravnini simetrije\n"
 
 #: src/geometry.c:1171 src/geometry.c:1248 src/geometry.c:1326
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Segment lies in plane of symmetry"
@@ -4209,6 +4251,7 @@ msgid "geometry data error: patch %d lies in plane of symmetry\n"
 msgstr "napaka geometrijskih podatkov: patch %d leži v ravnini simetrije\n"
 
 #: src/geometry.c:1208 src/geometry.c:1285 src/geometry.c:1360
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Patch lies in plane of symmetry"
@@ -4396,6 +4439,7 @@ msgid "Forcing overlap check for %d segments\n"
 msgstr "Prisilno preverjanje prekrivanja za %d segmentov\n"
 
 #: src/geometry.c:1849
+#, c-format
 msgid ""
 "verify_segments() skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
@@ -4407,6 +4451,7 @@ msgid "Gnuplot Data"
 msgstr "Podatki Gnuplot"
 
 #: src/gnuplot.c:43 src/gnuplot.c:93 src/gnuplot.c:162
+#, c-format
 msgid "Cannot save: the frequency sweep is incomplete"
 msgstr "Ni mogoče shraniti: frekvenčni prelet ni dokončan"
 
@@ -4437,6 +4482,7 @@ msgid "Touchstone Data"
 msgstr "Podatki Touchstone"
 
 #: src/gnuplot.c:104
+#, c-format
 msgid ""
 "Cannot save: S-parameters need a feedpoint impedance, which this excitation "
 "does not provide"
@@ -4497,6 +4543,7 @@ msgid "Save Currents and Charges to CSV"
 msgstr "Shrani tokove in naboje v CSV"
 
 #: src/gnuplot.c:584
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\"in the "
 "main xnec2c window."
@@ -4509,6 +4556,7 @@ msgid "Save Patch Currents to CSV"
 msgstr "Shrani tokove patchev v CSV"
 
 #: src/gnuplot.c:650
+#, c-format
 msgid ""
 "You must enable current data by clicking \"Currents\" or \"Charges\" in the "
 "main xnec2c window."
@@ -4517,10 +4565,12 @@ msgstr ""
 "glavnem oknu xnec2c."
 
 #: src/gnuplot.c:660
+#, c-format
 msgid "No surface patches in this model."
 msgstr "V tem modelu ni površinskih patchev."
 
 #: src/ground.c:110
+#, c-format
 msgid "b less than a"
 msgstr "b manjši od a"
 
@@ -4530,6 +4580,7 @@ msgid "step size limited at z = %12.5E\n"
 msgstr "velikost koraka omejena pri Z = %12.5E\n"
 
 #: src/input.c:150
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Unexpected EOF (End of File)"
@@ -4538,6 +4589,7 @@ msgstr ""
 "Nepričakovan EOF (konec datoteke)"
 
 #: src/input.c:164
+#, c-format
 msgid ""
 "Error reading Comments\n"
 "Comment mnemonic short or missing"
@@ -4546,6 +4598,7 @@ msgstr ""
 "Mnemonik komentarja je prekratek ali manjka"
 
 #: src/input.c:175
+#, c-format
 msgid ""
 "Read_Comments():\n"
 " Error reading input file\n"
@@ -4556,6 +4609,7 @@ msgstr ""
 "Mnemonik komentarja je napačen"
 
 #: src/input.c:215
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Tag number is negative"
@@ -4564,6 +4618,7 @@ msgstr ""
 "Številka taga je negativna"
 
 #: src/input.c:222
+#, c-format
 msgid ""
 "Geometry data error\n"
 "Number of segments is less than 1"
@@ -4572,6 +4627,7 @@ msgstr ""
 "Število segmentov je manjše od 1"
 
 #: src/input.c:229
+#, c-format
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "opozorilo - število segmentov je večje od 1000000\n"
 
@@ -4592,6 +4648,7 @@ msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "napaka podatkovne kartice %s: nepričakovan znak '%c' v stolpcu %d\n"
 
 #: src/input.c:301
+#, c-format
 msgid ""
 "Data card error\n"
 "Spurious character in card"
@@ -4605,18 +4662,22 @@ msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: evalvacija izraza ni uspela za \"%s\"\n"
 
 #: src/input.c:413
+#, c-format
 msgid "SY card: no line content available\n"
 msgstr "kartica SY: vsebina vrstice ni na voljo\n"
 
 #: src/input.c:414
+#, c-format
 msgid "SY card: no line content available"
 msgstr "kartica SY: vsebina vrstice ni na voljo"
 
 #: src/input.c:431
+#, c-format
 msgid "SY card: missing '=' in definition\n"
 msgstr "kartica SY: manjka '=' v definiciji\n"
 
 #: src/input.c:432
+#, c-format
 msgid "SY card: missing '=' in definition"
 msgstr "kartica SY: manjka '=' v definiciji"
 
@@ -4626,6 +4687,7 @@ msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "kartica SY: definicija simbola ni uspela za %s=%s\n"
 
 #: src/input.c:652
+#, c-format
 msgid ""
 "Geometry data error\n"
 "No GC card for tapered wire"
@@ -4634,18 +4696,22 @@ msgstr ""
 "Ni kartice GC za zoženo žico"
 
 #: src/input.c:659
+#, c-format
 msgid "Geometry GC data card error"
 msgstr "Napaka podatkovne kartice geometrije GC"
 
 #: src/input.c:675
+#, c-format
 msgid "Geometry GX data card error"
 msgstr "Napaka podatkovne kartice geometrije GX"
 
 #: src/input.c:698
+#, c-format
 msgid "Geometry GR data card error"
 msgstr "Napaka podatkovne kartice geometrije GR"
 
 #: src/input.c:752
+#, c-format
 msgid "No geometry data cards"
 msgstr "Ni podatkovnih kartic geometrije"
 
@@ -4654,6 +4720,7 @@ msgid "Probable invalid segment geometry.\n"
 msgstr "Verjetno neveljavna geometrija segmenta.\n"
 
 #: src/input.c:764
+#, c-format
 msgid ""
 "Invalid segment geometry.\n"
 "See warnings in the console for detail.\n"
@@ -4664,10 +4731,12 @@ msgstr ""
 "Poskušam nadaljevati..."
 
 #: src/input.c:770
+#, c-format
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "Verjetno neveljavna geometrija segmenta (glejte zgoraj)\n"
 
 #: src/input.c:774
+#, c-format
 msgid "Read_Geometry: verify_segments() passed\n"
 msgstr "Read_Geometry: verify_segments() uspešno\n"
 
@@ -4677,23 +4746,28 @@ msgid "segment data error: tag=%d si=%f, bi=%f\n"
 msgstr "napaka podatkov segmenta: tag=%d si=%f, bi=%f\n"
 
 #: src/input.c:813
+#, c-format
 msgid "Segment data error, zero-length line?  See console."
 msgstr "Napaka podatkov segmenta, daljica brez dolžine? Glejte konzolo."
 
 #: src/input.c:853
+#, c-format
 msgid "Move GM data card error"
 msgstr "Napaka podatkovne kartice premika GM"
 
 #: src/input.c:869 src/input.c:910 src/input.c:927 src/input.c:945
 #: src/input.c:953
+#, c-format
 msgid "Patch data card error"
 msgstr "Napaka podatkovne kartice patcha"
 
 #: src/input.c:891
+#, c-format
 msgid "Patch data error"
 msgstr "Napaka podatkov patcha"
 
 #: src/input.c:1000
+#, c-format
 msgid ""
 "\"GF\" card (NGF solution)\n"
 "is not supported"
@@ -4702,6 +4776,7 @@ msgstr ""
 "ni podprta"
 
 #: src/input.c:1005
+#, c-format
 msgid "Ignoring CM card in geometry"
 msgstr "Prezrta kartica CM v geometriji"
 
@@ -4717,18 +4792,22 @@ msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
 #: src/input.c:1025
+#, c-format
 msgid "Command card in geometry section"
 msgstr "Ukazna kartica v razdelku geometrije"
 
 #: src/input.c:1027
+#, c-format
 msgid "Unrecognized geometry card"
 msgstr "Neprepoznana kartica geometrije"
 
 #: src/input.c:1051
+#, c-format
 msgid "Failed to initialize symbol table\n"
 msgstr "Inicializacija tabele simbolov ni uspela\n"
 
 #: src/input.c:1052
+#, c-format
 msgid "Failed to initialize symbol table"
 msgstr "Inicializacija tabele simbolov ni uspela"
 
@@ -4739,14 +4818,17 @@ msgstr ""
 "Ni FR-kartice: izračunava se en korak pri privzeti vrednosti NEC-2 %g MHz\n"
 
 #: src/input.c:1283
+#, c-format
 msgid "ignoring CM card in commands\n"
 msgstr "prezrta kartica CM v ukazih\n"
 
 #: src/input.c:1284
+#, c-format
 msgid "Ignoring CM card in commands"
 msgstr "Prezrta kartica CM v ukazih"
 
 #: src/input.c:1296
+#, c-format
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "Kartica CP je prezrta: izračun sklopitve ni izveden\n"
 
@@ -4756,10 +4838,12 @@ msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "Preskakujem podvojeno kartico FR pri %g MHz\n"
 
 #: src/input.c:1457
+#, c-format
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "Največja frekvenca <= najmanjša frekvenca v kartici FR\n"
 
 #: src/input.c:1458
+#, c-format
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
 "Please check FR card data and correct"
@@ -4768,6 +4852,7 @@ msgstr ""
 "Prosimo, preverite podatke kartice FR in jih popravite"
 
 #: src/input.c:1481
+#, c-format
 msgid ""
 "Fix the GE/GN cards:\n"
 "The GE card specifies that a ground is present, but the GN indicates "
@@ -4777,10 +4862,12 @@ msgstr ""
 "Kartica GE določa prisotnost tal, vendar kartica GN kaže drugače."
 
 #: src/input.c:1495
+#, c-format
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "theta > 90 stopinj z določenimi tlemi\n"
 
 #: src/input.c:1496 src/radiation.c:911
+#, c-format
 msgid ""
 "Theta > 90 deg with ground specified\n"
 "Please check RP card data and correct"
@@ -4789,6 +4876,7 @@ msgstr ""
 "Prosimo, preverite podatke kartice RP in jih popravite"
 
 #: src/input.c:1505
+#, c-format
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
@@ -4797,6 +4885,7 @@ msgstr ""
 "Sommerfeldovih tal\n"
 
 #: src/input.c:1506
+#, c-format
 msgid ""
 "radial wire g.s. approximation\n"
 "may not be used with Sommerfeld ground option"
@@ -4814,6 +4903,7 @@ msgstr ""
 "step2 %d\n"
 
 #: src/input.c:1556
+#, c-format
 msgid ""
 "Data fault on loading card\n"
 "itag step1 is greater than itag step2"
@@ -4822,6 +4912,7 @@ msgstr ""
 "itag step1 je večji od itag step2"
 
 #: src/input.c:1685
+#, c-format
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr ""
@@ -4829,6 +4920,7 @@ msgstr ""
 "ali TL\n"
 
 #: src/input.c:1686
+#, c-format
 msgid ""
 "Transmission Line impedance = 0\n"
 "is not valid. Please correct NT or TL card"
@@ -4837,10 +4929,12 @@ msgstr ""
 "ni veljavna. Prosimo, popravite kartico NT ali TL"
 
 #: src/input.c:1697
+#, c-format
 msgid "Segment number error in TL or NT card\n"
 msgstr "Napaka številke segmenta v kartici TL ali NT\n"
 
 #: src/input.c:1698
+#, c-format
 msgid ""
 "Segment number\n"
 "error in NT or TL card"
@@ -4849,18 +4943,22 @@ msgstr ""
 "v kartici NT ali TL"
 
 #: src/input.c:1720
+#, c-format
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr "Kartici PQ in PT sta prezrti: tiskanje v datoteko ni izvedeno\n"
 
 #: src/input.c:1724
+#, c-format
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "Kartica PL je prezrta: izris v datoteko ni podprt\n"
 
 #: src/input.c:1730
+#, c-format
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "Možnost površinskega vala (I1=1): ukaza RP ni implementirana\n"
 
 #: src/input.c:1731
+#, c-format
 msgid ""
 "Surface wave option (I1=1)\n"
 "of RP command not implemented"
@@ -4869,6 +4967,7 @@ msgstr ""
 "ukaza RP ni implementirana"
 
 #: src/input.c:1763
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
@@ -4877,6 +4976,7 @@ msgstr ""
 "in jih popravite\n"
 
 #: src/input.c:1764
+#, c-format
 msgid ""
 "Theta > 90 deg. with ground specified\n"
 "Please check RP card data and correct"
@@ -4893,6 +4993,7 @@ msgid "Unrecognized command card"
 msgstr "Neprepoznana ukazna kartica"
 
 #: src/input.c:1879
+#, c-format
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
@@ -4901,10 +5002,12 @@ msgstr ""
 "ojačitve so onemogočeni\n"
 
 #: src/input.c:1906
+#, c-format
 msgid "Unexpected exit from while loop"
 msgstr "Nepričakovan izhod iz zanke while"
 
 #: src/input.c:1997
+#, c-format
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
 "EN card\n"
@@ -4913,6 +5016,7 @@ msgstr ""
 "datoteke - dodajam kartico EN\n"
 
 #: src/input.c:1998
+#, c-format
 msgid ""
 "Command data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4923,12 +5027,14 @@ msgstr ""
 "Dodajam privzeto kartico EN"
 
 #: src/input.c:2015
+#, c-format
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "napaka ukazne podatkovne kartice: mnemonična koda kartice je prekratka ali "
 "manjka\n"
 
 #: src/input.c:2016
+#, c-format
 msgid ""
 "Command data card error\n"
 "Mnemonic code too short or missing"
@@ -4937,6 +5043,7 @@ msgstr ""
 "Mnemonična koda je prekratka ali manjka"
 
 #: src/input.c:2217
+#, c-format
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
 "appending GE card\n"
@@ -4945,6 +5052,7 @@ msgstr ""
 "datoteke - dodajam kartico GE\n"
 
 #: src/input.c:2218
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Unexpected EOF while reading input file\n"
@@ -4955,12 +5063,14 @@ msgstr ""
 "Dodajam privzeto kartico GE"
 
 #: src/input.c:2235
+#, c-format
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "napaka podatkovne kartice geometrije: mnemonična koda kartice je prekratka "
 "ali manjka\n"
 
 #: src/input.c:2236
+#, c-format
 msgid ""
 "Geometry data card error\n"
 "Card's mnemonic code too short or missing"
@@ -4999,6 +5109,7 @@ msgid "failed to add objects to builder: %s\n"
 msgstr "dodajanje objektov v graditelja ni uspelo: %s\n"
 
 #: src/interface.c:198
+#, c-format
 msgid "Listing Object Ids:\n"
 msgstr "Seznam ID-jev objektov:\n"
 
@@ -5010,6 +5121,7 @@ msgid "%s\n"
 msgstr ""
 
 #: src/interface.c:213 src/interface.c:216
+#, c-format
 msgid ""
 "libgmodule not supported: xnec2c may not function properly on this "
 "platform.\n"
@@ -5034,6 +5146,7 @@ msgid "Detected %s windowing backend\n"
 msgstr "Zaznan okenski zaledni sistem %s\n"
 
 #: src/main.c:137
+#, c-format
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch in --optimize se medsebojno izključujeta.\n"
 
@@ -5053,10 +5166,12 @@ msgid "unexpected argument: %s\n"
 msgstr "nepričakovan argument: %s\n"
 
 #: src/main.c:177
+#, c-format
 msgid "batch mode requires an input file\n"
 msgstr "paketni način zahteva vhodno datoteko\n"
 
 #: src/main.c:187
+#, c-format
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "zaslona ni mogoče odpreti: zahtevana je delujoča seja X11 ali Wayland\n"
@@ -5067,30 +5182,37 @@ msgid "Forking %d jobs across %d processors.\n"
 msgstr "Forking %d opravil prek %d procesorjev.\n"
 
 #: src/main.c:223 src/main.c:231
+#, c-format
 msgid "exiting after fatal error: pipe() failed"
 msgstr "izhod po usodni napaki: pipe() ni uspel"
 
 #: src/main.c:240
+#, c-format
 msgid "exiting after fatal error: fork() failed"
 msgstr "izhod po usodni napaki: fork() ni uspel"
 
 #: src/main.c:840
+#, c-format
 msgid "exiting via user interrupt\n"
 msgstr "izhod zaradi uporabniške prekinitve\n"
 
 #: src/main.c:844
+#, c-format
 msgid "segmentation fault, exiting\n"
 msgstr "napaka segmentacije, izhod\n"
 
 #: src/main.c:848
+#, c-format
 msgid "floating point exception, exiting\n"
 msgstr "izjema plavajoče vejice, izhod\n"
 
 #: src/main.c:852
+#, c-format
 msgid "abort signal received, exiting\n"
 msgstr "prejet signal za prekinitev, izhod\n"
 
 #: src/main.c:856
+#, c-format
 msgid "termination request received, exiting\n"
 msgstr "prejeta zahteva za prekinitev, izhod\n"
 
@@ -5190,6 +5312,7 @@ msgid "Batch Math Library"
 msgstr "Paketna matematična knjižnica"
 
 #: src/mathlib.c:720
+#, c-format
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
 "command line. (However, this selection will be saved for next time xnec2c is "
@@ -5214,6 +5337,7 @@ msgid "Mathlib Benchmark Help"
 msgstr "Pomoč za preizkuse zmogljivosti matematičnih knjižnic"
 
 #: src/mathlib.c:868
+#, c-format
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
 "the mathlib implementation to parallelize the linear algebra calculation of "
@@ -5326,15 +5450,18 @@ msgstr ""
 "nastavitev in znova zaženite program, da izmerite števila niti."
 
 #: src/mathlib.c:978
+#, c-format
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "Preizkusi zmogljivosti so onemogočeni med aktivno optimizacijo."
 
 #: src/mathlib.c:985
+#, c-format
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr ""
 "Pred izvajanjem preizkusov zmogljivosti morate naložiti vhodno datoteko NEC2."
 
 #: src/mathlib.c:991
+#, c-format
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
 "specified on the command line."
@@ -5343,6 +5470,7 @@ msgstr ""
 "vrstici navedena možnost -j."
 
 #: src/mathlib.c:1008
+#, c-format
 msgid "You must select at least one math library to benchmark"
 msgstr "Izbrati morate vsaj eno matematično knjižnico za preizkus"
 
@@ -5473,6 +5601,7 @@ msgid "symmetry error - nrow:%d ncol:%d\n"
 msgstr "napaka simetrije - nrow:%d ncol:%d\n"
 
 #: src/matrix.c:1353
+#, c-format
 msgid "Symmetry error"
 msgstr "Napaka simetrije"
 
@@ -5482,6 +5611,7 @@ msgid "Solving Failed: %d\n"
 msgstr "Reševanje ni uspelo: %d\n"
 
 #: src/measurements.c:424
+#, c-format
 msgid ""
 "noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
 "to 0\n"
@@ -5526,6 +5656,7 @@ msgid "mem_backtrace(%p):\n"
 msgstr ""
 
 #: src/mem/mem.c:253
+#, c-format
 msgid "  m->backtrace is null, no backtrace data\n"
 msgstr "  m->backtrace je null, ni podatkov za sledenje\n"
 
@@ -5571,6 +5702,7 @@ msgid "--- End Comments ---"
 msgstr "--- Konec komentarjev ---"
 
 #: src/nec2_model.c:525
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5581,6 +5713,7 @@ msgstr ""
 "Nepričakovan EOF (konec datoteke)"
 
 #: src/nec2_model.c:532
+#, c-format
 msgid ""
 "List_Comments():\n"
 "Error reading input file\n"
@@ -5595,6 +5728,7 @@ msgid "End Comments"
 msgstr "Konec komentarjev"
 
 #: src/nec2_model.c:916
+#, c-format
 msgid ""
 "Cannot save treeview data\n"
 "Please use the Save button\n"
@@ -5610,6 +5744,7 @@ msgid "improper load type chosen, requested type is %d\n"
 msgstr "izbrana nepravilna vrsta bremena, zahtevana vrsta je %d\n"
 
 #: src/network.c:653
+#, c-format
 msgid "Improper load type chose"
 msgstr "Izbrana nepravilna vrsta bremena"
 
@@ -5620,6 +5755,7 @@ msgstr ""
 "napaka pri nalaganju podatkovne kartice, noben segment nima itag = %d\n"
 
 #: src/network.c:742
+#, c-format
 msgid ""
 "Loading data card\n"
 "Tag number mismatch error"
@@ -5633,26 +5769,32 @@ msgid "Generated label texture atlas (ID=%u)\n"
 msgstr "Ustvarjen atlas teksture oznak (ID=%u)\n"
 
 #: src/opengl-engine/opengl_axes.c:161
+#, c-format
 msgid "Failed to load axes line shader\n"
 msgstr "Nalaganje linijskega senčilnika osi ni uspelo\n"
 
 #: src/opengl-engine/opengl_axes.c:192
+#, c-format
 msgid "Axes renderer initialized\n"
 msgstr "Upodabljanje osi inicializirano\n"
 
 #: src/opengl-engine/opengl_axes.c:196
+#, c-format
 msgid "Failed to load text shaders\n"
 msgstr "Nalaganje besedilnih senčilnikov ni uspelo\n"
 
 #: src/opengl-engine/opengl_cairo_overlay.c:62
+#, c-format
 msgid "Failed to load cairo overlay shaders\n"
 msgstr "Nalaganje senčilnikov cairo prekrivnika ni uspelo\n"
 
 #: src/opengl-engine/opengl_ground_plane.c:105
+#, c-format
 msgid "Failed to load ground plane shaders\n"
 msgstr "Nalaganje senčilnikov talnega dela ni uspelo\n"
 
 #: src/opengl-engine/opengl_image_overlay.c:39
+#, c-format
 msgid "Failed to create cairo overlay base\n"
 msgstr "Ustvarjanje osnove cairo prekrivnika ni uspelo\n"
 
@@ -5677,6 +5819,7 @@ msgid "Shader link failed: %s + %s\n"
 msgstr "Povezovanje senčilnika ni uspelo: %s + %s\n"
 
 #: src/opengl-engine/opengl_view.c:192
+#, c-format
 msgid ""
 "OpenGL context error — no OpenGL implementation available on this display\n"
 msgstr ""
@@ -5684,22 +5827,27 @@ msgstr ""
 "OpenGL\n"
 
 #: src/opengl-engine/opengl_view.c:200
+#, c-format
 msgid "Disabling OpenGL: shader catalog failed\n"
 msgstr "Onemogočanje OpenGL: katalog senčilnikov ni uspel\n"
 
 #: src/opengl-engine/opengl_view.c:213
+#, c-format
 msgid "Disabling OpenGL: scene shader failed\n"
 msgstr "Onemogočanje OpenGL: senčilnik prizora ni uspel\n"
 
 #: src/opengl-engine/opengl_view.c:228
+#, c-format
 msgid "Disabling OpenGL: overlay shader failed\n"
 msgstr "Onemogočanje OpenGL: senčilnik prekrivnika ni uspel\n"
 
 #: src/opengl-engine/opengl_view.c:240
+#, c-format
 msgid "Disabling OpenGL: axes renderer failed\n"
 msgstr "Onemogočanje OpenGL: upodabljanje osi ni uspelo\n"
 
 #: src/opengl-engine/opengl_view.c:269
+#, c-format
 msgid "Disabling OpenGL: ground plane shader failed\n"
 msgstr "Onemogočanje OpenGL: senčilnik talne ravnine ni uspel\n"
 
@@ -5709,6 +5857,7 @@ msgid "Renderable count %u exceeds MAX_RENDERABLES (%d)\n"
 msgstr "Število upodabljivcev %u presega MAX_RENDERABLES (%d)\n"
 
 #: src/opengl-engine/opengl_view.c:372
+#, c-format
 msgid "Disabling OpenGL: peel composite shader failed\n"
 msgstr "Onemogočanje OpenGL: kompozitni senčilnik lupljenja ni uspel\n"
 
@@ -5722,10 +5871,12 @@ msgstr ""
 "%g]\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:141
+#, c-format
 msgid "MSAA framebuffer incomplete\n"
 msgstr "Medpomnilnik MSAA je nepopoln\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:173
+#, c-format
 msgid "MSAA resolve framebuffer incomplete\n"
 msgstr "Medpomnilnik za razreševanje MSAA je nepopoln\n"
 
@@ -5740,14 +5891,17 @@ msgid "Peel MSAA FBO %d incomplete\n"
 msgstr "FBO MSAA %d lupljenja je nepopoln\n"
 
 #: src/opengl-engine/opengl_view_peel.c:276
+#, c-format
 msgid "Peel accumulation FBO incomplete\n"
 msgstr "FBO kopičenja lupljenja je nepopoln\n"
 
 #: src/opengl-engine/opengl_view_peel.c:285
+#, c-format
 msgid "Layer depth FBO incomplete\n"
 msgstr "FBO globine sloja je nepopoln\n"
 
 #: src/opengl-engine/opengl_view_render.c:339
+#, c-format
 msgid "Transparent renderables skipped: peel FBOs unavailable\n"
 msgstr "Prosojni upodabljivci preskočeni: FBO-ji lupljenja niso na voljo\n"
 
@@ -5757,6 +5911,7 @@ msgid "rdpattern: invalid draw style %d, using surface\n"
 msgstr "rdpattern: neveljaven slog risanja %d, uporabim površino\n"
 
 #: src/opengl/opengl_state.c:57
+#, c-format
 msgid ""
 "OpenGL is not available on this display; switching to Cairo renderer. See "
 "'OpenGL Renderer' in View > Rendering Settings.\n"
@@ -5797,6 +5952,7 @@ msgid "saving %s: %s\n"
 msgstr "shranjevanje %s: %s\n"
 
 #: src/optimize.c:100
+#, c-format
 msgid "xnec2c was built without inotify.\n"
 msgstr "xnec2c je bil zgrajen brez inotify.\n"
 
@@ -5821,10 +5977,12 @@ msgid "inotify: file stat failed or zero bytes (errno=%s), retrying\n"
 msgstr "inotify: stat datoteke ni uspel ali nič bajtov (errno=%s), ponavljam\n"
 
 #: src/optimize.c:360
+#, c-format
 msgid "Exited optimizer thread.\n"
 msgstr "Nit optimizatorja je zaključila.\n"
 
 #: src/optimize.c:366
+#, c-format
 msgid "optimize.c: exit because this is a child process.\n"
 msgstr "optimize.c: izhod, ker je to podrejeni proces.\n"
 
@@ -5861,14 +6019,17 @@ msgid "inotify: FILTER: target='%s' event_name='%s' match=%d\n"
 msgstr ""
 
 #: src/optimize.c:441
+#, c-format
 msgid "inotify: SKIP event (filename mismatch)\n"
 msgstr "inotify: PRESKOK dogodka (neujemanje imena datoteke)\n"
 
 #: src/optimize.c:448
+#, c-format
 msgid "inotify: IN_MODIFY on target, setting modify_seen=TRUE\n"
 msgstr "inotify: IN_MODIFY na ciljni datoteki, nastavljam modify_seen=TRUE\n"
 
 #: src/optimize.c:456
+#, c-format
 msgid ""
 "inotify: IN_MOVED_TO on target (atomic write complete), triggering reload\n"
 msgstr ""
@@ -5876,6 +6037,7 @@ msgstr ""
 "sprožujem ponovno naložitev\n"
 
 #: src/optimize.c:473
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE after modify_seen=TRUE (direct write complete), "
 "triggering reload\n"
@@ -5884,6 +6046,7 @@ msgstr ""
 "sprožujem ponovno naložitev\n"
 
 #: src/optimize.c:485
+#, c-format
 msgid ""
 "inotify: IN_CLOSE_WRITE without modify_seen (spurious close, old inode), "
 "skipping\n"
@@ -5898,10 +6061,12 @@ msgstr ""
 "inotify: PRESKOK dogodka (ni MODIFY/CLOSE_WRITE/MOVED_TO, mask=0x%08x)\n"
 
 #: src/optimize.c:525
+#, c-format
 msgid "failed to create optimizer wake eventfd\n"
 msgstr "ustvarjanje eventfd za prebujanje optimizatorja ni uspelo\n"
 
 #: src/optimize.c:536
+#, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "ustvarjanje niti za izhod optimizatorja ni uspelo\n"
 
@@ -5921,6 +6086,7 @@ msgid "nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n"
 msgstr "nec2_eval_signal: tekmovanje za eval_mutex, čakam (thr=%lu)\n"
 
 #: src/optimizers/opt_nec2_eval.c:194
+#, c-format
 msgid "nec2_eval_run: not initialized\n"
 msgstr "nec2_eval_run: ni inicializiran\n"
 
@@ -5939,10 +6105,12 @@ msgid "opt: optimization complete, best fitness: %.6g\n"
 msgstr "opt: optimizacija končana, najboljša primernost: %.6g\n"
 
 #: src/optimizers/opt_session.c:194
+#, c-format
 msgid "opt_start: optimizer already running\n"
 msgstr "opt_start: optimizator že teče\n"
 
 #: src/optimizers/opt_session.c:258
+#, c-format
 msgid "opt_start: simple_new failed\n"
 msgstr "opt_start: simple_new ni uspel\n"
 
@@ -6142,6 +6310,7 @@ msgstr ""
 "privzeto\n"
 
 #: src/rc_config.c:1786
+#, c-format
 msgid "batch mode: skipping configuration save\n"
 msgstr "paketni način: preskakujem shranjevanje konfiguracije\n"
 
@@ -6350,6 +6519,7 @@ msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: ustvarjanje površine ni uspelo (%dx%d)\n"
 
 #: src/render/render_fit.c:67
+#, c-format
 msgid "render_fit_solve: no geometry to fit\n"
 msgstr "render_fit_solve: ni geometrije za prilagoditev\n"
 
@@ -6398,6 +6568,7 @@ msgid "Waiting for frequency data"
 msgstr "Čakanje na podatke o frekvenci"
 
 #: src/render/render_redraw.c:48
+#, c-format
 msgid "Optimizer loop incomplete, suppressing intermediate redraw.\n"
 msgstr "Zanka optimizatorja ni dokončana, vmesno prerisovanje je zatrto.\n"
 
@@ -6421,16 +6592,19 @@ msgid "render_settings_init: failed to load cairo glade: %s\n"
 msgstr "render_settings_init: nalaganje glade ni uspelo (cairo): %s\n"
 
 #: src/settings/render_settings_common.c:182
+#, c-format
 msgid "render_settings_init: failed to get render_settings_window from glade\n"
 msgstr ""
 "render_settings_init: pridobivanje render_settings_window iz glade ni "
 "uspelo\n"
 
 #: src/somnec.c:302
+#, c-format
 msgid "Hankel not valid for z = 0"
 msgstr "Hankel ni veljaven za Z = 0"
 
 #: src/somnec.c:807
+#, c-format
 msgid "No convergence"
 msgstr "Ni konvergence"
 
@@ -6518,6 +6692,7 @@ msgid "sy_overrides_init: failed to load glade: %s\n"
 msgstr "sy_overrides_init: nalaganje glade ni uspelo: %s\n"
 
 #: src/sy_overrides.c:1107
+#, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: pridobivanje gradnikov iz glade ni uspelo\n"
 
@@ -6605,6 +6780,7 @@ msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Odpiranje datoteke ni uspelo: %s\n"
 
 #: src/utils.c:1090
+#, c-format
 msgid "  Backtrace:\n"
 msgstr "  Sled klicev:\n"
 
@@ -6621,6 +6797,7 @@ msgid "%s:\n"
 msgstr ""
 
 #: src/validation_dump.c:35
+#, c-format
 msgid ""
 "validation: nec2-builtin mathlib not available; numeric results may differ "
 "from reference\n"
@@ -6629,12 +6806,14 @@ msgstr ""
 "rezultati se lahko razlikujejo od referenčnih\n"
 
 #: src/validation_dump.c:40
+#, c-format
 msgid "validation: forced mathlib to nec2-builtin for reproducibility\n"
 msgstr ""
 "validacija: matematična knjižnica prisilno nastavljena na nec2-builtin "
 "zaradi ponovljivosti\n"
 
 #: src/validation_dump.c:59
+#, c-format
 msgid ""
 "validation: forced antenna-temp models and elevation for reproducibility\n"
 msgstr ""
@@ -6642,12 +6821,14 @@ msgstr ""
 "zaradi ponovljivosti\n"
 
 #: src/validation_dump.c:69
+#, c-format
 msgid "validation: forced polarization to total for reproducibility\n"
 msgstr ""
 "validacija: polarizacija prisilno nastavljena na skupno zaradi "
 "ponovljivosti\n"
 
 #: src/validation_dump.c:88
+#, c-format
 msgid ""
 "validation: reset structure viewer to default orientation for "
 "reproducibility\n"
@@ -6660,10 +6841,12 @@ msgid "Validation Tree"
 msgstr "Validacijsko drevo"
 
 #: src/validation_dump.c:621
+#, c-format
 msgid "Cannot save: frequency loop not done"
 msgstr "Ni mogoče shraniti: frekvenčna zanka ni zaključena"
 
 #: src/validation_dump.c:627
+#, c-format
 msgid "Cannot create output directory"
 msgstr "Izhodnega imenika ni mogoče ustvariti"
 
@@ -6682,6 +6865,7 @@ msgstr ""
 "%12.5E%+12.5Ej\n"
 
 #: src/xnec2c.c:322
+#, c-format
 msgid "Ground_Parameters():Error in ground parameters"
 msgstr "Ground_Parameters(): Napaka v parametrih tal"
 
@@ -6703,6 +6887,7 @@ msgid "child %d has invalid pipe fd during forked collect\n"
 msgstr "podrejeni proces %d ima neveljaven fd cevi med razvejanim zbiranjem\n"
 
 #: src/xnec2c.c:1258
+#, c-format
 msgid "Failed to read data from forked child\n"
 msgstr "Branje podatkov iz razvejanega podrejenega procesa ni uspelo\n"
 
@@ -6767,6 +6952,7 @@ msgid "--%s wrote %s\n"
 msgstr "--%s zapisano: %s\n"
 
 #: src/xnec2c.c:1974
+#, c-format
 msgid "--write-rdpat-png requires --batch\n"
 msgstr "--write-rdpat-png zahteva --batch\n"
 
@@ -6781,6 +6967,7 @@ msgid "sweep runs %d workers of %d threads each\n"
 msgstr "pregled izvaja %d delavcev s po %d nitmi\n"
 
 #: src/xnec2c.c:2355
+#, c-format
 msgid "failed to start Frequency_Loop_Thread\n"
 msgstr "zagon niti Frequency_Loop_Thread ni uspel\n"
 
@@ -6793,6 +6980,7 @@ msgid "Recalculate the frequency sweep?"
 msgstr "Ali želite ponovno izračunati frekvenčni prelet?"
 
 #: src/xnec2c.c:2536
+#, c-format
 msgid ""
 "The sweep is calculated in full.  Running it again discards every calculated "
 "step and computes the sweep from its first step."
