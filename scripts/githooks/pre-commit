@@ -72,10 +72,24 @@ if [ "${FORCE_COMMIT:-}" != "true" ]; then
 		po="po/$lang.po"
 		# Skip languages whose catalog is absent from the work tree.
 		[ -f "$po" ] || continue
-		if ! delta_output=$(scripts/po/po-delta.sh "$delta_base" "$po"); then
+		delta_status=0
+		delta_output=$(scripts/po/po-delta.sh "$delta_base" "$po") || delta_status=$?
+
+		# Dispatch on the po-delta.sh status: 0 no new entry, 1 new entries
+		# listed, above 1 a usage error or failed read.
+		case $delta_status in
+		0)
+			# Pass a catalog introducing no new entry.
+			;;
+		1)
 			printf '%s\n' "$delta_output"
 			delta_rc=1
-		fi
+			;;
+		*)
+			hook_notice_print_failed "scripts/po/po-delta.sh $po"
+			exit 1
+			;;
+		esac
 	done
 
 	if [ "$delta_rc" -ne 0 ]; then

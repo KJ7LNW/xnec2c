@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd "$(dirname "$0")/../.."
+cd "$(dirname "$0")/../.." || exit 1
 
 VERBOSE=0
 if [ "$1" = "-v" ] || [ "$1" = "--verbose" ]; then
@@ -59,11 +59,33 @@ get_line_ranges() {
 for po in po/*.po; do
   lang=$(basename "$po" .po)
 
-  stats=$(msgfmt --statistics -o /dev/null "$po" 2>&1)
+  # Read the statistics in the C locale, since gettext translates their wording.
+  if ! stats=$(LC_ALL=C msgfmt --statistics -o /dev/null "$po" 2>&1); then
+    printf '%s\n' "$stats" >&2
+    echo "$0: err: $po: msgfmt could not read the catalog" >&2
+    exit 1
+  fi
 
-  translated=$(echo "$stats" | grep -oP '\d+(?= translated)' || echo "0")
-  fuzzy=$(echo "$stats" | grep -oP '\d+(?= fuzzy)' || echo "0")
-  untranslated=$(echo "$stats" | grep -oP '\d+(?= untranslated)' || echo "0")
+  # msgfmt always reports the translated count and omits a zero fuzzy or
+  # untranslated count.
+  if [[ $stats =~ ([0-9]+)\ translated ]]; then
+    translated=${BASH_REMATCH[1]}
+  else
+    echo "$0: err: $po: msgfmt reported no translated count ($stats)" >&2
+    exit 1
+  fi
+  if [[ $stats =~ ([0-9]+)\ fuzzy ]]; then
+    fuzzy=${BASH_REMATCH[1]}
+  else
+    # Count the fuzzy entries msgfmt omits as zero.
+    fuzzy=0
+  fi
+  if [[ $stats =~ ([0-9]+)\ untranslated ]]; then
+    untranslated=${BASH_REMATCH[1]}
+  else
+    # Count the untranslated entries msgfmt omits as zero.
+    untranslated=0
+  fi
 
   total=$((translated + fuzzy + untranslated))
 

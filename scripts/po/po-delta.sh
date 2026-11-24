@@ -11,7 +11,8 @@
 # the work-tree file. The base catalog is the blob at <base-ref>, treated as
 # empty when absent there. Reads git objects and files only; never mutates.
 #
-# Exit status: 1 when any new entry is reported, 0 when none, 2 usage error.
+# Exit status: 1 when any new entry is reported, 0 when none, above 1 on a
+# usage error or a failed read.
 
 set -euo pipefail
 
@@ -36,10 +37,22 @@ fi
 po=${1:-}
 [ -n "$po" ] || usage
 
+# Reject a base revision resolving to no tree, so a mistyped revision never
+# reads as a base lacking the catalog.
+if ! git rev-parse --verify --quiet "$base^{tree}" > /dev/null; then
+	echo "$0: err: $base: resolves to no tree" >&2
+	exit 2
+fi
+
 classifier="$(dirname "$0")/po-classify.awk"
 
 # Classify the base blob; an absent blob classifies to no records.
-base_records=$(git show "$base:$po" 2>/dev/null | awk -f "$classifier" || true)
+if git rev-parse --verify --quiet "$base:$po" > /dev/null; then
+	base_records=$(git show "$base:$po" | awk -f "$classifier")
+else
+	# Report every tip entry of a catalog the base lacks as new.
+	base_records=""
+fi
 
 # Classify the tip: the blob at --tip when given, else the work-tree file.
 if $tip_given; then
