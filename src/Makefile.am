@@ -360,11 +360,40 @@ check-resource-xml:
 	@$(XNEC2C_RESOURCE_XML_LINT)
 .PHONY: check-resource-xml
 
-# --generate-phony-targets: emit phony Make targets for each resource file so
-# deleting a resource file triggers a rebuild instead of a stale-dep error.
-xnec2c-resources.c: $(XNEC2C_RESOURCE_MANIFEST) $(XNEC2C_RESOURCE_DIR)/xnec2c.glade $(XNEC2C_RESOURCE_DIR)/animate.glade $(XNEC2C_RESOURCE_DIR)/settings/render_settings.glade $(XNEC2C_RESOURCE_DIR)/settings/opengl_settings.glade $(XNEC2C_RESOURCE_DIR)/settings/cairo_settings.glade $(XNEC2C_RESOURCE_DIR)/settings/color_settings.glade $(XNEC2C_RESOURCE_DIR)/themes.ini $(XNEC2C_RESOURCE_DIR)/freqplots_widths.ini $(XNEC2C_RESOURCE_DIR)/xnec2c.css
+# Prove every manifest member is a prerequisite of xnec2c-resources.c. make
+# --what-if treats the member as just modified without touching it, and make
+# --question exits 1 when that leaves xnec2c-resources.c out of date.
+check-local: check-resource-deps
+check-resource-deps: xnec2c-resources.c
+	@members=`$(XNEC2C_RESOURCE_MEMBERS)` || exit 1; \
+	failed=0; \
+	for f in $$members; do \
+	  $(MAKE) --no-print-directory --question --what-if=$$f xnec2c-resources.c; \
+	  status=$$?; \
+	  case $$status in \
+	  1) : the member edit rebuilds xnec2c-resources.c ;; \
+	  0) echo "check-resource-deps: err: $$f: edit leaves xnec2c-resources.c up to date (not a prerequisite)"; \
+	     failed=1 ;; \
+	  *) echo "check-resource-deps: err: $$f: make --question failed (status $$status)"; \
+	     failed=1 ;; \
+	  esac; \
+	done; \
+	exit $$failed
+.PHONY: check-resource-deps
+
+# Write the dependency file from the manifest's member list, naming
+# xnec2c-resources.c as the rule target. The resource compiler's
+# --dependency-file names the manifest, not xnec2c-resources.c, as the target.
+# An empty rule per member lets a member leave the manifest without a
+# missing-prerequisite error.
+xnec2c-resources.c: $(XNEC2C_RESOURCE_MANIFEST)
 	@$(XNEC2C_RESOURCE_XML_LINT)
-	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --sourcedir=$(XNEC2C_RESOURCE_DIR) --dependency-file=./$(XNEC2C_DEPDIR)/xnec2c-resources.Pc --generate-phony-targets --target=xnec2c-resources.c --generate-source $(XNEC2C_RESOURCE_MANIFEST)
+	$(AM_V_GEN)$(GLIB_COMPILE_RESOURCES) --sourcedir=$(XNEC2C_RESOURCE_DIR) --target=xnec2c-resources.c --generate-source $(XNEC2C_RESOURCE_MANIFEST)
+	@members=`$(XNEC2C_RESOURCE_MEMBERS)` || exit 1; \
+	{ echo xnec2c-resources.c: $$members; \
+	  for f in $$members; do echo; echo "$$f:"; done; \
+	} >./$(XNEC2C_DEPDIR)/xnec2c-resources.Pc-t && \
+	mv -f ./$(XNEC2C_DEPDIR)/xnec2c-resources.Pc-t ./$(XNEC2C_DEPDIR)/xnec2c-resources.Pc
 
 # Do not dist the generated source file so that building from tarball
 # will use glib-compile-resources together with compatible libraries.
