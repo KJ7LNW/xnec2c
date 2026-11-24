@@ -1998,7 +1998,6 @@ void fbar(complex double p, complex double *fbar);
 int Stop(int err, const char *format, ...) __attribute__((format(printf, 2, 3)));
 int Notice(GtkButtonsType buttons, const char *title, const char *msg_fmt, ...) __attribute__((format(printf, 3, 4)));
 int Notice_Question(GtkButtonsType buttons, const char *title, const char *question, const char *msg_fmt, ...) __attribute__((format(printf, 4, 5)));
-void Notice_Deferred(GtkButtonsType buttons, const char *title, const char *msg_fmt, ...) __attribute__((format(printf, 3, 4)));
 gboolean Nec2_Save_Warn(const gchar *mesg);
 int Load_Line(char *buff, FILE *pfile);
 int xnec2c_num_procs(void);

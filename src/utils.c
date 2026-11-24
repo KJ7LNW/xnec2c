@@ -348,51 +348,6 @@ int Notice_Question(GtkButtonsType buttons, const char *title,
 	return response;
 }
 
-/* Deferred Notice — formatted message delivered after current GTK
- * event processing completes, avoiding re-entrant main loop corruption
- * when called from draw callbacks. */
-
-typedef struct
-{
-	GtkButtonsType buttons;
-	char title[128];
-	char *message;
-} deferred_notice_t;
-
-static void _deferred_notice_cb(gpointer user_data)
-{
-	deferred_notice_t *dn = (deferred_notice_t *)user_data;
-	Notice(dn->buttons, dn->title, "%s", dn->message);
-	mem_free(&dn->message);
-	mem_free(&dn);
-}
-
-/**
- * Notice_Deferred() - schedule a Notice dialog after the current event
- * @buttons:  GTK button type (e.g., GTK_BUTTONS_OK)
- * @title:    dialog title
- * @msg_fmt:  printf-style format string
- *
- * Identical interface to Notice() but defers display via g_idle_add_once.
- * Safe to call from draw callbacks and render paths.
- */
-void Notice_Deferred(GtkButtonsType buttons, const char *title,
-	const char *msg_fmt, ...)
-{
-	deferred_notice_t *dn = NULL;
-	mem_new(&dn);
-
-	dn->buttons = buttons;
-	snprintf(dn->title, sizeof(dn->title), "%s", title);
-
-	va_list args;
-	va_start(args, msg_fmt);
-	dn->message = notice_format_message(msg_fmt, args);
-	va_end(args);
-
-	g_idle_add_once(_deferred_notice_cb, dn);
-}
-
 /*------------------------------------------------------------------------*/
 
 /* Does the STOP function of fortran but with a warning dialog */
