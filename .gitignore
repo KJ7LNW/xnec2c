@@ -82,6 +82,9 @@ Makefile
 # generated example-gallery renders (packaged from wildcard, kept out of git)
 /doc/images/gallery/
 
+# generated from doc/xnec2c.html by "scripts/doc/doc_assets_fragment.py"
+/doc/doc_assets.am
+
 # built on demand by "scripts/doc/doc_diff_preview.py"
 /.venv/
 

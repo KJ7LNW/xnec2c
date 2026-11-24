@@ -1184,6 +1184,20 @@ libtoolize_needed () {
 
 
 
+######################################
+# generate the manual asset fragment #
+######################################
+# Makefile.am includes doc/doc_assets.am, so automake reads it before any
+# make rule can write it; the Makefile.am rule rewrites it whenever the
+# manual changes.
+if ( cd "$PATH_TO_AUTOGEN" && scripts/doc/doc_assets_fragment.py doc/doc_assets.am ) ; then
+    $VERBOSE_ECHO "Generated doc/doc_assets.am from doc/xnec2c.html"
+else
+    $ECHO "ERROR: scripts/doc/doc_assets_fragment.py could not write doc/doc_assets.am"
+    exit 1
+fi
+
+
 ############################################
 # prepare build via autoreconf or manually #
 ############################################

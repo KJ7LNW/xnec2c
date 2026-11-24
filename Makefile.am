@@ -53,6 +53,7 @@ EXTRA_DIST += MAINTAINER
 EXTRA_DIST += README.md
 EXTRA_DIST += NOTICE
 EXTRA_DIST += PACKAGING
+EXTRA_DIST += INSTALL.OPENBSD
 
 EXTRA_DIST += m4-include/ax_check_compile_flag.m4
 EXTRA_DIST += m4-include/pkg.m4
@@ -130,36 +131,20 @@ dist_doc_DATA += doc/nec2c.txt
 dist_doc_DATA += doc/TRANSLATING.md
 dist_doc_DATA += doc/xnec2c.html
 
+# Install the web heading artwork and its editable source, which the manual
+# itself does not reference.
 docimagesdir = $(docdir)/images
 dist_docimages_DATA  =
-dist_docimages_DATA += doc/images/currents.png
-dist_docimages_DATA += doc/images/excitation.png
-dist_docimages_DATA += doc/images/freq_plots.png
-dist_docimages_DATA += doc/images/nec2_edit.png
-dist_docimages_DATA += doc/images/radiation.png
 dist_docimages_DATA += doc/images/web-heading.png
 dist_docimages_DATA += doc/images/web-heading.xcf
-dist_docimages_DATA += doc/images/wire.png
 
-doccssdir = $(docdir)/css
-dist_doccss_DATA  =
-dist_doccss_DATA += doc/css/gallery.css
-dist_doccss_DATA += doc/css/gallery-controls.css
-dist_doccss_DATA += doc/css/gallery-nec.css
-dist_doccss_DATA += doc/css/gallery-zoom.css
-dist_doccss_DATA += doc/css/mobile-styles.css
-
-docjsdir = $(docdir)/js
-dist_docjs_DATA  =
-dist_docjs_DATA += doc/js/gallery.js
-dist_docjs_DATA += doc/js/gallery-events.js
-dist_docjs_DATA += doc/js/gallery-launch.js
-dist_docjs_DATA += doc/js/gallery-nec.js
-dist_docjs_DATA += doc/js/gallery-render.js
-dist_docjs_DATA += doc/js/gallery-view.js
-dist_docjs_DATA += doc/js/gallery-warm.js
-dist_docjs_DATA += doc/js/gallery-warm-queue.js
-dist_docjs_DATA += doc/js/mobile-menu.js
+# Ship and install every file the manual references. The generator reads that
+# membership from the manual, and automake re-reads the fragment whenever the
+# rule below rewrites it.
+include $(srcdir)/doc/doc_assets.am
+$(srcdir)/doc/doc_assets.am: $(srcdir)/doc/xnec2c.html $(srcdir)/scripts/doc/doc_assets_fragment.py
+	$(AM_V_GEN)cd $(srcdir) && scripts/doc/doc_assets_fragment.py doc/doc_assets.am
+EXTRA_DIST += scripts/doc/doc_assets_fragment.py
 
 # Mark the manual's working-tree changes against a git revision, write the
 # resulting page beside the manual so its image references resolve, and open it
@@ -301,6 +286,7 @@ nobase_dist_pkgdata_DATA += examples/40m-moxon.nec
 
 nobase_dist_pkgdata_DATA += examples/5el_yagi_SY_parametric.nec
 nobase_dist_pkgdata_DATA += examples/5el_yagi_SY_parametric.opt
+nobase_dist_pkgdata_DATA += examples/5el_yagi_SY_parametric.sy
 
 nobase_dist_pkgdata_DATA += examples/6-17m_bipyramid.nec
 
@@ -347,7 +333,7 @@ nobase_dist_pkgdata_DATA += examples/satellite.nec
 # Ensure that the above nobase_dist_pkgdata_DATA list is consistent
 # with the files existing in the $(srcdir)/examples directory tree.
 # Root-level examples/*.csv are program-generated outputs (see .gitignore
-# rule /examples/*.csv) and are excluded, as are *.sy/*.SY source cards;
+# rule /examples/*.csv) and are excluded;
 # committed reference data under examples/data/*.csv stays in the list.
 CLEANFILES += examples-automake.lst
 CLEANFILES += examples-srcdir.lst
@@ -452,7 +438,7 @@ gallery: refresh-example-gallery
 # Prove deck registration: the examples/ tree matches the automake dist list.
 check-deck:
 	@for f in $(nobase_dist_pkgdata_DATA); do echo "$$f"; done | sort > examples-automake.lst
-	@(cd $(srcdir) && find examples -type f -not -name '*.sy' -not -name '*.SY' -not \( -path 'examples/*.csv' ! -path 'examples/*/*.csv' \)) | sort > examples-srcdir.lst
+	@(cd $(srcdir) && find examples -type f -not \( -path 'examples/*.csv' ! -path 'examples/*/*.csv' \)) | sort > examples-srcdir.lst
 	@if cmp examples-automake.lst examples-srcdir.lst > /dev/null; then :; else \
 	  echo "Error: Makefile.am nobase_dist_pkgdata_DATA and examples/ dir are inconsistent:"; \
 	  diff examples-automake.lst examples-srcdir.lst | grep -v '^[0-9]'; \
