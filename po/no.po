@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -91,6 +91,19 @@ msgstr "Topp_størrelse"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Nærfeltanimasjon"
+
+# xnec2c-exempt: loanword
+#: resources/animate.glade:205
+msgid "Start"
+msgstr ""
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "Stopp"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "Lukk"
 
 #: resources/animate.glade:277
 msgid ""
@@ -181,7 +194,7 @@ msgstr "Visning"
 msgid "Flow direction:"
 msgstr "Strømretning:"
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "Patcher"
 
@@ -288,6 +301,7 @@ msgid "Color Quantization"
 msgstr "Fargekvantisering"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "Av"
 
@@ -779,6 +793,12 @@ msgstr ""
 "Rid et lyst hode på den momentane positive bølgetoppen, slik at "
 "bølgebevegelsen kan avleses langs hver tråd."
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr ""
+"<small><i>n = |z| / max|z|,  s = skalaens overføringsfunksjon,  φ = fase</"
+"i></small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "Tilbakestill"
@@ -791,9 +811,89 @@ msgstr ""
 "Gjenopprett fargeprojeksjonen, segmentskalaen, fargetonen, lysstyrkegulvet "
 "og alle familieparametere til standardverdiene."
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "Kantutjevning (MSAA)"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "Struktur"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "Lysstyrke"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "Gjennomsiktighet"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "Segmenter"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "Strålingsdiagram"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "Overflate"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "Trådmodell"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "Nærfelt"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "Tegnestil"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "Begge"
+
+# xnec2c-exempt: loanword
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr ""
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "Jord"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "Akser"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Bare visuelt — påvirker ikke NEC2-modellberegninger."
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "Gjennomsiktighet bare ved klikk"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "Ortografisk projeksjon"
+
+# xnec2c-exempt: loanword
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr ""
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "Begrenset rotasjon"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -812,13 +912,102 @@ msgid "Rendering Settings"
 msgstr "Gjengivelsesinnstillinger"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "_Lukk"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "Symboloverstyringer"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "Optimalisering"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "Algoritme:"
+
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr "Simpleks"
+
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr "Partikkelsverm"
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "Avansert"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "Felles innstillinger"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "Antall iterasjoner uten forbedring:"
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "toleranse:"
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "Maksimalt antall iterasjoner:"
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "Innstillinger for simpleks"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "Simpleksstørrelser:"
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "Minste størrelse:"
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "Temperatur:"
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "Innstillinger for partikkelsverm"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "Partikler:"
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "Naboer:"
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "Treghet:"
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "Kognitiv:"
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "Sosial:"
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "Søkestørrelse:"
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "Start optimalisering"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "Avbryt optimalisering"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1667,10 +1856,6 @@ msgstr "Trekant"
 msgid "Quadrilateral"
 msgstr "Firkant"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "Overflate"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "Patch-type"
@@ -2031,6 +2216,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "B_ytt venstre/høyre klikk-frekvensvalg"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "Maks forsterkning"
 
@@ -2468,7 +2654,7 @@ msgstr ""
 "Forsterkning i retning av strukturvisningen, for gjeldende visningsvinkler."
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "Forsterkning"
 
@@ -3751,7 +3937,7 @@ msgstr ""
 msgid "Gain Direction"
 msgstr "Forsterkningsretning"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "Visningsforsterkning"
 
@@ -3854,6 +4040,15 @@ msgstr "minneallokering for punkter feilet\n"
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():Minneallokering for punkter feilet"
+
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
+"min:%.2f\n"
+"maks:%.2f"
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -5094,6 +5289,10 @@ msgstr ""
 "Kommandodatakortfeil\n"
 "Mnemonisk kode er for kort eller mangler"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "kommandodata"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -5128,6 +5327,10 @@ msgid ""
 msgstr ""
 "Geometridatakortfeil\n"
 "Kortets mnemoniske kode er for kort eller mangler"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "geometridata"
 
 #: src/interface.c:138
 #, c-format
@@ -5190,6 +5393,10 @@ msgstr ""
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: kunne ikke laste animate.glade: %s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "ingen (ingen visning)"
 
 #: src/main.c:129
 #, c-format
@@ -5380,6 +5587,80 @@ msgstr "%s: ytelsestest=%d\n"
 #: src/mathlib.c:830
 msgid "Mathlib Help"
 msgstr "Mathlib-hjelp"
+
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"Akselererte matematikkbiblioteker som ATLAS, OpenBLAS og Intel MKL kan gjøre "
+"elektromagnetiske simuleringer i xnec2c raskere dersom de er tilgjengelige "
+"på plattformen din. Detaljer om hvilke biblioteker som ble funnet, vises i "
+"terminalen.\n"
+"\n"
+"* Det valgte \"Interaktive\" matematikkbiblioteket brukes når frekvensen "
+"endres i brukergrensesnittet med kontrollen Frekvens MHz +/- eller ved å "
+"klikke eller høyreklikke på frekvensdiagrammet\n"
+"\n"
+"* Det valgte matematikkbiblioteket for \"Batch\" brukes når -j angis på "
+"kommandolinjen for å starte flere jobber parallelt via fork.\n"
+"\n"
+"For Intel-biblioteker kan bare ett bibliotek velges om gangen. Når et Intel "
+"MKL-bibliotek er brukt til elektromagnetiske beregninger, er de andre Intel-"
+"bibliotekvalgene låst frem til omstart. Siden xnec2c husker sist valgte "
+"bibliotek, kan det aktiveres når en .NEC-fil åpnes, og låse de andre "
+"valgene. For å unngå dette kan du lukke xnec2c og starte det på nytt uten å "
+"åpne en .NEC-fil (og uten å angi en .NEC-fil på kommandolinjen) slik at du "
+"kan endre bibliotekvalget.\n"
+"\n"
+"\n"
+"== Matematikkbiblioteker etter distribusjon ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Du må kanskje bruke `alternatives` for å velge\n"
+"    openblas-implementasjon. Enkelte kombinasjoner av BLAS/LAPACK\n"
+"    fungerer ikke nødvendigvis sammen:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  openSUSE støtter ikke ATLAS offisielt, så bygg fra kildekoden\n"
+"\n"
+"Teksten er tilgjengelig i terminalen slik at du kan kopiere og lime den "
+"inn.\n"
 
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
@@ -5585,10 +5866,33 @@ msgstr "Starter referansemåling for %s (%s %d)\n"
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "Referansemålingssveip ble ikke kjørt: FR_cards=%d steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f sekunder (%s %2d) %c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "målt én gang: dette biblioteket beholder trådantallet det ble bygget med"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"Raskeste matematikkbibliotek: %s (%s %d): %f sekunder\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"Ingen resultater funnet? Dette er en programfeil."
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5654,6 +5958,86 @@ msgstr "Symmetrifeil"
 msgid "Solving Failed: %d\n"
 msgstr "Løsning feilet: %d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "Fest til nærmeste punkt"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "Interpoler"
+
+#: src/measurements.c:12
+msgid "Formula"
+msgstr "Formel"
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "Galaktisk"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "G4CQM minimum ved lavt støynivå (før 2016)"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "VK3UM minimum ved lavt støynivå (før 2016)"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "VE7BQH grunnreferanse (før 2018)"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "Galaktisk P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "DG7YBN galaktisk gjennomsnitt (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "Syntetisk praktisk gjennomsnitt (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "Syntetisk minimum ved lavt støynivå (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "Egendefinert"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "ITU-R næringsområde (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "ITU-R boligområde (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "ITU-R landlig område (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "ITU-R landlig område med lavt støynivå (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "G4CQM blandet (før 2016)"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "DG7YBN landlig område (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "DG7YBN boligområde (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "DG7YBN byområde (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
@@ -5662,6 +6046,78 @@ msgid ""
 msgstr ""
 "noise_temp_resolve: noise_temp-tabell ikke tildelt; t_sky/t_earth "
 "standardisert til 0\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "Realdel av Z"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "Imaginærdel av Z"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "Størrelse av Z"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "Fase for Z"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "Realdel av S11"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "Imaginærdel av S11"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "Vinkel for S11"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "Nettoforsterkning"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "Forsterkningens tetavinkel"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "Forsterkningens fivinkel"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "Nettoforsterkning i visningsretningen"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "F/B-forhold"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "Forsterkningsretningens avvik fra +X"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "Forsterkningsretningens avvik fra −X"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "Forsterkningsretningens avvik fra +Y"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "Forsterkningsretningens avvik fra −Y"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "Forsterkningsretningens avvik fra +Z"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "Forsterkningsretningens avvik fra −Z"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5682,6 +6138,158 @@ msgstr "Virkningsgrad for gjennomsnittlig forsterkning"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "Dekning for gjennomsnittlig forsterkning"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "Frekvens i MHz (uavhengig variabel)"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "Realdel av matepunktimpedansen (ohm)"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "Imaginærdel av matepunktimpedansen (ohm)"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "Størrelse av matepunktimpedansen (ohm)"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "Fasevinkel for matepunktimpedansen (grader)"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "Stående bølgeforhold for spenning (1,0 = perfekt tilpasning)"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr "Returtap i dB (mer negativt = bedre tilpasning)"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "Realdel av S11 i dB"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "Imaginærdel av S11 i dB"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "Fasevinkel for refleksjonskoeffisienten (grader)"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "Største forsterkning over alle vinkler i dBi"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr "Største forsterkning korrigert for mistilpasningstap, i dBi"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "Elevasjonsvinkel ved største forsterkning (grader over horisonten)"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "Asimutvinkel ved største forsterkning (grader)"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "Forsterkning i gjeldende visningsretning i dBi"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr ""
+"Forsterkning i visningsretningen korrigert for mistilpasningstap, i dBi"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "Forhold mellom forsterkning forover og rett bakover i dB"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr ""
+"Vinkelavvik fra +X-aksen til retningen med størst forsterkning (grader)"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr ""
+"Vinkelavvik fra -X-aksen til retningen med størst forsterkning (grader)"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr ""
+"Vinkelavvik fra +Y-aksen til retningen med størst forsterkning (grader)"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr ""
+"Vinkelavvik fra -Y-aksen til retningen med størst forsterkning (grader)"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr ""
+"Vinkelavvik fra +Z-aksen til retningen med størst forsterkning (grader)"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr ""
+"Vinkelavvik fra -Z-aksen til retningen med størst forsterkning (grader)"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr "Antennens støytemperatur Ta fra himmelens og grunnens lysstyrke (K)"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr "Systemets totale støytemperatur TA med ohmsk tap (K)"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr "Forhold mellom forsterkning og antennetemperatur (dB), uten tap"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr "Antall desimalsifre som går tapt i antenneberegningen"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr ""
+"Forhold mellom forsterkning forover og bakover i dB ved elevasjonen for "
+"største forsterkning, med bakre sektor mer enn 90 grader unna i asimut"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr ""
+"Forhold mellom forsterkning forover og bakover i dB over alle retninger bak "
+"retningen med størst forsterkning"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr ""
+"Gjennomsnittlig effektforsterkning som lineært forhold over romvinkelen som "
+"dekkes av strålingsdiagrammets rutenett"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr ""
+"Gjennomsnittlig effektforsterkning ganget med den samplede andelen av kulen, "
+"uttrykt i prosent"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "Andel av hele kulen som dekkes av strålingsdiagrammets rutenett"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "Ukjent"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5845,6 +6453,11 @@ msgstr "Kunne ikke opprette cairo-overleggsbase\n"
 msgid "Shader declares no version directive: %s\n"
 msgstr "Shaderen erklærer ingen versjonsdirektiv: %s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "ukjent feil"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -5979,15 +6592,340 @@ msgstr "Lastet inn %d optimalisereringsmål\n"
 msgid "opt_file_load: %s\n"
 msgstr ""
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>minimize</b>: straffer <i>%s</i> over <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalisering)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (spenning: restgradient forbi "
+"målverdien)"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>maximize</b>: straffer <i>%s</i> under <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalisering)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (spenning: restgradient forbi "
+"målverdien)"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>deviate</b>: straffer avvik i <i>%s</i> fra <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"Ingen normalisering eller spenningsledd."
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>Ingen mål er aktivert</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimaliseringsalgoritmen minimerer F</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>Transformasjonsretninger</span>\n"
+"\n"
+"<b>minimize:</b> Lavere verdier er bedre\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Poengverdien nærmer seg null under målverdien; overskridelser "
+"straffes</i>\n"
+"\n"
+"<b>maximize:</b> Høyere verdier er bedre\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Poengverdien nærmer seg null over målverdien; dette gjelder både "
+"positive og negative målverdier</i>\n"
+"\n"
+"<b>deviate:</b> Sikt mot en bestemt verdi\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Straffer avvik fra målverdien; score=0 når value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduksjonsfunksjoner</span>\n"
+"\n"
+"<b>avg:</b> Gjennomsnittlig straff over frekvensbåndet\n"
+"    <i>Vekter alle frekvenser likt</i>\n"
+"\n"
+"<b>max:</b> Gir høyeste straff (verste frekvenspunkt)\n"
+"    <i>Optimaliseringsalgoritmen forbedrer den verste frekvensen først\n"
+"    \"Ingen punkter i båndet kan overskride X\"</i>\n"
+"\n"
+"<b>min:</b> Gir laveste straff (beste frekvenspunkt)\n"
+"    <i>Optimaliseringsalgoritmen forbedrer den beste frekvensen og ser bort "
+"fra de andre\n"
+"    Sjelden nyttig (gir en smalbåndet løsning)</i>\n"
+"\n"
+"<b>diff:</b> Gir spennvidden i straffen (variasjonen)\n"
+"    <i>Gjør måleverdien jevn over frekvensbåndet\n"
+"    Bruk med gain_max for å få jevn forsterkning</i>\n"
+"\n"
+"<b>sum:</b> Summen av straffene over alle frekvenser\n"
+"    <i>Vektlegger den samlede feilstørrelsen</i>\n"
+"\n"
+"<b>mag:</b> Kvadratisk middelverdi\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Vektlegger store avvik mer enn gjennomsnittet</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Mål for forsterkningsretning</span>\n"
+"\n"
+"Målene gain_dev_* angir vinkelavviket (i grader)\n"
+"mellom retningen med størst forsterkning og en koordinatakse.\n"
+"Bruk direction=minimize med en målverdi nær 0 for å styre strålen.\n"
+"\n"
+"    gain_dev_px: avvik fra +X-aksen\n"
+"    gain_dev_nx: avvik fra -X-aksen\n"
+"    gain_dev_py: avvik fra +Y-aksen\n"
+"    gain_dev_ny: avvik fra -Y-aksen\n"
+"    gain_dev_pz: avvik fra +Z-aksen (senit)\n"
+"    gain_dev_nz: avvik fra -Z-aksen (nadir)\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "Hjelp med målfunksjonen"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr ""
+"Viser gjeldende NEC2-verdi ved frekvensen som frekvensvelgeren er stilt inn "
+"på"
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "Angir målverdien for målingen"
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "Angir eksponenten som transformasjonsresultatet opphøyes i"
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "Angir faktoren som resultatet ganges med etter reduksjon"
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "Angir nedre frekvensgrense (tomt = alle frekvenser)"
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "Angir øvre frekvensgrense (tomt = alle frekvenser)"
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "Viser leddet i formelen for dette målet"
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "Beregnet: weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "Fjern dette målet"
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "Måling"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "Verdi"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "Transformer →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "Målverdi"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "Eksponent →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "Reduser →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "Vekt"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "Nedre grense i MHz"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "Øvre grense i MHz →"
+
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr "Formel →"
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "Poengverdi"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "Optimaliseringsalgoritmen minimerer denne verdien"
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ Legg til målstørrelse"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [Fullført]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui: optimalisering fullført, beste tilpasningsverdi: %.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "Optimalisering"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"Ingen variabler er merket for optimalisering.\n"
+"Merk variablene som skal optimaliseres i Opt.-kolonnen."
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"%d variabler har min >= max: %s\n"
+"Angi ulike minimums- og maksimumsverdier for hver variabel som optimaliseres."
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"Ingen optimaliseringsmål er aktivert.\n"
+"Merk minst én målstørrelse i tabellen over optimaliseringsmål."
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "Starter..."
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"Optimaliseringen kunne ikke starte.\n"
+"Se terminalen for detaljer."
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"Runde %d/%d  Iterasjon %d  Evalueringer %d  Målfunksjon %.6g  Best %.6g  "
+"Uten forbedring %d  Hurtigbuffer %d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -6111,6 +7049,75 @@ msgstr "kunne ikke opprette eventfd for å vekke optimaliseren\n"
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "kunne ikke opprette tråd for optimalisererens utdata\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "minimer poengverdien"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "maksimer poengverdien"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± målverdi"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Straffer verdier over målverdien; poengverdien nærmer seg null under "
+"målverdien"
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Straffer verdier under målverdien; poengverdien nærmer seg null over "
+"målverdien"
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Straffer avvik fra målverdien; score=0 når value = target"
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "Summerer poengverdiene fra alle frekvenstrinn i NEC2"
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr ""
+"Beregner gjennomsnittet av poengverdiene over alle frekvenstrinn i NEC2"
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "Velger den minste poengverdien blant alle frekvenstrinn"
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "Velger den største poengverdien blant alle frekvenstrinn"
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr ""
+"Kvadratroten av summen av de kvadrerte poengverdiene: sqrt(sum(score<sup>2</"
+"sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr "Forskjell mellom største og minste poengverdi over frekvenstrinnene"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6527,6 +7534,14 @@ msgstr "Støytemp. (log-skala)"
 msgid "Radiation Pattern: - "
 msgstr "Strålingsdiagram: - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - Himmel:"
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - Grunn:"
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Nærfelt:"
@@ -6552,7 +7567,15 @@ msgstr "Frekvensdataplott - "
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d er utenfor grensene. calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "Relativ"
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "Absolutt"
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: overflateopprettelse mislyktes (%dx%d)\n"
@@ -6615,6 +7638,30 @@ msgstr ""
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+rull: trådradius"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"OpenGL er ikke tilgjengelig på denne skjermen.\n"
+"Cairo brukes til tegning."
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"Programmet er bygd uten støtte for OpenGL.\n"
+"Cairo brukes til tegning."
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "Generelt"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "Farge"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6725,6 +7772,31 @@ msgstr "sy_save_overrides: kan ikke åpne %s for skriving: %s\n"
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "Lagret %d symboloverstyringer til %s\n"
 
+# xnec2c-exempt: loanword
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr ""
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "Overstyr"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "Opt."
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "Min."
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "Maks."
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "Uttrykk"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6734,6 +7806,14 @@ msgstr "sy_overrides_init: klarte ikke å laste glade: %s\n"
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: klarte ikke å hente kontrollelementer fra glade\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "Inndatasymboler"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "Beregnede symboler"
 
 #: src/sy_overrides.c:1486
 msgid ""

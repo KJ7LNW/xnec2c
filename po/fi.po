@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -89,6 +89,18 @@ msgstr "_Huippusuuruus"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Lähikentän animaatio"
+
+#: resources/animate.glade:205
+msgid "Start"
+msgstr "Käynnistä"
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "Pysäytä"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "Sulje"
 
 #: resources/animate.glade:277
 msgid ""
@@ -179,7 +191,7 @@ msgstr "Näyttö"
 msgid "Flow direction:"
 msgstr "Virtaussuunta:"
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "Patchit"
 
@@ -286,6 +298,7 @@ msgid "Color Quantization"
 msgstr "Värinkvantisaatio"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "Pois"
 
@@ -782,6 +795,12 @@ msgstr ""
 "Aseta kirkas pää hetkelliselle positiiviselle harjalle, jotta aallon liike "
 "näkyy jokaista johdinta pitkin."
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr ""
+"<small><i>n = |z| / max|z|,  s = skaalan siirtofunktio,  φ = vaihe</i></"
+"small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "Palauta"
@@ -794,9 +813,87 @@ msgstr ""
 "Palauta väriprojektio, segmenttiskaala, skaalaperhe, kirkkauden alaraja ja "
 "jokainen perheen parametri oletusarvoihinsa."
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "Reunojen pehmennys (MSAA)"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "Rakenne"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "Kirkkaus"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "Läpinäkyvyys"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "Segmentit"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "Säteilykuvio"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "Pinta"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "Rautalankamalli"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "Lähikenttä"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "Piirtotyyli"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "Molemmat"
+
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr "Näkymä"
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "Maataso"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "Akselit"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Vain visuaalinen — ei vaikuta NEC2-mallin laskelmiin."
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "Läpinäkyvyys vain napsautettaessa"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "Ortografinen projektio"
+
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr "Piirtäjä:"
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "Rajoitettu kierto"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -815,13 +912,102 @@ msgid "Rendering Settings"
 msgstr "Renderöintiasetukset"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "_Sulje"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "Symbolien ohitukset"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "Optimointi"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "Algoritmi:"
+
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr "Simpleksi"
+
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr "Hiukkasparvi"
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "Lisäasetukset"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "Yhteiset asetukset"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "Iteraatioita ilman parannusta:"
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "toleranssi:"
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "Iteraatioiden enimmäismäärä:"
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "Simpleksin asetukset"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "Simpleksin koot:"
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "Vähimmäiskoko:"
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "Lämpötila:"
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "Hiukkasparven asetukset"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "Hiukkaset:"
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "Naapurit:"
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "Inertiakerroin:"
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "Kognitiivinen kerroin:"
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "Sosiaalinen kerroin:"
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "Hakualueen koko:"
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "Käynnistä optimointi"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "Peruuta optimointi"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1669,10 +1855,6 @@ msgstr "Kolmio"
 msgid "Quadrilateral"
 msgstr "Nelikulmio"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "Pinta"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "Patch-tyyppi"
@@ -2032,6 +2214,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "Vaihda vasemman/oikean napsautuksen _taajuusvalinta"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "Maksimivahvistus"
 
@@ -2467,7 +2650,7 @@ msgid ""
 msgstr "Vahvistus rakenteen katselusuuntaan, nykyisillä katselukulmilla."
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "Vahvistus"
 
@@ -3751,7 +3934,7 @@ msgstr ""
 msgid "Gain Direction"
 msgstr "Vahvistuksen suunta"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "Katselusuunnan vahvistus"
 
@@ -3854,6 +4037,15 @@ msgstr "muistin varaus pisteille epäonnistui\n"
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():Muistin varaus pisteille epäonnistui"
+
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
+"pienin:%.2f\n"
+"suurin:%.2f"
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -5093,6 +5285,10 @@ msgstr ""
 "Komentotietokortin virhe\n"
 "Muistikoodi liian lyhyt tai puuttuu"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "komentotiedot"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -5127,6 +5323,10 @@ msgid ""
 msgstr ""
 "Geometriatietokortin virhe\n"
 "Kortin muistikoodi liian lyhyt tai puuttuu"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "geometriatiedot"
 
 #: src/interface.c:138
 #, c-format
@@ -5188,6 +5388,10 @@ msgstr ""
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.gladen lataus epäonnistui: %s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "ei mitään (ei näyttöä)"
 
 #: src/main.c:129
 #, c-format
@@ -5378,6 +5582,81 @@ msgstr "%s: suorituskykytesti=%d\n"
 #: src/mathlib.c:830
 msgid "Mathlib Help"
 msgstr "Matematiikkakirjaston ohje"
+
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"Kiihdytetyt matematiikkakirjastot, kuten ATLAS, OpenBLAS ja Intel MKL, "
+"voivat nopeuttaa xnec2c:n sähkömagneettisia simulointeja, jos kirjastot ovat "
+"saatavilla alustalla. Kirjastojen tunnistustiedot näkyvät päätteessä.\n"
+"\n"
+"* Valittua \"Vuorovaikutteinen\"-matematiikkakirjastoa käytetään, kun "
+"taajuutta muutetaan käyttöliittymän Taajuus MHz +/- -säätimellä tai "
+"napsauttamalla taajuuskuvaajaa hiiren painikkeella (myös oikealla "
+"painikkeella)\n"
+"\n"
+"* Valittua \"Eräajo\"-matematiikkakirjastoa käytetään, kun komentorivillä "
+"annetaan -j, joka käynnistää useita töitä rinnakkain fork-kutsulla.\n"
+"\n"
+"Intel-kirjastoista voi valita vain yhden kerrallaan.  Kun jotakin Intel MKL -"
+"matematiikkakirjastoa on käytetty sähkömagneettiseen laskentaan, muut Intel-"
+"kirjastovaihtoehdot lukittuvat uudelleenkäynnistykseen asti.  xnec2c muistaa "
+"aiemmin valitun kirjaston, joten .NEC-tiedoston avaaminen voi ottaa "
+"kirjaston käyttöön ja lukita muut vaihtoehdot.  Vaihda valintaa sulkemalla "
+"xnec2c ja käynnistämällä se uudelleen avaamatta .NEC-tiedostoa (ja "
+"antamatta .NEC-tiedostoa komentorivillä).\n"
+"\n"
+"\n"
+"== Matematiikkakirjastot jakeluittain ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    openblas-toteutuksen valintaan voi olla tarpeen käyttää `alternatives`-"
+"työkalua.\n"
+"    Jotkin BLAS/LAPACK-yhdistelmät toimivat yhdessä,\n"
+"    toiset eivät:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  openSUSE ei tue ATLAS-kirjastoa virallisesti, joten käännä se "
+"lähdekoodista\n"
+"\n"
+"Teksti on kopioitavissa ja liitettävissä päätteestä.\n"
 
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
@@ -5591,10 +5870,33 @@ msgstr "Käynnistetään %s-vertailu (%s %d)\n"
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "Vertailupyyhkäisyä ei suoritettu: FR_cards=%d steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f sekuntia (%s %2d) %c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "mitattu kerran: tämä kirjasto säilyttää käännöksessä käytetyn säiemäärän"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"Paras matematiikkakirjasto: %s (%s %d): %f sekuntia\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"Eikö tulosta löytynyt?  Kyseessä on ohjelmavirhe."
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5663,6 +5965,86 @@ msgstr "Symmetriavirhe"
 msgid "Solving Failed: %d\n"
 msgstr "Ratkaisu epäonnistui: %d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "Kohdista lähimpään"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "Interpoloi"
+
+#: src/measurements.c:12
+msgid "Formula"
+msgstr "Kaava"
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "Galaktinen"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "G4CQM, hiljainen minimi (ennen vuotta 2016)"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "VK3UM, hiljainen minimi (ennen vuotta 2016)"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "VE7BQH, perusvertailuarvo (ennen vuotta 2018)"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "Galaktinen P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "DG7YBN, galaktinen keskiarvo (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "Synteettinen käytännön keskiarvo (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "Synteettinen hiljainen minimi (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "Mukautettu"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "ITU-R, liikealue (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "ITU-R, asuinalue (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "ITU-R, maaseutu (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "ITU-R, hiljainen maaseutu (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "G4CQM, yhdistelmä (ennen vuotta 2016)"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "DG7YBN, maaseutu (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "DG7YBN, asuinalue (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "DG7YBN, kaupunki (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
@@ -5671,6 +6053,78 @@ msgid ""
 msgstr ""
 "noise_temp_resolve: noise_temp-taulukkoa ei varattu; t_sky/t_earth "
 "oletuksena 0\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "Z:n reaaliosa"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "Z:n imaginaariosa"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "Z:n suuruus"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "Z:n vaihe"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "S11:n reaaliosa"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "S11:n imaginaariosa"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "S11:n kulma"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "Nettovahvistus"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "Vahvistuksen theetakulma"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "Vahvistuksen fiikulma"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "Katselusuunnan nettovahvistus"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "F/B-suhde"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "Vahvistussuunnan poikkeama +X-akselista"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "Vahvistussuunnan poikkeama −X-akselista"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "Vahvistussuunnan poikkeama +Y-akselista"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "Vahvistussuunnan poikkeama −Y-akselista"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "Vahvistussuunnan poikkeama +Z-akselista"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "Vahvistussuunnan poikkeama −Z-akselista"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5691,6 +6145,152 @@ msgstr "Keskimääräisen vahvistuksen hyötysuhde"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "Keskimääräisen vahvistuksen kattavuus"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "Taajuus megahertseinä (MHz, riippumaton muuttuja)"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "Herätepisteen impedanssin reaaliosa (ohmeina)"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "Herätepisteen impedanssin imaginaariosa (ohmeina)"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "Herätepisteen impedanssin suuruus (ohmeina)"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "Herätepisteen impedanssin vaihekulma (asteina)"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "Jännitteen seisovan aallon suhde (1.0 = täydellinen sovitus)"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr "Paluuhäviö (dB, negatiivisempi arvo = parempi sovitus)"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "S11:n reaaliosa (dB)"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "S11:n imaginaariosa (dB)"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "Heijastuskertoimen vaihekulma (asteina)"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "Huippuvahvistus kaikista suunnista (dBi)"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr "Huippuvahvistus sovitushäviö huomioiden (dBi)"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "Huippuvahvistuksen korkeuskulma (asteina horisontin yläpuolella)"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "Huippuvahvistuksen atsimuuttikulma (asteina)"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "Vahvistus nykyisessä katselusuunnassa (dBi)"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr "Katselusuunnan vahvistus sovitushäviö huomioiden (dBi)"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "Etu-takasuhde (dB)"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr "Huippuvahvistuksen kulmapoikkeama +X-akselista (asteina)"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr "Huippuvahvistuksen kulmapoikkeama -X-akselista (asteina)"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr "Huippuvahvistuksen kulmapoikkeama +Y-akselista (asteina)"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr "Huippuvahvistuksen kulmapoikkeama -Y-akselista (asteina)"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr "Huippuvahvistuksen kulmapoikkeama +Z-akselista (asteina)"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr "Huippuvahvistuksen kulmapoikkeama -Z-akselista (asteina)"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr "Antennin kohinalämpötila Ta taivaan ja maaperän kirkkaudesta (K)"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr ""
+"Järjestelmän kokonaiskohinalämpötila TA ohminen häviö mukaan luettuna (K)"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr "Vahvistuksen suhde antennin lämpötilaan (dB), ilman häviötä"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr "Antennin laskennassa menetetyt merkitsevät desimaalinumerot"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr ""
+"Etu-taka-alueen suhde (dB) huippuvahvistuksen korkeuskulmassa, taka-alueen "
+"atsimuuttipoikkeama yli 90 astetta"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr ""
+"Etu-taka-alueen suhde (dB) kaikista huippuvahvistuksen suunnan taakse "
+"jäävistä suunnista"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr ""
+"Keskimääräinen tehovahvistus lineaarisena suhteena säteilykuvion näyteverkon "
+"kattamalla avaruuskulmalla"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr ""
+"Keskimääräinen tehovahvistus kerrottuna näytteistetyn pallon osuudella, "
+"prosentteina"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "Säteilykuvion näyteverkon kattama osuus koko pallosta"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "Tuntematon"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5854,6 +6454,11 @@ msgstr "Cairo-peitekerroksen pohjan luonti epäonnistui\n"
 msgid "Shader declares no version directive: %s\n"
 msgstr "Varjostin ei ilmoita version-direktiiviä: %s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "tuntematon virhe"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -5986,15 +6591,339 @@ msgstr "Ladattu %d optimointitavoitetta\n"
 msgid "opt_file_load: %s\n"
 msgstr ""
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>minimoi</b>: lisää rangaistuksen, kun <i>%s</i> ylittää arvon <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalisointi)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (jännitys: tavoitearvon toiselle "
+"puolelle jäävä gradientti)"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>maksimoi</b>: lisää rangaistuksen, kun <i>%s</i> alittaa arvon <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalisointi)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (jännitys: tavoitearvon toiselle "
+"puolelle jäävä gradientti)"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>poikkeama</b>: lisää rangaistuksen, kun <i>%s</i> poikkeaa arvosta <b>%s</"
+"b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"Ei normalisointia eikä jännitystermiä."
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>Ei käytössä olevia tavoitteita</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimoija minimoi arvon F</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>Muunnossuunnat</span>\n"
+"\n"
+"<b>minimoi:</b> Pienemmät arvot ovat parempia\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Pistemäärä lähestyy nollaa tavoitteen alapuolella; tavoitteen "
+"ylityksestä seuraa rangaistus</i>\n"
+"\n"
+"<b>maksimoi:</b> Suuremmat arvot ovat parempia\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Pistemäärä lähestyy nollaa tavoitteen yläpuolella; toimii "
+"positiivisilla ja negatiivisilla tavoitearvoilla</i>\n"
+"\n"
+"<b>poikkeama:</b> Tavoitellaan tiettyä arvoa\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Tavoitteesta poikkeamisesta seuraa rangaistus; score=0, kun value = "
+"target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Koontifunktiot</span>\n"
+"\n"
+"<b>avg:</b> Kaistan keskimääräinen rangaistus\n"
+"    <i>Painottaa kaikkia taajuuksia yhtä paljon</i>\n"
+"\n"
+"<b>max:</b> Palauttaa suurimman rangaistuksen (huonoin taajuuspiste)\n"
+"    <i>Optimoija parantaa ensin huonointa taajuuspistettä\n"
+"    \"Yksikään kaistan piste ei voi ylittää arvoa X\"</i>\n"
+"\n"
+"<b>min:</b> Palauttaa pienimmän rangaistuksen (paras taajuuspiste)\n"
+"    <i>Optimoija parantaa parasta taajuuspistettä ja jättää muut huomiotta\n"
+"    Harvoin hyödyllinen (tuottaa kapeakaistaisen ratkaisun)</i>\n"
+"\n"
+"<b>diff:</b> Palauttaa rangaistusten vaihteluvälin leveyden (vaihtelu)\n"
+"    <i>Tasoittaa mittarin arvon koko kaistalla\n"
+"    Käytä yhdessä gain_max-mittarin kanssa vahvistuksen tasoittamiseen</i>\n"
+"\n"
+"<b>sum:</b> Rangaistusten summa kaikilla taajuuksilla\n"
+"    <i>Korostaa kokonaisvirheen suuruutta</i>\n"
+"\n"
+"<b>mag:</b> Neliöllisen keskiarvon neliöjuuri\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Painottaa suuria poikkeamia enemmän kuin keskiarvo</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Vahvistussuunnan mittarit</span>\n"
+"\n"
+"gain_dev_*-mittarit mittaavat kulmapoikkeaman (asteina)\n"
+"huippuvahvistuksen suunnan ja koordinaattiakselin välillä.\n"
+"Suuntaa keila asettamalla direction=minimize ja tavoite lähelle arvoa 0.\n"
+"\n"
+"    gain_dev_px: poikkeama +X-akselista\n"
+"    gain_dev_nx: poikkeama -X-akselista\n"
+"    gain_dev_py: poikkeama +Y-akselista\n"
+"    gain_dev_ny: poikkeama -Y-akselista\n"
+"    gain_dev_pz: poikkeama +Z-akselista (zeniitti)\n"
+"    gain_dev_nz: poikkeama -Z-akselista (nadiiri)\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "Soveltuvuuskaavan ohje"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr "Nykyinen NEC2-arvo taajuussäätimen osoittamalla taajuudella"
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "Mittauksen tavoitearvo"
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "Eksponentti, johon muunnoksen tulos korotetaan"
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "Kerroin, jota käytetään koonnin jälkeen"
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "Taajuuden alaraja (tyhjä = kaikki taajuudet)"
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "Taajuuden yläraja (tyhjä = kaikki taajuudet)"
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "Tämän tavoitteen termi kaavassa"
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "Lasketaan näin: weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "Poista tämä tavoite"
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "Mittaus"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "Arvo"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "Muunnos →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "Tavoitearvo"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "Eksponentti →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "Koonti →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "Paino"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "Alaraja (MHz)"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "Yläraja (MHz) →"
+
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr "Kaava →"
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "Pistemäärä"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "Optimoija minimoi tämän arvon"
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ Lisää mittari"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [Valmis]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui: optimointi valmis, paras sopivuus: %.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "Optimointi"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"Yhtään muuttujaa ei ole merkitty optimoitavaksi.\n"
+"Merkitse optimoitavat muuttujat Optimoi-sarakkeessa."
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"Ehto min >= max täyttyy %d muuttujalla: %s\n"
+"Aseta jokaiselle optimoitavalle muuttujalle eri vähimmäis- ja enimmäisarvot."
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"Yhtään soveltuvuustavoitetta ei ole käytössä.\n"
+"Valitse vähintään yksi mittari Soveltuvuustavoitteet-taulukosta."
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "Käynnistetään…"
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"Optimointi ei käynnistynyt.\n"
+"Katso lisätiedot päätteestä."
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"Kierros %d/%d  Iteraatio %d  Arviointeja %d  Soveltuvuus %.6g  Paras %.6g  "
+"Ei parannusta %d  Välimuisti %d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -6121,6 +7050,72 @@ msgstr "optimoijan herätys-eventfd:n luominen epäonnistui\n"
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "Optimoijan tulostesäikeen luominen epäonnistui\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "minimoi pistemäärä"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "maksimoi pistemäärä"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± tavoitearvo"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Tavoitteen ylittävistä arvoista seuraa rangaistus; pistemäärä lähestyy "
+"nollaa tavoitteen alapuolella"
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Tavoitteen alittavista arvoista seuraa rangaistus; pistemäärä lähestyy "
+"nollaa tavoitteen yläpuolella"
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Tavoitteesta poikkeamisesta seuraa rangaistus; score=0, kun value = target"
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "Laskee yhteen kaikkien NEC2-taajuusaskelten pistemäärät"
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr "Laskee kaikkien NEC2-taajuusaskelten pistemäärien keskiarvon"
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "Valitsee pienimmän pistemäärän kaikilta taajuusaskelilta"
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "Valitsee suurimman pistemäärän kaikilta taajuusaskelilta"
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr "Pistemäärien neliöiden summan neliöjuuri: sqrt(sum(score<sup>2</sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr "Taajuusaskelten suurimman ja pienimmän pistemäärän erotus"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6539,6 +7534,14 @@ msgstr "Kohinalämpötila (log-asteikko)"
 msgid "Radiation Pattern: - "
 msgstr "Säteilykuvio: - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - Taivas:"
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - Maaperä:"
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Lähikentät:"
@@ -6564,7 +7567,15 @@ msgstr "Taajuustietokuvaajat - "
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d on rajojen ulkopuolella. calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "Suhteellinen"
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "Absoluuttinen"
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: surface-luonti epäonnistui (%dx%d)\n"
@@ -6626,6 +7637,30 @@ msgstr "Optimointisilmukka kesken, ohitetaan välivaiheen uudelleenpiirto.\n"
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+vieritys: langan säde"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"OpenGL ei ole käytettävissä tällä näytöllä.\n"
+"Piirtäjänä on Cairo."
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"Ohjelma on käännetty ilman OpenGL-tukea.\n"
+"Piirtäjänä on Cairo."
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "Yleiset"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "Väri"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6737,6 +7772,30 @@ msgstr ""
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "Tallennettu %d symbolien ohitusta kohteeseen %s\n"
 
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr "Symboli"
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "Korvaus"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "Optimoi"
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "Vähimmäisarvo"
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "Enimmäisarvo"
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "Lauseke"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6746,6 +7805,14 @@ msgstr "sy_overrides_init: gladen lataus epäonnistui: %s\n"
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: widgettien haku gladesta epäonnistui\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "Syötesymbolit"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "Lasketut symbolit"
 
 #: src/sy_overrides.c:1486
 msgid ""

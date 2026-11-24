@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -91,6 +91,18 @@ msgstr "Vrhovna _amplituda"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Animacija bližnjega polja"
+
+#: resources/animate.glade:205
+msgid "Start"
+msgstr "Začni"
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "Ustavi"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "Zapri"
 
 #: resources/animate.glade:277
 msgid ""
@@ -180,7 +192,7 @@ msgstr "Prikaz"
 msgid "Flow direction:"
 msgstr "Smer toka:"
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "Patch"
 
@@ -287,6 +299,7 @@ msgid "Color Quantization"
 msgstr "Barvna kvantizacija"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "Izklopljeno"
 
@@ -754,6 +767,11 @@ msgstr ""
 "Popelji svetlo glavo po trenutnem pozitivnem grebenu, tako da je gibanje "
 "vala vidno vzdolž vsake žice."
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr ""
+"<small><i>n = |z| / max|z|,  s = preslikava lestvice,  φ = faza</i></small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "Ponastavi"
@@ -766,9 +784,87 @@ msgstr ""
 "Obnovi barvno projekcijo, merilo segmenta, družino lestvice, spodnjo mejo "
 "svetlosti in vse parametre družine na privzete vrednosti."
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "Glajenje robov (MSAA)"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "Struktura"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "Svetlost"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "Prosojnost"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "Segmenti"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "Sevalni diagram"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "Površina"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "Žičnati prikaz"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "Bližnje polje"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "Slog izrisa"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "Oboje"
+
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr "Prizor"
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "Masa"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "Osi"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Samo vizualno — ne vpliva na izračune modela NEC2."
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "Prosojnost samo ob kliku"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "Ortografska projekcija"
+
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr "Izrisovalnik:"
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "Omejeno vrtenje"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -787,13 +883,102 @@ msgid "Rendering Settings"
 msgstr "Nastavitve upodabljanja"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "_Zapri"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "Preglasitve simbolov"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "Optimizacija"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "Algoritem:"
+
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr "Simpleks"
+
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr "Roj delcev"
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "Napredno"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "Skupne nastavitve"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "Število ponovitev brez izboljšanja:"
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "toleranca:"
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "Največje število iteracij:"
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "Nastavitve simpleksa"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "Velikosti simpleksa:"
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "Najmanjša velikost:"
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "Temperatura:"
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "Nastavitve roja delcev"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "Delci:"
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "Sosedi:"
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "Vztrajnost:"
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "Kognitivni faktor:"
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "Socialni faktor:"
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "Obseg iskanja:"
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "Začni optimizacijo"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "Prekliči optimizacijo"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1629,10 +1814,6 @@ msgstr "Trikotnik"
 msgid "Quadrilateral"
 msgstr "Štirikotnik"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "Površina"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "Tip patcha"
@@ -1991,6 +2172,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "Z_amenjaj izbiro frekvence z levim/desnim klikom"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "Maks. ojačitev"
 
@@ -2420,7 +2602,7 @@ msgid ""
 msgstr "Ojačitev v smeri pregledovalnika strukture za trenutne kote pogleda."
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "Ojačitev"
 
@@ -3698,7 +3880,7 @@ msgstr ""
 msgid "Gain Direction"
 msgstr "Smer ojačitve"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "Ojačitev pregledovalnika"
 
@@ -3801,6 +3983,15 @@ msgstr "dodeljevanje pomnilnika za točke ni uspelo\n"
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): Dodeljevanje pomnilnika za točke ni uspelo"
+
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
+"najm.:%.2f\n"
+"najv.:%.2f"
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -5042,6 +5233,10 @@ msgstr ""
 "Napaka ukazne podatkovne kartice\n"
 "Mnemonična koda je prekratka ali manjka"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "podatki ukazov"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -5077,6 +5272,10 @@ msgid ""
 msgstr ""
 "Napaka podatkovne kartice geometrije\n"
 "Mnemonična koda kartice je prekratka ali manjka"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "podatki geometrije"
 
 #: src/interface.c:138
 #, c-format
@@ -5139,6 +5338,10 @@ msgstr ""
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr ""
 "create_animate_dialog: nalaganje datoteke animate.glade ni uspelo: %s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "brez (brez prikaza)"
 
 #: src/main.c:129
 #, c-format
@@ -5331,6 +5534,78 @@ msgstr ""
 #: src/mathlib.c:830
 msgid "Mathlib Help"
 msgstr "Pomoč za matematične knjižnice"
+
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"Pospešene matematične knjižnice, kot so ATLAS, OpenBLAS in Intel MKL, lahko "
+"pohitrijo elektromagnetne simulacije v xnec2c, če so na voljo na vaši "
+"platformi. Podrobnosti o zaznavanju knjižnic so na voljo v terminalu.\n"
+"\n"
+"* Izbrana matematična knjižnica za način \"Interaktivno\" se uporabi, ko se "
+"frekvenca v uporabniškem vmesniku spremeni z gradnikom Frekvenca MHz +/- ali "
+"s klikom (tudi z desno tipko) na frekvenčni graf\n"
+"\n"
+"* Izbrana matematična knjižnica za način \"Paketno\" se uporabi, ko je v "
+"ukazni vrstici podana možnost -j za vzporedni zagon več opravil s fork.\n"
+"\n"
+"Med knjižnicami Intel je mogoče hkrati izbrati le eno. Ko se ena od "
+"matematičnih knjižnic Intel MKL uporabi za elektromagnetne izračune, so "
+"druge možnosti za knjižnice Intel zaklenjene do ponovnega zagona. Ker si "
+"xnec2c zapomni prej izbrano knjižnico, se ta lahko aktivira ob odprtju "
+"datoteke .NEC in zaklene druge možnosti. Da lahko spremenite izbiro, zaprite "
+"in znova zaženite xnec2c, ne da bi odprli datoteko .NEC ali jo navedli v "
+"ukazni vrstici.\n"
+"\n"
+"\n"
+"== Matematične knjižnice po distribucijah ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Za izbiro implementacije openblas bo morda treba uporabiti\n"
+"    `alternatives`. Nekatere kombinacije BLAS/LAPACK lahko\n"
+"    delujejo skupaj, druge pa ne:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  openSUSE uradno ne podpira ATLAS, zato ga zgradi iz izvorne kode\n"
+"\n"
+"To besedilo je na voljo v terminalu za kopiranje in lepljenje.\n"
 
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
@@ -5540,11 +5815,34 @@ msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr ""
 "Pregled merjenja zmogljivosti ni bil zagnan: FR_cards=%d steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f sekund (%s %2d) %c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "izmerjeno enkrat: ta knjižnica ohrani število niti, s katerim je bila "
 "zgrajena"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"Najboljša matematična knjižnica: %s (%s %d): %f sekund\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"Ni zadetka? To je programska napaka."
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5610,6 +5908,87 @@ msgstr "Napaka simetrije"
 msgid "Solving Failed: %d\n"
 msgstr "Reševanje ni uspelo: %d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "Pripni"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "Interpoliraj"
+
+# xnec2c-exempt: loanword
+#: src/measurements.c:12
+msgid "Formula"
+msgstr ""
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "Galaktični"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "G4CQM minimum na tihem območju (pred 2016)"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "VK3UM minimum na tihem območju (pred 2016)"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "VE7BQH osnovna referenca (pred 2018)"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "Galaktični P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "DG7YBN galaktično povprečje (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "Sintetično praktično povprečje (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "Sintetični minimum na tihem območju (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "Po meri"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "ITU-R poslovno območje (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "ITU-R stanovanjsko območje (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "ITU-R podeželje (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "ITU-R tiho podeželje (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "G4CQM mešano območje (pred 2016)"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "DG7YBN podeželje (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "DG7YBN stanovanjsko območje (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "DG7YBN mesto (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
@@ -5618,6 +5997,78 @@ msgid ""
 msgstr ""
 "noise_temp_resolve: tabela noise_temp ni dodeljena; t_sky/t_earth privzeto "
 "na 0\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "Realni del Z"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "Imaginarni del Z"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "Velikost Z"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "Faza Z"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "Realni del S11"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "Imaginarni del S11"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "Kot S11"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "Neto ojačitev"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "Kot θ vršne ojačitve"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "Kot φ vršne ojačitve"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "Neto ojačitev v smeri pregledovalnika"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "Razmerje F/B"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "Odklon ojačitve od +X"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "Odklon ojačitve od −X"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "Odklon ojačitve od +Y"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "Odklon ojačitve od −Y"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "Odklon ojačitve od +Z"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "Odklon ojačitve od −Z"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5638,6 +6089,152 @@ msgstr "Izkoristek povprečne ojačitve"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "Pokritost povprečne ojačitve"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "Frekvenca v MHz (neodvisna spremenljivka)"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "Realni del impedance napajalne točke (ohmi)"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "Imaginarni del impedance napajalne točke (ohmi)"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "Velikost impedance napajalne točke (ohmi)"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "Fazni kot impedance napajalne točke (stopinje)"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "Razmerje napetosti stoječega vala (1.0 = popolna prilagoditev)"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr ""
+"Odbojno slabljenje v dB (bolj negativna vrednost = boljša prilagoditev)"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "Realni del S11 v dB"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "Imaginarni del S11 v dB"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "Fazni kot odbojnega koeficienta (stopinje)"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "Vršna ojačitev po vseh kotih v dBi"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr "Vršna ojačitev ob upoštevanju izgube zaradi neprilagojenosti v dBi"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "Elevacijski kot vršne ojačitve (stopinje nad obzorjem)"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "Azimut vršne ojačitve (stopinje)"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "Ojačitev v trenutni smeri pregledovalnika v dBi"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr ""
+"Ojačitev v smeri pregledovalnika ob upoštevanju izgube zaradi "
+"neprilagojenosti v dBi"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "Razmerje ojačitev naprej/nazaj v dB"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr "Kotni odklon vršne ojačitve od osi +X (stopinje)"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr "Kotni odklon vršne ojačitve od osi -X (stopinje)"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr "Kotni odklon vršne ojačitve od osi +Y (stopinje)"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr "Kotni odklon vršne ojačitve od osi -Y (stopinje)"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr "Kotni odklon vršne ojačitve od osi +Z (stopinje)"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr "Kotni odklon vršne ojačitve od osi -Z (stopinje)"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr "Šumna temperatura antene Ta zaradi svetlosti neba in zemlje (K)"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr "Skupna šumna temperatura sistema TA z ohmskimi izgubami (K)"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr "Razmerje med ojačitvijo in temperaturo antene (dB), brez izgub"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr "Število decimalnih mest natančnosti, izgubljenih pri izračunu antene"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr ""
+"Razmerje ojačitev naprej/nazaj v dB pri elevaciji vršne ojačitve, z zadnjim "
+"območjem nad 90 stopinjami azimuta"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr ""
+"Razmerje ojačitev naprej/nazaj v dB po vseh smereh za smerjo vršne ojačitve"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr ""
+"Povprečna močnostna ojačitev kot linearno razmerje po prostorskem kotu, ki "
+"ga vzorči mreža sevalnega diagrama"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr ""
+"Zmnožek povprečne močnostne ojačitve in vzorčenega deleža krogle, v odstotkih"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "Delež celotne krogle, ki ga vzorči mreža sevalnega diagrama"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "Neznano"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5803,6 +6400,11 @@ msgstr "Ustvarjanje osnove cairo prekrivnika ni uspelo\n"
 msgid "Shader declares no version directive: %s\n"
 msgstr "Senčilnik ne določa direktive različice: %s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "neznana napaka"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -5936,15 +6538,340 @@ msgstr "Naloženih %d ciljev optimizatorja\n"
 msgid "opt_file_load: %s\n"
 msgstr ""
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>minimize</b>: kaznuje vrednosti <i>%s</i> nad <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalizacija)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (napetost: preostali gradient "
+"onkraj cilja)"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>maximize</b>: kaznuje vrednosti <i>%s</i> pod <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalizacija)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (napetost: preostali gradient "
+"onkraj cilja)"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>deviate</b>: kaznuje odmik <i>%s</i> od <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"Brez normalizacije ali člena napetosti."
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>Noben cilj ni omogočen</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizator minimizira F</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>Smeri preslikave</span>\n"
+"\n"
+"<b>minimize:</b> Nižje vrednosti so boljše\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Ocena se pod ciljno vrednostjo približuje ničli; kaznuje preseganje "
+"cilja</i>\n"
+"\n"
+"<b>maximize:</b> Višje vrednosti so boljše\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Ocena se nad ciljno vrednostjo približuje ničli; velja za pozitivne "
+"in negativne ciljne vrednosti</i>\n"
+"\n"
+"<b>deviate:</b> Cilj je določena vrednost\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Kaznuje odmik od cilja; score=0, ko velja value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Funkcije združevanja</span>\n"
+"\n"
+"<b>avg:</b> Povprečna kazen v celotnem pasu\n"
+"    <i>Enako uteži vse frekvence</i>\n"
+"\n"
+"<b>max:</b> Vrne največjo kazen (najslabša frekvenčna točka)\n"
+"    <i>Optimizator najprej izboljša rezultat pri najslabši frekvenci\n"
+"    \"Nobena točka v pasu ne sme preseči X\"</i>\n"
+"\n"
+"<b>min:</b> Vrne najmanjšo kazen (najboljša frekvenčna točka)\n"
+"    <i>Optimizator izboljša rezultat pri najboljši frekvenci, druge pa "
+"prezre\n"
+"    Redko uporabno (ustvari ozkopasovno rešitev)</i>\n"
+"\n"
+"<b>diff:</b> Vrne razpon kazni (nihanje)\n"
+"    <i>Izenači merilo v celotnem pasu\n"
+"    Uporabi z gain_max za ravno ojačitev</i>\n"
+"\n"
+"<b>sum:</b> Vsota kazni po vseh frekvencah\n"
+"    <i>Poudari skupno velikost napake</i>\n"
+"\n"
+"<b>mag:</b> Efektivna vrednost\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Velike odmike poudari bolj kot povprečje</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Merila smeri ojačitve</span>\n"
+"\n"
+"Merila gain_dev_* merijo kotni odklon (v stopinjah)\n"
+"med smerjo vršne ojačitve in koordinatno osjo.\n"
+"Za usmerjanje snopa uporabi direction=minimize s ciljno vrednostjo blizu 0.\n"
+"\n"
+"    gain_dev_px: odklon od osi +X\n"
+"    gain_dev_nx: odklon od osi -X\n"
+"    gain_dev_py: odklon od osi +Y\n"
+"    gain_dev_ny: odklon od osi -Y\n"
+"    gain_dev_pz: odklon od osi +Z (zenit)\n"
+"    gain_dev_nz: odklon od osi -Z (nadir)\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "Pomoč za formulo primernosti"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr "Trenutna vrednost NEC2 pri frekvenci, izbrani s številskim gradnikom"
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "Ciljna vrednost meritve"
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "Eksponent za potenciranje rezultata preslikave"
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "Množitelj po združevanju"
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "Spodnja meja frekvence (prazno = vse frekvence)"
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "Zgornja meja frekvence (prazno = vse frekvence)"
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "Člen formule za ta cilj"
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "Izračun: weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "Odstrani ta cilj"
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "Meritev"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "Vrednost"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "Preslikava →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "Cilj"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "Eksponent →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "Združevanje →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "Utež"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "Spodnja meja (MHz)"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "Zgornja meja (MHz) →"
+
+# xnec2c-exempt: loanword
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr ""
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "Ocena"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "Optimizator minimizira to vrednost"
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ Dodaj merilo"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [Končano]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui: optimizacija končana, najboljša primernost: %.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "Optimizacija"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"Nobena spremenljivka ni označena za optimizacijo.\n"
+"V stolpcu Optimizacija označi spremenljivke za optimizacijo."
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"Število spremenljivk, za katere velja min >= max: %d; seznam: %s\n"
+"Za vsako optimizirano spremenljivko nastavi različni najmanjšo in največjo "
+"vrednost."
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"Noben cilj primernosti ni omogočen.\n"
+"V tabeli ciljev primernosti označi vsaj eno merilo."
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "Zaganjanje…"
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"Optimizacije ni bilo mogoče zagnati.\n"
+"Podrobnosti so v terminalu."
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"Prehod %d/%d  Iteracija %d  Vrednotenja %d  Primernost %.6g  Najboljša %.6g  "
+"Brez izboljšanja %d  Predpomnilnik %d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -6069,6 +6996,70 @@ msgstr "ustvarjanje eventfd za prebujanje optimizatorja ni uspelo\n"
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "ustvarjanje niti za izhod optimizatorja ni uspelo\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "najmanjša ocena"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "največja ocena"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± cilj"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Kaznuje vrednosti nad ciljem; ocena se pod ciljem približuje ničli"
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Kaznuje vrednosti pod ciljem; ocena se nad ciljem približuje ničli"
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Kaznuje odmik od cilja; score=0, ko velja value = target"
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "Sešteje ocene vseh frekvenčnih korakov NEC2"
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr "Izračuna povprečje ocen vseh frekvenčnih korakov NEC2"
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "Izbere najmanjšo oceno med vsemi frekvenčnimi koraki"
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "Izbere največjo oceno med vsemi frekvenčnimi koraki"
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr "Kvadratni koren vsote kvadratov ocen: sqrt(sum(score<sup>2</sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr "Razlika med največjo in najmanjšo oceno po frekvenčnih korakih"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6488,6 +7479,14 @@ msgstr "Šumna temp. (log. lestvica)"
 msgid "Radiation Pattern: - "
 msgstr "Sevalni diagram: - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - Nebo:"
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - Zemlja:"
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Bližnja polja:"
@@ -6513,7 +7512,15 @@ msgstr "Grafi frekvenčnih podatkov - "
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d je izven meja. calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "Relativno"
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "Absolutno"
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: ustvarjanje površine ni uspelo (%dx%d)\n"
@@ -6575,6 +7582,30 @@ msgstr "Zanka optimizatorja ni dokončana, vmesno prerisovanje je zatrto.\n"
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+drsenje: polmer žice"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"OpenGL na tem zaslonu ni na voljo.\n"
+"Aktiven je izris s Cairo."
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"Program je zgrajen brez podpore za OpenGL.\n"
+"Aktiven je izris s Cairo."
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "Splošno"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "Barva"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6686,6 +7717,30 @@ msgstr "sy_save_overrides: ne morem odpreti %s za pisanje: %s\n"
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "Shranjenih %d preglasitev simbolov v %s\n"
 
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr "Simbol"
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "Preglasitev"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "Optimizacija"
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "Najmanj"
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "Največ"
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "Izraz"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6695,6 +7750,14 @@ msgstr "sy_overrides_init: nalaganje glade ni uspelo: %s\n"
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: pridobivanje gradnikov iz glade ni uspelo\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "Vhodni simboli"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "Izračunani simboli"
 
 #: src/sy_overrides.c:1486
 msgid ""

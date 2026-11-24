@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -89,6 +89,18 @@ msgstr "Csúcs _amplitúdó"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Közeltér animáció"
+
+#: resources/animate.glade:205
+msgid "Start"
+msgstr "Indítás"
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "Leállítás"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "Bezárás"
 
 #: resources/animate.glade:277
 msgid ""
@@ -180,7 +192,7 @@ msgstr "Megjelenítés"
 msgid "Flow direction:"
 msgstr "Áramlás iránya:"
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "Patchek"
 
@@ -287,6 +299,7 @@ msgid "Color Quantization"
 msgstr "Színkvantálás"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "Ki"
 
@@ -788,6 +801,10 @@ msgstr ""
 "Egy fényes fejpont követi a pillanatnyi pozitív hullámcsúcsot, így a hullám "
 "mozgása leolvasható minden huzalon."
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr "<small><i>n = |z| / max|z|,  s = skálaátvitel,  φ = fázis</i></small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "Visszaállítás"
@@ -800,9 +817,87 @@ msgstr ""
 "Állítsa vissza a színvetületet, a szegmensskálát, a skálacsaládot, a fényerő "
 "alsó határát és minden családparamétert az alapértelmezett értékére."
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "Élsimítás (MSAA)"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "Szerkezet"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "Fényerő"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "Átlátszóság"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "Szegmensek"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "Sugárzási diagram"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "Felület"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "Drótváz"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "Közeltér"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "Rajzolási stílus"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "Mindkettő"
+
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr "Jelenet"
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "Föld"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "Tengelyek"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Csak vizuális — nem hat a NEC2 modell számításaira."
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "Átlátszóság csak kattintáskor"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "Ortografikus vetület"
+
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr "Megjelenítő:"
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "Korlátozott forgatás"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -821,13 +916,102 @@ msgid "Rendering Settings"
 msgstr "Megjelenítési beállítások"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "_Bezárás"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "Szimbólum-felülbírálások"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "Optimalizálás"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "Algoritmus:"
+
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr "Szimplex"
+
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr "Részecskeraj"
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "Haladó"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "Közös beállítások"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "Stagnálási lépések száma:"
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "Tűrés:"
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "Iterációk maximális száma:"
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "Szimplex beállításai"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "Szimplexméretek:"
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "Legkisebb méret:"
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "Hőmérséklet:"
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "Részecskeraj beállításai"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "Részecskék:"
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "Szomszédok:"
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "Tehetetlenség:"
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "Kognitív tényező:"
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "Társas tényező:"
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "Keresési tartomány mérete:"
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "Optimalizálás indítása"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "Optimalizálás megszakítása"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1676,10 +1860,6 @@ msgstr "Háromszög"
 msgid "Quadrilateral"
 msgstr "Négyszög"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "Felület"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "Patch típus"
@@ -2039,6 +2219,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "Bal/jobb kattintás frekvenciaválasztásának _felcserélése"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "Max nyereség"
 
@@ -2476,7 +2657,7 @@ msgid ""
 msgstr "Nyereség a szerkezet nézőjének irányában, a jelenlegi nézetszögeknél."
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "Nyereség"
 
@@ -3776,7 +3957,7 @@ msgstr ""
 msgid "Gain Direction"
 msgstr "Nyereség iránya"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "Nézőponti nyereség"
 
@@ -3879,6 +4060,15 @@ msgstr "memóriafoglalás a pontokhoz sikertelen\n"
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():Memóriafoglalás a pontokhoz sikertelen"
+
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
+"minimum: %.2f\n"
+"maximum: %.2f"
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -5125,6 +5315,10 @@ msgstr ""
 "Parancs adatkártya hiba\n"
 "Mnemonikus kód túl rövid vagy hiányzik"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "parancsadatok"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -5160,6 +5354,10 @@ msgid ""
 msgstr ""
 "Geometriai adatkártya hiba\n"
 "A kártya mnemonikus kódja túl rövid vagy hiányzik"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "geometriai adatok"
 
 #: src/interface.c:138
 #, c-format
@@ -5223,6 +5421,10 @@ msgstr ""
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr ""
 "create_animate_dialog: nem sikerült betölteni az animate.glade fájlt: %s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "nincs (megjelenítés nélkül)"
 
 #: src/main.c:129
 #, c-format
@@ -5415,6 +5617,81 @@ msgstr "%s: teljesítményteszt=%d\n"
 #: src/mathlib.c:830
 msgid "Mathlib Help"
 msgstr "Mathlib súgó"
+
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"Az ATLAS, az OpenBLAS és az Intel MKL gyorsított matematikai "
+"programkönyvtárak felgyorsíthatják az xnec2c elektromágneses szimulációit, "
+"ha az adott platformon elérhetők. A programkönyvtárak felismerésének "
+"részletei a terminálon olvashatók.\n"
+"\n"
+"* A kijelölt \"Interaktív\" matematikai programkönyvtár használatos, amikor "
+"a frekvencia a felületen a Frekvencia MHz +/- widgettel vagy a "
+"frekvenciadiagramra kattintva (a jobb egérgombbal is) változik\n"
+"\n"
+"* A kijelölt \"Kötegelt\" matematikai programkönyvtár használatos, amikor a "
+"parancssori -j kapcsoló több párhuzamos feladatot indít fork művelettel.\n"
+"\n"
+"Az Intel programkönyvtárai közül egyszerre csak egy választható. Amint "
+"valamelyik Intel MKL programkönyvtár elektromágneses számítást végez, a "
+"többi Intel programkönyvtár az újraindításig nem választható. Az xnec2c "
+"megjegyzi a korábban kiválasztott programkönyvtárat, ezért az egy .NEC fájl "
+"megnyitásakor aktiválódhat, és letilthatja a többi lehetőséget. Ennek "
+"elkerüléséhez zárja be az xnec2c programot, majd indítsa újra .NEC fájl "
+"megnyitása nélkül (a parancssorban se adjon meg .NEC fájlt), így módosítható "
+"a beállítás.\n"
+"\n"
+"\n"
+"== Matematikai programkönyvtárak disztribúciónként ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Az openblas megvalósításának kiválasztásához szükség lehet\n"
+"    az `alternatives` eszközre. A BLAS/LAPACK egyes párosításai\n"
+"    nem feltétlenül működnek együtt:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  Az openSUSE hivatalosan nem támogatja az ATLAS-t, ezért forrásból fordítsa "
+"le\n"
+"\n"
+"Ez a szöveg a terminálon is elérhető, ahonnan másolható és beilleszthető.\n"
 
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
@@ -5627,10 +5904,33 @@ msgstr "%s teljesítményteszt indítása (%s %d)\n"
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "A teljesítményteszt-söprés nem futott le: FR_cards=%d steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f másodperc (%s %2d) %c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "egyszer mérve: ez a könyvtár megtartja a fordításakor használt szálszámot"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"Leggyorsabb matematikai programkönyvtár: %s (%s %d): %f másodperc\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"Nem található eredmény? Ez programhiba."
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5696,6 +5996,86 @@ msgstr "Szimmetriahiba"
 msgid "Solving Failed: %d\n"
 msgstr "Megoldás sikertelen: %d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "Illesztés"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "Interpoláció"
+
+#: src/measurements.c:12
+msgid "Formula"
+msgstr "Képlet"
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "Galaktikus"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "G4CQM csendes minimum (2016 előtti)"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "VK3UM csendes minimum (2016 előtti)"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "VE7BQH alapreferencia (2018 előtti)"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "Galaktikus P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "DG7YBN galaktikus átlag (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "Szintetikus gyakorlati átlag (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "Szintetikus csendes minimum (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "Egyéni"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "ITU-R üzleti terület (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "ITU-R lakóövezet (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "ITU-R vidéki terület (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "ITU-R csendes vidéki terület (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "G4CQM vegyes (2016 előtti)"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "DG7YBN vidéki terület (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "DG7YBN lakóövezet (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "DG7YBN városi terület (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
@@ -5704,6 +6084,78 @@ msgid ""
 msgstr ""
 "noise_temp_resolve: noise_temp tábla nincs lefoglalva; t_sky/t_earth "
 "alapértéke 0\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "Z valós része"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "Z képzetes része"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "Z magnitúdója"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "Z fázisa"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "S11 valós része"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "S11 képzetes része"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "S11 szöge"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "Eredő nyereség"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "Nyereség (Theta)"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "Nyereség (Phi)"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "Eredő nyereség a néző irányában"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "F/B viszony"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "A nyereségirány eltérése +X-től"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "A nyereségirány eltérése −X-től"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "A nyereségirány eltérése +Y-tól"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "A nyereségirány eltérése −Y-tól"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "A nyereségirány eltérése +Z-től"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "A nyereségirány eltérése −Z-től"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5724,6 +6176,152 @@ msgstr "Átlagos nyereség hatásfoka"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "Átlagos nyereség lefedettsége"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "Frekvencia MHz-ben (független változó)"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "A betáplálási pont impedanciájának valós része (ohm)"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "A betáplálási pont impedanciájának képzetes része (ohm)"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "A betáplálási pont impedanciájának magnitúdója (ohm)"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "A betáplálási pont impedanciájának fázisszöge (fok)"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "Feszültség-állóhullámarány (1.0 = tökéletes illesztés)"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr "Visszaverődési veszteség dB-ben (negatívabb érték = jobb illesztés)"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "Az S11 valós része dB-ben"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "Az S11 képzetes része dB-ben"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "A visszaverődési tényező fázisszöge (fok)"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "Az összes irányban mért nyereség csúcsértéke dBi-ben"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr "Az illesztetlenségi veszteséggel korrigált csúcsnyereség dBi-ben"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "A csúcsnyereség irányának emelkedési szöge (fok a horizont felett)"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "A csúcsnyereség irányának azimutszöge (fok)"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "Nyereség a néző aktuális irányában, dBi-ben"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr ""
+"A néző irányában az illesztetlenségi veszteséggel korrigált nyereség dBi-ben"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "Előre-hátra viszony dB-ben"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr "A csúcsnyereség irányának szögeltérése a +X tengelyiránytól (fok)"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr "A csúcsnyereség irányának szögeltérése a -X tengelyiránytól (fok)"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr "A csúcsnyereség irányának szögeltérése a +Y tengelyiránytól (fok)"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr "A csúcsnyereség irányának szögeltérése a -Y tengelyiránytól (fok)"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr "A csúcsnyereség irányának szögeltérése a +Z tengelyiránytól (fok)"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr "A csúcsnyereség irányának szögeltérése a -Z tengelyiránytól (fok)"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr ""
+"Az égbolt és a talaj fényességéből számított Ta antennazajhőmérséklet (K)"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr "A rendszer teljes TA zajhőmérséklete az ohmos veszteséggel együtt (K)"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr "A nyereség és az antennahőmérséklet aránya (dB), a veszteség nélkül"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr "Az antenna számításakor elvesztett pontosság decimális számjegyekben"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr ""
+"Előre-hátra viszony dB-ben a csúcsnyereség emelkedési szögénél, hátrafelé 90 "
+"fokos azimuteltérésen túl"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr ""
+"Előre-hátra viszony dB-ben a csúcsnyereség iránya mögötti összes irányra"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr ""
+"A sugárzási diagram rácsa által mintavételezett térszögre átlagolt "
+"teljesítménynyereség lineáris arányként"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr ""
+"Az átlagos teljesítménynyereség és a gömb mintavételezett hányadának "
+"szorzata, százalékban"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "A teljes gömb sugárzási diagramrács által mintavételezett hányada"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "Ismeretlen"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5885,6 +6483,11 @@ msgstr "Nem sikerült létrehozni a cairo overlay alapot\n"
 msgid "Shader declares no version directive: %s\n"
 msgstr "a shader nem deklarál verziódirektívát: %s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "ismeretlen hiba"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -6018,15 +6621,342 @@ msgstr "%d optimalizálási cél betöltve\n"
 msgid "opt_file_load: %s\n"
 msgstr ""
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>minimize</b>: bünteti, ha <i>%s</i> értéke nagyobb, mint <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalizálás)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (feszítés: maradék gradiens a "
+"célértéken túl)"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>maximize</b>: bünteti, ha <i>%s</i> értéke kisebb, mint <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalizálás)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (feszítés: maradék gradiens a "
+"célértéken túl)"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>deviate</b>: bünteti, ha <i>%s</i> értéke eltér ettől: <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"Nincs normalizálás vagy feszítési tag."
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>Nincs engedélyezett cél</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Az optimalizáló F értékét minimalizálja</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>A transzformáció irányai</span>\n"
+"\n"
+"<b>minimize:</b> A kisebb értékek kedvezőbbek\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>A pontszám a célérték alatt nullához közelít; a célérték túllépését "
+"bünteti</i>\n"
+"\n"
+"<b>maximize:</b> A nagyobb értékek kedvezőbbek\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>A pontszám a célérték felett nullához közelít; pozitív és negatív "
+"célértékekre is működik</i>\n"
+"\n"
+"<b>deviate:</b> Adjon meg egy konkrét célértéket\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>A célértéktől való eltérést bünteti; score=0, ha value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Összesítő függvények</span>\n"
+"\n"
+"<b>avg:</b> Átlagos büntetés a teljes sávban\n"
+"    <i>Minden frekvenciát azonos súllyal vesz figyelembe</i>\n"
+"\n"
+"<b>max:</b> A legnagyobb büntetést adja vissza (a legkedvezőtlenebb "
+"frekvenciapont)\n"
+"    <i>Az optimalizáló először a legkedvezőtlenebb frekvencián javít\n"
+"    \"A sáv egyetlen pontján sem léphető túl X\"</i>\n"
+"\n"
+"<b>min:</b> A legkisebb büntetést adja vissza (a legkedvezőbb "
+"frekvenciapont)\n"
+"    <i>Az optimalizáló a legkedvezőbb frekvencián javít, a többit figyelmen "
+"kívül hagyja\n"
+"    Ritkán hasznos (keskenysávú megoldást eredményez)</i>\n"
+"\n"
+"<b>diff:</b> A büntetés terjedelmét adja vissza (ingadozás)\n"
+"    <i>A mérőszámot a teljes sávban egyenletessé teszi\n"
+"    Az egyenletes nyereséghez a gain_max mérőszámmal együtt használja</i>\n"
+"\n"
+"<b>sum:</b> Az összes frekvencián kapott büntetések összege\n"
+"    <i>A teljes hiba magnitúdóját emeli ki</i>\n"
+"\n"
+"<b>mag:</b> Négyzetes középérték\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Az átlagnál nagyobb súlyt ad a nagy eltéréseknek</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>A nyereségirány mérőszámai</span>\n"
+"\n"
+"A gain_dev_* mérőszámok a szögeltérést mérik (fokban)\n"
+"a csúcsnyereség iránya és egy koordinátatengely között.\n"
+"A nyaláb irányításához használja a direction=minimize beállítást 0-hoz "
+"közeli célértékkel.\n"
+"\n"
+"    gain_dev_px: eltérés a +X tengelyiránytól\n"
+"    gain_dev_nx: eltérés a -X tengelyiránytól\n"
+"    gain_dev_py: eltérés a +Y tengelyiránytól\n"
+"    gain_dev_ny: eltérés a -Y tengelyiránytól\n"
+"    gain_dev_pz: eltérés a +Z tengelyiránytól (zenit)\n"
+"    gain_dev_nz: eltérés a -Z tengelyiránytól (nadír)\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "Súgó a célfüggvény képletéhez"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr "Az aktuális NEC2-érték a frekvencialéptetőn beállított frekvencián"
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "A mérés célértéke"
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "A transzformáció eredményére alkalmazott kitevő"
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "Az összesítés után alkalmazott szorzó"
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "Alsó frekvenciahatár (üres = minden frekvencia)"
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "Felső frekvenciahatár (üres = minden frekvencia)"
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "Az ehhez a célhoz tartozó képlettag"
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "Számítás: weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "A cél eltávolítása"
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "Mérés"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "Érték"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "Transzformáció →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "Célérték"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "Kitevő →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "Összesítés →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "Súly"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "Alsó határ (MHz)"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "Felső határ (MHz) →"
+
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr "Képlet →"
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "Pontszám"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "Az optimalizáló ezt az értéket minimalizálja"
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ Mérőszám hozzáadása"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [Befejezve]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui: optimalizálás befejezve, legjobb illeszkedés: %.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "Optimalizálás"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"Nincs optimalizálásra kijelölt változó.\n"
+"Az Optimalizálás oszlopban jelölje be az optimalizálandó változókat."
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"%d változóra teljesül a min >= max feltétel: %s\n"
+"Minden optimalizálandó változóhoz eltérő minimum- és maximumértéket adjon "
+"meg."
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"Nincs engedélyezett optimalizálási cél.\n"
+"Az optimalizálási célok táblázatában jelöljön be legalább egy mérőszámot."
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "Indítás…"
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"Az optimalizálás nem indult el.\n"
+"A részleteket a terminálon ellenőrizze."
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"Menet %d/%d  Iteráció %d  Kiértékelések %d  Célfüggvényérték %.6g  Legjobb "
+"%.6g  Stagnálás %d  Gyorsítótár %d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -6148,6 +7078,73 @@ msgstr "nem sikerült létrehozni az optimalizáló ébresztő eventfd-t\n"
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "nem sikerült létrehozni az optimalizáló kimeneti szálat\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "legkisebb pontszám"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "legnagyobb pontszám"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± célérték"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"A célérték feletti értékeket bünteti; a pontszám a célérték alatt nullához "
+"közelít"
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"A célérték alatti értékeket bünteti; a pontszám a célérték felett nullához "
+"közelít"
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"A célértéktől való eltérést bünteti; score=0, ha value = target"
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "Összeadja az összes NEC2-frekvencialépés pontszámát"
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr "Átlagolja az összes NEC2-frekvencialépés pontszámát"
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "Kiválasztja a legkisebb pontszámot az összes frekvencialépés közül"
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "Kiválasztja a legnagyobb pontszámot az összes frekvencialépés közül"
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr ""
+"A pontszámok négyzetösszegének négyzetgyöke: sqrt(sum(score<sup>2</sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr "A frekvencialépések legnagyobb és legkisebb pontszámának különbsége"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6573,6 +7570,14 @@ msgstr "Zajhőm. (log skála)"
 msgid "Radiation Pattern: - "
 msgstr "Sugárzási diagram: - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - Égbolt:"
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - Talaj:"
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Közeli mezők:"
@@ -6598,7 +7603,15 @@ msgstr "Frekvenciaadatok ábrázolása - "
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d határon kívül esik. calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "Relatív"
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "Abszolút"
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: felület létrehozása sikertelen (%dx%d)\n"
@@ -6660,6 +7673,30 @@ msgstr "Optimalizáló ciklus befejezetlen, közbülső újrarajzolás kihagyás
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+görgetés: huzalsugár"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"Ezen a kijelzőn az OpenGL nem érhető el.\n"
+"A Cairo megjelenítés aktív."
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"A program OpenGL-támogatás nélkül készült.\n"
+"A Cairo megjelenítés aktív."
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "Általános"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "Szín"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6771,6 +7808,30 @@ msgstr "sy_save_overrides: nem lehet megnyitni írásra: %s: %s\n"
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "%d szimbólum-felülbírálás mentve ide: %s\n"
 
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr "Szimbólum"
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "Felülbírálás"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "Optimalizálás"
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "Minimum"
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "Maximum"
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "Kifejezés"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6780,6 +7841,14 @@ msgstr "sy_overrides_init: nem sikerült betölteni a glade-t: %s\n"
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: nem sikerült widgeteket lekérni a glade-ből\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "Bemeneti szimbólumok"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "Számított szimbólumok"
 
 #: src/sy_overrides.c:1486
 msgid ""

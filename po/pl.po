@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -90,6 +90,18 @@ msgstr "_Amplituda szczytowa"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Animacja pola bliskiego"
+
+#: resources/animate.glade:205
+msgid "Start"
+msgstr "Uruchom"
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "Zatrzymaj"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "Zamknij"
 
 #: resources/animate.glade:277
 msgid ""
@@ -179,7 +191,7 @@ msgstr "Wyświetlanie"
 msgid "Flow direction:"
 msgstr "Kierunek przepływu:"
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "Płaty"
 
@@ -287,6 +299,7 @@ msgid "Color Quantization"
 msgstr "Kwantyzacja kolorów"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "Wyłączone"
 
@@ -782,6 +795,12 @@ msgstr ""
 "Umieść jasną głowicę na chwilowym dodatnim grzbiecie, aby ruch fali był "
 "czytelny wzdłuż każdego drutu."
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr ""
+"<small><i>n = |z| / max|z|,  s = funkcja przenoszenia skali,  φ = faza</i></"
+"small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "Resetuj"
@@ -794,9 +813,88 @@ msgstr ""
 "Przywróć projekcję koloru, skalę segmentu, rodzinę skali, dolny próg "
 "jasności i każdy parametr rodziny do wartości domyślnych."
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "Wygładzanie krawędzi (MSAA)"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "Struktura"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "Jasność"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "Przezroczystość"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "Segmenty"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "Charakterystyka promieniowania"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "Powierzchnia"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "Siatka szkieletowa"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "Pole bliskie"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "Styl rysowania"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "Oba"
+
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr "Scena"
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "Ziemia"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "Osie"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Tylko wizualne — nie wpływa na obliczenia modelu NEC2."
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "Przezroczystość tylko po kliknięciu"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "Projekcja ortograficzna"
+
+# xnec2c-exempt: loanword
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr ""
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "Obrót z ograniczeniem"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -815,13 +913,102 @@ msgid "Rendering Settings"
 msgstr "Ustawienia renderowania"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "_Zamknij"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "Nadpisania symboli"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "Optymalizacja"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "Algorytm:"
+
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr "Metoda sympleksów"
+
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr "Rój cząstek"
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "Zaawansowane"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "Ustawienia wspólne"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "Liczba iteracji bez poprawy:"
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "tolerancja:"
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "Maksymalna liczba iteracji:"
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "Ustawienia metody sympleksów"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "Rozmiary sympleksu:"
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "Minimalny rozmiar:"
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "Temperatura:"
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "Ustawienia roju cząstek"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "Liczba cząstek:"
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "Liczba sąsiadów:"
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "Bezwładność:"
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "Współczynnik poznawczy:"
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "Współczynnik społeczny:"
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "Rozmiar obszaru przeszukiwania:"
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "Rozpocznij optymalizację"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "Anuluj optymalizację"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1665,10 +1852,6 @@ msgstr "Trójkąt"
 msgid "Quadrilateral"
 msgstr "Czworokąt"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "Powierzchnia"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "Typ płata"
@@ -2028,6 +2211,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "Z_amień wybór częstotliwości lewym/prawym kliknięciem"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "Maks. zysk"
 
@@ -2462,7 +2646,7 @@ msgid ""
 msgstr "Zysk w kierunku obserwacji struktury dla bieżących kątów widoku."
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "Zysk"
 
@@ -3752,7 +3936,7 @@ msgstr ""
 msgid "Gain Direction"
 msgstr "Kierunek zysku"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "Zysk obserwatora"
 
@@ -3855,6 +4039,15 @@ msgstr "alokacja pamięci dla punktów nie powiodła się\n"
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():Alokacja pamięci dla punktów nie powiodła się"
+
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
+"min:%.2f\n"
+"maks:%.2f"
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -5108,6 +5301,10 @@ msgstr ""
 "Błąd karty danych poleceń\n"
 "Kod mnemoniczny zbyt krótki lub brakujący"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "dane poleceń"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -5143,6 +5340,10 @@ msgid ""
 msgstr ""
 "Błąd karty danych geometrii\n"
 "Kod mnemoniczny karty zbyt krótki lub brakujący"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "dane geometrii"
 
 #: src/interface.c:138
 #, c-format
@@ -5206,6 +5407,10 @@ msgstr ""
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr ""
 "create_animate_dialog: nie udało się załadować pliku animate.glade: %s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "brak (bez wyświetlania)"
 
 #: src/main.c:129
 #, c-format
@@ -5397,6 +5602,82 @@ msgstr ""
 #: src/mathlib.c:830
 msgid "Mathlib Help"
 msgstr "Pomoc bibliotek matematycznych"
+
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"Zoptymalizowane biblioteki matematyczne, takie jak ATLAS, OpenBLAS i Intel "
+"MKL, mogą przyspieszyć symulacje elektromagnetyczne w xnec2c, o ile są "
+"dostępne na danej platformie. Szczegóły wykrywania bibliotek są dostępne w "
+"terminalu.\n"
+"\n"
+"* Biblioteka matematyczna wybrana dla trybu \"Interaktywny\" jest używana "
+"przy zmianie częstotliwości w interfejsie za pomocą widżetu częstotliwości "
+"MHz +/- lub po kliknięciu wykresu częstotliwości (także prawym przyciskiem)\n"
+"\n"
+"* Biblioteka matematyczna wybrana dla trybu \"Wsadowy\" jest używana po "
+"podaniu opcji -j w wierszu poleceń, aby za pomocą fork uruchomić wiele zadań "
+"równolegle.\n"
+"\n"
+"Spośród bibliotek Intel można wybrać tylko jedną naraz. Po użyciu jednej z "
+"bibliotek matematycznych Intel MKL do obliczeń elektromagnetycznych "
+"pozostałe opcje bibliotek Intel pozostaną zablokowane do ponownego "
+"uruchomienia programu. Ponieważ xnec2c zapamiętuje poprzednio wybraną "
+"bibliotekę, może ją aktywować przy otwieraniu pliku .NEC i zablokować "
+"pozostałe opcje. Aby tego uniknąć i zmienić opcję, zamknij xnec2c i uruchom "
+"go ponownie bez otwierania pliku .NEC (i bez podawania pliku .NEC w wierszu "
+"poleceń).\n"
+"\n"
+"\n"
+"== Biblioteki matematyczne według dystrybucji ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Do wyboru implementacji openblas może być potrzebne narzędzie\n"
+"    `alternatives`. Niektóre kombinacje BLAS/LAPACK mogą\n"
+"    ze sobą współpracować, a inne nie:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  openSUSE oficjalnie nie obsługuje ATLAS, więc skompiluj bibliotekę ze "
+"źródeł\n"
+"\n"
+"Ten tekst jest dostępny w terminalu, skąd można go skopiować i wkleić.\n"
 
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
@@ -5613,11 +5894,34 @@ msgstr ""
 "Przemiatanie testu wydajności nie zostało uruchomione: FR_cards=%d "
 "steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f s (%s %2d) %c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "zmierzono raz: ta biblioteka zachowuje liczbę wątków, z którą została "
 "zbudowana"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"Najlepsza biblioteka matematyczna: %s (%s %d): %f s\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"Nie znaleziono wyniku? To usterka."
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5684,6 +5988,86 @@ msgstr "Błąd symetrii"
 msgid "Solving Failed: %d\n"
 msgstr "Rozwiązywanie nie powiodło się: %d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "Przyciągnij"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "Interpoluj"
+
+#: src/measurements.c:12
+msgid "Formula"
+msgstr "Wzór"
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "Galaktyczny"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "G4CQM minimum dla cichego otoczenia (przed 2016)"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "VK3UM minimum dla cichego otoczenia (przed 2016)"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "VE7BQH podstawowy model odniesienia (przed 2018)"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "Galaktyczny P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "DG7YBN średni szum galaktyczny (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "Syntetyczna średnia praktyczna (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "Syntetyczne minimum dla cichego otoczenia (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "Własny"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "ITU-R obszar usługowo-handlowy (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "ITU-R obszar mieszkalny (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "ITU-R obszar wiejski (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "ITU-R cichy obszar wiejski (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "G4CQM otoczenie mieszane (przed 2016)"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "DG7YBN obszar wiejski (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "DG7YBN obszar mieszkalny (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "DG7YBN obszar miejski (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
@@ -5692,6 +6076,78 @@ msgid ""
 msgstr ""
 "noise_temp_resolve: tabela noise_temp nie została przydzielona; t_sky/"
 "t_earth przyjmuje domyślnie 0\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "Część rzeczywista Z"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "Część urojona Z"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "Moduł Z"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "Faza Z"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "Część rzeczywista S11"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "Część urojona S11"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "Kąt fazowy S11"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "Zysk netto"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "Kąt theta maksimum zysku"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "Kąt phi maksimum zysku"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "Zysk netto w kierunku obserwacji"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "Stosunek F/B"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "Odchylenie maksimum zysku od +X"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "Odchylenie maksimum zysku od −X"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "Odchylenie maksimum zysku od +Y"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "Odchylenie maksimum zysku od −Y"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "Odchylenie maksimum zysku od +Z"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "Odchylenie maksimum zysku od −Z"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5712,6 +6168,151 @@ msgstr "Sprawność zysku średniego"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "Pokrycie zysku średniego"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "Częstotliwość w MHz (zmienna niezależna)"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "Część rzeczywista impedancji punktu zasilania (omy)"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "Część urojona impedancji punktu zasilania (omy)"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "Moduł impedancji punktu zasilania (omy)"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "Kąt fazowy impedancji punktu zasilania (stopnie)"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "Współczynnik napięciowej fali stojącej (1,0 = idealne dopasowanie)"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr "Straty odbiciowe w dB (bardziej ujemna wartość = lepsze dopasowanie)"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "Część rzeczywista S11 w dB"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "Część urojona S11 w dB"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "Kąt fazowy współczynnika odbicia (stopnie)"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "Maksymalny zysk spośród wszystkich kierunków, w dBi"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr "Maksymalny zysk z uwzględnieniem strat niedopasowania, w dBi"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "Kąt elewacji maksimum zysku (stopnie nad horyzontem)"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "Azymut maksimum zysku (stopnie)"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "Zysk w bieżącym kierunku obserwacji, w dBi"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr ""
+"Zysk w kierunku obserwacji z uwzględnieniem strat niedopasowania, w dBi"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "Stosunek promieniowania przód–tył w dB"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr "Odchylenie kątowe kierunku maksimum zysku od osi +X (stopnie)"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr "Odchylenie kątowe kierunku maksimum zysku od osi -X (stopnie)"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr "Odchylenie kątowe kierunku maksimum zysku od osi +Y (stopnie)"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr "Odchylenie kątowe kierunku maksimum zysku od osi -Y (stopnie)"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr "Odchylenie kątowe kierunku maksimum zysku od osi +Z (stopnie)"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr "Odchylenie kątowe kierunku maksimum zysku od osi -Z (stopnie)"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr "Temperatura szumów anteny Ta wynikająca z jasności nieba i gruntu (K)"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr ""
+"Całkowita temperatura szumów układu TA z uwzględnieniem strat omowych (K)"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr "Stosunek zysku do temperatury anteny (dB), bez uwzględnienia strat"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr "Liczba cyfr dziesiętnych precyzji utraconych w obliczeniach anteny"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr ""
+"Stosunek promieniowania przód–tył w dB przy elewacji maksimum zysku, z tyłem "
+"poza odchyleniem azymutu o 90 stopni"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr ""
+"Stosunek promieniowania przód–tył w dB z uwzględnieniem wszystkich kierunków "
+"za kierunkiem maksimum zysku"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr ""
+"Średni zysk mocy jako stosunek liniowy w kącie bryłowym próbkowanym przez "
+"siatkę charakterystyki"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr "Iloczyn średniego zysku mocy i próbkowanej części sfery, w procentach"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "Ułamek pełnej sfery próbkowany przez siatkę charakterystyki"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "Nieznany"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5875,6 +6476,11 @@ msgstr "Nie udało się utworzyć bazy nakładki cairo\n"
 msgid "Shader declares no version directive: %s\n"
 msgstr "Shader nie deklaruje dyrektywy wersji: %s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "nieznany błąd"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -6007,16 +6613,342 @@ msgstr "Załadowano %d celów optymalizatora\n"
 msgid "opt_file_load: %s\n"
 msgstr ""
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>minimize</b>: nalicza karę, gdy <i>%s</i> przekracza <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalizacja)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (napięcie: gradient resztkowy po "
+"przekroczeniu wartości docelowej)"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>maximize</b>: nalicza karę, gdy <i>%s</i> jest poniżej <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalizacja)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (napięcie: gradient resztkowy po "
+"przekroczeniu wartości docelowej)"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>deviate</b>: nalicza karę za odchylenie <i>%s</i> od <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"Bez normalizacji i składnika napięcia."
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>Nie włączono żadnego celu</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optymalizator minimalizuje F</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>Kierunki przekształcenia</span>\n"
+"\n"
+"<b>minimize:</b> Niższe wartości są lepsze\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Wynik dąży do zera poniżej wartości docelowej; przekroczenie wartości "
+"docelowej zwiększa karę</i>\n"
+"\n"
+"<b>maximize:</b> Wyższe wartości są lepsze\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Wynik dąży do zera powyżej wartości docelowej; działa dla dodatnich i "
+"ujemnych wartości docelowych</i>\n"
+"\n"
+"<b>deviate:</b> Dąż do określonej wartości\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Nalicza karę za odchylenie od wartości docelowej; score=0, gdy value "
+"= target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Funkcje redukcji</span>\n"
+"\n"
+"<b>avg:</b> Średnia kara w paśmie\n"
+"    <i>Nadaje wszystkim częstotliwościom jednakową wagę</i>\n"
+"\n"
+"<b>max:</b> Zwraca najwyższą karę (najgorszy punkt częstotliwościowy)\n"
+"    <i>Optymalizator najpierw poprawia wynik dla najgorszej częstotliwości\n"
+"    \"W żadnym punkcie pasma wartość nie może przekroczyć X\"</i>\n"
+"\n"
+"<b>min:</b> Zwraca najniższą karę (najlepszy punkt częstotliwościowy)\n"
+"    <i>Optymalizator poprawia wynik dla najlepszej częstotliwości, pomijając "
+"pozostałe\n"
+"    Rzadko przydatne (prowadzi do rozwiązania wąskopasmowego)</i>\n"
+"\n"
+"<b>diff:</b> Zwraca rozstęp kar (zmienność)\n"
+"    <i>Wyrównuje wartość miary w całym paśmie\n"
+"    Użyj z gain_max, aby wyrównać zysk w paśmie</i>\n"
+"\n"
+"<b>sum:</b> Suma kar dla wszystkich częstotliwości\n"
+"    <i>Uwypukla całkowitą wielkość błędu</i>\n"
+"\n"
+"<b>mag:</b> Moduł średniokwadratowy\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Uwypukla duże odchylenia bardziej niż średnia</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Miary kierunku zysku</span>\n"
+"\n"
+"Miary gain_dev_* określają odchylenie kątowe (w stopniach)\n"
+"między kierunkiem maksimum zysku a osią współrzędnych.\n"
+"Użyj direction=minimize z wartością docelową bliską 0, aby skierować "
+"wiązkę.\n"
+"\n"
+"    gain_dev_px: odchylenie od osi +X\n"
+"    gain_dev_nx: odchylenie od osi -X\n"
+"    gain_dev_py: odchylenie od osi +Y\n"
+"    gain_dev_ny: odchylenie od osi -Y\n"
+"    gain_dev_pz: odchylenie od osi +Z (zenit)\n"
+"    gain_dev_nz: odchylenie od osi -Z (nadir)\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "Pomoc dotycząca wzoru funkcji celu"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr "Bieżąca wartość NEC2 dla częstotliwości ustawionej w polu liczbowym"
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "Wartość docelowa pomiaru"
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "Wykładnik potęgi, do której podnoszony jest wynik przekształcenia"
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "Mnożnik stosowany po redukcji"
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "Dolna granica częstotliwości (puste pole = wszystkie częstotliwości)"
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "Górna granica częstotliwości (puste pole = wszystkie częstotliwości)"
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "Składnik wzoru odpowiadający temu celowi"
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "Obliczenie: weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "Usuń ten cel"
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "Pomiar"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "Wartość"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "Przekształcenie →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "Wartość docelowa"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "Wykładnik →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "Redukcja →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "Waga"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "Dolna granica (MHz)"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "Górna granica (MHz) →"
+
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr "Wzór →"
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "Wynik"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "Optymalizator minimalizuje tę wartość"
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ Dodaj miarę"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [Zakończono]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr ""
 "opt_ui: optymalizacja zakończona, najlepsza wartość dopasowania: %.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "Optymalizacja"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"Nie zaznaczono żadnej zmiennej do optymalizacji.\n"
+"Zaznacz w kolumnie „Opt.” zmienne do optymalizacji."
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"Liczba zmiennych, dla których min >= max: %d (%s)\n"
+"Ustaw różne wartości minimalne i maksymalne dla każdej optymalizowanej "
+"zmiennej."
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"Nie włączono żadnego celu optymalizacji.\n"
+"Zaznacz co najmniej jedną miarę w tabeli celów optymalizacji."
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "Uruchamianie…"
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"Nie można uruchomić optymalizacji.\n"
+"Sprawdź szczegóły w terminalu."
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"Przebieg %d/%d  Iteracja %d  Obliczenia %d  Wartość funkcji celu %.6g  "
+"Najlepsza %.6g  Iteracje bez poprawy %d  Pamięć podręczna %d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -6144,6 +7076,74 @@ msgstr "nie udało się utworzyć eventfd budzenia optymalizatora\n"
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "nie udało się utworzyć wątku wyjścia optymalizatora\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "min. wynik"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "maks. wynik"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± wartość docelowa"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Nalicza karę za wartości powyżej wartości docelowej; poniżej niej wynik dąży "
+"do zera"
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Nalicza karę za wartości poniżej wartości docelowej; powyżej niej wynik dąży "
+"do zera"
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Nalicza karę za odchylenie od wartości docelowej; score=0, gdy value = target"
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "Sumuje wyniki ze wszystkich kroków częstotliwości NEC2"
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr "Oblicza średnią wyników ze wszystkich kroków częstotliwości NEC2"
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "Wybiera najmniejszy wynik spośród wszystkich kroków częstotliwości"
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "Wybiera największy wynik spośród wszystkich kroków częstotliwości"
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr "Pierwiastek z sumy kwadratów wyników: sqrt(sum(score<sup>2</sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr ""
+"Różnica między największym a najmniejszym wynikiem spośród kroków "
+"częstotliwości"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6563,6 +7563,14 @@ msgstr "Temp. szumowa (skala log.)"
 msgid "Radiation Pattern: - "
 msgstr "Charakterystyka promieniowania: - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - Niebo:"
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - Grunt:"
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Pola bliskie:"
@@ -6588,7 +7596,15 @@ msgstr "Wykresy danych częstotliwości - "
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d jest poza zakresem. calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "Wzgl."
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "Bezwzgl."
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr ""
@@ -6652,6 +7668,30 @@ msgstr ""
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+przewijanie: promień drutu"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"OpenGL nie jest dostępny na tym ekranie.\n"
+"Renderowanie odbywa się za pomocą Cairo."
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"Program skompilowano bez obsługi OpenGL.\n"
+"Renderowanie odbywa się za pomocą Cairo."
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "Ogólne"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "Kolor"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6762,6 +7802,31 @@ msgstr "sy_save_overrides: nie można otworzyć %s do zapisu: %s\n"
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "Zapisano %d nadpisań symboli do %s\n"
 
+# xnec2c-exempt: loanword
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr ""
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "Przesłonięcie"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "Opt."
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "Min."
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "Maks."
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "Wyrażenie"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6771,6 +7836,14 @@ msgstr "sy_overrides_init: nie udało się załadować glade: %s\n"
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: nie udało się pobrać widżetów z glade\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "Symbole wejściowe"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "Symbole obliczane"
 
 #: src/sy_overrides.c:1486
 msgid ""

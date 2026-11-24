@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -89,6 +89,18 @@ msgstr "শীর্ষ _মান"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "নিকট ক্ষেত্র অ্যানিমেশন"
+
+#: resources/animate.glade:205
+msgid "Start"
+msgstr "শুরু করুন"
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "থামান"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "বন্ধ করুন"
 
 #: resources/animate.glade:277
 msgid ""
@@ -178,7 +190,7 @@ msgstr "ডিসপ্লে"
 msgid "Flow direction:"
 msgstr "প্রবাহের দিক:"
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "প্যাচ"
 
@@ -284,6 +296,7 @@ msgid "Color Quantization"
 msgstr "রং কোয়ান্টাইজেশন"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "বন্ধ"
 
@@ -765,6 +778,10 @@ msgstr ""
 "প্রতিটি তার বরাবর তরঙ্গের গতি বোঝা যায় এমনভাবে তাৎক্ষণিক ধনাত্মক শীর্ষে একটি "
 "উজ্জ্বল হেড আরোহণ করান।"
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr "<small><i>n = |z| / max|z|,  s = স্কেল রূপান্তর,  φ = দশা</i></small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "রিসেট"
@@ -777,9 +794,87 @@ msgstr ""
 "রঙের প্রক্ষেপণ, সেগমেন্ট স্কেল, স্কেল ফ্যামিলি, ব্রাইটনেস ফ্লোর এবং প্রতিটি ফ্যামিলি "
 "প্যারামিটার তাদের ডিফল্টে পুনরুদ্ধার করুন।"
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "অ্যান্টি-অ্যালিয়াসিং (MSAA)"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "স্ট্রাকচার"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "ব্রাইটনেস"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "স্বচ্ছতা"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "সেগমেন্টসমূহ"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "বিকিরণ প্যাটার্ন"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "পৃষ্ঠতল"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "ওয়্যারফ্রেম"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "নিকট ক্ষেত্র"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "অঙ্কনশৈলী"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "উভয়ই"
+
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr "দৃশ্য"
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "গ্রাউন্ড"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "অক্ষসমূহ"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "শুধু দৃশ্যমান — NEC2 মডেল গণনায় প্রভাব ফেলে না।"
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "শুধু ক্লিক করলে স্বচ্ছতা"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "লম্ব প্রক্ষেপণ"
+
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr "রেন্ডারার:"
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "সীমাবদ্ধ ঘূর্ণন"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -798,13 +893,104 @@ msgid "Rendering Settings"
 msgstr "রেন্ডারিং সেটিংস"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "_বন্ধ করুন"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "প্রতীক ওভাররাইড"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "অপ্টিমাইজেশন"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "অ্যালগরিদম:"
+
+# xnec2c-exempt: name
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr ""
+
+# xnec2c-exempt: name
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr ""
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "উন্নত"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "সাধারণ সেটিংস"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "উন্নতিহীন ধাপের সংখ্যা:"
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "সহনসীমা:"
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "সর্বাধিক পুনরাবৃত্তি:"
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "Simplex সেটিংস"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "Simplex আকারসমূহ:"
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "সর্বনিম্ন আকার:"
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "তাপমাত্রা:"
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "Particle swarm সেটিংস"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "কণা:"
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "প্রতিবেশী:"
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "জড়তা:"
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "জ্ঞানীয়:"
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "সামাজিক:"
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "অনুসন্ধানের আকার:"
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "অপ্টিমাইজেশন শুরু করুন"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "অপ্টিমাইজেশন বাতিল করুন"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1646,10 +1832,6 @@ msgstr "ত্রিভুজ"
 msgid "Quadrilateral"
 msgstr "চতুর্ভুজ"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "পৃষ্ঠতল"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "প্যাচের ধরন"
@@ -2008,6 +2190,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "_বাম/ডান ক্লিক ফ্রিকোয়েন্সি নির্বাচন পরিবর্তন করুন"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "সর্বোচ্চ গেইন"
 
@@ -2431,7 +2614,7 @@ msgid ""
 msgstr "বর্তমান ভিউ কোণের জন্য স্ট্রাকচার ভিউয়ারের দিকে গেইন।"
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "গেইন"
 
@@ -3699,7 +3882,7 @@ msgstr ""
 msgid "Gain Direction"
 msgstr "গেইনের দিক"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "ভিউয়ার গেইন"
 
@@ -3802,6 +3985,15 @@ msgstr "পয়েন্টগুলির জন্য মেমরি বর
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():পয়েন্টগুলির জন্য মেমরি বরাদ্দ ব্যর্থ"
+
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
+"সর্বনিম্ন:%.2f\n"
+"সর্বোচ্চ:%.2f"
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -5027,6 +5219,10 @@ msgstr ""
 "কমান্ড ডেটা কার্ড ত্রুটি\n"
 "মেমোনিক কোড খুব ছোট বা অনুপস্থিত"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "নির্দেশের উপাত্ত"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -5060,6 +5256,10 @@ msgid ""
 msgstr ""
 "জ্যামিতি ডেটা কার্ড ত্রুটি\n"
 "কার্ডের মেমোনিক কোড খুব ছোট বা অনুপস্থিত"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "জ্যামিতির উপাত্ত"
 
 #: src/interface.c:138
 #, c-format
@@ -5121,6 +5321,10 @@ msgstr ""
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade লোড করতে ব্যর্থ: %s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "কিছুই নয় (প্রদর্শন নেই)"
 
 #: src/main.c:129
 #, c-format
@@ -5309,6 +5513,76 @@ msgstr "%s: বেঞ্চমার্ক=%d\n"
 #: src/mathlib.c:830
 msgid "Mathlib Help"
 msgstr "Mathlib সাহায্য"
+
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"আপনার প্ল্যাটফর্মে ATLAS, OpenBLAS ও Intel MKL-এর মতো ত্বরিত গণিত লাইব্রেরি থাকলে "
+"xnec2c-এর তড়িৎচুম্বকীয় সিমুলেশন দ্রুত চলতে পারে। লাইব্রেরি শনাক্তকরণের বিবরণ "
+"টার্মিনালে পাওয়া যায়।\n"
+"\n"
+"* ইন্টারফেসে ফ্রিকোয়েন্সি MHz +/- উইজেটের মান বদলে বা ফ্রিকোয়েন্সি প্লটে (ডান) "
+"ক্লিক করে ফ্রিকোয়েন্সি বদলালে নির্বাচিত \"ইন্টারঅ্যাক্টিভ\" গণিত লাইব্রেরি ব্যবহৃত হয়\n"
+"\n"
+"* একাধিক কাজ ফর্ক করে সমান্তরালে চালাতে কমান্ড লাইনে -j দেওয়া হলে নির্বাচিত "
+"\"ব্যাচ\" গণিত লাইব্রেরি ব্যবহৃত হয়।\n"
+"\n"
+"Intel লাইব্রেরিগুলোর মধ্যে একবারে একটি মাত্র লাইব্রেরি নির্বাচন করা যায়।  "
+"তড়িৎচুম্বকীয় গণনায় কোনো Intel MKL গণিত লাইব্রেরি একবার ব্যবহৃত হলে পুনরায় চালু করা "
+"পর্যন্ত অন্য Intel লাইব্রেরিগুলো নির্বাচন করা যায় না।  xnec2c আগের নির্বাচিত "
+"লাইব্রেরি মনে রাখে, তাই .NEC ফাইল খুললে সেটি সক্রিয় হয়ে অন্য বিকল্পগুলো অকার্যকর "
+"করতে পারে।  বিকল্প বদলাতে xnec2c বন্ধ করে কোনো .NEC ফাইল না খুলে আবার চালু করুন "
+"(কমান্ড লাইনেও কোনো .NEC ফাইল উল্লেখ করবেন না)।\n"
+"\n"
+"\n"
+"== ডিস্ট্রিবিউশন অনুযায়ী গণিত লাইব্রেরি ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    আপনার openblas বাস্তবায়ন বেছে নিতে `alternatives` ব্যবহার করার\n"
+"    প্রয়োজন হতে পারে। BLAS/LAPACK-এর কিছু সমন্বয় একসঙ্গে\n"
+"    কাজ করতে পারে, কিছু নাও করতে পারে:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  openSUSE আনুষ্ঠানিকভাবে ATLAS সমর্থন করে না, তাই সোর্স থেকে বিল্ড করুন\n"
+"\n"
+"কপি-পেস্ট করার জন্য এই লেখাটি টার্মিনালে পাওয়া যায়।\n"
 
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
@@ -5511,11 +5785,34 @@ msgstr "%s বেঞ্চমার্ক শুরু হচ্ছে (%s %d)\n
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "বেঞ্চমার্ক সুইপ চালানো হয়নি: FR_cards=%d steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f সেকেন্ড (%s %2d) %c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "একবার পরিমাপ করা হয়েছে: এই লাইব্রেরি যে থ্রেড সংখ্যা দিয়ে নির্মিত হয়েছিল তা বজায় "
 "রাখে"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"সেরা গণিত লাইব্রেরি: %s (%s %d): %f সেকেন্ড\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"কোনো ফল পাওয়া যায়নি?  এটি একটি বাগ।"
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5582,6 +5879,86 @@ msgstr "প্রতিসাম্য ত্রুটি"
 msgid "Solving Failed: %d\n"
 msgstr "সমাধান ব্যর্থ: %d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "নিকটতম বিন্দুতে মেলান"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "ইন্টারপোলেশন করুন"
+
+#: src/measurements.c:12
+msgid "Formula"
+msgstr "সূত্র"
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "ছায়াপথীয়"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "G4CQM নীরব পরিবেশের সর্বনিম্ন মান (2016-এর আগে)"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "VK3UM নীরব পরিবেশের সর্বনিম্ন মান (2016-এর আগে)"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "VE7BQH ভিত্তি রেফারেন্স (2018-এর আগে)"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "ছায়াপথীয় P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "DG7YBN ছায়াপথীয় গড় (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "সংশ্লেষিত ব্যবহারিক গড় (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "সংশ্লেষিত নীরব পরিবেশের সর্বনিম্ন মান (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "ব্যবহারকারী নির্ধারিত"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "ITU-R বাণিজ্যিক এলাকা (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "ITU-R আবাসিক এলাকা (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "ITU-R গ্রামীণ এলাকা (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "ITU-R নীরব গ্রামীণ এলাকা (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "G4CQM মিশ্র (2016-এর আগে)"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "DG7YBN গ্রামীণ এলাকা (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "DG7YBN আবাসিক এলাকা (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "DG7YBN নগর এলাকা (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
@@ -5589,6 +5966,78 @@ msgid ""
 "to 0\n"
 msgstr ""
 "noise_temp_resolve: noise_temp টেবিল বরাদ্দ করা হয়নি; t_sky/t_earth ডিফল্ট 0\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "Z-এর বাস্তব অংশ"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "Z-এর কাল্পনিক অংশ"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "Z-এর ম্যাগনিচিউড"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "Z-এর দশা"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "S11-এর বাস্তব অংশ"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "S11-এর কাল্পনিক অংশ"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "S11-এর কোণ"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "নেট গেইন"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "গেইনের Theta কোণ"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "গেইনের Phi কোণ"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "ভিউয়ারের দিকের নেট গেইন"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "F/B অনুপাত"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "+X থেকে গেইনের বিচ্যুতি"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "−X থেকে গেইনের বিচ্যুতি"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "+Y থেকে গেইনের বিচ্যুতি"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "−Y থেকে গেইনের বিচ্যুতি"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "+Z থেকে গেইনের বিচ্যুতি"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "−Z থেকে গেইনের বিচ্যুতি"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5609,6 +6058,146 @@ msgstr "গড় গেইন দক্ষতা"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "গড় গেইন কভারেজ"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "ফ্রিকোয়েন্সি, একক MHz (স্বাধীন চলক)"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "ফিড পয়েন্টের ইম্পিড্যান্সের বাস্তব অংশ (ohms)"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "ফিড পয়েন্টের ইম্পিড্যান্সের কাল্পনিক অংশ (ohms)"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "ফিড পয়েন্টের ইম্পিড্যান্সের ম্যাগনিচিউড (ohms)"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "ফিড পয়েন্টের ইম্পিড্যান্সের দশা কোণ (degrees)"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "ভোল্টেজ স্থির তরঙ্গ অনুপাত (1.0 = নিখুঁত মিল)"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr "রিটার্ন লস, একক dB (আরও ঋণাত্মক = আরও ভালো মিল)"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "S11-এর বাস্তব অংশ, একক dB"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "S11-এর কাল্পনিক অংশ, একক dB"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "প্রতিফলন সহগের দশা কোণ (degrees)"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "সব কোণের মধ্যে সর্বোচ্চ গেইন, একক dBi"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr "অমিলজনিত ক্ষয় অনুযায়ী সমন্বিত সর্বোচ্চ গেইন, একক dBi"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "সর্বোচ্চ গেইনের উচ্চতা কোণ (দিগন্তের ওপরে ডিগ্রিতে)"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "সর্বোচ্চ গেইনের দিগংশ কোণ (degrees)"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "ভিউয়ারের বর্তমান কোণের দিকে গেইন, একক dBi"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr "অমিলজনিত ক্ষয় অনুযায়ী সমন্বিত ভিউয়ারের দিকের গেইন, একক dBi"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "সামনে-পেছনের অনুপাত, একক dB"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr "+X অক্ষ থেকে সর্বোচ্চ গেইনের কৌণিক বিচ্যুতি (degrees)"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr "-X অক্ষ থেকে সর্বোচ্চ গেইনের কৌণিক বিচ্যুতি (degrees)"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr "+Y অক্ষ থেকে সর্বোচ্চ গেইনের কৌণিক বিচ্যুতি (degrees)"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr "-Y অক্ষ থেকে সর্বোচ্চ গেইনের কৌণিক বিচ্যুতি (degrees)"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr "+Z অক্ষ থেকে সর্বোচ্চ গেইনের কৌণিক বিচ্যুতি (degrees)"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr "-Z অক্ষ থেকে সর্বোচ্চ গেইনের কৌণিক বিচ্যুতি (degrees)"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr "আকাশ/মাটির ব্রাইটনেস থেকে অ্যান্টেনার নয়েজ তাপমাত্রা Ta (K)"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr "ওহমীয় ক্ষয়সহ সিস্টেমের মোট নয়েজ তাপমাত্রা TA (K)"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr "গেইন ও অ্যান্টেনা তাপমাত্রার অনুপাত (dB), ক্ষয় বাদে"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr "অ্যান্টেনার সমাধান গণনায় হারানো নির্ভুলতার দশমিক অঙ্কের সংখ্যা"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr ""
+"সর্বোচ্চ গেইনের উচ্চতা কোণে সামনে-পেছনের অনুপাত, একক dB, দিগংশে 90 ডিগ্রির পর "
+"থেকে পেছন ধরা হয়"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr "সর্বোচ্চ গেইনের দিকের পেছনের সব দিক ধরে সামনে-পেছনের অনুপাত, একক dB"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr ""
+"প্যাটার্ন গ্রিডে নমুনা নেওয়া ঘন কোণ জুড়ে গড় বৈদ্যুতিক ক্ষমতার গেইন, রৈখিক অনুপাতে"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr "গড় বৈদ্যুতিক ক্ষমতার গেইন ও গোলকের নমুনাকৃত ভগ্নাংশের গুণফল, শতকরা হিসাবে"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "পূর্ণ গোলকের যে ভগ্নাংশ প্যাটার্ন গ্রিডে নমুনা নেওয়া হয়"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "অজানা"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5772,6 +6361,11 @@ msgstr "cairo overlay base তৈরি করতে ব্যর্থ\n"
 msgid "Shader declares no version directive: %s\n"
 msgstr "শেডারে কোনো ভার্সন নির্দেশনা ঘোষিত হয়নি: %s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "অজানা ত্রুটি"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -5903,15 +6497,337 @@ msgstr "%d অপ্টিমাইজার লক্ষ্য লোড হয
 msgid "opt_file_load: %s\n"
 msgstr ""
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>minimize</b>: <i>%s</i> এর মান <b>%s</b> ছাড়ালে দণ্ড আরোপ করে\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (স্বাভাবিকীকরণ)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (টান: লক্ষ্য অতিক্রমের পর অবশিষ্ট "
+"গ্র্যাডিয়েন্ট)"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>maximize</b>: <i>%s</i> এর মান <b>%s</b> এর নিচে থাকলে দণ্ড আরোপ করে\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (স্বাভাবিকীকরণ)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (টান: লক্ষ্য অতিক্রমের পর অবশিষ্ট "
+"গ্র্যাডিয়েন্ট)"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>deviate</b>: <i>%s</i> এর মান <b>%s</b> থেকে বিচ্যুত হলে দণ্ড আরোপ করে\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"স্বাভাবিকীকরণ বা টানের কোনো পদ নেই।"
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>কোনো লক্ষ্য সক্রিয় নেই</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>অপ্টিমাইজার F-এর মান সর্বনিম্ন করে</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>রূপান্তরের দিক</span>\n"
+"\n"
+"<b>minimize:</b> কম মান ভালো\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>লক্ষ্যের নিচে স্কোর শূন্যের দিকে যায়; লক্ষ্যের ওপরে অতিরিক্ত মানে দণ্ড আরোপ "
+"করে</i>\n"
+"\n"
+"<b>maximize:</b> বেশি মান ভালো\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>লক্ষ্যের ওপরে স্কোর শূন্যের দিকে যায়; ধনাত্মক ও ঋণাত্মক উভয় লক্ষ্যে কাজ করে</"
+"i>\n"
+"\n"
+"<b>deviate:</b> একটি নির্দিষ্ট মান লক্ষ্য করুন\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>লক্ষ্য থেকে বিচ্যুতিতে দণ্ড আরোপ করে; value = target হলে score=0</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>সমষ্টিকরণ ফাংশন</span>\n"
+"\n"
+"<b>avg:</b> ব্যান্ডজুড়ে গড় দণ্ড\n"
+"    <i>সব ফ্রিকোয়েন্সিকে সমান গুরুত্ব দেয়</i>\n"
+"\n"
+"<b>max:</b> সর্বোচ্চ দণ্ড ফেরত দেয় (নিকৃষ্টতম ফ্রিকোয়েন্সি বিন্দু)\n"
+"    <i>অপ্টিমাইজার প্রথমে নিকৃষ্টতম ফ্রিকোয়েন্সির ফল উন্নত করে\n"
+"    \"ব্যান্ডের কোনো বিন্দুর মান X ছাড়াতে পারবে না\"</i>\n"
+"\n"
+"<b>min:</b> সর্বনিম্ন দণ্ড ফেরত দেয় (সেরা ফ্রিকোয়েন্সি বিন্দু)\n"
+"    <i>অপ্টিমাইজার সেরা ফ্রিকোয়েন্সির ফল উন্নত করে, অন্যগুলো উপেক্ষা করে\n"
+"    কদাচিৎ কাজে লাগে (সংকীর্ণ-ব্যান্ড সমাধান তৈরি করে)</i>\n"
+"\n"
+"<b>diff:</b> দণ্ডের পরিসর ফেরত দেয় (তারতম্য)\n"
+"    <i>ব্যান্ডজুড়ে পরিমাপসূচকের মান সামঞ্জস্যপূর্ণ করে\n"
+"    গেইন সমতল রাখতে gain_max-এর সঙ্গে ব্যবহার করুন</i>\n"
+"\n"
+"<b>sum:</b> সব ফ্রিকোয়েন্সির দণ্ডের মোট যোগফল\n"
+"    <i>সামগ্রিক ত্রুটির ম্যাগনিচিউডকে গুরুত্ব দেয়</i>\n"
+"\n"
+"<b>mag:</b> গড় বর্গমূল ম্যাগনিচিউড\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>গড়ের তুলনায় বড় বিচ্যুতিকে বেশি গুরুত্ব দেয়</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>গেইনের দিকের পরিমাপসূচক</span>\n"
+"\n"
+"এই gain_dev_* পরিমাপসূচকগুলো সর্বোচ্চ গেইনের দিক ও একটি স্থানাঙ্ক অক্ষের\n"
+"মধ্যকার কৌণিক বিচ্যুতি (ডিগ্রিতে) মাপে।\n"
+"বিমের দিক বদলাতে direction=minimize ব্যবহার করে লক্ষ্য 0-এর কাছাকাছি রাখুন।\n"
+"\n"
+"    gain_dev_px: +X অক্ষ থেকে বিচ্যুতি\n"
+"    gain_dev_nx: -X অক্ষ থেকে বিচ্যুতি\n"
+"    gain_dev_py: +Y অক্ষ থেকে বিচ্যুতি\n"
+"    gain_dev_ny: -Y অক্ষ থেকে বিচ্যুতি\n"
+"    gain_dev_pz: +Z অক্ষ থেকে বিচ্যুতি (ঊর্ধ্ববিন্দু)\n"
+"    gain_dev_nz: -Z অক্ষ থেকে বিচ্যুতি (অধোবিন্দু)\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "উপযোগিতা সূত্রের সহায়িকা"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr "ফ্রিকোয়েন্সি স্পিনারের বর্তমান অবস্থানে NEC2-এর মান"
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "পরিমাপের লক্ষ্যমান"
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "রূপান্তরের ফলে প্রয়োগ করা সূচক"
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "সমষ্টিকরণের পরে প্রয়োগ করা গুণক"
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "ফ্রিকোয়েন্সির নিম্নসীমা (খালি = সব ফ্রিকোয়েন্সি)"
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "ফ্রিকোয়েন্সির ঊর্ধ্বসীমা (খালি = সব ফ্রিকোয়েন্সি)"
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "এই উদ্দেশ্যের জন্য সূত্রের পদ"
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "গণনা: weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "এই উদ্দেশ্যটি সরান"
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "পরিমাপ"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "মান"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "রূপান্তর →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "লক্ষ্য"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "সূচক →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "সমষ্টিকরণ →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "ভার"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "নিম্নসীমা MHz"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "ঊর্ধ্বসীমা MHz →"
+
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr "সূত্র →"
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "স্কোর"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "অপ্টিমাইজার এই মানটি সর্বনিম্ন করে"
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ পরিমাপসূচক যোগ করুন"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [সম্পন্ন]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui: অপ্টিমাইজেশন সম্পন্ন, সেরা ফিটনেস: %.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "অপ্টিমাইজেশন"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"অপ্টিমাইজেশনের জন্য কোনো চলক চিহ্নিত নেই।\n"
+"যেসব চলক অপ্টিমাইজ করবেন, সেগুলো অপ্টিমাইজেশন কলামে চিহ্নিত করুন।"
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"%d টি চলকের সর্বনিম্ন মান >= সর্বোচ্চ মান: %s\n"
+"অপ্টিমাইজেশনের প্রতিটি চলকের জন্য আলাদা সর্বনিম্ন ও সর্বোচ্চ মান নির্ধারণ করুন।"
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"উপযোগিতার কোনো লক্ষ্য সক্রিয় নেই।\n"
+"উপযোগিতার লক্ষ্য ছকে অন্তত একটি পরিমাপসূচক চিহ্নিত করুন।"
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "শুরু হচ্ছে..."
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"অপ্টিমাইজেশন শুরু করা যায়নি।\n"
+"বিস্তারিত জানতে টার্মিনাল দেখুন।"
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"পর্যায় %d/%d  পুনরাবৃত্তি %d  মূল্যায়ন %d  উপযোগিতা %.6g  সেরা %.6g  উন্নতিহীন %d  "
+"ক্যাশ %d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -6033,6 +6949,70 @@ msgstr "অপ্টিমাইজার wake eventfd তৈরি করতে
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "অপ্টিমাইজার আউটপুট থ্রেড তৈরি করতে ব্যর্থ\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "সর্বনিম্ন স্কোর"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "সর্বোচ্চ স্কোর"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± লক্ষ্য"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"লক্ষ্যের ওপরের মানে দণ্ড আরোপ করে; লক্ষ্যের নিচে স্কোর শূন্যের দিকে যায়"
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"লক্ষ্যের নিচের মানে দণ্ড আরোপ করে; লক্ষ্যের ওপরে স্কোর শূন্যের দিকে যায়"
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"লক্ষ্য থেকে বিচ্যুতিতে দণ্ড আরোপ করে; value = target হলে score=0"
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "NEC2-এর প্রতিটি ফ্রিকোয়েন্সি ধাপের স্কোর যোগ করে"
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr "NEC2-এর সব ফ্রিকোয়েন্সি ধাপের স্কোরের গড় নেয়"
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "সব ফ্রিকোয়েন্সি ধাপের মধ্যে সর্বনিম্ন স্কোর বেছে নেয়"
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "সব ফ্রিকোয়েন্সি ধাপের মধ্যে সর্বোচ্চ স্কোর বেছে নেয়"
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr "স্কোরগুলোর বর্গের যোগফলের বর্গমূল: sqrt(sum(score<sup>2</sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr "ফ্রিকোয়েন্সি ধাপগুলোর সর্বোচ্চ ও সর্বনিম্ন স্কোরের ব্যবধান"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6440,6 +7420,14 @@ msgstr "নয়েজ তাপমাত্রা (লগ স্কেল)"
 msgid "Radiation Pattern: - "
 msgstr "বিকিরণ প্যাটার্ন: - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - আকাশ:"
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - মাটি:"
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "নিকট ক্ষেত্রসমূহ:"
@@ -6465,7 +7453,15 @@ msgstr "ফ্রিকোয়েন্সি ডেটা প্লট - "
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d সীমার বাইরে। calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "আপেক্ষিক"
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "পরম"
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: সারফেস তৈরি ব্যর্থ হয়েছে (%dx%d)\n"
@@ -6527,6 +7523,30 @@ msgstr "অপ্টিমাইজার লুপ অসম্পূর্ণ,
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+Scroll: তারের ব্যাসার্ধ"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"এই ডিসপ্লেতে OpenGL উপলব্ধ নয়।\n"
+"Cairo রেন্ডারিং সক্রিয়।"
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"OpenGL সমর্থন ছাড়া বিল্ড করা হয়েছে।\n"
+"Cairo রেন্ডারিং সক্রিয়।"
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "সাধারণ"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "রং"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6636,6 +7656,30 @@ msgstr "sy_save_overrides: %s লেখার জন্য খোলা যা�
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "%d প্রতীক ওভাররাইড %s-এ সংরক্ষিত হয়েছে\n"
 
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr "প্রতীক"
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "ওভাররাইড"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "অপ্টিমাইজেশন"
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "সর্বনিম্ন"
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "সর্বোচ্চ"
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "রাশি"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6645,6 +7689,14 @@ msgstr "sy_overrides_init: glade লোড করতে ব্যর্থ: %s\n
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: glade থেকে উইজেট পেতে ব্যর্থ\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "ইনপুট প্রতীকসমূহ"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "গণনাকৃত প্রতীকসমূহ"
 
 #: src/sy_overrides.c:1486
 msgid ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -89,6 +89,18 @@ msgstr "峰值幅度(_M)"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "近场动画"
+
+#: resources/animate.glade:205
+msgid "Start"
+msgstr "开始"
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "停止"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "关闭"
 
 #: resources/animate.glade:277
 msgid ""
@@ -174,7 +186,7 @@ msgstr "显示"
 msgid "Flow direction:"
 msgstr "流向："
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "面片"
 
@@ -277,6 +289,7 @@ msgid "Color Quantization"
 msgstr "颜色量化"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "关闭"
 
@@ -716,6 +729,10 @@ msgid ""
 "along each wire."
 msgstr "在瞬时正峰上呈现一个亮点，使波形运动沿每根导线清晰可辨。"
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr "<small><i>n = |z| / max|z|，s = 色阶传递，φ = 相位</i></small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "重置"
@@ -726,9 +743,87 @@ msgid ""
 "and every family parameter to their defaults."
 msgstr "将色彩投影、分段缩放、色阶族、亮度下限及每个族参数恢复为默认值。"
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "抗锯齿（MSAA）"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "结构"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "亮度"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "透明度"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "分段"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "辐射方向图"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "曲面"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "线框"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "近场"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "绘制样式"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "两者"
+
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr "场景"
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "地"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "坐标轴"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "仅视觉效果——不影响 NEC2 模型计算。"
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "仅在点击时启用透明度"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "正交投影"
+
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr "渲染器："
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "约束旋转"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -747,13 +842,102 @@ msgid "Rendering Settings"
 msgstr "渲染设置"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "关闭(_C)"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "符号覆盖"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "优化"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "算法："
+
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr "单纯形"
+
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr "粒子群"
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "高级"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "通用设置"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "停滞次数："
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "容差："
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "最大迭代次数："
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "单纯形设置"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "单纯形尺寸："
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "最小尺寸："
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "温度："
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "粒子群设置"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "粒子数："
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "邻居数："
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "惯性权重："
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "认知系数："
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "社会系数："
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "搜索范围："
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "开始优化"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "取消优化"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1594,10 +1778,6 @@ msgstr "三角形"
 msgid "Quadrilateral"
 msgstr "四边形"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "曲面"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "面片类型"
@@ -1954,6 +2134,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "交换左键/右键点击频率选择(_W)"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "最大增益"
 
@@ -2365,7 +2546,7 @@ msgid ""
 msgstr "沿结构视角方向的增益，基于当前视角角度。"
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "增益"
 
@@ -3618,7 +3799,7 @@ msgstr "将频率扫描重置到第一步并放弃每个已计算结果"
 msgid "Gain Direction"
 msgstr "增益方向"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "观察者增益"
 
@@ -3717,6 +3898,15 @@ msgstr "点的内存分配失败\n"
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph()：点的内存分配失败"
+
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
+"最小值：%.2f\n"
+"最大值：%.2f"
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -4909,6 +5099,10 @@ msgstr ""
 "命令数据卡错误\n"
 "助记符代码太短或缺失"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "命令数据"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -4940,6 +5134,10 @@ msgid ""
 msgstr ""
 "几何数据卡错误\n"
 "卡的助记符代码太短或缺失"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "几何数据"
 
 #: src/interface.c:138
 #, c-format
@@ -4999,6 +5197,10 @@ msgstr "xnec2c %s：%s"
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog：加载 animate.glade 失败：%s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "无（不显示）"
 
 #: src/main.c:129
 #, c-format
@@ -5184,6 +5386,72 @@ msgstr "%s：基准测试=%d\n"
 msgid "Mathlib Help"
 msgstr "数学库帮助"
 
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"若当前平台提供ATLAS、OpenBLAS或Intel MKL等加速数学库，即可加快xnec2c的电磁仿"
+"真。终端会显示库检测详情。\n"
+"\n"
+"* 通过频率MHz +/-控件或在频率图上单击或右击来更改界面中的频率时，使用所选的"
+"\"交互\"数学库。\n"
+"\n"
+"* 在命令行指定-j以fork多个并行任务时，使用所选的\"批处理\"数学库。\n"
+"\n"
+"Intel库一次只能选择一个。使用任一Intel MKL数学库进行电磁计算后，其他Intel库选"
+"项将锁定，直至程序重启。xnec2c会记住所选的库，因此打开.NEC文件时可能启用上次"
+"所选的库，并锁定其他选项。要更改选项而不触发锁定，请关闭并重新启动xnec2c，不"
+"要打开.NEC文件，也不要在命令行指定.NEC文件。\n"
+"\n"
+"\n"
+"== 各发行版的数学库 ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    可能需要使用`alternatives`来选择\n"
+"    openblas实现。某些BLAS/LAPACK组合\n"
+"    不一定兼容：\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  openSUSE不正式支持ATLAS，因此请从源代码构建。\n"
+"\n"
+"可从终端复制并粘贴此文本。\n"
+
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
 msgstr "数学库基准测试帮助"
@@ -5366,9 +5634,32 @@ msgstr "正在启动 %s 基准测试（%s %d）\n"
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "未运行基准测试扫描：FR_cards=%d steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f秒（%s %2d）%c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr "仅测量一次：此库保持其构建时的线程数"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"最快的数学库：%s（%s %d）：%f秒\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"未找到结果？这是程序缺陷。"
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5432,12 +5723,164 @@ msgstr "对称性错误"
 msgid "Solving Failed: %d\n"
 msgstr "求解失败：%d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "吸附"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "插值"
+
+#: src/measurements.c:12
+msgid "Formula"
+msgstr "公式"
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "银河系"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "G4CQM宁静环境最小值（2016年前）"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "VK3UM宁静环境最小值（2016年前）"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "VE7BQH基准参考（2018年前）"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "银河系P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "DG7YBN银河系平均值 (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "合成实际平均值 (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "合成宁静环境最小值 (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "自定义"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "ITU-R商业区 (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "ITU-R住宅区 (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "ITU-R乡村 (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "ITU-R宁静乡村 (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "G4CQM混合环境（2016年前）"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "DG7YBN乡村 (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "DG7YBN住宅区 (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "DG7YBN城市 (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
 "noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
 "to 0\n"
 msgstr "noise_temp_resolve：噪声温度表未分配；t_sky/t_earth 默认为 0\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "Z实部"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "Z虚部"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "Z幅度"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "Z相位"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "S11实部"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "S11虚部"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "S11相位角"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "净增益"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "θ分量增益"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "φ分量增益"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "视角净增益"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "前后比（F/B）"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "增益偏离+X轴的角度"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "增益偏离−X轴的角度"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "增益偏离+Y轴的角度"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "增益偏离−Y轴的角度"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "增益偏离+Z轴的角度"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "增益偏离−Z轴的角度"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5458,6 +5901,143 @@ msgstr "平均增益效率"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "平均增益覆盖率"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "以MHz计的频率（自变量）"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "馈电点阻抗的实部（欧姆）"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "馈电点阻抗的虚部（欧姆）"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "馈电点阻抗的幅度（欧姆）"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "馈电点阻抗的相位角（度）"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "电压驻波比（1.0 = 完全匹配）"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr "以dB计的回波损耗（负值越小，匹配越好）"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "以dB计的S11实部"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "以dB计的S11虚部"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "反射系数的相位角（度）"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "所有方向中的峰值增益（dBi）"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr "计入失配损耗的峰值增益（dBi）"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "峰值增益方向的仰角（地平线以上的度数）"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "峰值增益方向的方位角（度）"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "当前视角方向的增益（dBi）"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr "计入失配损耗的视角增益（dBi）"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "前后比（dB）"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr "峰值增益方向偏离+X轴的角度（度）"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr "峰值增益方向偏离-X轴的角度（度）"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr "峰值增益方向偏离+Y轴的角度（度）"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr "峰值增益方向偏离-Y轴的角度（度）"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr "峰值增益方向偏离+Z轴的角度（度）"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr "峰值增益方向偏离-Z轴的角度（度）"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr "由天空和大地亮度得出的天线噪声温度Ta（K）"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr "计入欧姆损耗的系统总噪声温度TA（K）"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr "不计损耗的增益与天线温度之比（dB）"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr "天线求解中损失的十进制有效位数"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr "峰值增益仰角处的前后比（dB），后向指方位角偏离超过90度的方向"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr "按峰值增益方向后方的所有方向计算的前后比（dB）"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr "方向图网格采样立体角内的平均功率增益（线性比值）"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr "平均功率增益与球面采样覆盖比例的乘积，以百分比表示"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "方向图网格的采样范围占整个球面的比例"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "未知"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5620,6 +6200,11 @@ msgstr "创建 cairo 叠加基础失败\n"
 msgid "Shader declares no version directive: %s\n"
 msgstr "着色器未声明版本指令：%s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "未知错误"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -5749,15 +6334,333 @@ msgstr "已加载 %d 个优化目标\n"
 msgid "opt_file_load: %s\n"
 msgstr "opt_file_load：%s\n"
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>最小化</b>：当<i>%s</i>高于<b>%s</b>时施加惩罚。\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  （归一化）\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  （张力：越过目标后的残余梯度）"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>最大化</b>：当<i>%s</i>低于<b>%s</b>时施加惩罚。\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  （归一化）\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  （张力：越过目标后的残余梯度）"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>偏差</b>：当<i>%s</i>偏离<b>%s</b>时施加惩罚。\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"不进行归一化，也无张力项。"
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>未启用任何目标</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>优化器使F最小化</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>变换方向</span>\n"
+"\n"
+"<b>minimize:</b> 数值越低越好\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>低于目标值时评分趋近于零；高于目标值的部分受到惩罚。</i>\n"
+"\n"
+"<b>maximize:</b> 数值越高越好\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>高于目标值时评分趋近于零；目标值为正或为负均适用。</i>\n"
+"\n"
+"<b>deviate:</b> 以特定数值为目标\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>偏离目标值时施加惩罚；当value = target时，score=0。</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>归约函数</span>\n"
+"\n"
+"<b>avg:</b> 频带内的平均惩罚值\n"
+"    <i>各频点权重相同。</i>\n"
+"\n"
+"<b>max:</b> 返回最大惩罚值（最差频点）\n"
+"    <i>优化器优先改善最差频点。\n"
+"    \"频带内任何频点均不得超过X\"</i>\n"
+"\n"
+"<b>min:</b> 返回最小惩罚值（最佳频点）\n"
+"    <i>优化器只改善最佳频点，不考虑其他频点。\n"
+"    很少适用（会产生窄带解）。</i>\n"
+"\n"
+"<b>diff:</b> 返回惩罚值的极差（变化幅度）\n"
+"    <i>使指标在整个频带内保持一致。\n"
+"    与gain_max配合使用可改善增益平坦度。</i>\n"
+"\n"
+"<b>sum:</b> 所有频点的惩罚值总和\n"
+"    <i>侧重整体误差幅度。</i>\n"
+"\n"
+"<b>mag:</b> 均方根幅度\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>与平均值相比，更侧重大偏差。</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>增益方向指标</span>\n"
+"\n"
+"gain_dev_*指标测量角度偏差（单位为度），\n"
+"即峰值增益方向与坐标轴之间的夹角。\n"
+"使用direction=minimize并将目标设为接近0，以调整波束指向。\n"
+"\n"
+"    gain_dev_px: 相对于+X轴的偏差\n"
+"    gain_dev_nx: 相对于-X轴的偏差\n"
+"    gain_dev_py: 相对于+Y轴的偏差\n"
+"    gain_dev_ny: 相对于-Y轴的偏差\n"
+"    gain_dev_pz: 相对于+Z轴（天顶）的偏差\n"
+"    gain_dev_nz: 相对于-Z轴（天底）的偏差\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "适应度公式帮助"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr "频率调节控件所选频率对应的当前NEC2值。"
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "测量指标的目标值。"
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "对变换结果求幂所用的指数。"
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "归约后使用的乘数。"
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "频率下限（留空表示全部频率）。"
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "频率上限（留空表示全部频率）。"
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "此优化目标对应的公式项。"
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "计算方式：weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "移除此优化目标。"
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "测量指标"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "数值"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "变换 →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "目标值"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "指数 →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "归约 →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "权重"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "下限（MHz）"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "上限（MHz） →"
+
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr "公式 →"
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "评分"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "优化器使此值最小化。"
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ 添加指标"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [已完成]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui：优化完成，最优适应度：%.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "优化"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"未标记任何待优化的变量。\n"
+"请在「优化」列中勾选待优化的变量。"
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"有%d个变量的最小值大于或等于最大值：%s\n"
+"请为每个待优化的变量设置不同的最小值和最大值。"
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"未启用任何适应度目标。\n"
+"请在「适应度目标」表中至少勾选一个指标。"
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "正在启动……"
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"优化启动失败。\n"
+"详情见终端。"
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"轮次%d/%d  迭代%d  评估次数%d  适应度%.6g  最佳适应度%.6g  停滞次数%d  缓"
+"存%d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -5874,6 +6777,70 @@ msgstr "创建优化器唤醒 eventfd 失败\n"
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "创建优化器输出线程失败\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "最小评分"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "最大评分"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± 目标值"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"对高于目标值的数值施加惩罚；低于目标值时，评分趋近于零。"
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"对低于目标值的数值施加惩罚；高于目标值时，评分趋近于零。"
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"偏离目标值时施加惩罚；当value = target时，score=0。"
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "将NEC2各频率步的评分相加。"
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr "计算NEC2各频率步评分的平均值。"
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "取所有频率步中的最小评分。"
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "取所有频率步中的最大评分。"
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr "评分平方和的平方根：sqrt(sum(score<sup>2</sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr "各频率步中最大评分与最小评分之差。"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6266,6 +7233,14 @@ msgstr "噪声温度（对数刻度）"
 msgid "Radiation Pattern: - "
 msgstr "辐射方向图： - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - 天空："
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - 大地："
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "近场："
@@ -6291,7 +7266,15 @@ msgstr "频率数据图 - "
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d 超出范围。calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "相对值"
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "绝对值"
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update：曲面创建失败 (%dx%d)\n"
@@ -6353,6 +7336,30 @@ msgstr "优化器循环未完成，抑制中间重绘。\n"
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+滚轮：导线半径"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"当前显示环境不支持OpenGL。\n"
+"正在使用Cairo渲染。"
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"此构建未包含OpenGL支持。\n"
+"正在使用Cairo渲染。"
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "常规"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "颜色"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6462,6 +7469,30 @@ msgstr "sy_save_overrides：无法打开 %s 进行写入：%s\n"
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "已将 %d 个符号覆盖保存至 %s\n"
 
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr "符号"
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "覆盖"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "优化"
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "最小值"
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "最大值"
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "表达式"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6471,6 +7502,14 @@ msgstr "sy_overrides_init：加载 glade 失败：%s\n"
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init：从 glade 获取控件失败\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "输入符号"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "计算符号"
 
 #: src/sy_overrides.c:1486
 msgid ""

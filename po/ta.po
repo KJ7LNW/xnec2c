@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2026-07-11 10:31-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -88,6 +88,18 @@ msgstr "உச்ச அளவு (_M)"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "அண்மைப் புலம் அசைவூட்டம்"
+
+#: resources/animate.glade:205
+msgid "Start"
+msgstr "தொடங்கவும்"
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "நிறுத்தவும்"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "மூடவும்"
 
 #: resources/animate.glade:277
 msgid ""
@@ -178,7 +190,7 @@ msgstr "காட்சி"
 msgid "Flow direction:"
 msgstr "ஓட்டத் திசை:"
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "தொகுதிகள்"
 
@@ -284,6 +296,7 @@ msgid "Color Quantization"
 msgstr "நிற அளவுப்படுத்தல்"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "அணை"
 
@@ -770,6 +783,10 @@ msgstr ""
 "ஒவ்வொரு கம்பி வழியேயும் அலை இயக்கம் வாசிக்கப்படும்படி உடனடி நேர்மறை முகட்டின் மீது ஒரு "
 "பிரகாசமான தலையைச் செலுத்துகிறது."
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr "<small><i>n = |z| / max|z|,  s = அளவீட்டு மாற்றம்,  φ = கட்டம்</i></small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "மீட்டமை"
@@ -782,9 +799,87 @@ msgstr ""
 "நிற ப்ரொஜெக்ஷன், பிரிவு அளவீடு, அளவீட்டுக் குடும்பம், ஒளிர்வு அடிமட்டம், மற்றும் ஒவ்வொரு "
 "குடும்ப அளவுருவையும் அவற்றின் இயல்புநிலைகளுக்கு மீட்டமைக்கவும்."
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "விளிம்பு மென்மையாக்கல் (MSAA)"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "கட்டமைப்பு"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "ஒளிர்வு"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "ஒளியூடுருவல்"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "பிரிவுகள்"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "கதிர்வீச்சு வடிவம்"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "மேற்பரப்பு"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "கம்பி வலைப்பின்னல்"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "அண்மைப் புலம்"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "வரைதல் பாணி"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "இரண்டும்"
+
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr "காட்சி"
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "தரை"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "அச்சுகள்"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "காட்சிக்கு மட்டும் — NEC2 மாதிரி கணக்கீடுகளை பாதிக்காது."
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "சொடுக்கும்போது மட்டும் ஒளியூடுருவல்"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "செங்குத்துப் ப்ரொஜெக்ஷன்"
+
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr "ரெண்டரர்:"
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "கட்டுப்படுத்தப்பட்ட சுழற்சி"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -803,13 +898,104 @@ msgid "Rendering Settings"
 msgstr "வரைதல் அமைவுகள்"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "மூடு (_O)"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "குறியீடு மேலெழுதல்கள்"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "மேம்படுத்தல்"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "படிமுறை:"
+
+# xnec2c-exempt: name
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr ""
+
+# xnec2c-exempt: name
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr ""
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "மேம்பட்டவை"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "பொது அமைப்புகள்"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "முன்னேற்றமில்லா மறு செய்கைகளின் எண்ணிக்கை:"
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "அனுமதிக்கப்பட்ட விலகல்:"
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "அதிகபட்ச மறு செய்கைகள்:"
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "Simplex அமைப்புகள்"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "Simplex அளவுகள்:"
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "குறைந்தபட்ச அளவு:"
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "வெப்பநிலை:"
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "Particle swarm அமைப்புகள்"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "துகள்கள்:"
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "அண்டைத் துகள்கள்:"
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "நிலைமம்:"
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "தனிப்பட்ட கற்றல்:"
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "குழுக் கற்றல்:"
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "தேடல் அளவு:"
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "உகப்பாக்கத்தைத் தொடங்கவும்"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "உகப்பாக்கத்தை ரத்துசெய்யவும்"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1651,10 +1837,6 @@ msgstr "முக்கோணம்"
 msgid "Quadrilateral"
 msgstr "நாற்கரம்"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "மேற்பரப்பு"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "தொகுதி வகை"
@@ -2014,6 +2196,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "இடது/வலது கிளிக் அதிர்வெண் தேர்வை மாற்று (_W)"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "அதிகபட்ச ஆதாயம்"
 
@@ -2438,7 +2621,7 @@ msgid ""
 msgstr "தற்போதைய பார்வைக் கோணங்களுக்கு, கட்டமைப்புப் பார்வையாளர் திசையிலான ஆதாயம்."
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "ஆதாயம்"
 
@@ -3722,7 +3905,7 @@ msgstr ""
 msgid "Gain Direction"
 msgstr "ஆதாயத் திசை"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "பார்வையாளர் ஆதாயம்"
 
@@ -3825,6 +4008,15 @@ msgstr "புள்ளிகளுக்கான நினைவக ஒது�
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): புள்ளிகளுக்கான நினைவக ஒதுக்கீடு தோல்வியடைந்தது"
+
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
+"குறைந்தபட்சம்:%.2f\n"
+"அதிகபட்சம்:%.2f"
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -5059,6 +5251,10 @@ msgstr ""
 "கட்டளை தரவு அட்டைப் பிழை\n"
 "மினிமானிக் குறியீடு மிகக் குறுகியது அல்லது காணவில்லை"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "கட்டளைத் தரவு"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -5094,6 +5290,10 @@ msgid ""
 msgstr ""
 "வடிவியல் தரவு அட்டைப் பிழை\n"
 "அட்டையின் மினிமானிக் குறியீடு மிகக் குறுகியது அல்லது காணவில்லை"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "வடிவியல் தரவு"
 
 #: src/interface.c:138
 #, c-format
@@ -5155,6 +5355,10 @@ msgstr ""
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade ஐ ஏற்ற முடியவில்லை: %s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "எதுவுமில்லை (காட்சி இல்லை)"
 
 #: src/main.c:129
 #, c-format
@@ -5345,6 +5549,78 @@ msgstr ""
 #: src/mathlib.c:830
 msgid "Mathlib Help"
 msgstr "Mathlib உதவி"
+
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"தளத்தில் ATLAS, OpenBLAS, Intel MKL போன்ற விரைவாக்கப்பட்ட கணித நூலகங்கள் கிடைத்தால், "
+"அவை xnec2c மின்காந்த உருவகப்படுத்தல்களை விரைவுபடுத்தும். நூலகக் கண்டறிதல் விவரங்கள் "
+"முனையத்தில் கிடைக்கும்.\n"
+"\n"
+"* பயனர் இடைமுகத்தில் அதிர்வெண் MHz +/- விட்ஜெட்டை மாற்றியோ அதிர்வெண் வரைபடத்தில் "
+"சொடுக்கியோ (அல்லது வலச்சொடுக்கியோ) அதிர்வெண்ணை மாற்றும்போது, தேர்ந்தெடுத்த \"ஊடாடல்\" "
+"கணித நூலகம் பயன்படுத்தப்படும்.\n"
+"\n"
+"* பல பணிகளை இணையாக இயக்க fork செய்வதற்குக் கட்டளை வரியில் -j குறிப்பிட்டால், "
+"தேர்ந்தெடுத்த \"தொகுதி\" கணித நூலகம் பயன்படுத்தப்படும்.\n"
+"\n"
+"Intel நூலகங்களில் ஒரே நேரத்தில் ஒன்றை மட்டுமே தேர்ந்தெடுக்க முடியும்.  மின்காந்தக் "
+"கணக்கீடுகளுக்கு Intel MKL கணித நூலகங்களில் ஒன்றைப் பயன்படுத்தியதும், மறுதொடக்கம் வரை மற்ற "
+"Intel நூலகத் தேர்வுகள் பூட்டப்படும்.  முன்பு தேர்ந்தெடுத்த நூலகத்தை xnec2c நினைவில் "
+"வைத்திருப்பதால், .NEC கோப்பைத் திறக்கும்போது அந்த நூலகம் செயல்பட்டு மற்ற தேர்வுகளைப் "
+"பூட்டக்கூடும்.  இதைத் தவிர்த்துத் தேர்வை மாற்ற, xnec2c நிரலை மூடி மீண்டும் திறக்கவும். "
+"அப்போது .NEC கோப்பைத் திறக்கவோ கட்டளை வரியில் .NEC கோப்பைக் குறிப்பிடவோ வேண்டாம்.\n"
+"\n"
+"\n"
+"== விநியோக வாரியான கணித நூலகங்கள் ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    பயன்படுத்த வேண்டிய openblas செயலாக்கத்தைத் தேர்ந்தெடுக்க\n"
+"    `alternatives` தேவைப்படலாம். சில BLAS/LAPACK சேர்க்கைகள்\n"
+"    ஒன்றாகச் செயல்படலாம் அல்லது செயல்படாமல் போகலாம்:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS நூலகத்துக்கு openSUSE அதிகாரபூர்வ ஆதரவு வழங்காததால், மூலக் குறியீட்டிலிருந்து "
+"கட்டமைக்கவும்.\n"
+"\n"
+"நகலெடுத்து ஒட்டுவதற்கு இந்த உரை முனையத்தில் கிடைக்கிறது.\n"
 
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
@@ -5548,10 +5824,33 @@ msgstr "%s அளவுகோல் தொடங்குகிறது (%s %d)
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "அளவுகோல் ஸ்வீப் இயங்கவில்லை: FR_cards=%d steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f வினாடிகள் (%s %2d) %c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "ஒருமுறை அளவிடப்பட்டது: இந்த நூலகம் உருவாக்கப்பட்ட த்ரெட் எண்ணிக்கையைத் தக்கவைத்துக்கொள்கிறது"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"சிறந்த கணித நூலகம்: %s (%s %d): %f வினாடிகள்\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"முடிவு கிடைக்கவில்லையா?  இது ஒரு வழு."
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5618,6 +5917,86 @@ msgstr "சமச்சீர்மைப் பிழை"
 msgid "Solving Failed: %d\n"
 msgstr "தீர்வு தோல்வியடைந்தது: %d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "அருகிலுள்ள புள்ளியில் பொருத்தவும்"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "இடைச்செருகல் செய்யவும்"
+
+#: src/measurements.c:12
+msgid "Formula"
+msgstr "சூத்திரம்"
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "விண்மீன் மண்டல"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "G4CQM அமைதிப் பகுதி குறைந்தபட்சம் (2016க்கு முன்)"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "VK3UM அமைதிப் பகுதி குறைந்தபட்சம் (2016க்கு முன்)"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "VE7BQH அடிப்படைக் குறிப்பு (2018க்கு முன்)"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "விண்மீன் மண்டல P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "DG7YBN விண்மீன் மண்டலச் சராசரி (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "செயற்கை நடைமுறைச் சராசரி (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "செயற்கை அமைதிப் பகுதி குறைந்தபட்சம் (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "தனிப்பயன்"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "ITU-R வணிகப் பகுதி (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "ITU-R குடியிருப்புப் பகுதி (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "ITU-R ஊரகப் பகுதி (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "ITU-R அமைதியான ஊரகப் பகுதி (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "G4CQM கலப்பு (2016க்கு முன்)"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "DG7YBN ஊரகப் பகுதி (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "DG7YBN குடியிருப்புப் பகுதி (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "DG7YBN நகரம் (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
@@ -5626,6 +6005,78 @@ msgid ""
 msgstr ""
 "noise_temp_resolve: noise_temp அட்டவணை ஒதுக்கப்படவில்லை; t_sky/t_earth 0 ஆக "
 "இயல்பிருப்பாகிறது\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "Z மெய்ப்பகுதி"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "Z கற்பனைப்பகுதி"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "Z பருமன்"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "Z கட்டம்"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "S11 மெய்ப்பகுதி"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "S11 கற்பனைப்பகுதி"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "S11 கோணம்"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "நிகர ஆதாயம்"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "θ ஆதாயம்"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "φ ஆதாயம்"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "பார்வையாளர் திசை நிகர ஆதாயம்"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "F/B விகிதம்"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "+X ஆதாய விலகல்"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "−X ஆதாய விலகல்"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "+Y ஆதாய விலகல்"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "−Y ஆதாய விலகல்"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "+Z ஆதாய விலகல்"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "−Z ஆதாய விலகல்"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5646,6 +6097,151 @@ msgstr "சராசரி ஆதாய திறன்"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "சராசரி ஆதாய உள்ளடக்கம்"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "அதிர்வெண் MHz அலகில் (சாரா மாறி)"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "ஊட்டுப்புள்ளி இம்பீடன்ஸின் மெய்ப்பகுதி (ஓம்கள்)"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "ஊட்டுப்புள்ளி இம்பீடன்ஸின் கற்பனைப்பகுதி (ஓம்கள்)"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "ஊட்டுப்புள்ளி இம்பீடன்ஸின் பருமன் (ஓம்கள்)"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "ஊட்டுப்புள்ளி இம்பீடன்ஸின் கட்டக் கோணம் (டிகிரி)"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "மின்னழுத்த நிலை அலை விகிதம் (1.0 = முழுப் பொருத்தம்)"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr "திரும்பல் இழப்பு dB அலகில் (மேலும் எதிர்மறையான மதிப்பு = சிறந்த பொருத்தம்)"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "S11 மெய்ப்பகுதி dB அலகில்"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "S11 கற்பனைப்பகுதி dB அலகில்"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "எதிரொளிப்புக் கெழுவின் கட்டக் கோணம் (டிகிரி)"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "அனைத்துக் கோணங்களிலும் உச்ச ஆதாயம் dBi அலகில்"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr "பொருத்தமின்மை இழப்பை உள்ளடக்கிய உச்ச ஆதாயம் dBi அலகில்"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "உச்ச ஆதாயத்தின் ஏற்றக் கோணம் (தொடுவானத்துக்கு மேலே டிகிரியில்)"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "உச்ச ஆதாயத்தின் திசைக்கோணம் (டிகிரி)"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "நடப்புப் பார்வையாளர் கோணத்தில் ஆதாயம் dBi அலகில்"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr "பொருத்தமின்மை இழப்பை உள்ளடக்கிய பார்வையாளர் திசை ஆதாயம் dBi அலகில்"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "முன் பின் விகிதம் dB அலகில்"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr "+X அச்சிலிருந்து உச்ச ஆதாயத்தின் கோண விலகல் (டிகிரி)"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr "-X அச்சிலிருந்து உச்ச ஆதாயத்தின் கோண விலகல் (டிகிரி)"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr "+Y அச்சிலிருந்து உச்ச ஆதாயத்தின் கோண விலகல் (டிகிரி)"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr "-Y அச்சிலிருந்து உச்ச ஆதாயத்தின் கோண விலகல் (டிகிரி)"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr "+Z அச்சிலிருந்து உச்ச ஆதாயத்தின் கோண விலகல் (டிகிரி)"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr "-Z அச்சிலிருந்து உச்ச ஆதாயத்தின் கோண விலகல் (டிகிரி)"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr "வானம்/பூமியின் ஒளிர்வால் ஏற்படும் ஆண்டெனா இரைச்சல் வெப்பநிலை Ta (K)"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr "மின்தடை இழப்பை உள்ளடக்கிய மொத்த அமைப்பு இரைச்சல் வெப்பநிலை TA (K)"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr ""
+"ஆதாயத்துக்கும் ஆண்டெனா வெப்பநிலைக்கும் இடையிலான விகிதம் (dB), இழப்பு சேர்க்கப்படவில்லை"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr "ஆண்டெனா சமன்பாடுகளைத் தீர்க்கும்போது இழந்த துல்லியத்தின் பதின்ம இலக்கங்கள்"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr ""
+"உச்ச ஆதாயத்தின் ஏற்றக் கோணத்தில் முன் பின்புற விகிதம் dB அலகில், 90 டிகிரி "
+"திசைக்கோணத்துக்கு அப்பால் பின்புறம்"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr ""
+"உச்ச ஆதாயத் திசைக்குப் பின்னுள்ள அனைத்துத் திசைகளையும் கணக்கில் கொண்ட முன் பின்புற விகிதம் "
+"dB அலகில்"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr ""
+"கதிர்வீச்சு வடிவக் கட்டம் மாதிரி எடுக்கும் திண்ம கோணத்துக்கான சராசரி வலு ஆதாயம், நேரியல் "
+"விகிதமாக"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr ""
+"சராசரி வலு ஆதாயத்தை மாதிரி எடுக்கப்பட்ட கோளப் பங்கால் பெருக்கிய மதிப்பு, சதவீதத்தில்"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "கதிர்வீச்சு வடிவக் கட்டம் மாதிரி எடுக்கும் முழுக் கோளத்தின் பங்கு"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "அறியப்படாதது"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5809,6 +6405,11 @@ msgstr "cairo ஒவர்லே அடித்தளத்தை உருவ�
 msgid "Shader declares no version directive: %s\n"
 msgstr "ஷேடர் பதிப்பு நெறிமுறையை அறிவிக்கவில்லை: %s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "அறியப்படாத பிழை"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -5940,15 +6541,340 @@ msgstr "%d மேம்படுத்தி இலக்குகள் ஏற�
 msgid "opt_file_load: %s\n"
 msgstr ""
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>குறைத்தல்</b>: <i>%s</i> மதிப்பு <b>%s</b> இலக்கை மீறும்போது அபராதம் விதிக்கிறது\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (இயல்பாக்கம்)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (இறுக்கம்: இலக்குக்கு அப்பால் எஞ்சும் "
+"சாய்வு)"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>அதிகரித்தல்</b>: <i>%s</i> மதிப்பு <b>%s</b> இலக்குக்குக் கீழிருக்கும்போது அபராதம் "
+"விதிக்கிறது\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (இயல்பாக்கம்)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (இறுக்கம்: இலக்குக்கு அப்பால் எஞ்சும் "
+"சாய்வு)"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>விலகல்</b>: <i>%s</i> மதிப்பு <b>%s</b> இலக்கிலிருந்து விலகும்போது அபராதம் "
+"விதிக்கிறது\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"இயல்பாக்கமோ இறுக்க உறுப்போ இல்லை."
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>இலக்குகள் எதுவும் செயல்படுத்தப்படவில்லை</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>உகப்பாக்கி F மதிப்பைக் குறைக்கிறது</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>உருமாற்றத் திசைகள்</span>\n"
+"\n"
+"<b>குறைத்தல்:</b> குறைந்த மதிப்புகள் சிறந்தவை\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>இலக்குக்குக் கீழே மதிப்பெண் பூஜ்ஜியத்தை அணுகுகிறது; இலக்கை மீறும் அளவுக்கு அபராதம் "
+"விதிக்கிறது</i>\n"
+"\n"
+"<b>அதிகரித்தல்:</b> உயர்ந்த மதிப்புகள் சிறந்தவை\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>இலக்குக்கு மேலே மதிப்பெண் பூஜ்ஜியத்தை அணுகுகிறது; நேர்மறை, எதிர்மறை "
+"இலக்குகளுக்கும் பொருந்தும்</i>\n"
+"\n"
+"<b>விலகல்:</b> ஒரு குறிப்பிட்ட மதிப்பை இலக்காகக் கொள்ளவும்\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>இலக்கிலிருந்து விலகலுக்கு அபராதம் விதிக்கிறது; value = target எனில் "
+"score=0</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>தொகுப்புச் சார்புகள்</span>\n"
+"\n"
+"<b>avg:</b> அலைவரிசைப் பட்டை முழுவதற்குமான சராசரி அபராதம்\n"
+"    <i>எல்லா அதிர்வெண்களுக்கும் சம எடை அளிக்கிறது</i>\n"
+"\n"
+"<b>max:</b> அதிகபட்ச அபராதத்தைத் தருகிறது (மிக மோசமான அதிர்வெண் புள்ளி)\n"
+"    <i>உகப்பாக்கி மிக மோசமான அதிர்வெண்ணை முதலில் மேம்படுத்துகிறது\n"
+"    \"பட்டையில் எந்தப் புள்ளியும் X மதிப்பை மீற முடியாது\"</i>\n"
+"\n"
+"<b>min:</b> குறைந்தபட்ச அபராதத்தைத் தருகிறது (சிறந்த அதிர்வெண் புள்ளி)\n"
+"    <i>உகப்பாக்கி சிறந்த அதிர்வெண்ணை மேம்படுத்தி மற்றவற்றைப் புறக்கணிக்கிறது\n"
+"    அரிதாகவே பயனுள்ளது (குறுகிய அலைவரிசைப் பட்டைக்கான தீர்வை உருவாக்குகிறது)</i>\n"
+"\n"
+"<b>diff:</b> அபராத மதிப்புகளின் வீச்சைத் தருகிறது (மாறுபாடு)\n"
+"    <i>அலைவரிசைப் பட்டை முழுவதும் அளவீட்டைச் சீராக்குகிறது\n"
+"    சீரான ஆதாயத்துக்கு gain_max உடன் பயன்படுத்தவும்</i>\n"
+"\n"
+"<b>sum:</b> அனைத்து அதிர்வெண்களுக்குமான அபராதங்களின் மொத்தக் கூட்டுத்தொகை\n"
+"    <i>ஒட்டுமொத்தப் பிழைப் பருமனுக்கு முக்கியத்துவம் அளிக்கிறது</i>\n"
+"\n"
+"<b>mag:</b> வர்க்கச் சராசரியின் வர்க்கமூலப் பருமன்\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>சராசரியைவிடப் பெரிய விலகல்களுக்கு அதிக முக்கியத்துவம் அளிக்கிறது</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>ஆதாயத் திசை அளவீடுகள்</span>\n"
+"\n"
+"உச்ச ஆதாயத் திசைக்கும் ஓர் ஆய அச்சுக்கும் இடையிலான\n"
+"கோண விலகலை (டிகிரியில்) gain_dev_* அளவீடுகள் அளக்கின்றன.\n"
+"கதிரைத் திசைதிருப்ப 0க்கு நெருக்கமான இலக்குடன் direction=minimize பயன்படுத்தவும்.\n"
+"\n"
+"    gain_dev_px: +X அச்சிலிருந்து விலகல்\n"
+"    gain_dev_nx: -X அச்சிலிருந்து விலகல்\n"
+"    gain_dev_py: +Y அச்சிலிருந்து விலகல்\n"
+"    gain_dev_ny: -Y அச்சிலிருந்து விலகல்\n"
+"    gain_dev_pz: +Z அச்சிலிருந்து விலகல் (நேர்மேல்)\n"
+"    gain_dev_nz: -Z அச்சிலிருந்து விலகல் (நேர்கீழ்)\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "தகுதிச் சூத்திர உதவி"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr "அதிர்வெண் ஏற்றிறக்கக் கட்டுப்பாட்டின் நிலையில் உள்ள நடப்பு NEC2 மதிப்பு"
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "அளவீட்டுக்கான இலக்கு மதிப்பு"
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "உருமாற்ற முடிவுக்குப் பயன்படுத்தப்படும் அடுக்கு"
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "தொகுப்புக்குப் பிறகு பயன்படுத்தப்படும் பெருக்கி"
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "அதிர்வெண் கீழ் எல்லை (காலி = அனைத்து அதிர்வெண்களும்)"
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "அதிர்வெண் மேல் எல்லை (காலி = அனைத்து அதிர்வெண்களும்)"
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "இந்த இலக்குக்கான சூத்திர உறுப்பு"
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "கணக்கீடு: weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "இந்த இலக்கை அகற்றவும்"
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "அளவீடு"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "மதிப்பு"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "உருமாற்றம் →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "இலக்கு"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "அடுக்கு →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "தொகுப்பு →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "எடை"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "கீழ் எல்லை MHz"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "மேல் எல்லை MHz →"
+
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr "சூத்திரம் →"
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "மதிப்பெண்"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "உகப்பாக்கி இந்த மதிப்பைக் குறைக்கிறது"
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ அளவீட்டைச் சேர்க்கவும்"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [நிறைவடைந்தது]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui: மேம்படுத்தல் முடிந்தது, சிறந்த தகுதி: %.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "மேம்படுத்தல்"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"உகப்பாக்கத்துக்கு எந்த மாறியும் குறிக்கப்படவில்லை.\n"
+"உகப்பாக்க வேண்டிய மாறிகளை உகப்பாக்கம் நெடுவரிசையில் குறிக்கவும்."
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"%d மாறிகளில் min >= max: %s\n"
+"உகப்பாக்கப்படும் ஒவ்வொரு மாறிக்கும் வேறுபட்ட குறைந்தபட்ச, அதிகபட்ச மதிப்புகளை அமைக்கவும்."
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"தகுதி இலக்குகள் எதுவும் செயல்படுத்தப்படவில்லை.\n"
+"தகுதி இலக்குகள் அட்டவணையில் குறைந்தது ஓர் அளவீட்டைக் குறிக்கவும்."
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "தொடங்குகிறது..."
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"உகப்பாக்கத்தைத் தொடங்க முடியவில்லை.\n"
+"விவரங்களை முனையத்தில் பார்க்கவும்."
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"சுற்று %d/%d  மறு செய்கை %d  மதிப்பீடுகள் %d  தகுதி %.6g  சிறந்தது %.6g  "
+"முன்னேற்றமில்லை %d  இடைநினைவகம் %d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -6074,6 +7000,74 @@ msgstr "மேம்படுத்தி எழுப்பும் eventfd �
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "மேம்படுத்தி வெளியீடு த்ரெட்டை உருவாக்க முடியவில்லை\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "குறைந்தபட்ச மதிப்பெண்"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "அதிகபட்ச மதிப்பெண்"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± இலக்கு"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"இலக்கை மீறும் மதிப்புகளுக்கு அபராதம் விதிக்கிறது; இலக்குக்குக் கீழே மதிப்பெண் பூஜ்ஜியத்தை "
+"அணுகுகிறது"
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"இலக்குக்குக் கீழான மதிப்புகளுக்கு அபராதம் விதிக்கிறது; இலக்குக்கு மேலே மதிப்பெண் "
+"பூஜ்ஜியத்தை அணுகுகிறது"
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"இலக்கிலிருந்து விலகலுக்கு அபராதம் விதிக்கிறது; value = target எனில் score=0"
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "ஒவ்வொரு NEC2 அதிர்வெண் படியின் மதிப்பெண்ணையும் கூட்டுகிறது"
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr "அனைத்து NEC2 அதிர்வெண் படிகளின் மதிப்பெண்களையும் சராசரியாக்குகிறது"
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "அனைத்து அதிர்வெண் படிகளிலும் மிகக் குறைந்த மதிப்பெண்ணைத் தேர்ந்தெடுக்கிறது"
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "அனைத்து அதிர்வெண் படிகளிலும் மிகப் பெரிய மதிப்பெண்ணைத் தேர்ந்தெடுக்கிறது"
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr ""
+"மதிப்பெண்களின் வர்க்கங்களுடைய கூட்டுத்தொகையின் வர்க்கமூலம்: sqrt(sum(score<sup>2</sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr ""
+"அதிர்வெண் படிகளில் மிகப் பெரிய, மிகக் குறைந்த மதிப்பெண்களுக்கு இடையிலான வேறுபாடு"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6491,6 +7485,14 @@ msgstr "இரைச்சல் வெப்பநிலை (மடக்கை
 msgid "Radiation Pattern: - "
 msgstr "கதிர்வீச்சு வடிவம்: - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - வானம்:"
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - பூமி:"
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "அண்மைப் புலங்கள்:"
@@ -6516,7 +7518,15 @@ msgstr "அதிர்வெண் தரவு வரைபடங்கள் 
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d வரம்புக்கு வெளியே உள்ளது. calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "சார்பு"
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "தனிமதிப்பு"
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: மேற்பரப்பு உருவாக்கம் தோல்வியடைந்தது (%dx%d)\n"
@@ -6579,6 +7589,30 @@ msgstr "மேம்படுத்தி சுழற்சி முழும�
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "கண்ட்ரோல்+ஸ்க்ரோல்: கம்பி ஆரம்"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"இந்தக் காட்சியில் OpenGL கிடைக்கவில்லை.\n"
+"Cairo வரைதல் செயலில் உள்ளது."
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"OpenGL ஆதரவின்றிக் கட்டமைக்கப்பட்டுள்ளது.\n"
+"Cairo வரைதல் செயலில் உள்ளது."
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "பொது"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "நிறம்"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6690,6 +7724,30 @@ msgstr "sy_save_overrides: எழுதுவதற்கு %s ஐத் தி
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "%d குறியீடு மேலெழுதல்கள் %s க்கு சேமிக்கப்பட்டன\n"
 
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr "குறியீடு"
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "மேலெழுதல்"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "உகப்பாக்கம்"
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "குறைந்தபட்சம்"
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "அதிகபட்சம்"
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "கோவை"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6699,6 +7757,14 @@ msgstr "sy_overrides_init: glade ஐ ஏற்ற முடியவில்ல
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: glade இலிருந்து விட்ஜெட்டுகளைப் பெற முடியவில்லை\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "உள்ளீட்டுக் குறியீடுகள்"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "கணக்கிடப்பட்ட குறியீடுகள்"
 
 #: src/sy_overrides.c:1486
 msgid ""

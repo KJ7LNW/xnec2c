@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -89,6 +89,18 @@ msgstr "_Giá trị đỉnh"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Hoạt ảnh trường gần"
+
+#: resources/animate.glade:205
+msgid "Start"
+msgstr "Bắt đầu"
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "Dừng"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "Đóng"
 
 #: resources/animate.glade:277
 msgid ""
@@ -179,7 +191,7 @@ msgstr "Hiển thị"
 msgid "Flow direction:"
 msgstr "Chiều dòng chảy:"
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "Mảnh"
 
@@ -285,6 +297,7 @@ msgid "Color Quantization"
 msgstr "Lượng tử hóa màu"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "Tắt"
 
@@ -771,6 +784,11 @@ msgstr ""
 "Gắn một đầu sáng trên đỉnh sóng dương tức thời để chuyển động của sóng dễ "
 "đọc dọc theo mỗi đoạn dây."
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr ""
+"<small><i>n = |z| / max|z|,  s = hàm chuyển đổi tỷ lệ,  φ = pha</i></small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "Đặt lại"
@@ -783,9 +801,87 @@ msgstr ""
 "Khôi phục phép chiếu màu, tỷ lệ đoạn, họ thang chuyển đổi, mức sàn độ sáng, "
 "và mọi tham số của họ về giá trị mặc định."
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "Khử răng cưa (MSAA)"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "Cấu trúc"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "Độ sáng"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "Độ trong suốt"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "Đoạn"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "Giản đồ bức xạ"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "Bề mặt"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "Khung dây"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "Trường gần"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "Kiểu vẽ"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "Cả hai"
+
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr "Cảnh"
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "Mặt đất"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "Trục tọa độ"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Chỉ hiển thị — không ảnh hưởng đến tính toán mô hình NEC2."
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "Chỉ trong suốt khi nhấp chuột"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "Phép chiếu trực giao"
+
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr "Bộ dựng hình:"
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "Xoay có ràng buộc"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -804,13 +900,102 @@ msgid "Rendering Settings"
 msgstr "Cài đặt kết xuất"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "_Đóng"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "Ghi đè ký hiệu"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "Tối ưu hóa"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "Thuật toán:"
+
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr "Đơn hình"
+
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr "Bầy hạt"
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "Nâng cao"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "Thiết lập chung"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "Số lần không cải thiện:"
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "dung sai:"
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "Số vòng lặp tối đa:"
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "Thiết lập đơn hình"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "Kích thước đơn hình:"
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "Kích thước tối thiểu:"
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "Nhiệt độ:"
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "Thiết lập bầy hạt"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "Số hạt:"
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "Số hạt lân cận:"
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "Quán tính:"
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "Hệ số nhận thức:"
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "Hệ số xã hội:"
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "Kích thước tìm kiếm:"
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "Bắt đầu tối ưu hóa"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "Hủy tối ưu hóa"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1649,10 +1834,6 @@ msgstr "Tam giác"
 msgid "Quadrilateral"
 msgstr "Tứ giác"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "Bề mặt"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "Loại mảnh"
@@ -2011,6 +2192,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "_Hoán đổi lựa chọn tần số click trái/phải"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "Độ lợi tối đa"
 
@@ -2440,7 +2622,7 @@ msgid ""
 msgstr "Độ lợi theo hướng quan sát cấu trúc, ứng với các góc xem hiện tại."
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "Độ lợi"
 
@@ -3714,7 +3896,7 @@ msgstr "Đặt lại quét tần số về bước đầu tiên và loại bỏ 
 msgid "Gain Direction"
 msgstr "Hướng độ lợi"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "Độ lợi người xem"
 
@@ -3817,6 +3999,15 @@ msgstr "cấp phát bộ nhớ cho điểm thất bại\n"
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():Cấp phát bộ nhớ cho điểm thất bại"
+
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
+"tối thiểu:%.2f\n"
+"tối đa:%.2f"
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -5049,6 +5240,10 @@ msgstr ""
 "Lỗi thẻ dữ liệu lệnh\n"
 "Mã gợi nhớ quá ngắn hoặc thiếu"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "dữ liệu lệnh"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -5082,6 +5277,10 @@ msgid ""
 msgstr ""
 "Lỗi thẻ dữ liệu hình học\n"
 "Mã gợi nhớ của thẻ quá ngắn hoặc thiếu"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "dữ liệu hình học"
 
 #: src/interface.c:138
 #, c-format
@@ -5144,6 +5343,10 @@ msgstr ""
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: tải animate.glade thất bại: %s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "không có (không hiển thị)"
 
 #: src/main.c:129
 #, c-format
@@ -5334,6 +5537,78 @@ msgstr ""
 #: src/mathlib.c:830
 msgid "Mathlib Help"
 msgstr "Trợ giúp Mathlib"
+
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"Các thư viện toán học tăng tốc như ATLAS, OpenBLAS và Intel MKL có thể tăng "
+"tốc mô phỏng điện từ của xnec2c nếu có trên nền tảng đang dùng. Thông tin "
+"chi tiết về việc phát hiện thư viện có trong cửa sổ dòng lệnh.\n"
+"\n"
+"* Thư viện toán học \"Tương tác\" đã chọn được dùng khi thay đổi tần số trên "
+"giao diện bằng tiện ích Tần số MHz +/- hoặc nhấp chuột (trái hoặc phải) trên "
+"đồ thị tần số\n"
+"\n"
+"* Thư viện toán học \"Hàng loạt\" đã chọn được dùng khi chỉ định -j trên "
+"dòng lệnh để fork nhiều tác vụ chạy song song.\n"
+"\n"
+"Đối với các thư viện Intel, mỗi lần chỉ chọn được một thư viện.  Sau khi "
+"dùng một thư viện toán học Intel MKL để tính toán điện từ, các tùy chọn thư "
+"viện Intel còn lại sẽ bị khóa cho đến khi khởi động lại.  Vì xnec2c ghi nhớ "
+"thư viện đã chọn trước đó, thư viện ấy có thể được kích hoạt khi mở tệp .NEC "
+"và khóa các tùy chọn khác.  Để tránh tình trạng này và đổi tùy chọn, đóng "
+"rồi mở lại xnec2c mà không mở tệp .NEC (và không chỉ định tệp .NEC trên dòng "
+"lệnh).\n"
+"\n"
+"\n"
+"== Thư viện toán học theo bản phân phối ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Lưu ý rằng có thể cần dùng `alternatives` để chọn\n"
+"    bản triển khai openblas. Một số tổ hợp BLAS/LAPACK\n"
+"    có thể hoạt động hoặc không hoạt động cùng nhau:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  openSUSE không hỗ trợ ATLAS chính thức, vì vậy hãy biên dịch từ mã nguồn\n"
+"\n"
+"Văn bản này có trong cửa sổ dòng lệnh để sao chép và dán.\n"
 
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
@@ -5539,9 +5814,32 @@ msgstr "Bắt đầu điểm chuẩn %s (%s %d)\n"
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "Lượt quét điểm chuẩn không chạy: FR_cards=%d steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f giây (%s %2d) %c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr "Đo một lần: thư viện này giữ số luồng khi được biên dịch"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"Thư viện toán học tốt nhất: %s (%s %d): %f giây\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"Không tìm thấy kết quả?  Đây là một khiếm khuyết."
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5606,6 +5904,86 @@ msgstr "Lỗi đối xứng"
 msgid "Solving Failed: %d\n"
 msgstr "Giải thất bại: %d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "Bám điểm"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "Nội suy"
+
+#: src/measurements.c:12
+msgid "Formula"
+msgstr "Công thức"
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "Ngân Hà"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "G4CQM mức nhiễu thấp tối thiểu (trước 2016)"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "VK3UM mức nhiễu thấp tối thiểu (trước 2016)"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "VE7BQH tham chiếu cơ sở (trước 2018)"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "Ngân Hà P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "DG7YBN trung bình Ngân Hà (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "Mô hình tổng hợp trung bình thực tế (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "Mô hình tổng hợp mức nhiễu thấp tối thiểu (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "Tùy chỉnh"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "ITU-R khu thương mại (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "ITU-R khu dân cư (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "ITU-R nông thôn (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "ITU-R nông thôn ít nhiễu (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "G4CQM hỗn hợp (trước 2016)"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "DG7YBN nông thôn (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "DG7YBN khu dân cư (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "DG7YBN thành phố (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
@@ -5614,6 +5992,78 @@ msgid ""
 msgstr ""
 "noise_temp_resolve: bảng noise_temp chưa được cấp phát; t_sky/t_earth mặc "
 "định về 0\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "Phần thực của Z"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "Phần ảo của Z"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "Độ lớn của Z"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "Pha của Z"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "Phần thực của S11"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "Phần ảo của S11"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "Góc của S11"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "Độ lợi ròng"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "Độ lợi θ"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "Độ lợi φ"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "Độ lợi ròng theo hướng quan sát"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "Tỷ số F/B"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "Góc lệch độ lợi so với +X"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "Góc lệch độ lợi so với −X"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "Góc lệch độ lợi so với +Y"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "Góc lệch độ lợi so với −Y"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "Góc lệch độ lợi so với +Z"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "Góc lệch độ lợi so với −Z"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5634,6 +6084,153 @@ msgstr "Hiệu suất độ lợi trung bình"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "Độ phủ độ lợi trung bình"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "Tần số tính bằng MHz (biến độc lập)"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "Phần thực của trở kháng tại điểm cấp điện (ôm)"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "Phần ảo của trở kháng tại điểm cấp điện (ôm)"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "Độ lớn của trở kháng tại điểm cấp điện (ôm)"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "Góc pha của trở kháng tại điểm cấp điện (độ)"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "Tỷ số sóng đứng điện áp (1.0 = phối hợp trở kháng hoàn hảo)"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr "Suy hao phản xạ tính bằng dB (càng âm thì phối hợp trở kháng càng tốt)"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "Phần thực của S11 tính bằng dB"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "Phần ảo của S11 tính bằng dB"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "Góc pha của hệ số phản xạ (độ)"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "Độ lợi đỉnh trên mọi góc, tính bằng dBi"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr ""
+"Độ lợi đỉnh có tính đến suy hao do không phối hợp trở kháng, tính bằng dBi"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "Góc ngẩng của hướng có độ lợi đỉnh (độ so với đường chân trời)"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "Góc phương vị của hướng có độ lợi đỉnh (độ)"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "Độ lợi theo hướng quan sát hiện tại, tính bằng dBi"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr ""
+"Độ lợi theo hướng quan sát có tính đến suy hao do không phối hợp trở kháng, "
+"tính bằng dBi"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "Tỷ số trước sau tính bằng dB"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr "Góc lệch của hướng có độ lợi đỉnh so với trục +X (độ)"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr "Góc lệch của hướng có độ lợi đỉnh so với trục -X (độ)"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr "Góc lệch của hướng có độ lợi đỉnh so với trục +Y (độ)"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr "Góc lệch của hướng có độ lợi đỉnh so với trục -Y (độ)"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr "Góc lệch của hướng có độ lợi đỉnh so với trục +Z (độ)"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr "Góc lệch của hướng có độ lợi đỉnh so với trục -Z (độ)"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr "Nhiệt độ nhiễu anten Ta do độ sáng của bầu trời và nền đất (K)"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr "Nhiệt độ nhiễu tổng của hệ thống TA, kể cả suy hao do điện trở (K)"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr "Tỷ số độ lợi trên nhiệt độ anten (dB), không tính suy hao"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr "Số chữ số thập phân chính xác bị mất khi giải bài toán anten"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr ""
+"Tỷ số trước sau tính bằng dB tại góc ngẩng của hướng có độ lợi đỉnh, với "
+"vùng sau lệch hơn 90 độ theo phương vị"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr ""
+"Tỷ số trước sau tính bằng dB trên mọi hướng nằm phía sau hướng có độ lợi đỉnh"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr ""
+"Độ lợi công suất trung bình dưới dạng tỷ số tuyến tính trên góc khối được "
+"lưới giản đồ lấy mẫu"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr ""
+"Độ lợi công suất trung bình nhân với tỷ phần mặt cầu được lấy mẫu, tính bằng "
+"phần trăm"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "Tỷ phần của toàn mặt cầu được lưới giản đồ lấy mẫu"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "Không xác định"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5797,6 +6394,11 @@ msgstr "Tạo lớp nền cairo overlay thất bại\n"
 msgid "Shader declares no version directive: %s\n"
 msgstr "Shader không khai báo chỉ thị phiên bản: %s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "lỗi không xác định"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -5929,15 +6531,338 @@ msgstr "Đã tải %d mục tiêu tối ưu hóa\n"
 msgid "opt_file_load: %s\n"
 msgstr ""
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>minimize</b>: tính điểm phạt khi <i>%s</i> lớn hơn <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (chuẩn hoá)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (độ căng: độ dốc còn lại khi đã "
+"vượt qua mục tiêu)"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>maximize</b>: tính điểm phạt khi <i>%s</i> nhỏ hơn <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (chuẩn hoá)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (độ căng: độ dốc còn lại khi đã "
+"vượt qua mục tiêu)"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>deviate</b>: tính điểm phạt khi <i>%s</i> lệch khỏi <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"Không có số hạng chuẩn hoá hay độ căng."
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>Chưa bật mục tiêu nào</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Bộ tối ưu hóa cực tiểu hóa F</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>Hướng biến đổi</span>\n"
+"\n"
+"<b>minimize:</b> Giá trị càng thấp càng tốt\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Điểm tiến về 0 khi giá trị thấp hơn mục tiêu; tính điểm phạt cho phần "
+"vượt mục tiêu</i>\n"
+"\n"
+"<b>maximize:</b> Giá trị càng cao càng tốt\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Điểm tiến về 0 khi giá trị cao hơn mục tiêu; áp dụng cho cả mục tiêu "
+"dương và âm</i>\n"
+"\n"
+"<b>deviate:</b> Nhắm đến một giá trị cụ thể\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Tính điểm phạt theo độ lệch khỏi mục tiêu; score=0 khi value = "
+"target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Hàm tổng hợp</span>\n"
+"\n"
+"<b>avg:</b> Điểm phạt trung bình trên toàn dải\n"
+"    <i>Coi mọi tần số có trọng số như nhau</i>\n"
+"\n"
+"<b>max:</b> Trả về điểm phạt cao nhất (điểm tần số kém nhất)\n"
+"    <i>Bộ tối ưu hóa cải thiện tần số kém nhất trước\n"
+"    \"Không điểm nào trong dải được vượt quá X\"</i>\n"
+"\n"
+"<b>min:</b> Trả về điểm phạt thấp nhất (điểm tần số tốt nhất)\n"
+"    <i>Bộ tối ưu hóa chỉ cải thiện tần số tốt nhất\n"
+"    Ít hữu ích (tạo nghiệm dải hẹp)</i>\n"
+"\n"
+"<b>diff:</b> Trả về khoảng biến thiên của điểm phạt\n"
+"    <i>Giữ chỉ số đồng đều trên toàn dải\n"
+"    Dùng với gain_max để làm phẳng độ lợi</i>\n"
+"\n"
+"<b>sum:</b> Tổng điểm phạt trên mọi tần số\n"
+"    <i>Nhấn mạnh độ lớn của sai số tổng thể</i>\n"
+"\n"
+"<b>mag:</b> Độ lớn hiệu dụng\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Nhấn mạnh độ lệch lớn hơn so với phép lấy trung bình</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Chỉ số hướng độ lợi</span>\n"
+"\n"
+"Các chỉ số gain_dev_* đo góc lệch (tính bằng độ)\n"
+"giữa hướng có độ lợi đỉnh và một trục tọa độ.\n"
+"Dùng direction=minimize với mục tiêu gần 0 để lái chùm tia.\n"
+"\n"
+"    gain_dev_px: độ lệch so với trục +X\n"
+"    gain_dev_nx: độ lệch so với trục -X\n"
+"    gain_dev_py: độ lệch so với trục +Y\n"
+"    gain_dev_ny: độ lệch so với trục -Y\n"
+"    gain_dev_pz: độ lệch so với trục +Z (thiên đỉnh)\n"
+"    gain_dev_nz: độ lệch so với trục -Z (thiên để)\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "Trợ giúp về công thức độ thích nghi"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr "Giá trị NEC2 hiện tại ứng với tần số đặt trong ô điều chỉnh"
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "Giá trị mục tiêu của đại lượng đo"
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "Số mũ áp dụng cho kết quả biến đổi"
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "Hệ số nhân áp dụng sau khi tổng hợp"
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "Giới hạn dưới của tần số (để trống = mọi tần số)"
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "Giới hạn trên của tần số (để trống = mọi tần số)"
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "Số hạng trong công thức ứng với mục tiêu này"
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "Cách tính: weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "Xóa mục tiêu này"
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "Đại lượng đo"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "Giá trị"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "Biến đổi →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "Mục tiêu"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "Số mũ →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "Tổng hợp →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "Trọng số"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "Cận dưới (MHz)"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "Cận trên (MHz) →"
+
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr "Công thức →"
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "Điểm"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "Bộ tối ưu hóa cực tiểu hóa giá trị này"
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ Thêm chỉ số"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [Hoàn tất]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui: tối ưu hóa hoàn thành, độ thích nghi tốt nhất: %.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "Tối ưu hóa"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"Chưa đánh dấu biến nào để tối ưu hóa.\n"
+"Đánh dấu các biến cần tối ưu hóa trong cột Tối ưu."
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"%d biến có giá trị tối thiểu >= giá trị tối đa: %s\n"
+"Đặt giá trị tối thiểu và tối đa khác nhau cho từng biến được tối ưu hóa."
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"Chưa bật mục tiêu độ thích nghi nào.\n"
+"Đánh dấu ít nhất một chỉ số trong bảng Mục tiêu độ thích nghi."
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "Đang bắt đầu…"
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"Không khởi động được quá trình tối ưu hóa.\n"
+"Xem chi tiết trong cửa sổ dòng lệnh."
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"Lượt %d/%d  Vòng lặp %d  Số lần đánh giá %d  Độ thích nghi %.6g  Tốt nhất "
+"%.6g  Số lần không cải thiện %d  Bộ nhớ đệm %d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -6060,6 +6985,73 @@ msgstr "không thể tạo eventfd đánh thức trình tối ưu hóa\n"
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "Không thể tạo luồng đầu ra trình tối ưu hóa\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "điểm tối thiểu"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "điểm tối đa"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± mục tiêu"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Tính điểm phạt cho giá trị cao hơn mục tiêu; điểm tiến về 0 khi giá trị thấp "
+"hơn mục tiêu"
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Tính điểm phạt cho giá trị thấp hơn mục tiêu; điểm tiến về 0 khi giá trị cao "
+"hơn mục tiêu"
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Tính điểm phạt theo độ lệch khỏi mục tiêu; score=0 khi value = target"
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "Cộng điểm của từng bước tần số NEC2"
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr "Tính điểm trung bình trên mọi bước tần số NEC2"
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "Chọn điểm nhỏ nhất trong tất cả các bước tần số"
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "Chọn điểm lớn nhất trong tất cả các bước tần số"
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr ""
+"Căn bậc hai của tổng bình phương các điểm: sqrt(sum(score<sup>2</sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr "Chênh lệch giữa điểm lớn nhất và nhỏ nhất trên các bước tần số"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6476,6 +7468,14 @@ msgstr "Nhiệt độ tạp âm (thang logarit)"
 msgid "Radiation Pattern: - "
 msgstr "Giản đồ bức xạ: - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - Bầu trời:"
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - Nền đất:"
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Trường gần:"
@@ -6501,7 +7501,15 @@ msgstr "Đồ thị dữ liệu tần số - "
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d nằm ngoài phạm vi. calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "Tương đối"
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "Tuyệt đối"
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: tạo bề mặt thất bại (%dx%d)\n"
@@ -6563,6 +7571,30 @@ msgstr "Vòng lặp tối ưu hóa chưa hoàn tất, bỏ qua vẽ lại trung 
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+Cuộn: bán kính dây"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"OpenGL không khả dụng trên màn hình này.\n"
+"Đang dựng hình bằng Cairo."
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"Bản biên dịch không hỗ trợ OpenGL.\n"
+"Đang dựng hình bằng Cairo."
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "Chung"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "Màu"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6673,6 +7705,30 @@ msgstr "sy_save_overrides: không thể mở %s để ghi: %s\n"
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "Đã lưu %d ghi đè ký hiệu vào %s\n"
 
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr "Ký hiệu"
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "Thay thế"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "Tối ưu"
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "Tối thiểu"
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "Tối đa"
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "Biểu thức"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6682,6 +7738,14 @@ msgstr "sy_overrides_init: tải glade thất bại: %s\n"
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: lấy widget từ glade thất bại\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "Ký hiệu đầu vào"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "Ký hiệu tính được"
 
 #: src/sy_overrides.c:1486
 msgid ""

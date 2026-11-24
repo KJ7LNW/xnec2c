@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -90,6 +90,18 @@ msgstr "ال_قيمة القصوى"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "رسوم متحركة للمجال القريب"
+
+#: resources/animate.glade:205
+msgid "Start"
+msgstr "بدء"
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "إيقاف"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "إغلاق"
 
 #: resources/animate.glade:277
 msgid ""
@@ -179,7 +191,7 @@ msgstr "العرض"
 msgid "Flow direction:"
 msgstr "اتجاه التدفق:"
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "الرقع السطحية"
 
@@ -284,6 +296,7 @@ msgid "Color Quantization"
 msgstr "تكميم الألوان"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "إيقاف"
 
@@ -760,6 +773,11 @@ msgstr ""
 "إظهار رأس ساطع يمتطي القمة الموجبة اللحظية، بحيث تُقرأ حركة الموجة على طول كل "
 "سلك."
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr ""
+"<small><i>n = |z| / max|z|، s = دالة نقل التحجيم، φ = الطور</i></small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "إعادة تعيين"
@@ -772,9 +790,87 @@ msgstr ""
 "يستعيد الإسقاط اللوني ومقياس القطعة وعائلة اللون وحد السطوع الأدنى وكل معامل "
 "من معاملات العائلة إلى قيمها الافتراضية."
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "تنعيم الحواف (MSAA)"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "البنية"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "السطوع"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "الشفافية"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "القطع"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "نمط الإشعاع"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "سطح"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "إطار سلكي"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "مجال قريب"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "أسلوب الرسم"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "كلاهما"
+
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr "المشهد"
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "المستوى الأرضي"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "المحاور"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "مرئي فقط — لا يؤثر على حسابات نموذج NEC2."
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "الشفافية عند النقر فقط"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "إسقاط متعامد"
+
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr "الراسم:"
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "دوران مقيّد"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -793,13 +889,103 @@ msgid "Rendering Settings"
 msgstr "إعدادات التصيير"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "إ_غلاق"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "تجاوزات الرموز"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "التحسين"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "الخوارزمية:"
+
+# xnec2c-exempt: name
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr ""
+
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr "سرب الجسيمات"
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "متقدم"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "الإعدادات المشتركة"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "عدد التكرارات دون تحسن:"
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "التفاوت المسموح:"
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "الحد الأقصى للتكرارات:"
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "إعدادات Simplex"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "أحجام الأشكال البسيطة:"
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "الحد الأدنى للحجم:"
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "درجة الحرارة:"
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "إعدادات سرب الجسيمات"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "الجسيمات:"
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "الجيران:"
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "القصور الذاتي:"
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "المعامل الإدراكي:"
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "المعامل الاجتماعي:"
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "حجم البحث:"
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "بدء التحسين"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "إلغاء التحسين"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1638,10 +1824,6 @@ msgstr "مثلث"
 msgid "Quadrilateral"
 msgstr "رباعي الأضلاع"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "سطح"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "نوع Patch"
@@ -2000,6 +2182,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "ت_بديل تحديد التردد بالنقر الأيسر/الأيمن"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "الكسب الأقصى"
 
@@ -2426,7 +2609,7 @@ msgid ""
 msgstr "الكسب باتجاه عارض البنية، وفق زوايا العرض الحالية."
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "الكسب"
 
@@ -3688,7 +3871,7 @@ msgstr "إعادة ضبط المسح الترددي إلى خطوته الأول
 msgid "Gain Direction"
 msgstr "اتجاه الكسب"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "كسب المشاهد"
 
@@ -3790,6 +3973,15 @@ msgstr "فشل تخصيص الذاكرة للنقاط\n"
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): فشل تخصيص الذاكرة للنقاط"
+
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
+"الأدنى: %.2f\n"
+"الأقصى: %.2f"
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -5014,6 +5206,10 @@ msgstr ""
 "خطأ في بطاقة بيانات الأوامر\n"
 "الرمز التذكيري قصير جداً أو مفقود"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "بيانات الأوامر"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -5047,6 +5243,10 @@ msgid ""
 msgstr ""
 "خطأ في بطاقة بيانات الهندسة\n"
 "الرمز التذكيري للبطاقة قصير جداً أو مفقود"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "بيانات الهندسة"
 
 #: src/interface.c:138
 #, c-format
@@ -5107,6 +5307,10 @@ msgstr ""
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: فشل تحميل animate.glade: %s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "لا شيء (بلا عرض)"
 
 #: src/main.c:129
 #, c-format
@@ -5293,6 +5497,77 @@ msgstr ""
 #: src/mathlib.c:830
 msgid "Mathlib Help"
 msgstr "مساعدة Mathlib"
+
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"يمكن لمكتبات الرياضيات المسرّعة مثل ATLAS و OpenBLAS و Intel MKL تسريع محاكاة "
+"xnec2c الكهرومغناطيسية عند توفرها على المنصة المستخدمة. تتوفر تفاصيل اكتشاف "
+"المكتبات في الطرفية.\n"
+"\n"
+"* تُستخدم مكتبة الرياضيات المحددة للوضع \"التفاعلي\" عند تغيير التردد في "
+"الواجهة باستخدام عنصر ضبط التردد بوحدة MHz ذي الزرين +/- أو بالنقر على مخطط "
+"التردد (بزر الفأرة الأيمن أيضا)\n"
+"\n"
+"* تُستخدم مكتبة الرياضيات المحددة للوضع \"الدفعي\" عند تحديد -j في سطر "
+"الأوامر لاستخدام fork وتشغيل عدة مهام بالتوازي.\n"
+"\n"
+"يمكن تحديد مكتبة واحدة فقط من مكتبات Intel في كل مرة. بعد استخدام إحدى "
+"مكتبات Intel MKL في الحسابات الكهرومغناطيسية، تُقفل خيارات مكتبات Intel "
+"الأخرى حتى إعادة التشغيل. يحتفظ xnec2c باختيار المكتبة السابق، لذا قد تُفعّل "
+"تلك المكتبة عند فتح ملف .NEC وتقفل الخيارات الأخرى. لتغيير الخيار دون حدوث "
+"ذلك، يُغلق xnec2c ويُفتح من جديد دون فتح ملف .NEC أو تحديد ملف .NEC في سطر "
+"الأوامر.\n"
+"\n"
+"\n"
+"== مكتبات الرياضيات حسب التوزيعة ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    قد يلزم استخدام `alternatives` لاختيار\n"
+"    تنفيذ openblas المناسب. بعض توليفات BLAS/LAPACK قد\n"
+"    تعمل معا وقد لا تعمل:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  لا تدعم openSUSE مكتبة ATLAS رسميا، لذا تُبنى من الشفرة المصدرية\n"
+"\n"
+"يتوفر هذا النص في الطرفية للنسخ واللصق.\n"
 
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
@@ -5488,9 +5763,32 @@ msgstr "بدء معيار %s (%s %d)\n"
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "لم يُشغّل اجتياز المعيار: FR_cards=%d steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f ثانية (%s %2d) %c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr "قيس مرة واحدة: تحتفظ هذه المكتبة بعدد الخيوط الذي بُنيت به"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"أفضل مكتبة رياضيات: %s (%s %d): %f ثانية\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"لم يُعثر على نتيجة؟ هذا خلل."
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5556,6 +5854,86 @@ msgstr "خطأ التماثل"
 msgid "Solving Failed: %d\n"
 msgstr "فشل الحل: %d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "التقاط أقرب نقطة"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "استيفاء"
+
+#: src/measurements.c:12
+msgid "Formula"
+msgstr "الصيغة"
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "مجرّي"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "الحد الأدنى للضوضاء في بيئة هادئة G4CQM (قبل 2016)"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "الحد الأدنى للضوضاء في بيئة هادئة VK3UM (قبل 2016)"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "المرجع الأساسي VE7BQH (قبل 2018)"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "مجرّي P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "متوسط الضوضاء المجرّية DG7YBN (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "المتوسط العملي المركّب (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "الحد الأدنى المركّب للضوضاء في بيئة هادئة (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "مخصص"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "منطقة تجارية ITU-R (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "منطقة سكنية ITU-R (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "منطقة ريفية ITU-R (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "منطقة ريفية هادئة ITU-R (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "مختلط G4CQM (قبل 2016)"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "منطقة ريفية DG7YBN (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "منطقة سكنية DG7YBN (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "مدينة DG7YBN (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
@@ -5564,6 +5942,78 @@ msgid ""
 msgstr ""
 "noise_temp_resolve: جدول noise_temp غير مخصص؛ t_sky/t_earth يُعاد ضبطهما إلى "
 "0\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "الجزء الحقيقي من Z"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "الجزء التخيلي من Z"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "مقدار Z"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "طور Z"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "الجزء الحقيقي من S11"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "الجزء التخيلي من S11"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "زاوية S11"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "الكسب الصافي"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "زاوية الكسب ثيتا"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "زاوية الكسب فاي"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "الكسب الصافي في اتجاه العارض"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "نسبة F/B"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "انحراف الكسب عن +X"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "انحراف الكسب عن −X"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "انحراف الكسب عن +Y"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "انحراف الكسب عن −Y"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "انحراف الكسب عن +Z"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "انحراف الكسب عن −Z"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5584,6 +6034,151 @@ msgstr "كفاءة متوسط الكسب"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "تغطية متوسط الكسب"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "التردد بوحدة MHz (المتغير المستقل)"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "الجزء الحقيقي من ممانعة نقطة التغذية (أوم)"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "الجزء التخيلي من ممانعة نقطة التغذية (أوم)"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "مقدار ممانعة نقطة التغذية (أوم)"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "زاوية طور ممانعة نقطة التغذية (بالدرجات)"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "نسبة الموجة الواقفة للجهد (1.0 = مطابقة تامة)"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr "فقد الرجوع بوحدة dB (قيمة أكثر سلبية = مطابقة أفضل)"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "الجزء الحقيقي من S11 بوحدة dB"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "الجزء التخيلي من S11 بوحدة dB"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "زاوية طور معامل الانعكاس (بالدرجات)"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "الكسب الأقصى عبر جميع الزوايا بوحدة dBi"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr "الكسب الأقصى بعد احتساب فقد عدم المطابقة بوحدة dBi"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "زاوية ارتفاع اتجاه الكسب الأقصى (بالدرجات فوق الأفق)"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "زاوية سمت اتجاه الكسب الأقصى (بالدرجات)"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "الكسب عند زاوية العارض الحالية بوحدة dBi"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr "الكسب في اتجاه العارض بعد احتساب فقد عدم المطابقة بوحدة dBi"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "نسبة الكسب الأمامي إلى الخلفي بوحدة dB"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr "الانحراف الزاوي لاتجاه الكسب الأقصى عن المحور +X (بالدرجات)"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr "الانحراف الزاوي لاتجاه الكسب الأقصى عن المحور -X (بالدرجات)"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr "الانحراف الزاوي لاتجاه الكسب الأقصى عن المحور +Y (بالدرجات)"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr "الانحراف الزاوي لاتجاه الكسب الأقصى عن المحور -Y (بالدرجات)"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr "الانحراف الزاوي لاتجاه الكسب الأقصى عن المحور +Z (بالدرجات)"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr "الانحراف الزاوي لاتجاه الكسب الأقصى عن المحور -Z (بالدرجات)"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr "درجة حرارة ضوضاء الهوائي Ta الناتجة عن سطوع السماء والتربة (K)"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr "درجة حرارة الضوضاء الكلية للنظام TA شاملة الفقد الأومي (K)"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr "نسبة الكسب إلى درجة حرارة الهوائي (dB)، دون احتساب الفقد"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr "عدد الخانات العشرية المفقودة من الدقة عند حل معادلات الهوائي"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr ""
+"نسبة الكسب الأمامي إلى الخلفي بوحدة dB عند زاوية ارتفاع الكسب الأقصى، ويقع "
+"الخلف بعد 90 درجة سمتا"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr ""
+"نسبة الكسب الأمامي إلى الخلفي بوحدة dB عبر جميع الاتجاهات خلف اتجاه الكسب "
+"الأقصى"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr ""
+"متوسط كسب القدرة كنسبة خطية عبر الزاوية المجسمة التي تأخذ منها شبكة النمط "
+"عينات"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr ""
+"حاصل ضرب متوسط كسب القدرة في كسر الكرة المشمول بأخذ العينات، معبرا عنه بنسبة "
+"مئوية"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "الكسر من الكرة الكاملة الذي تغطيه عينات شبكة النمط"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "غير معروف"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5747,6 +6342,11 @@ msgstr "فشل إنشاء قاعدة تراكب cairo\n"
 msgid "Shader declares no version directive: %s\n"
 msgstr "المظلل لا يعلن توجيه إصدار: %s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "خطأ غير معروف"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -5878,15 +6478,338 @@ msgstr "تم تحميل %d من أهداف المحسّن\n"
 msgid "opt_file_load: %s\n"
 msgstr ""
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>تصغير</b>: يفرض جزاء عند تجاوز <i>%s</i> قيمة <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (التطبيع)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (الشد: التدرج المتبقي بعد تخطي "
+"القيمة المستهدفة)"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>تكبير</b>: يفرض جزاء عند انخفاض <i>%s</i> عن <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (التطبيع)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (الشد: التدرج المتبقي بعد تخطي "
+"القيمة المستهدفة)"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>انحراف</b>: يفرض جزاء عند انحراف <i>%s</i> عن <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"لا يوجد حد للتطبيع أو الشد."
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>لا توجد أهداف مفعلة</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>تُصغّر خوارزمية التحسين قيمة F</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>اتجاهات التحويل</span>\n"
+"\n"
+"<b>تصغير:</b> القيم الأدنى أفضل\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>تقترب الدرجة من الصفر دون القيمة المستهدفة، ويُفرض جزاء على تجاوزها</"
+"i>\n"
+"\n"
+"<b>تكبير:</b> القيم الأعلى أفضل\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>تقترب الدرجة من الصفر فوق القيمة المستهدفة، ويعمل التحويل مع القيم "
+"المستهدفة الموجبة والسالبة</i>\n"
+"\n"
+"<b>انحراف:</b> استهداف قيمة محددة\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>يُفرض جزاء على الانحراف عن القيمة المستهدفة، وتكون score=0 عندما value "
+"= target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>دوال الاختزال</span>\n"
+"\n"
+"<b>avg:</b> متوسط الجزاء عبر النطاق\n"
+"    <i>يوازن بين جميع الترددات بالتساوي</i>\n"
+"\n"
+"<b>max:</b> يعيد أعلى جزاء (أسوأ نقطة تردد)\n"
+"    <i>تحسّن خوارزمية التحسين أسوأ تردد أولا\n"
+"    \"لا يمكن لأي نقطة في النطاق أن تتجاوز X\"</i>\n"
+"\n"
+"<b>min:</b> يعيد أدنى جزاء (أفضل نقطة تردد)\n"
+"    <i>تحسّن خوارزمية التحسين أفضل تردد وتتجاهل البقية\n"
+"    نادرا ما يفيد (ينتج حلا ضيق النطاق)</i>\n"
+"\n"
+"<b>diff:</b> يعيد مدى الجزاء (التفاوت)\n"
+"    <i>يجعل المقياس متسقا عبر النطاق\n"
+"    يُستخدم مع gain_max لتسطيح الكسب</i>\n"
+"\n"
+"<b>sum:</b> مجموع الجزاءات عبر جميع الترددات\n"
+"    <i>يبرز مقدار الخطأ الكلي</i>\n"
+"\n"
+"<b>mag:</b> مقدار الجذر التربيعي لمتوسط المربعات\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>يبرز الانحرافات الكبيرة أكثر من المتوسط</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>مقاييس اتجاه الكسب</span>\n"
+"\n"
+"تقيس مقاييس gain_dev_* الانحراف الزاوي (بالدرجات)\n"
+"بين اتجاه الكسب الأقصى وأحد محاور الإحداثيات.\n"
+"لتوجيه الحزمة، يُستخدم direction=minimize مع قيمة مستهدفة قريبة من 0.\n"
+"\n"
+"    gain_dev_px: الانحراف عن المحور +X\n"
+"    gain_dev_nx: الانحراف عن المحور -X\n"
+"    gain_dev_py: الانحراف عن المحور +Y\n"
+"    gain_dev_ny: الانحراف عن المحور -Y\n"
+"    gain_dev_pz: الانحراف عن المحور +Z (سمت الرأس)\n"
+"    gain_dev_nz: الانحراف عن المحور -Z (النظير)\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "مساعدة صيغة الملاءمة"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr "قيمة NEC2 الحالية عند التردد المحدد في عنصر ضبط التردد"
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "القيمة المستهدفة للقياس"
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "الأُس المطبق على ناتج التحويل"
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "معامل الضرب المطبق بعد الاختزال"
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "الحد الأدنى للتردد (فارغ = جميع الترددات)"
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "الحد الأعلى للتردد (فارغ = جميع الترددات)"
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "حد الصيغة لهذا الهدف"
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "القيمة المحسوبة: weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "إزالة هذا الهدف"
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "القياس"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "القيمة"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "التحويل →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "القيمة المستهدفة"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "الأُس →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "الاختزال →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "الوزن"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "الحد الأدنى بوحدة MHz"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "الحد الأعلى بوحدة MHz →"
+
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr "الصيغة →"
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "الدرجة"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "تُصغّر خوارزمية التحسين هذه القيمة"
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ إضافة مقياس"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [اكتمل]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui: اكتمل التحسين، أفضل ملاءمة: %.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "التحسين"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"لم يُحدد أي متغير للتحسين.\n"
+"تُحدد المتغيرات المراد تحسينها في عمود التحسين."
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"عدد المتغيرات التي تحقق min >= max هو %d: %s\n"
+"يُحدد حد أدنى وحد أقصى مختلفان لكل متغير خاضع للتحسين."
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"لم يُفعّل أي هدف للملاءمة.\n"
+"يلزم تحديد مقياس واحد على الأقل في شبكة أهداف الملاءمة."
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "جار البدء..."
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"تعذر بدء التحسين.\n"
+"تتوفر التفاصيل في الطرفية."
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"الجولة %d/%d  التكرار %d  التقييمات %d  الملاءمة %.6g  الأفضل %.6g  دون تحسن "
+"%d  الذاكرة المخبئية %d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -6005,6 +6928,71 @@ msgstr "فشل إنشاء eventfd إيقاظ المحسّن\n"
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "فشل إنشاء خيط إخراج المحسّن\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "تصغير الدرجة"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "تكبير الدرجة"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± القيمة المستهدفة"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"يُفرض جزاء على القيم الأعلى من القيمة المستهدفة، وتقترب الدرجة من الصفر دونها"
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"يُفرض جزاء على القيم الأدنى من القيمة المستهدفة، وتقترب الدرجة من الصفر فوقها"
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"يُفرض جزاء على الانحراف عن القيمة المستهدفة، وتكون score=0 عندما value = "
+"target"
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "يجمع درجات جميع خطوات التردد في NEC2"
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr "يحسب متوسط الدرجات عبر جميع خطوات التردد في NEC2"
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "يختار أدنى درجة من بين جميع خطوات التردد"
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "يختار أعلى درجة من بين جميع خطوات التردد"
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr "الجذر التربيعي لمجموع مربعات الدرجات: sqrt(sum(score<sup>2</sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr "الفرق بين أعلى درجة وأدناها عبر خطوات التردد"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6414,6 +7402,14 @@ msgstr "درجة حرارة الضوضاء (مقياس لوغاريتمي)"
 msgid "Radiation Pattern: - "
 msgstr "نمط الإشعاع: - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - السماء:"
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - التربة:"
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "الحقول القريبة:"
@@ -6439,7 +7435,15 @@ msgstr "رسومات بيانات التردد - "
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d خارج النطاق. calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "نسبي"
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "مطلق"
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: فشل إنشاء السطح (%dx%d)\n"
@@ -6501,6 +7505,30 @@ msgstr "حلقة المحسّن غير مكتملة، تعطيل إعادة ال
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+التمرير: نصف قطر السلك"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"لا يتوفر OpenGL على جهاز العرض هذا.\n"
+"الرسم باستخدام Cairo نشط."
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"بُني البرنامج دون دعم OpenGL.\n"
+"الرسم باستخدام Cairo نشط."
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "عام"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "اللون"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6610,6 +7638,30 @@ msgstr "sy_save_overrides: لا يمكن فتح %s للكتابة: %s\n"
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "تم حفظ %d من تجاوزات الرموز إلى %s\n"
 
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr "الرمز"
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "تجاوز"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "التحسين"
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "الأدنى"
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "الأقصى"
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "التعبير"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6619,6 +7671,14 @@ msgstr "sy_overrides_init: فشل تحميل glade: %s\n"
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: فشل الحصول على عناصر واجهة من glade\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "رموز الإدخال"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "الرموز المحسوبة"
 
 #: src/sy_overrides.c:1486
 msgid ""

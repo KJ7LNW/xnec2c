@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -89,6 +89,18 @@ msgstr "_Врвна амплитуда"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Анимација на блиско поле"
+
+#: resources/animate.glade:205
+msgid "Start"
+msgstr "Започни"
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "Запри"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "Затвори"
 
 #: resources/animate.glade:277
 msgid ""
@@ -180,7 +192,7 @@ msgstr "Приказ"
 msgid "Flow direction:"
 msgstr "Насока на тек:"
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "Плочки"
 
@@ -287,6 +299,7 @@ msgid "Color Quantization"
 msgstr "Квантизација на бои"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "Исклучено"
 
@@ -785,6 +798,12 @@ msgstr ""
 "Јаздете со светла глава на моменталниот позитивен бранов гребен, за "
 "движењето на бранот да се гледа по секоја жица."
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr ""
+"<small><i>n = |z| / max|z|,  s = преносна функција на скалата,  φ = фаза</"
+"i></small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "Ресетирај"
@@ -798,9 +817,87 @@ msgstr ""
 "долната граница на осветленост и секој параметар на фамилијата на нивните "
 "стандардни вредности."
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "Измазнување на рабовите (MSAA)"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "Структура"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "Осветленост"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "Проѕирност"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "Сегменти"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "Дијаграм на зрачење"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "Површина"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "Жичен приказ"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "Блиско поле"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "Стил на исцртување"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "Двете"
+
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr "Сцена"
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "Маса"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "Оски"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Само визуелно — не влијае на пресметките на NEC2 моделот."
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "Проѕирност само при кликнување"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "Ортографска проекција"
+
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr "Рендерер:"
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "Ограничено вртење"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -819,13 +916,102 @@ msgid "Rendering Settings"
 msgstr "Поставки за рендерирање"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "_Затвори"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "Замена на симболи"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "Оптимизација"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "Алгоритам:"
+
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr "Симплекс"
+
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr "Рој честички"
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "Напредни"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "Заеднички поставки"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "Број на итерации без напредок:"
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "толеранција:"
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "Максимален број итерации:"
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "Поставки за симплекс"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "Големини на симплексот:"
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "Минимална големина:"
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "Температура:"
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "Поставки за рој честички"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "Честички:"
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "Соседи:"
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "Инерција:"
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "Когнитивен коефициент:"
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "Социјален коефициент:"
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "Големина на пребарувањето:"
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "Започни оптимизација"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "Откажи ја оптимизацијата"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1671,10 +1857,6 @@ msgstr "Триаголник"
 msgid "Quadrilateral"
 msgstr "Четириаголник"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "Површина"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "Тип на плочка"
@@ -2034,6 +2216,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "З_амени избор на фреквенција со лев/десен клик"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "Макс добиток"
 
@@ -2470,7 +2653,7 @@ msgstr ""
 "поглед."
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "Добиток"
 
@@ -3769,7 +3952,7 @@ msgstr ""
 msgid "Gain Direction"
 msgstr "Насока на добиток"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "Добиток на прегледувачот"
 
@@ -3872,6 +4055,15 @@ msgstr "алокацијата на меморија за точки не усп
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): Алокацијата на меморија за точки не успеа"
+
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
+"мин:%.2f\n"
+"макс:%.2f"
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -5142,6 +5334,10 @@ msgstr ""
 "Грешка во командна картичка за податоци\n"
 "Мнемоничкиот код е прекраток или недостасува"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "податоци за команди"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -5177,6 +5373,10 @@ msgid ""
 msgstr ""
 "Грешка во картичка за геометриски податоци\n"
 "Мнемоничкиот код на картичката е прекраток или недостасува"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "податоци за геометријата"
 
 #: src/interface.c:138
 #, c-format
@@ -5239,6 +5439,10 @@ msgstr ""
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: неуспешно вчитување на animate.glade: %s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "нема (без приказ)"
 
 #: src/main.c:129
 #, c-format
@@ -5431,6 +5635,82 @@ msgstr "%s: бенчмарк=%d\n"
 #: src/mathlib.c:830
 msgid "Mathlib Help"
 msgstr "Mathlib помош"
+
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"Забрзаните математички библиотеки како ATLAS, OpenBLAS и Intel MKL можат да "
+"ги забрзаат електромагнетните симулации во xnec2c доколку се достапни на "
+"вашата платформа. Подробностите за откривањето на библиотеките се достапни "
+"во терминалот.\n"
+"\n"
+"* Избраната математичка библиотека за режимот \"Интерактивен\" се користи "
+"кога фреквенцијата се менува во интерфејсот преку виџетот за фреквенција во "
+"MHz со +/- или со кликнување (и со десното копче) на графиконот на "
+"фреквенцијата\n"
+"\n"
+"* Избраната математичка библиотека за режимот \"Пакетен\" се користи кога во "
+"командната линија е наведено -j за со форк да се создадат повеќе задачи што "
+"ќе се извршуваат паралелно.\n"
+"\n"
+"Од библиотеките на Intel може да се избере само една истовремено.  Откако "
+"една од математичките библиотеки Intel MKL ќе се употреби за електромагнетни "
+"пресметки, другите опции за библиотеки на Intel се заклучуваат до повторното "
+"стартување.  Бидејќи xnec2c ја памети претходно избраната библиотека, таа "
+"може да се активира при отворање на датотека .NEC и да ги заклучи другите "
+"опции.  За да го избегнете тоа, затворете го и повторно стартувајте го "
+"xnec2c без да отворите датотека .NEC (и без да наведете датотека .NEC во "
+"командната линија), за да можете да ја смените опцијата.\n"
+"\n"
+"\n"
+"== Математички библиотеки по дистрибуција ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    За избор на имплементацијата на openblas може да биде\n"
+"    потребно да ја употребите командата `alternatives`. Некои\n"
+"    комбинации на BLAS/LAPACK може да работат заедно, а други не:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  openSUSE официјално не поддржува ATLAS, па изградете го од изворниот код\n"
+"\n"
+"Текстов е достапен во терминалот за да можете да го копирате и залепите.\n"
 
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
@@ -5640,11 +5920,34 @@ msgstr "Се започнува реперот %s (%s %d)\n"
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "Скенирањето за репер не се изврши: FR_cards=%d steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f секунди (%s %2d) %c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "измерено еднаш: оваа библиотека го задржува бројот на нишки со кој е "
 "изградена"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"Најдобра математичка библиотека: %s (%s %d): %f секунди\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"Не е најден резултат?  Ова е дефект."
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5711,6 +6014,86 @@ msgstr "Грешка во симетрија"
 msgid "Solving Failed: %d\n"
 msgstr "Решавањето не успеа: %d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "Прилепи"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "Интерполирај"
+
+#: src/measurements.c:12
+msgid "Formula"
+msgstr "Формула"
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "Галактички"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "G4CQM минимум при низок шум (пред 2016)"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "VK3UM минимум при низок шум (пред 2016)"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "VE7BQH основна референца (пред 2018)"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "Галактички P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "DG7YBN галактички просек (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "Синтетички практичен просек (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "Синтетички минимум при низок шум (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "Прилагоден"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "ITU-R деловна зона (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "ITU-R станбена зона (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "ITU-R рурална зона (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "ITU-R рурална зона со низок шум (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "G4CQM мешан (пред 2016)"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "DG7YBN рурална зона (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "DG7YBN станбена зона (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "DG7YBN градска зона (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
@@ -5719,6 +6102,78 @@ msgid ""
 msgstr ""
 "noise_temp_resolve: noise_temp табелата не е алоцирана; t_sky/t_earth "
 "стандардно на 0\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "Реален дел на Z"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "Имагинарен дел на Z"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "Модул на Z"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "Фаза на Z"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "Реален дел на S11"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "Имагинарен дел на S11"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "Агол на S11"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "Нето добиток"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "Добиток θ"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "Добиток φ"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "Нето добиток во насока на прегледувачот"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "Однос F/B"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "Отстапување на добитокот од +X"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "Отстапување на добитокот од −X"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "Отстапување на добитокот од +Y"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "Отстапување на добитокот од −Y"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "Отстапување на добитокот од +Z"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "Отстапување на добитокот од −Z"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5739,6 +6194,156 @@ msgstr "Ефикасност на просечниот добиток"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "Покриеност на просечниот добиток"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "Фреквенција во MHz (независна променлива)"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "Реален дел на импедансата во точката на напојување (оми)"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "Имагинарен дел на импедансата во точката на напојување (оми)"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "Модул на импедансата во точката на напојување (оми)"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "Фазен агол на импедансата во точката на напојување (степени)"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "Однос на напони на стоечкиот бран (1.0 = совршено усогласување)"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr "Повратна загуба во dB (понегативна вредност = подобро усогласување)"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "Реален дел на S11 во dB"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "Имагинарен дел на S11 во dB"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "Фазен агол на коефициентот на рефлексија (степени)"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "Врвен добиток меѓу сите агли во dBi"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr "Врвен добиток во dBi со корекција за загубата поради неусогласеност"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "Агол на елевација на врвниот добиток (степени над хоризонтот)"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "Азимут на врвниот добиток (степени)"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "Добиток во dBi во насоката на тековниот агол на прегледувачот"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr ""
+"Добиток во dBi во насока на прегледувачот со корекција за загубата поради "
+"неусогласеност"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "Однос на добитокот напред и назад во dB"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr "Аголно отстапување на врвниот добиток од оската +X (степени)"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr "Аголно отстапување на врвниот добиток од оската -X (степени)"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr "Аголно отстапување на врвниот добиток од оската +Y (степени)"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr "Аголно отстапување на врвниот добиток од оската -Y (степени)"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr "Аголно отстапување на врвниот добиток од оската +Z (степени)"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr "Аголно отстапување на врвниот добиток од оската -Z (степени)"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr ""
+"Температура на шумот на антената Ta од осветленоста на небото и земјата (K)"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr ""
+"Вкупна температура на шумот на системот TA со вклучена омска загуба (K)"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr "Однос на добитокот и температурата на антената (dB), без загубата"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr ""
+"Број на децимални цифри на точност изгубени при пресметката на антената"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr ""
+"Однос на добитокот напред и во задниот сектор во dB при елевацијата на "
+"врвниот добиток, со заден сектор над 90 степени по азимут"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr ""
+"Однос на добитокот напред и во задниот сектор во dB, за сите насоки зад "
+"насоката на врвниот добиток"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr ""
+"Просечен добиток по моќност како линеарен однос во просторниот агол опфатен "
+"со точките на мрежата на дијаграмот"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr ""
+"Просечен добиток по моќност помножен со опфатениот дел од сферата, во "
+"проценти"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "Дел од целата сфера опфатен со точките на мрежата на дијаграмот"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "Непознато"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5902,6 +6507,11 @@ msgstr "Неуспешно создавање на cairo overlay база\n"
 msgid "Shader declares no version directive: %s\n"
 msgstr "Шејдерот не декларира директива за верзија: %s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "непозната грешка"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -6036,15 +6646,342 @@ msgstr "Вчитани %d цели на оптимизатор\n"
 msgid "opt_file_load: %s\n"
 msgstr ""
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>minimize</b>: додава казна за <i>%s</i> над <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (нормализација)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (затегнатост: преостанат градиент "
+"по преминувањето на целната вредност)"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>maximize</b>: додава казна за <i>%s</i> под <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (нормализација)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (затегнатост: преостанат градиент "
+"по преминувањето на целната вредност)"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>deviate</b>: додава казна за отстапувањето на <i>%s</i> од <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"Нема нормализација ниту член за затегнатост."
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>Нема овозможени цели</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Оптимизаторот ја минимизира F</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>Насоки на трансформација</span>\n"
+"\n"
+"<b>minimize:</b> Пониските вредности се подобри\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Оценката се приближува до нула под целната вредност; се казнува "
+"надминувањето на целната вредност</i>\n"
+"\n"
+"<b>maximize:</b> Повисоките вредности се подобри\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Оценката се приближува до нула над целната вредност; важи за "
+"позитивни и негативни целни вредности</i>\n"
+"\n"
+"<b>deviate:</b> Задајте конкретна целна вредност\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Се казнува отстапувањето од целната вредност; score=0 кога value = "
+"target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Функции за редукција</span>\n"
+"\n"
+"<b>avg:</b> Просечна казна низ опсегот\n"
+"    <i>Им дава еднаква тежина на сите фреквенции</i>\n"
+"\n"
+"<b>max:</b> Ја враќа најголемата казна (најлошата фреквентна точка)\n"
+"    <i>Оптимизаторот прво го подобрува резултатот на најлошата фреквенција\n"
+"    \"Ниту една точка во опсегот не смее да надмине X\"</i>\n"
+"\n"
+"<b>min:</b> Ја враќа најмалата казна (најдобрата фреквентна точка)\n"
+"    <i>Оптимизаторот го подобрува резултатот на најдобрата фреквенција, а "
+"другите ги занемарува\n"
+"    Ретко е корисно (дава теснопојасно решение)</i>\n"
+"\n"
+"<b>diff:</b> Го враќа распонот на казната (варијацијата)\n"
+"    <i>Ја изедначува метриката низ опсегот\n"
+"    Користете го со gain_max за рамномерен добиток</i>\n"
+"\n"
+"<b>sum:</b> Вкупен збир на казните за сите фреквенции\n"
+"    <i>Ја нагласува вкупната големина на грешката</i>\n"
+"\n"
+"<b>mag:</b> Средноквадратен модул\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Ги нагласува големите отстапувања повеќе од просекот</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Метрики за насоката на добитокот</span>\n"
+"\n"
+"Метриките gain_dev_* го мерат аголното отстапување (во степени)\n"
+"меѓу насоката на врвниот добиток и координатна оска.\n"
+"Користете direction=minimize со целна вредност блиску до 0 за да го насочите "
+"снопот.\n"
+"\n"
+"    gain_dev_px: отстапување од оската +X\n"
+"    gain_dev_nx: отстапување од оската -X\n"
+"    gain_dev_py: отстапување од оската +Y\n"
+"    gain_dev_ny: отстапување од оската -Y\n"
+"    gain_dev_pz: отстапување од оската +Z (зенит)\n"
+"    gain_dev_nz: отстапување од оската -Z (надир)\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "Помош за формулата за приспособеност"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr ""
+"Тековна вредност од NEC2 на фреквенцијата зададена во полето со стрелки"
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "Целна вредност на мерењето"
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "Експонент со кој се степенува резултатот од трансформацијата"
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "Множител што се применува по редукцијата"
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "Долна граница на фреквенцијата (празно = сите фреквенции)"
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "Горна граница на фреквенцијата (празно = сите фреквенции)"
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "Член на формулата за оваа цел"
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "Пресметка: weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "Отстрани ја оваа цел"
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "Мерење"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "Вредност"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "Трансформација →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "Целна вредност"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "Експонент →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "Редукција →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "Тежина"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "Долна граница во MHz"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "Горна граница во MHz →"
+
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr "Формула →"
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "Оценка"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "Оптимизаторот ја минимизира оваа вредност"
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ Додај метрика"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [Завршено]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui: оптимизацијата е завршена, најдобра кондиција: %.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "Оптимизација"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"Нема променливи означени за оптимизација.\n"
+"Во колоната „Опт“ означете ги променливите за оптимизација."
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"Кај %d променливи важи min >= max: %s\n"
+"Задајте различни минимални и максимални вредности за секоја променлива што "
+"се оптимизира."
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"Нема овозможени цели за приспособеност.\n"
+"Означете барем една метрика во табелата „Цели за приспособеност“."
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "Се започнува…"
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"Оптимизацијата не започна.\n"
+"Проверете во терминалот за подробности."
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"Премин %d/%d  Итерација %d  Пресметки %d  Приспособеност %.6g  Најдобра "
+"%.6g  Без напредок %d  Кеш %d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -6171,6 +7108,74 @@ msgstr "не успеа да се создаде eventfd за будење на 
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "не успеа да се креира нишка за излез на Оптимизаторот\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "најмала оценка"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "најголема оценка"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± целна вредност"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Ги казнува вредностите над целната вредност; оценката се приближува до нула "
+"под целната вредност"
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Ги казнува вредностите под целната вредност; оценката се приближува до нула "
+"над целната вредност"
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Го казнува отстапувањето од целната вредност; score=0 кога value = target"
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "Ги собира оценките од сите фреквентни чекори на NEC2"
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr "Ја пресметува просечната оценка низ сите фреквентни чекори на NEC2"
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "Ја избира најмалата оценка меѓу сите фреквентни чекори"
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "Ја избира најголемата оценка меѓу сите фреквентни чекори"
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr ""
+"Квадратен корен од збирот на квадратите на оценките: sqrt(sum(score<sup>2</"
+"sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr "Разлика меѓу најголемата и најмалата оценка низ фреквентните чекори"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6597,6 +7602,14 @@ msgstr "Темп. на шум (лог. скала)"
 msgid "Radiation Pattern: - "
 msgstr "Дијаграм на зрачење: - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - Небо:"
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - Земја:"
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Блиски полиња:"
@@ -6622,7 +7635,15 @@ msgstr "Графици на фреквенциски податоци - "
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d е надвор од границите. calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "Рел."
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "Апс."
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: создавањето на површина не успеа (%dx%d)\n"
@@ -6686,6 +7707,30 @@ msgstr ""
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+Scroll: радиус на жица"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"OpenGL не е достапен на овој екран.\n"
+"Активно е исцртувањето со Cairo."
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"Програмата е изградена без поддршка за OpenGL.\n"
+"Активно е исцртувањето со Cairo."
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "Општо"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "Боја"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6796,6 +7841,30 @@ msgstr "sy_save_overrides: не може да се отвори %s за запи
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "Зачувани %d замени на симболи во %s\n"
 
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr "Симбол"
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "Надмести"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "Опт"
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "Мин"
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "Макс"
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "Израз"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6805,6 +7874,14 @@ msgstr "sy_overrides_init: неуспешно вчитување на glade: %s\
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: неуспешно добивање на виџети од glade\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "Влезни симболи"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "Пресметани симболи"
 
 #: src/sy_overrides.c:1486
 msgid ""

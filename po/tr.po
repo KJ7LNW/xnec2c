@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -89,6 +89,18 @@ msgstr "Tepe _Genliği"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Yakın Alan Animasyonu"
+
+#: resources/animate.glade:205
+msgid "Start"
+msgstr "Başlat"
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "Durdur"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "Kapat"
 
 #: resources/animate.glade:277
 msgid ""
@@ -180,7 +192,7 @@ msgstr "Görüntüleme"
 msgid "Flow direction:"
 msgstr "Akış yönü:"
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "Yamalar"
 
@@ -286,6 +298,7 @@ msgid "Color Quantization"
 msgstr "Renk Nicemleme"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "Kapalı"
 
@@ -775,6 +788,10 @@ msgstr ""
 "Dalga hareketinin her tel boyunca okunması için anlık pozitif tepede parlak "
 "bir baş sürün."
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr "<small><i>n = |z| / max|z|,  s = ölçek aktarımı,  φ = faz</i></small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "Sıfırla"
@@ -787,9 +804,87 @@ msgstr ""
 "Renk projeksiyonunu, segment ölçeğini, renk tonunu, parlaklık tabanını ve "
 "her aile parametresini varsayılanlarına geri yükleyin."
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "Kenar yumuşatma (MSAA)"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "Yapı"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "Parlaklık"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "Saydamlık"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "Segmentler"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "Örüntü"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "Yüzey"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "Tel kafes"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "Yakın alan"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "Çizim biçimi"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "Her ikisi"
+
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr "Sahne"
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "Toprak"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "Eksenler"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Yalnızca görsel — NEC2 model hesaplamalarını etkilemez."
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "Yalnızca tıklayınca saydamlık"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "Ortografik projeksiyon"
+
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr "Çizici:"
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "Kısıtlı döndürme"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -808,13 +903,102 @@ msgid "Rendering Settings"
 msgstr "İşleme Ayarları"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "_Kapat"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "Sembol Geçersiz Kılmaları"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "Optimizasyon"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "Algoritma:"
+
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr "Simpleks"
+
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr "Parçacık sürüsü"
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "Gelişmiş"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "Ortak ayarlar"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "Durgunluk sayısı:"
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "Tolerans:"
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "En çok yineleme sayısı:"
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "Simpleks ayarları"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "Simpleks boyutları:"
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "En küçük boyut:"
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "Sıcaklık:"
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "Parçacık sürüsü ayarları"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "Parçacıklar:"
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "Komşular:"
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "Eylemsizlik:"
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "Bilişsel:"
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "Sosyal:"
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "Arama boyutu:"
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "Optimizasyonu başlat"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "Optimizasyonu iptal et"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1660,10 +1844,6 @@ msgstr "Üçgen"
 msgid "Quadrilateral"
 msgstr "Dörtgen"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "Yüzey"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "Yama Tipi"
@@ -2022,6 +2202,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "Sol/Sağ Tıklama Frekans Seçimini _Değiştir"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "Maks Kazanç"
 
@@ -2458,7 +2639,7 @@ msgstr ""
 "Geçerli görüntüleme açıları için, yapı görüntüleyicisi yönündeki kazanç."
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "Kazanç"
 
@@ -3741,7 +3922,7 @@ msgstr "Frekans taramasını ilk adımına sıfırla ve hesaplanan tüm sonuçla
 msgid "Gain Direction"
 msgstr "Kazanç Yönü"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "Görüntüleyici Kazancı"
 
@@ -3844,6 +4025,14 @@ msgstr "noktalar için bellek ayırma başarısız\n"
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():Noktalar için bellek ayırma başarısız"
+
+# xnec2c-exempt: notation
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -5079,6 +5268,10 @@ msgstr ""
 "Komut veri kartı hatası\n"
 "Mnemonik kod çok kısa veya eksik"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "komut verileri"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -5112,6 +5305,10 @@ msgid ""
 msgstr ""
 "Geometri veri kartı hatası\n"
 "Kartın mnemonik kodu çok kısa veya eksik"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "geometri verileri"
 
 #: src/interface.c:138
 #, c-format
@@ -5173,6 +5370,10 @@ msgstr ""
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade yüklenemedi: %s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "yok (gösterim yok)"
 
 #: src/main.c:129
 #, c-format
@@ -5363,6 +5564,80 @@ msgstr "%s: karşılaştırma=%d\n"
 #: src/mathlib.c:830
 msgid "Mathlib Help"
 msgstr "Mathlib Yardımı"
+
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"ATLAS, OpenBLAS ve Intel MKL gibi hızlandırılmış matematik kitaplıkları, "
+"platformunuzda kullanılabiliyorsa xnec2c elektromanyetik benzetimlerini "
+"hızlandırabilir. Kitaplıkların nasıl algılandığına ilişkin ayrıntılar "
+"terminalde bulunur.\n"
+"\n"
+"* Arayüzde Frekans MHz +/- bileşeniyle veya frekans grafiğine tıklayarak (ya "
+"da sağ tıklayarak) frekans değiştirildiğinde seçili \"Etkileşimli\" "
+"matematik kitaplığı kullanılır\n"
+"\n"
+"* Birden çok işi fork ile paralel çalıştırmak için komut satırında -j "
+"belirtildiğinde seçili \"Toplu\" matematik kitaplığı kullanılır.\n"
+"\n"
+"Intel kitaplıklarından aynı anda yalnızca biri seçilebilir.  Intel MKL "
+"matematik kitaplıklarından biri elektromanyetik hesaplamalarda "
+"kullanıldığında, diğer Intel kitaplığı seçenekleri yeniden başlatılana kadar "
+"kilitlenir.  xnec2c önceki kitaplık seçimini hatırladığından, bir .NEC "
+"dosyası açıldığında o kitaplık etkinleşip diğer seçenekleri kilitleyebilir.  "
+"Bunu önleyip seçeneği değiştirmek için xnec2c uygulamasını kapatın ve "
+"herhangi bir .NEC dosyası açmadan (ve komut satırında bir .NEC dosyası "
+"belirtmeden) yeniden açın.\n"
+"\n"
+"\n"
+"== Dağıtıma göre matematik kitaplıkları ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    openblas uygulamanızı seçmek için `alternatives` kullanmanız\n"
+"    gerekebilir. Bazı BLAS/LAPACK birleşimleri birlikte\n"
+"    çalışabilir veya çalışmayabilir:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  openSUSE, ATLAS için resmî destek sunmadığından kaynak koddan derleyin\n"
+"\n"
+"Bu metni terminalden kopyalayıp yapıştırabilirsiniz.\n"
 
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
@@ -5573,9 +5848,32 @@ msgstr "%s kıyaslaması başlatılıyor (%s %d)\n"
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "Kıyaslama taraması çalışmadı: FR_cards=%d steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f saniye (%s %2d) %c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr "bir kez ölçüldü: bu kütüphane derlendiği iş parçacığı sayısını korur"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"En iyi matematik kitaplığı: %s (%s %d): %f saniye\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"Sonuç bulunamadı mı?  Bu bir yazılım kusuru."
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5644,6 +5942,86 @@ msgstr "Simetri hatası"
 msgid "Solving Failed: %d\n"
 msgstr "Çözüm Başarısız: %d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "En yakına oturt"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "Enterpolasyon yap"
+
+#: src/measurements.c:12
+msgid "Formula"
+msgstr "Formül"
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "Galaktik"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "G4CQM en düşük gürültü (2016 öncesi)"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "VK3UM en düşük gürültü (2016 öncesi)"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "VE7BQH temel referans (2018 öncesi)"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "Galaktik P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "DG7YBN galaktik ortalama (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "Sentetik pratik ortalama (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "Sentetik en düşük gürültü (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "Özel"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "ITU-R ticaret bölgesi (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "ITU-R konut bölgesi (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "ITU-R kırsal bölge (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "ITU-R düşük gürültülü kırsal bölge (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "G4CQM karma (2016 öncesi)"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "DG7YBN kırsal bölge (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "DG7YBN konut bölgesi (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "DG7YBN kent (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
@@ -5652,6 +6030,78 @@ msgid ""
 msgstr ""
 "noise_temp_resolve: gürültü sıcaklığı tablosu tahsis edilmedi; t_sky/t_earth "
 "0'a sıfırlanıyor\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "Z gerçel kısmı"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "Z sanal kısmı"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "Z büyüklüğü"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "Z fazı"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "S11 gerçel kısmı"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "S11 sanal kısmı"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "S11 açısı"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "Net kazanç"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "Theta kazancı"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "Phi kazancı"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "Görüntüleyici yönünde net kazanç"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "F/B oranı"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "+X ekseninden kazanç sapması"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "−X ekseninden kazanç sapması"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "+Y ekseninden kazanç sapması"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "−Y ekseninden kazanç sapması"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "+Z ekseninden kazanç sapması"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "−Z ekseninden kazanç sapması"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5672,6 +6122,151 @@ msgstr "Ortalama Kazanç Verimi"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "Ortalama Kazanç Kapsamı"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "MHz cinsinden frekans (bağımsız değişken)"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "Besleme noktası empedansının gerçel kısmı (ohm)"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "Besleme noktası empedansının sanal kısmı (ohm)"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "Besleme noktası empedansının büyüklüğü (ohm)"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "Besleme noktası empedansının faz açısı (derece)"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "Gerilim duran dalga oranı (1.0 = tam uyum)"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr "dB cinsinden geri dönüş kaybı (daha negatif = daha iyi uyum)"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "dB cinsinden S11 gerçel kısmı"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "dB cinsinden S11 sanal kısmı"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "Yansıma katsayısının faz açısı (derece)"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "Tüm açılar için dBi cinsinden tepe kazancı"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr "Uyumsuzluk kaybı hesaba katılmış dBi cinsinden tepe kazancı"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "Tepe kazancının yükseliş açısı (ufkun üzerinde derece cinsinden)"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "Tepe kazancının azimut açısı (derece)"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "Görüntüleyicinin geçerli açısı yönünde dBi cinsinden kazanç"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr ""
+"Uyumsuzluk kaybı hesaba katılmış dBi cinsinden görüntüleyici yönü kazancı"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "dB cinsinden ön/arka oranı"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr "Tepe kazancının +X ekseninden açısal sapması (derece)"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr "Tepe kazancının -X ekseninden açısal sapması (derece)"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr "Tepe kazancının +Y ekseninden açısal sapması (derece)"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr "Tepe kazancının -Y ekseninden açısal sapması (derece)"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr "Tepe kazancının +Z ekseninden açısal sapması (derece)"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr "Tepe kazancının -Z ekseninden açısal sapması (derece)"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr ""
+"Gökyüzü/zemin parlaklığından kaynaklanan anten gürültü sıcaklığı Ta (K)"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr "Omik kayıp dahil toplam sistem gürültü sıcaklığı TA (K)"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr "Kazancın anten sıcaklığına oranı (dB), kayıp hariç"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr "Anten çözümünde kaybedilen ondalık hassasiyet basamağı sayısı"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr ""
+"Tepe kazancının yükseliş açısında dB cinsinden ön/arka oranı, arka bölge "
+"azimutta 90 derecenin ötesi"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr ""
+"Tepe kazancı yönünün arkasındaki tüm yönler için dB cinsinden ön/arka oranı"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr ""
+"Örüntü ızgarasının örneklediği katı açı üzerinde doğrusal oran olarak "
+"ortalama güç kazancı"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr ""
+"Ortalama güç kazancı ile kürenin örneklenen payının çarpımı, yüzde cinsinden"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "Tam kürenin örüntü ızgarasınca örneklenen payı"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "Bilinmiyor"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5833,6 +6428,11 @@ msgstr "Cairo kaplama tabanı oluşturulamadı\n"
 msgid "Shader declares no version directive: %s\n"
 msgstr "Gölgelendirici sürüm yönergesi bildirmiyor: %s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "bilinmeyen hata"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -5968,15 +6568,341 @@ msgstr "%d optimize edici hedefi yüklendi\n"
 msgid "opt_file_load: %s\n"
 msgstr ""
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>en aza indir</b>: <i>%s</i> değeri <b>%s</b> eşiğini aştığında ceza "
+"uygular\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalleştirme)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (gerilim: hedefin ötesindeki "
+"artık gradyan)"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>en çoğa çıkar</b>: <i>%s</i> değeri <b>%s</b> eşiğinin altında kaldığında "
+"ceza uygular\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalleştirme)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (gerilim: hedefin ötesindeki "
+"artık gradyan)"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>sapma</b>: <i>%s</i> değeri <b>%s</b> hedefinden saptığında ceza uygular\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"Normalleştirme veya gerilim terimi yoktur."
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>Etkin hedef yok</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Eniyileyici F değerini en aza indirir</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>Dönüşüm yönleri</span>\n"
+"\n"
+"<b>en aza indir:</b> Daha düşük değerler daha iyidir\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Puan hedefin altında sıfıra yaklaşır; hedefin üzerindeki fazlalığa "
+"ceza uygulanır</i>\n"
+"\n"
+"<b>en çoğa çıkar:</b> Daha yüksek değerler daha iyidir\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Puan hedefin üzerinde sıfıra yaklaşır; hem pozitif hem negatif "
+"hedeflerde çalışır</i>\n"
+"\n"
+"<b>sapma:</b> Belirli bir değeri hedefleyin\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Hedeften sapmaya ceza uygular; value = target olduğunda score=0</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>İndirgeme işlevleri</span>\n"
+"\n"
+"<b>avg:</b> Bant genelindeki ortalama ceza\n"
+"    <i>Tüm frekansları eşit biçimde dengeler</i>\n"
+"\n"
+"<b>max:</b> En yüksek cezayı döndürür (en kötü frekans noktası)\n"
+"    <i>Eniyileyici önce en kötü frekansı iyileştirir\n"
+"    \"Bantta hiçbir nokta X değerini aşamaz\"</i>\n"
+"\n"
+"<b>min:</b> En düşük cezayı döndürür (en iyi frekans noktası)\n"
+"    <i>Eniyileyici en iyi frekansı iyileştirir, diğerlerini yok sayar\n"
+"    Nadiren yararlıdır (dar bantlı çözüm üretir)</i>\n"
+"\n"
+"<b>diff:</b> Ceza aralığını döndürür (değişim)\n"
+"    <i>Ölçütü bant genelinde tutarlı kılar\n"
+"    Kazancı düzleştirmek için gain_max ile kullanın</i>\n"
+"\n"
+"<b>sum:</b> Tüm frekanslardaki cezaların toplamı\n"
+"    <i>Genel hata büyüklüğünü öne çıkarır</i>\n"
+"\n"
+"<b>mag:</b> Karesel ortalama büyüklüğü\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Büyük sapmaları ortalamadan daha fazla öne çıkarır</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Kazanç yönü ölçütleri</span>\n"
+"\n"
+"gain_dev_* ölçütleri, tepe kazancı yönü ile bir koordinat ekseni\n"
+"arasındaki açısal sapmayı (derece cinsinden) ölçer.\n"
+"Hüzmeyi yönlendirmek için direction=minimize seçin ve hedefi 0'a yakın "
+"ayarlayın.\n"
+"\n"
+"    gain_dev_px: +X ekseninden sapma\n"
+"    gain_dev_nx: -X ekseninden sapma\n"
+"    gain_dev_py: +Y ekseninden sapma\n"
+"    gain_dev_ny: -Y ekseninden sapma\n"
+"    gain_dev_pz: +Z ekseninden sapma (başucu)\n"
+"    gain_dev_nz: -Z ekseninden sapma (ayakucu)\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "Uygunluk formülü yardımı"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr "Frekans ayar kutusunda seçili frekanstaki güncel NEC2 değeri"
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "Ölçümün hedef değeri"
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "Dönüşüm sonucuna uygulanan üs"
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "İndirgemeden sonra uygulanan çarpan"
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "Alt frekans sınırı (boş = tüm frekanslar)"
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "Üst frekans sınırı (boş = tüm frekanslar)"
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "Bu amaca ait formül terimi"
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "Hesaplama: weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "Bu amacı kaldır"
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "Ölçüm"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "Değer"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "Dönüşüm →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "Hedef"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "Üs →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "İndirgeme →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "Ağırlık"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "Alt sınır (MHz)"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "Üst sınır (MHz) →"
+
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr "Formül →"
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "Puan"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "Eniyileyici bu değeri en aza indirir"
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ Ölçüt ekle"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [Tamamlandı]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui: optimizasyon tamamlandı, en iyi uygunluk: %.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "Optimizasyon"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"Optimizasyon için hiçbir değişken işaretlenmedi.\n"
+"Optimizasyonu yapılacak değişkenleri Opt. sütununda işaretleyin."
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"%d değişkenin alt sınırı üst sınırına eşit veya ondan büyük: %s\n"
+"Optimizasyonu yapılacak her değişkenin alt ve üst sınırlarını farklı "
+"belirleyin."
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"Etkin uygunluk hedefi yok.\n"
+"Uygunluk hedefleri tablosunda en az bir ölçütü işaretleyin."
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "Başlatılıyor..."
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"Optimizasyon başlatılamadı.\n"
+"Ayrıntılar için terminale bakın."
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"Tur %d/%d  Yineleme %d  Değerlendirme %d  Uygunluk %.6g  En iyi %.6g  "
+"Durgunluk %d  Önbellek %d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -6100,6 +7026,72 @@ msgstr "optimize edici uyandırma eventfd'si oluşturulamadı\n"
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "Optimize Edici Çıktı iş parçacığı oluşturulamadı\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "en düşük puan"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "en yüksek puan"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± hedef"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Hedefin üzerindeki değerlere ceza uygular; puan hedefin altında sıfıra "
+"yaklaşır"
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Hedefin altındaki değerlere ceza uygular; puan hedefin üzerinde sıfıra "
+"yaklaşır"
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Hedeften sapmaya ceza uygular; value = target olduğunda score=0"
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "Her NEC2 frekans adımındaki puanı toplar"
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr "Tüm NEC2 frekans adımlarındaki puanların ortalamasını alır"
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "Tüm frekans adımları arasından en düşük puanı seçer"
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "Tüm frekans adımları arasından en yüksek puanı seçer"
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr "Puanların kareleri toplamının karekökü: sqrt(sum(score<sup>2</sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr "Frekans adımlarındaki en yüksek ve en düşük puan arasındaki fark"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6522,6 +7514,14 @@ msgstr "Gürültü Sıcaklığı (log ölçek)"
 msgid "Radiation Pattern: - "
 msgstr "Işınım Örüntüsü: - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - Gökyüzü:"
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - Zemin:"
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Yakın Alanlar:"
@@ -6547,7 +7547,15 @@ msgstr "Frekans Veri Grafikleri - "
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d sınırların dışında. calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "Bağıl"
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "Mutlak"
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: yüzey oluşturma başarısız (%dx%d)\n"
@@ -6609,6 +7617,30 @@ msgstr "Optimize edici döngüsü tamamlanmadı, ara yeniden çizim bastırılı
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+Kaydırma: Tel yarıçapı"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"Bu ekranda OpenGL kullanılamıyor.\n"
+"Cairo ile çizim etkin."
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"OpenGL desteği olmadan derlendi.\n"
+"Cairo ile çizim etkin."
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "Genel"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "Renk"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6719,6 +7751,30 @@ msgstr "sy_save_overrides: %s yazma için açılamıyor: %s\n"
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "%d sembol geçersiz kılması %s dosyasına kaydedildi\n"
 
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr "Simge"
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "Geçersiz kıl"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "Opt."
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "Alt sınır"
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "Üst sınır"
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "İfade"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6728,6 +7784,14 @@ msgstr "sy_overrides_init: glade yüklenemedi: %s\n"
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: glade'den bileşenler alınamadı\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "Girdi simgeleri"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "Hesaplanan simgeler"
 
 #: src/sy_overrides.c:1486
 msgid ""

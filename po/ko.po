@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -89,6 +89,18 @@ msgstr "피크 크기(_M)"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "근접장 애니메이션"
+
+#: resources/animate.glade:205
+msgid "Start"
+msgstr "시작"
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "중지"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "닫기"
 
 #: resources/animate.glade:277
 msgid ""
@@ -178,7 +190,7 @@ msgstr "표시"
 msgid "Flow direction:"
 msgstr "흐름 방향:"
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "패치"
 
@@ -282,6 +294,7 @@ msgid "Color Quantization"
 msgstr "색상 양자화"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "끔"
 
@@ -758,6 +771,10 @@ msgstr ""
 "순간 양의 파고에 밝은 머리를 태워 각 도선을 따라 파동 움직임이 드러나게 합니"
 "다."
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr "<small><i>n = |z| / max|z|,  s = 스케일 전달,  φ = 위상</i></small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "재설정"
@@ -770,9 +787,87 @@ msgstr ""
 "색상 투영, 세그먼트 스케일, 색조 계열, 명도 플로어 및 모든 계열 매개변수를 기"
 "본값으로 복원합니다."
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "안티앨리어싱 (MSAA)"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "구조체"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "명도"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "투명도"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "세그먼트"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "방사 패턴"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "표면"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "와이어프레임"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "근접장"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "그리기 방식"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "둘 다"
+
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr "장면"
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "접지"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "좌표축"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "시각적 효과만 — NEC2 모델 계산에 영향을 주지 않습니다."
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "클릭할 때만 투명도 적용"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "직교 투영"
+
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr "렌더러:"
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "제한 회전"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -791,13 +886,104 @@ msgid "Rendering Settings"
 msgstr "렌더링 설정"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "닫기(_C)"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "심볼 재정의"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "최적화"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "알고리즘:"
+
+# xnec2c-exempt: name
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr ""
+
+# xnec2c-exempt: name
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr ""
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "고급"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "공통 설정"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "정체 횟수:"
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "허용 오차:"
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "최대 반복 횟수:"
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "Simplex 설정"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "심플렉스 크기:"
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "최소 크기:"
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "온도:"
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "입자 군집 설정"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "입자 수:"
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "이웃 수:"
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "관성:"
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "인지 계수:"
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "사회 계수:"
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "탐색 크기:"
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "최적화 시작"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "최적화 취소"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1640,10 +1826,6 @@ msgstr "삼각형"
 msgid "Quadrilateral"
 msgstr "사변형"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "표면"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "패치 유형"
@@ -2001,6 +2183,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "왼쪽/오른쪽 클릭 주파수 선택 교체(_W)"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "최대 이득"
 
@@ -2423,7 +2606,7 @@ msgid ""
 msgstr "현재 보기 각도에서 구조체 뷰어 방향의 이득입니다."
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "이득"
 
@@ -3691,7 +3874,7 @@ msgstr "주파수 스윕을 첫 단계로 재설정하고 계산된 모든 결�
 msgid "Gain Direction"
 msgstr "이득 방향"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "뷰어 이득"
 
@@ -3794,6 +3977,15 @@ msgstr "포인트 메모리 할당 실패\n"
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): 포인트 메모리 할당 실패"
+
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
+"최솟값: %.2f\n"
+"최댓값: %.2f"
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -5015,6 +5207,10 @@ msgstr ""
 "명령 데이터 카드 오류\n"
 "니모닉 코드가 너무 짧거나 누락됨"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "명령 데이터"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -5047,6 +5243,10 @@ msgid ""
 msgstr ""
 "기하 데이터 카드 오류\n"
 "카드의 니모닉 코드가 너무 짧거나 누락됨"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "형상 데이터"
 
 #: src/interface.c:138
 #, c-format
@@ -5109,6 +5309,10 @@ msgstr ""
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: animate.glade 로드 실패: %s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "없음 (표시 안 함)"
 
 #: src/main.c:129
 #, c-format
@@ -5298,6 +5502,77 @@ msgstr ""
 #: src/mathlib.c:830
 msgid "Mathlib Help"
 msgstr "Mathlib 도움말"
+
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"사용 중인 플랫폼에서 ATLAS, OpenBLAS, Intel MKL 등의 가속 수학 라이브러리를 "
+"사용할 수 있으면 xnec2c 전자기 시뮬레이션이 빨라집니다. 라이브러리 감지 세부 "
+"정보는 터미널에서 확인할 수 있습니다.\n"
+"\n"
+"* 주파수 MHz +/- 위젯의 값을 바꾸거나 주파수 그래프를 클릭 또는 오른쪽 클릭하"
+"여 인터페이스에서 주파수를 바꾸면 선택한 \"대화형\" 수학 라이브러리를 사용합"
+"니다.\n"
+"\n"
+"* 명령줄에서 -j를 지정해 여러 작업을 포크하여 병렬로 실행하면 선택한 \"배치"
+"\" 수학 라이브러리를 사용합니다.\n"
+"\n"
+"Intel 라이브러리는 한 번에 하나만 선택할 수 있습니다. Intel MKL 수학 라이브러"
+"리 중 하나를 전자기 계산에 사용하면 다시 시작할 때까지 다른 Intel 라이브러리 "
+"옵션이 잠깁니다. xnec2c는 이전에 선택한 라이브러리를 기억하므로 .NEC 파일을 "
+"열 때 해당 라이브러리가 활성화되어 다른 옵션이 잠길 수 있습니다. 옵션을 바꾸"
+"려면 xnec2c를 닫았다가 다시 실행하되, .NEC 파일을 열거나 명령줄에 .NEC 파일"
+"을 지정하지 마십시오.\n"
+"\n"
+"\n"
+"== 배포판별 수학 라이브러리 ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    `alternatives`로 사용할\n"
+"    openblas 구현을 선택해야 할 수 있습니다. BLAS/LAPACK은 조합에 따라\n"
+"    함께 작동하지 않을 수 있습니다:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  openSUSE는 ATLAS를 공식 지원하지 않으므로 소스에서 빌드하십시오.\n"
+"\n"
+"이 텍스트는 터미널에서 복사하여 붙여넣을 수 있습니다.\n"
 
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
@@ -5496,9 +5771,32 @@ msgstr "%s 벤치마크를 시작합니다(%s %d)\n"
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "벤치마크 스윕을 실행하지 않았습니다: FR_cards=%d steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f초 (%s %2d) %c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr "한 번 측정했습니다: 이 라이브러리는 빌드된 스레드 수를 유지합니다"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"가장 빠른 수학 라이브러리: %s (%s %d): %f초\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"결과가 없습니까? 버그입니다."
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5564,12 +5862,164 @@ msgstr "대칭 오류"
 msgid "Solving Failed: %d\n"
 msgstr "계산 실패: %d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "가장 가까운 점에 맞춤"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "보간"
+
+#: src/measurements.c:12
+msgid "Formula"
+msgstr "수식"
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "은하"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "G4CQM 저잡음 최솟값 (2016년 이전)"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "VK3UM 저잡음 최솟값 (2016년 이전)"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "VE7BQH 기본 기준 (2018년 이전)"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "은하 P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "DG7YBN 은하 평균 (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "합성 실용 평균 (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "합성 저잡음 최솟값 (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "사용자 지정"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "ITU-R 상업 지역 (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "ITU-R 주거 지역 (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "ITU-R 농촌 지역 (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "ITU-R 저잡음 농촌 지역 (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "G4CQM 혼합 (2016년 이전)"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "DG7YBN 농촌 지역 (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "DG7YBN 주거 지역 (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "DG7YBN 도시 지역 (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
 "noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
 "to 0\n"
 msgstr "noise_temp_resolve: noise_temp 테이블 미할당; t_sky/t_earth 기본값 0\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "Z 실수부"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "Z 허수부"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "Z 크기"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "Z 위상"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "S11 실수부"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "S11 허수부"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "S11 위상각"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "순이득"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "θ 이득"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "φ 이득"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "뷰어 순이득"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "F/B 비"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "+X 기준 이득 방향 편차"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "−X 기준 이득 방향 편차"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "+Y 기준 이득 방향 편차"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "−Y 기준 이득 방향 편차"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "+Z 기준 이득 방향 편차"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "−Z 기준 이득 방향 편차"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5590,6 +6040,145 @@ msgstr "평균 이득 효율"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "평균 이득 커버리지"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "주파수 (MHz, 독립 변수)"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "급전점 임피던스의 실수부 (옴)"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "급전점 임피던스의 허수부 (옴)"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "급전점 임피던스의 크기 (옴)"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "급전점 임피던스의 위상각 (도)"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "전압 정재파비 (1.0 = 완전 정합)"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr "반사 손실 (dB, 더 낮은 음수일수록 정합이 양호함)"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "S11의 실수부 (dB)"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "S11의 허수부 (dB)"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "반사계수의 위상각 (도)"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "모든 각도에서의 최대 이득 (dBi)"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr "부정합 손실을 반영한 최대 이득 (dBi)"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "최대 이득 방향의 고도각 (수평선 위 각도, 도)"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "최대 이득 방향의 방위각 (도)"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "현재 뷰어 방향의 이득 (dBi)"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr "부정합 손실을 반영한 뷰어 방향 이득 (dBi)"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "전후방비 (dB)"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr "+X 축과 최대 이득 방향 사이의 각도 편차 (도)"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr "-X 축과 최대 이득 방향 사이의 각도 편차 (도)"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr "+Y 축과 최대 이득 방향 사이의 각도 편차 (도)"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr "-Y 축과 최대 이득 방향 사이의 각도 편차 (도)"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr "+Z 축과 최대 이득 방향 사이의 각도 편차 (도)"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr "-Z 축과 최대 이득 방향 사이의 각도 편차 (도)"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr "하늘과 대지의 밝기로 산출한 안테나 잡음 온도 Ta (K)"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr "저항 손실을 포함한 전체 시스템 잡음 온도 TA (K)"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr "이득 대 안테나 온도 비 (dB), 손실 제외"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr "안테나 해석 중 손실된 십진 정밀도 자릿수"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr ""
+"최대 이득 고도각에서의 전방 대 후방 비 (dB), 방위각 차이가 90도를 넘는 범위"
+"를 후방으로 정의"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr "최대 이득 방향의 후방에 있는 모든 방향을 고려한 전방 대 후방 비 (dB)"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr "패턴 격자가 표본화한 입체각 구간의 평균 전력 이득 (선형 비율)"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr "평균 전력 이득에 구의 표본화 비율을 곱한 값 (백분율)"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "패턴 격자가 표본화한 영역이 전체 구에서 차지하는 비율"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "알 수 없음"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5753,6 +6342,11 @@ msgstr "cairo 오버레이 베이스 생성 실패\n"
 msgid "Shader declares no version directive: %s\n"
 msgstr "셰이더에 버전 지시문이 없습니다: %s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "알 수 없는 오류"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -5885,15 +6479,340 @@ msgstr "최적화 목표 %d개 로드됨\n"
 msgid "opt_file_load: %s\n"
 msgstr ""
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>minimize</b>: <i>%s</i> 값이 <b>%s</b>보다 크면 벌점을 부과합니다.\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (정규화)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (장력: 목표값을 지난 영역의 잔류 "
+"기울기)"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>maximize</b>: <i>%s</i> 값이 <b>%s</b>보다 작으면 벌점을 부과합니다.\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (정규화)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (장력: 목표값을 지난 영역의 잔류 "
+"기울기)"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>deviate</b>: <i>%s</i> 값이 <b>%s</b>에서 벗어나면 벌점을 부과합니다.\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"정규화 항과 장력 항이 없습니다."
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>활성화된 목표가 없습니다.</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>최적화기는 F를 최소화합니다.</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>변환 방향</span>\n"
+"\n"
+"<b>minimize:</b> 값이 작을수록 좋습니다.\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>목표값보다 낮으면 점수가 0에 가까워지고, 목표값을 초과하면 벌점이 부과"
+"됩니다.</i>\n"
+"\n"
+"<b>maximize:</b> 값이 클수록 좋습니다.\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>목표값보다 높으면 점수가 0에 가까워지며, 양수와 음수 목표값에 모두 적"
+"용됩니다.</i>\n"
+"\n"
+"<b>deviate:</b> 특정 값을 목표로 삼습니다.\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>목표값에서 벗어나면 벌점을 부과합니다. value = target이면 score=0입니"
+"다.</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>집계 함수</span>\n"
+"\n"
+"<b>avg:</b> 대역 전체의 평균 벌점\n"
+"    <i>모든 주파수에 동일한 비중을 둡니다.</i>\n"
+"\n"
+"<b>max:</b> 최대 벌점을 반환합니다(가장 불리한 주파수 지점).\n"
+"    <i>최적화기는 가장 불리한 주파수 지점을 먼저 개선합니다.\n"
+"    \"대역 내 어느 지점도 X를 초과할 수 없습니다.\"</i>\n"
+"\n"
+"<b>min:</b> 최소 벌점을 반환합니다(가장 유리한 주파수 지점).\n"
+"    <i>최적화기는 가장 유리한 주파수 지점만 개선하고 나머지는 고려하지 않습니"
+"다.\n"
+"    협대역 해가 생기므로 유용한 경우가 드뭅니다.</i>\n"
+"\n"
+"<b>diff:</b> 벌점 범위(변동폭)를 반환합니다.\n"
+"    <i>대역 전체에서 지표를 일정하게 유지합니다.\n"
+"    이득을 평탄하게 하려면 gain_max와 함께 사용하십시오.</i>\n"
+"\n"
+"<b>sum:</b> 모든 주파수의 벌점 합계\n"
+"    <i>전체 오차의 크기를 강조합니다.</i>\n"
+"\n"
+"<b>mag:</b> 제곱평균제곱근 크기\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>평균보다 큰 편차에 더 큰 비중을 둡니다.</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>이득 방향 지표</span>\n"
+"\n"
+"gain_dev_* 지표는 최대 이득 방향과 좌표축 사이의\n"
+"각도 편차를 도 단위로 측정합니다.\n"
+"빔의 방향을 조정하려면 direction=minimize를 사용하고 target을 0에 가깝게 설정"
+"하십시오.\n"
+"\n"
+"    gain_dev_px: +X 축 기준 편차\n"
+"    gain_dev_nx: -X 축 기준 편차\n"
+"    gain_dev_py: +Y 축 기준 편차\n"
+"    gain_dev_ny: -Y 축 기준 편차\n"
+"    gain_dev_pz: +Z 축 기준 편차 (천정)\n"
+"    gain_dev_nz: -Z 축 기준 편차 (천저)\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "적합도 수식 도움말"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr "주파수 스핀 버튼에 설정된 주파수에서의 현재 NEC2 값입니다."
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "측정 항목의 목표값입니다."
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "변환 결과에 적용하는 지수입니다."
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "집계한 뒤 곱하는 계수입니다."
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "주파수 하한입니다(비워 두면 모든 주파수에 적용)."
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "주파수 상한입니다(비워 두면 모든 주파수에 적용)."
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "이 목표에 해당하는 수식 항입니다."
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "계산식: weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "이 목표를 제거합니다."
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "측정 항목"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "값"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "변환 →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "목표값"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "지수 →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "집계 →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "가중치"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "하한 (MHz)"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "상한 (MHz) →"
+
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr "수식 →"
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "점수"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "최적화기는 이 값을 최소화합니다."
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ 지표 추가"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [완료]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui: 최적화 완료, 최적 적합도: %.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "최적화"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"최적화 대상으로 지정된 변수가 없습니다.\n"
+"최적화할 변수의 최적화 열에 표시하십시오."
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"min >= max 조건에 해당하는 변수가 %d개입니다: %s\n"
+"최적화할 변수마다 최솟값과 최댓값을 서로 다르게 설정하십시오."
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"활성화된 적합도 목표가 없습니다.\n"
+"적합도 목표 표에서 지표를 하나 이상 선택하십시오."
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "시작 중…"
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"최적화를 시작하지 못했습니다.\n"
+"자세한 내용은 터미널에서 확인하십시오."
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"단계 %d/%d  반복 %d  평가 횟수 %d  적합도 %.6g  최적값 %.6g  정체 %d  캐시 "
+"%d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -6013,6 +6932,70 @@ msgstr "최적화기 웨이크 eventfd 생성 실패\n"
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "최적화기 출력 스레드 생성 실패\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "최소 점수"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "최대 점수"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± 목표값"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"목표값을 초과하면 벌점을 부과하며, 목표값보다 낮으면 점수가 0에 가까워집니다."
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"목표값보다 낮으면 벌점을 부과하며, 목표값보다 높으면 점수가 0에 가까워집니다."
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"목표값에서 벗어나면 벌점을 부과합니다. value = target이면 score=0입니다."
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "모든 NEC2 주파수 단계의 점수를 더합니다."
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr "모든 NEC2 주파수 단계의 점수를 평균합니다."
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "모든 주파수 단계 중 가장 낮은 점수를 선택합니다."
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "모든 주파수 단계 중 가장 높은 점수를 선택합니다."
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr "점수 제곱합의 제곱근: sqrt(sum(score<sup>2</sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr "주파수 단계 전체에서 가장 높은 점수와 가장 낮은 점수의 차이입니다."
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6419,6 +7402,14 @@ msgstr "잡음 온도 (로그 스케일)"
 msgid "Radiation Pattern: - "
 msgstr "방사 패턴: - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - 하늘:"
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - 대지:"
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "근접장:"
@@ -6444,7 +7435,15 @@ msgstr "주파수 데이터 플롯 - "
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d이(가) 범위를 벗어났습니다. calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "상대"
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "절대"
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: 표면 생성 실패 (%dx%d)\n"
@@ -6506,6 +7505,30 @@ msgstr "최적화 루프 미완료, 중간 다시 그리기 억제.\n"
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+스크롤: 도선 반경"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"이 디스플레이에서는 OpenGL을 사용할 수 없습니다.\n"
+"Cairo 렌더링이 활성화되어 있습니다."
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"OpenGL 지원 없이 빌드되었습니다.\n"
+"Cairo 렌더링이 활성화되어 있습니다."
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "일반"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "색상"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6615,6 +7638,30 @@ msgstr "sy_save_overrides: 쓰기 위해 %s을(를) 열 수 없음: %s\n"
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "심볼 재정의 %d개를 %s에 저장했습니다\n"
 
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr "기호"
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "오버라이드"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "최적화"
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "최솟값"
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "최댓값"
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "표현식"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6624,6 +7671,14 @@ msgstr "sy_overrides_init: glade 로드 실패: %s\n"
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: glade에서 위젯 가져오기 실패\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "입력 기호"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "계산 기호"
 
 #: src/sy_overrides.c:1486
 msgid ""

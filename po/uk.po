@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -90,6 +90,18 @@ msgstr "Пікова _амплітуда"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Анімація ближнього поля"
+
+#: resources/animate.glade:205
+msgid "Start"
+msgstr "Запустити"
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "Зупинити"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "Закрити"
 
 #: resources/animate.glade:277
 msgid ""
@@ -180,7 +192,7 @@ msgstr "Відображення"
 msgid "Flow direction:"
 msgstr "Напрямок потоку:"
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "Патчі"
 
@@ -287,6 +299,7 @@ msgid "Color Quantization"
 msgstr "Квантування кольору"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "Вимк."
 
@@ -776,6 +789,12 @@ msgstr ""
 "Яскрава голівка рухається по миттєвому додатному гребеню, показуючи рух "
 "хвилі вздовж кожного дроту."
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr ""
+"<small><i>n = |z| / max|z|,  s = передавальна функція шкали,  φ = фаза</i></"
+"small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "Скинути"
@@ -788,9 +807,87 @@ msgstr ""
 "Відновити проекцію кольору, шкалу сегмента, сімейство шкали, нижню межу "
 "яскравості та всі параметри сімейства до типових значень."
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "Згладжування (MSAA)"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "Структура"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "Яскравість"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "Прозорість"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "Сегменти"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "Діаграма випромінювання"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "Поверхня"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "Каркас"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "Ближнє поле"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "Стиль відображення"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "Обидва"
+
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr "Сцена"
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "Заземлення"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "Осі"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Лише візуальне — не впливає на обчислення моделі NEC2."
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "Прозорість лише після клацання"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "Ортографічна проекція"
+
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr "Рендерер:"
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "Обмежене обертання"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -809,13 +906,102 @@ msgid "Rendering Settings"
 msgstr "Налаштування рендерингу"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "_Закрити"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "Перевизначення символів"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "Оптимізація"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "Алгоритм:"
+
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr "Симплексний метод"
+
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr "Метод рою частинок"
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "Розширені"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "Спільні налаштування"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "Кількість ітерацій без поліпшення:"
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "допуск:"
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "Максимальна кількість ітерацій:"
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "Налаштування симплексного методу"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "Розміри симплекса:"
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "Мінімальний розмір:"
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "Температура:"
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "Налаштування методу рою частинок"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "Частинки:"
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "Сусіди:"
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "Інерція:"
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "Когнітивний коефіцієнт:"
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "Соціальний коефіцієнт:"
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "Розмір області пошуку:"
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "Запустити оптимізацію"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "Скасувати оптимізацію"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1659,10 +1845,6 @@ msgstr "Трикутник"
 msgid "Quadrilateral"
 msgstr "Чотирикутник"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "Поверхня"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "Тип патча"
@@ -2022,6 +2204,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "П_оміняти вибір частоти лівою/правою кнопкою миші"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "Макс. підсилення"
 
@@ -2451,7 +2634,7 @@ msgid ""
 msgstr "Підсилення в напрямку огляду структури для поточних кутів огляду."
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "Підсилення"
 
@@ -3740,7 +3923,7 @@ msgstr ""
 msgid "Gain Direction"
 msgstr "Напрямок підсилення"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "Підсилення спостерігача"
 
@@ -3843,6 +4026,15 @@ msgstr "не вдалося виділити пам'ять для точок\n"
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph():Не вдалося виділити пам'ять для точок"
+
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
+"мін.: %.2f\n"
+"макс.: %.2f"
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -5094,6 +5286,10 @@ msgstr ""
 "Помилка картки даних команд\n"
 "Мнемонічний код занадто короткий або відсутній"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "дані команд"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -5129,6 +5325,10 @@ msgid ""
 msgstr ""
 "Помилка картки геометричних даних\n"
 "Мнемонічний код картки занадто короткий або відсутній"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "дані геометрії"
 
 #: src/interface.c:138
 #, c-format
@@ -5191,6 +5391,10 @@ msgstr ""
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: не вдалося завантажити animate.glade: %s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "немає (без відображення)"
 
 #: src/main.c:129
 #, c-format
@@ -5381,6 +5585,80 @@ msgstr "%s: тест=%d\n"
 #: src/mathlib.c:830
 msgid "Mathlib Help"
 msgstr "Довідка Mathlib"
+
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"Прискорені математичні бібліотеки, як-от ATLAS, OpenBLAS та Intel MKL, "
+"можуть пришвидшити електромагнітне моделювання в xnec2c, якщо вони доступні "
+"на вашій платформі. Відомості про виявлення бібліотек наведено в терміналі.\n"
+"\n"
+"* Математична бібліотека, вибрана для режиму \"Інтерактивний\", "
+"використовується, коли частоту в інтерфейсі змінюють віджетом «Частота, MHz "
+"+/-» або клацанням на графіку частоти, зокрема правою кнопкою миші\n"
+"\n"
+"* Математична бібліотека, вибрана для режиму \"Пакетний\", використовується, "
+"коли параметр -j у командному рядку створює через fork кілька процесів для "
+"паралельної роботи.\n"
+"\n"
+"З бібліотек Intel одночасно можна вибрати лише одну.  Після використання "
+"однієї з математичних бібліотек Intel MKL для електромагнітних розрахунків "
+"решта варіантів Intel залишаються недоступними до перезапуску.  xnec2c "
+"запам’ятовує попередньо вибрану бібліотеку, тому під час відкриття файлу ."
+"NEC вона може активуватися й заблокувати інші варіанти.  Щоб змінити вибір, "
+"закрийте й повторно запустіть xnec2c, не відкриваючи файл .NEC і не вказуючи "
+"його в командному рядку.\n"
+"\n"
+"\n"
+"== Математичні бібліотеки за дистрибутивами ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Для вибору реалізації openblas може знадобитися\n"
+"    `alternatives`. Деякі поєднання BLAS/LAPACK\n"
+"    можуть бути несумісними:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  openSUSE офіційно не підтримує ATLAS, тому бібліотеку потрібно зібрати з "
+"вихідного коду\n"
+"\n"
+"Цей текст можна скопіювати з термінала й вставити.\n"
 
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
@@ -5590,11 +5868,34 @@ msgstr "Запуск тестування %s (%s %d)\n"
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "Тестове розгортання не виконано: FR_cards=%d steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f секунди (%s %2d) %c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "виміряно один раз: ця бібліотека зберігає кількість потоків, з якою її "
 "зібрано"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"Найкраща математична бібліотека: %s (%s %d): %f секунди\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"Результат не знайдено?  Це дефект."
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5660,6 +5961,86 @@ msgstr "Помилка симетрії"
 msgid "Solving Failed: %d\n"
 msgstr "Розв'язання не вдалося: %d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "Прив’язати"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "Інтерполювати"
+
+#: src/measurements.c:12
+msgid "Formula"
+msgstr "Формула"
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "Галактична"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "Мінімум у тихій місцевості G4CQM (до 2016)"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "Мінімум у тихій місцевості VK3UM (до 2016)"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "Базова опорна модель VE7BQH (до 2018)"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "Галактична модель P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "Середня галактична модель DG7YBN (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "Синтезоване практичне середнє (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "Синтезований мінімум у тихій місцевості (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "Власна"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "Ділова забудова ITU-R (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "Житлова забудова ITU-R (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "Сільська місцевість ITU-R (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "Тиха сільська місцевість ITU-R (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "Змішана модель G4CQM (до 2016)"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "Сільська місцевість DG7YBN (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "Житлова забудова DG7YBN (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "Місто DG7YBN (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
@@ -5668,6 +6049,78 @@ msgid ""
 msgstr ""
 "noise_temp_resolve: таблицю noise_temp не виділено; t_sky/t_earth за "
 "замовчуванням 0\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "Дійсна частина Z"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "Уявна частина Z"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "Модуль Z"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "Фаза Z"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "Дійсна частина S11"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "Уявна частина S11"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "Кут S11"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "Чисте підсилення"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "Підсилення θ"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "Підсилення φ"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "Чисте підсилення в напрямку огляду"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "Відношення F/B"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "Відхилення піка підсилення від +X"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "Відхилення піка підсилення від −X"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "Відхилення піка підсилення від +Y"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "Відхилення піка підсилення від −Y"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "Відхилення піка підсилення від +Z"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "Відхилення піка підсилення від −Z"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5688,6 +6141,155 @@ msgstr "Ефективність за середнім підсиленням"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "Охоплення за середнім підсиленням"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "Частота в MHz (незалежна змінна)"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "Дійсна частина імпедансу в точці живлення (оми)"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "Уявна частина імпедансу в точці живлення (оми)"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "Модуль імпедансу в точці живлення (оми)"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "Фазовий кут імпедансу в точці живлення (градуси)"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "Коефіцієнт стоячої хвилі за напругою (1.0 = ідеальне узгодження)"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr "Втрати на відбиття в dB (що від’ємніше значення, то краще узгодження)"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "Дійсна частина S11 у dB"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "Уявна частина S11 у dB"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "Фазовий кут коефіцієнта відбиття (градуси)"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "Пікове підсилення за всіма кутами в dBi"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr "Пікове підсилення з урахуванням втрат через неузгодження в dBi"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "Кут місця пікового підсилення (градуси над горизонтом)"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "Азимут пікового підсилення (градуси)"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "Підсилення в поточному напрямку огляду в dBi"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr ""
+"Підсилення в напрямку огляду з урахуванням втрат через неузгодження в dBi"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "Відношення підсилення вперед і назад у dB"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr "Кутове відхилення напрямку пікового підсилення від осі +X (градуси)"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr "Кутове відхилення напрямку пікового підсилення від осі -X (градуси)"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr "Кутове відхилення напрямку пікового підсилення від осі +Y (градуси)"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr "Кутове відхилення напрямку пікового підсилення від осі -Y (градуси)"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr "Кутове відхилення напрямку пікового підсилення від осі +Z (градуси)"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr "Кутове відхилення напрямку пікового підсилення від осі -Z (градуси)"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr "Шумова температура антени Ta за яскравістю неба й ґрунту (K)"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr "Сумарна шумова температура системи TA з урахуванням омічних втрат (K)"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr ""
+"Відношення підсилення до шумової температури антени (dB), без урахування "
+"втрат"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr ""
+"Кількість десяткових цифр точності, втрачених під час розрахунку антени"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr ""
+"Відношення підсилення вперед і в задньому секторі в dB за кута місця "
+"пікового підсилення; задній сектор починається за 90 градусами за азимутом"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr ""
+"Відношення підсилення вперед і в задньому секторі в dB за всіма напрямками "
+"позаду напрямку пікового підсилення"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr ""
+"Середнє підсилення за потужністю як лінійне відношення в межах тілесного "
+"кута, охопленого сіткою діаграми випромінювання"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr ""
+"Добуток середнього підсилення за потужністю й охопленої частки сфери у "
+"відсотках"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "Частка повної сфери, охоплена сіткою діаграми випромінювання"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "Невідомо"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5850,6 +6452,11 @@ msgstr "Не вдалося створити базу накладення cairo
 msgid "Shader declares no version directive: %s\n"
 msgstr "Шейдер не оголошує директиву версії: %s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "невідома помилка"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -5983,15 +6590,340 @@ msgstr "Завантажено %d цілей оптимізатора\n"
 msgid "opt_file_load: %s\n"
 msgstr ""
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>minimize</b>: нараховує штраф, коли <i>%s</i> перевищує <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (нормалізація)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (натяг: залишковий градієнт за "
+"цільовим значенням)"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>maximize</b>: нараховує штраф, коли <i>%s</i> менше за <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (нормалізація)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (натяг: залишковий градієнт за "
+"цільовим значенням)"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>deviate</b>: нараховує штраф за відхилення <i>%s</i> від <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"Нормалізацію й доданок натягу не застосовано."
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>Не ввімкнено жодної цілі</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Оптимізатор мінімізує F</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>Напрями перетворення</span>\n"
+"\n"
+"<b>minimize:</b> Менші значення кращі\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Нижче цільового значення оцінка наближається до нуля; за перевищення "
+"цільового значення нараховується штраф</i>\n"
+"\n"
+"<b>maximize:</b> Більші значення кращі\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Вище цільового значення оцінка наближається до нуля; діє для додатних "
+"і від’ємних цільових значень</i>\n"
+"\n"
+"<b>deviate:</b> Орієнтується на задане значення\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>За відхилення від цільового значення нараховується штраф; score=0, "
+"коли value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Функції агрегування</span>\n"
+"\n"
+"<b>avg:</b> Середній штраф у смузі частот\n"
+"    <i>Надає однакову вагу всім частотам</i>\n"
+"\n"
+"<b>max:</b> Повертає найбільший штраф (найгірша частотна точка)\n"
+"    <i>Оптимізатор насамперед поліпшує результат на найгіршій частоті\n"
+"    \"У жодній точці смуги значення не може перевищувати X\"</i>\n"
+"\n"
+"<b>min:</b> Повертає найменший штраф (найкраща частотна точка)\n"
+"    <i>Оптимізатор поліпшує результат на найкращій частоті й не враховує "
+"решту\n"
+"    Рідко корисно (дає вузькосмуговий розв’язок)</i>\n"
+"\n"
+"<b>diff:</b> Повертає розмах штрафу (мінливість)\n"
+"    <i>Вирівнює показник у всій смузі частот\n"
+"    Застосовуйте з gain_max для рівномірного підсилення</i>\n"
+"\n"
+"<b>sum:</b> Сума штрафів за всіма частотами\n"
+"    <i>Надає більшої ваги загальному модулю похибки</i>\n"
+"\n"
+"<b>mag:</b> Середньоквадратичний модуль\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Надає великим відхиленням більшої ваги, ніж усереднення</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Показники напрямку підсилення</span>\n"
+"\n"
+"Показники gain_dev_* вимірюють кутове відхилення (у градусах)\n"
+"між напрямком пікового підсилення й координатною віссю.\n"
+"Скористайтеся direction=minimize з цільовим значенням, близьким до 0, щоб "
+"спрямувати промінь.\n"
+"\n"
+"    gain_dev_px: відхилення від осі +X\n"
+"    gain_dev_nx: відхилення від осі -X\n"
+"    gain_dev_py: відхилення від осі +Y\n"
+"    gain_dev_ny: відхилення від осі -Y\n"
+"    gain_dev_pz: відхилення від осі +Z (зеніт)\n"
+"    gain_dev_nz: відхилення від осі -Z (надир)\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "Довідка з формули цільової функції"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr "Поточне значення NEC2 для частоти, заданої лічильником"
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "Цільове значення вимірюваної величини"
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "Показник степеня, до якого підносять результат перетворення"
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "Множник, який застосовується після агрегування"
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "Нижня межа частоти (порожнє поле = усі частоти)"
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "Верхня межа частоти (порожнє поле = усі частоти)"
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "Доданок формули для цієї цілі"
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "Обчислення: weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "Вилучити цю ціль"
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "Вимірювана величина"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "Значення"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "Перетворення →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "Цільове значення"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "Показник степеня →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "Агрегування →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "Вага"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "Нижня межа, MHz"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "Верхня межа, MHz →"
+
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr "Формула →"
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "Оцінка"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "Оптимізатор мінімізує це значення"
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ Додати показник"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [Завершено]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui: оптимізацію завершено, найкраща придатність: %.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "Оптимізація"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"Жодної змінної не позначено для оптимізації.\n"
+"Позначте потрібні змінні в стовпці «Опт.»."
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"Кількість змінних, для яких min >= max: %d; перелік: %s\n"
+"Задайте різні значення мінімуму й максимуму для кожної оптимізованої змінної."
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"Жодної цілі оптимізації не ввімкнено.\n"
+"Позначте принаймні один показник у таблиці цілей оптимізації."
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "Запуск…"
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"Не вдалося запустити оптимізацію.\n"
+"Подробиці наведено в терміналі."
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"Прохід %d/%d  Ітерація %d  Обчислень %d  Цільова функція %.6g  Найкраще "
+"%.6g  Без поліпшення %d  Кеш %d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -6114,6 +7046,75 @@ msgstr "не вдалося створити eventfd пробудження оп
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "не вдалося створити потік виводу оптимізатора\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "мінімальна оцінка"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "максимальна оцінка"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± цільове значення"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"За перевищення цільового значення нараховується штраф; нижче цільового "
+"значення оцінка наближається до нуля"
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"За значення нижче цільового нараховується штраф; вище цільового значення "
+"оцінка наближається до нуля"
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"За відхилення від цільового значення нараховується штраф; score=0, коли "
+"value = target"
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "Підсумовує оцінки на всіх частотних кроках NEC2"
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr "Усереднює оцінки за всіма частотними кроками NEC2"
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "Вибирає найменшу оцінку серед усіх частотних кроків"
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "Вибирає найбільшу оцінку серед усіх частотних кроків"
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr ""
+"Квадратний корінь із суми квадратів оцінок: sqrt(sum(score<sup>2</sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr ""
+"Різниця між найбільшою й найменшою оцінками за всіма частотними кроками"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6530,6 +7531,14 @@ msgstr "Шумова темп. (лог. шкала)"
 msgid "Radiation Pattern: - "
 msgstr "Діаграма випромінювання: - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - Небо:"
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - Ґрунт:"
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Ближні поля:"
@@ -6555,7 +7564,15 @@ msgstr "Графіки частотних даних - "
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d виходить за межі. calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "Відн."
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "Абс."
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: не вдалося створити поверхню (%dx%d)\n"
@@ -6617,6 +7634,30 @@ msgstr "Цикл оптимізатора незавершений, пропус
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+коліщатко: радіус дроту"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"OpenGL недоступний на цьому дисплеї.\n"
+"Рендеринг виконується через Cairo."
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"Програму зібрано без підтримки OpenGL.\n"
+"Рендеринг виконується через Cairo."
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "Загальні"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "Колір"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6727,6 +7768,30 @@ msgstr "sy_save_overrides: не вдалося відкрити %s для зап
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "Збережено %d перевизначень символів до %s\n"
 
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr "Символ"
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "Перевизначення"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "Опт."
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "Мінімум"
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "Максимум"
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "Вираз"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6736,6 +7801,14 @@ msgstr "sy_overrides_init: не вдалося завантажити glade: %s\
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: не вдалося отримати віджети з glade\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "Вхідні символи"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "Обчислені символи"
 
 #: src/sy_overrides.c:1486
 msgid ""

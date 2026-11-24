@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -89,6 +89,18 @@ msgstr "_גודל שיא"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "הנפשת שדה קרוב"
+
+#: resources/animate.glade:205
+msgid "Start"
+msgstr "התחלה"
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "עצירה"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "סגירה"
 
 #: resources/animate.glade:277
 msgid ""
@@ -177,7 +189,7 @@ msgstr "תצוגה"
 msgid "Flow direction:"
 msgstr "כיוון זרימה:"
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "טלאים"
 
@@ -282,6 +294,7 @@ msgid "Color Quantization"
 msgstr "כימות צבע"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "כבוי"
 
@@ -756,6 +769,12 @@ msgid ""
 msgstr ""
 "רכב על ראש בהיר בפסגה החיובית הרגעית, כך שתנועת הגל נקראת לאורך כל תיל."
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr ""
+"<small><i>n = |z| / max|z|,  s = פונקציית תמסורת של קנה המידה,  φ = פאזה</"
+"i></small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "איפוס"
@@ -768,9 +787,87 @@ msgstr ""
 "שחזור הטלת הצבע, קנה מידת המקטע, משפחת קנה המידה, סף הבהירות התחתון וכל "
 "פרמטר של המשפחה לברירת המחדל."
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "החלקת קצוות (MSAA)"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "מבנה"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "בהירות"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "שקיפות"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "מקטעים"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "תבנית קרינה"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "משטח"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "רשת תילים"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "שדה קרוב"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "סגנון ציור"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "שניהם"
+
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr "סצנה"
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "הארקה"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "צירים"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "חזותי בלבד — אינו משפיע על חישובי מודל NEC2."
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "שקיפות בלחיצה בלבד"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "הטלה אורתוגרפית"
+
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr "מציג:"
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "סיבוב מוגבל"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -789,13 +886,102 @@ msgid "Rendering Settings"
 msgstr "הגדרות רינדור"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "_סגור"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "דריסות סמלים"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "אופטימיזציה"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "אלגוריתם:"
+
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr "סימפלקס"
+
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr "נחיל חלקיקים"
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "מתקדם"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "הגדרות משותפות"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "מספר איטרציות ללא שיפור:"
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "סבולת:"
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "מספר איטרציות מרבי:"
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "הגדרות סימפלקס"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "גודלי סימפלקס:"
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "גודל מזערי:"
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "טמפרטורה:"
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "הגדרות נחיל חלקיקים"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "חלקיקים:"
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "שכנים:"
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "התמד:"
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "מקדם קוגניטיבי:"
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "מקדם חברתי:"
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "גודל החיפוש:"
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "התחלת אופטימיזציה"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "ביטול אופטימיזציה"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1634,10 +1820,6 @@ msgstr "משולש"
 msgid "Quadrilateral"
 msgstr "מרובע"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "משטח"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "סוג טלאי"
@@ -1995,6 +2177,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "ה_חלף בחירת תדר לחיצה שמאל/ימין"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "הגבר מרבי"
 
@@ -2415,7 +2598,7 @@ msgid ""
 msgstr "הגבר בכיוון הצופה של המבנה, עבור זוויות התצוגה הנוכחיות."
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "הגבר"
 
@@ -3675,7 +3858,7 @@ msgstr "איפוס סריקת התדר לצעדה הראשון ומחיקת כל
 msgid "Gain Direction"
 msgstr "כיוון הגבר"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "הגבר צופה"
 
@@ -3777,6 +3960,15 @@ msgstr "הקצאת זיכרון לנקודות נכשלה\n"
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): הקצאת זיכרון לנקודות נכשלה"
+
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
+"מזערי:%.2f\n"
+"מרבי:%.2f"
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -4988,6 +5180,10 @@ msgstr ""
 "שגיאת כרטיס נתוני פקודה\n"
 "קוד מנמוני קצר מדי או חסר"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "נתוני פקודות"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -5020,6 +5216,10 @@ msgid ""
 msgstr ""
 "שגיאת כרטיס נתוני גאומטריה\n"
 "קוד מנמוני של כרטיס קצר מדי או חסר"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "נתוני גאומטריה"
 
 #: src/interface.c:138
 #, c-format
@@ -5080,6 +5280,10 @@ msgstr ""
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: נכשלה טעינת animate.glade: %s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "ללא (אין תצוגה)"
 
 #: src/main.c:129
 #, c-format
@@ -5268,6 +5472,76 @@ msgstr ""
 #: src/mathlib.c:830
 msgid "Mathlib Help"
 msgstr "עזרת Mathlib"
+
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"ספריות מתמטיות מואצות כגון ATLAS, OpenBLAS ו־Intel MKL יכולות להאיץ "
+"סימולציות אלקטרומגנטיות ב־xnec2c כשהן זמינות במערכת. פרטי זיהוי הספריות "
+"זמינים במסוף.\n"
+"\n"
+"* ספריית המתמטיקה שנבחרה למצב \"אינטראקטיבי\" משמשת כשמשנים את התדר בממשק "
+"באמצעות רכיב התדר ב־MHz עם +/- או בלחיצה (גם ימנית) על גרף התדר\n"
+"\n"
+"* ספריית המתמטיקה שנבחרה ל־\"מצב־אצווה\" משמשת כשמציינים -j בשורת הפקודה כדי "
+"להפעיל משימות מרובות במקביל באמצעות fork.\n"
+"\n"
+"אפשר לבחור רק ספריית Intel אחת בכל פעם. לאחר שימוש באחת מספריות Intel MKL "
+"לחישובים אלקטרומגנטיים, שאר אפשרויות הספרייה של Intel יינעלו עד להפעלה מחדש. "
+"מאחר ש־xnec2c זוכר את הספרייה שנבחרה, פתיחת קובץ .NEC עשויה להפעיל אותה "
+"ולנעול אפשרויות אחרות. כדי למנוע זאת ולאפשר שינוי של האפשרות, יש לסגור את "
+"xnec2c ולהפעיל אותו מחדש בלי לפתוח קובץ .NEC (ובלי לציין קובץ .NEC בשורת "
+"הפקודה).\n"
+"\n"
+"\n"
+"== ספריות מתמטיות לפי הפצה ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    ייתכן שיידרש שימוש ב־`alternatives` לבחירת\n"
+"    מימוש openblas. לא כל השילובים של BLAS/LAPACK\n"
+"    פועלים יחד:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  אין תמיכה רשמית ב־ATLAS בהפצת openSUSE, ולכן יש לבנות אותו מקוד המקור\n"
+"\n"
+"טקסט זה זמין במסוף להעתקה ולהדבקה.\n"
 
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
@@ -5464,9 +5738,32 @@ msgstr "התחלת אמת המידה %s ‏(%s %d)\n"
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "סריקת אמת המידה לא הופעלה: FR_cards=%d steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f שניות (%s %2d) %c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr "נמדד פעם אחת: ספרייה זו שומרת את ספירת התהליכונים שעמה נבנתה"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"ספריית המתמטיקה המהירה ביותר: %s (%s %d): %f שניות\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"לא נמצאה תוצאה? זו תקלה."
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5532,6 +5829,86 @@ msgstr "שגיאת סימטריה"
 msgid "Solving Failed: %d\n"
 msgstr "הפתרון נכשל: %d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "הצמדה"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "אינטרפולציה"
+
+#: src/measurements.c:12
+msgid "Formula"
+msgstr "נוסחה"
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "גלקטי"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "מינימום בסביבה שקטה G4CQM (לפני 2016)"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "מינימום בסביבה שקטה VK3UM (לפני 2016)"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "ייחוס בסיסי VE7BQH (לפני 2018)"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "גלקטי P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "ממוצע גלקטי DG7YBN (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "ממוצע מעשי סינתטי (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "מינימום סינתטי בסביבה שקטה (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "מותאם אישית"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "אזור מסחרי ITU-R (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "אזור מגורים ITU-R (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "אזור כפרי ITU-R (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "אזור כפרי שקט ITU-R (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "מעורב G4CQM (לפני 2016)"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "אזור כפרי DG7YBN (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "אזור מגורים DG7YBN (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "עיר DG7YBN (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
@@ -5540,6 +5917,78 @@ msgid ""
 msgstr ""
 "noise_temp_resolve: טבלת noise_temp לא הוקצתה; ברירת מחדל t_sky/t_earth היא "
 "0\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "החלק הממשי של Z"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "החלק המדומה של Z"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "גודל Z"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "פאזת Z"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "החלק הממשי של S11"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "החלק המדומה של S11"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "זווית S11"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "הגבר נטו"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "זווית תטא של ההגבר"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "זווית פי של ההגבר"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "הגבר נטו בכיוון הצופה"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "יחס F/B"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "סטיית הגבר מציר +X"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "סטיית הגבר מציר −X"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "סטיית הגבר מציר +Y"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "סטיית הגבר מציר −Y"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "סטיית הגבר מציר +Z"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "סטיית הגבר מציר −Z"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5560,6 +6009,146 @@ msgstr "יעילות ההגבר הממוצע"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "כיסוי ההגבר הממוצע"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "תדר ב־MHz (משתנה בלתי תלוי)"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "החלק הממשי של עכבת נקודת ההזנה (אוהם)"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "החלק המדומה של עכבת נקודת ההזנה (אוהם)"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "גודל עכבת נקודת ההזנה (אוהם)"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "זווית הפאזה של עכבת נקודת ההזנה (מעלות)"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "יחס גלים עומדים של המתח (1.0 = תיאום מושלם)"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr "הפסד החזרה ב־dB (ערך שלילי יותר = תיאום טוב יותר)"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "החלק הממשי של S11 ב־dB"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "החלק המדומה של S11 ב־dB"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "זווית הפאזה של מקדם ההחזרה (מעלות)"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "הגבר השיא על פני כל הזוויות ב־dBi"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr "הגבר השיא בניכוי הפסד אי־תיאום ב־dBi"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "זווית ההגבהה של הגבר השיא (מעלות מעל האופק)"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "זווית האזימוט של הגבר השיא (מעלות)"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "הגבר בכיוון הצופה הנוכחי ב־dBi"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr "הגבר בכיוון הצופה בניכוי הפסד אי־תיאום ב־dBi"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "יחס קדימה־אחורה ב־dB"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr "הסטייה הזוויתית של הגבר השיא מציר +X (מעלות)"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr "הסטייה הזוויתית של הגבר השיא מציר -X (מעלות)"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr "הסטייה הזוויתית של הגבר השיא מציר +Y (מעלות)"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr "הסטייה הזוויתית של הגבר השיא מציר -Y (מעלות)"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr "הסטייה הזוויתית של הגבר השיא מציר +Z (מעלות)"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr "הסטייה הזוויתית של הגבר השיא מציר -Z (מעלות)"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr "טמפרטורת רעש האנטנה Ta הנובעת מבהירות השמיים והקרקע (K)"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr "טמפרטורת הרעש הכוללת של המערכת TA, כולל הפסד אוהמי (K)"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr "יחס הגבר לטמפרטורת האנטנה (dB), ללא הפסד"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr "מספר הספרות העשרוניות של הדיוק שאבדו בפתרון מודל האנטנה"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr ""
+"יחס קדימה־אחור ב־dB בזווית ההגבהה של הגבר השיא, כשהתחום האחורי מעבר ל־90 "
+"מעלות באזימוט"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr "יחס קדימה־אחור ב־dB על פני כל הכיוונים שמאחורי כיוון הגבר השיא"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr ""
+"הגבר הספק ממוצע כיחס לינארי על פני הזווית המרחבית שנדגמת ברשת תבנית הקרינה"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr "הגבר ההספק הממוצע כפול החלק הנדגם של הכדור, באחוזים"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "החלק מתוך הכדור השלם שנדגם ברשת תבנית הקרינה"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "לא ידוע"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5720,6 +6309,11 @@ msgstr "נכשלה יצירת בסיס שכבת-על cairo\n"
 msgid "Shader declares no version directive: %s\n"
 msgstr "השיידר אינו מכריז על הנחיית גרסה: %s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "שגיאה לא ידועה"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -5851,15 +6445,333 @@ msgstr "נטענו %d יעדי מייעל\n"
 msgid "opt_file_load: %s\n"
 msgstr ""
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>מזעור</b>: מטיל קנס על <i>%s</i> מעל <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (נירמול)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (מתיחות: גרדיאנט שיורי מעבר ליעד)"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>השאה</b>: מטיל קנס על <i>%s</i> מתחת ל־<b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (נירמול)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (מתיחות: גרדיאנט שיורי מעבר ליעד)"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>סטייה</b>: מטילה קנס על סטייה של <i>%s</i> מ־<b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"אין נירמול או איבר מתיחות."
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>לא הופעלו יעדים</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>מנגנון האופטימיזציה ממזער את F</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>כיווני התמרה</span>\n"
+"\n"
+"<b>מזעור:</b> עדיפים ערכים נמוכים יותר\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>הציון מתקרב לאפס מתחת ליעד; מוטל קנס על חריגה מעל ליעד</i>\n"
+"\n"
+"<b>השאה:</b> עדיפים ערכים גבוהים יותר\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>הציון מתקרב לאפס מעל ליעד; חל על יעדים חיוביים ושליליים</i>\n"
+"\n"
+"<b>סטייה:</b> הצבת ערך מסוים כיעד\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>מוטל קנס על סטייה מהיעד; score=0 כאשר value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>פונקציות צמצום</span>\n"
+"\n"
+"<b>avg:</b> קנס ממוצע על פני תחום התדרים\n"
+"    <i>נותן משקל שווה לכל התדרים</i>\n"
+"\n"
+"<b>max:</b> מחזיר את הקנס הגדול ביותר (נקודת התדר הגרועה ביותר)\n"
+"    <i>מנגנון האופטימיזציה משפר תחילה את התדר הגרוע ביותר\n"
+"    \"אין נקודה בתחום התדרים שיכולה לחרוג מ־X\"</i>\n"
+"\n"
+"<b>min:</b> מחזיר את הקנס הקטן ביותר (נקודת התדר הטובה ביותר)\n"
+"    <i>מנגנון האופטימיזציה משפר את התדר הטוב ביותר ומתעלם מהשאר\n"
+"    מועיל לעיתים נדירות (יוצר פתרון צר־סרט)</i>\n"
+"\n"
+"<b>diff:</b> מחזיר את טווח ערכי הקנס (השונות בין הערכים)\n"
+"    <i>שומר על אחידות המדד בתחום התדרים\n"
+"    לשטיחות ההגבר, יש להשתמש בו עם gain_max</i>\n"
+"\n"
+"<b>sum:</b> סכום הקנסות בכל התדרים\n"
+"    <i>מדגיש את גודל השגיאה הכוללת</i>\n"
+"\n"
+"<b>mag:</b> גודל במונחי שורש ממוצע הריבועים\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>מדגיש סטיות גדולות יותר מהממוצע</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>מדדי כיוון ההגבר</span>\n"
+"\n"
+"המדדים gain_dev_* מודדים את הסטייה הזוויתית (במעלות)\n"
+"בין כיוון הגבר השיא לציר קואורדינטות.\n"
+"להכוונת האלומה יש להשתמש ב־direction=minimize עם יעד קרוב ל־0.\n"
+"\n"
+"    gain_dev_px: סטייה מציר +X\n"
+"    gain_dev_nx: סטייה מציר -X\n"
+"    gain_dev_py: סטייה מציר +Y\n"
+"    gain_dev_ny: סטייה מציר -Y\n"
+"    gain_dev_pz: סטייה מציר +Z (זנית)\n"
+"    gain_dev_nz: סטייה מציר -Z (נדיר)\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "עזרה לנוסחת ההתאמה"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr "ערך NEC2 הנוכחי בתדר שנבחר בבורר התדרים"
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "ערך היעד למדידה"
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "מעריך החזקה שאליה מעלים את תוצאת ההתמרה"
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "מכפיל לאחר הצמצום"
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "גבול תדר תחתון (ריק = כל התדרים)"
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "גבול תדר עליון (ריק = כל התדרים)"
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "איבר בנוסחה עבור יעד זה"
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "חישוב: weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "הסרת יעד זה"
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "מדידה"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "ערך"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "התמרה →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "יעד"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "מעריך →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "צמצום →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "משקל"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "סף תחתון (MHz)"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "סף עליון (MHz) →"
+
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr "נוסחה →"
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "ציון"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "מנגנון האופטימיזציה ממזער ערך זה"
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ הוספת מדד"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [הושלם]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui: אופטימיזציה הושלמה, התאמה מיטבית: %.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "אופטימיזציה"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"לא סומנו משתנים לאופטימיזציה.\n"
+"יש לסמן את המשתנים הרצויים בעמודת האופטימיזציה."
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"מספר המשתנים שבהם הערך המזערי >= הערך המרבי: %d (%s)\n"
+"יש לקבוע ערכים מזעריים ומרביים שונים לכל משתנה שנבחר לאופטימיזציה."
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"לא הופעלו יעדי התאמה.\n"
+"יש לסמן לפחות מדד אחד בטבלת יעדי ההתאמה."
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "מתחיל..."
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"האופטימיזציה לא הצליחה להתחיל.\n"
+"פרטים זמינים במסוף."
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"מעבר %d/%d  איטרציה %d  הערכות %d  התאמה %.6g  מיטבי %.6g  ללא שיפור %d  "
+"מטמון %d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -5979,6 +6891,70 @@ msgstr "יצירת eventfd להשכמת המייעל נכשלה\n"
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "יצירת תהליכון פלט המייעל נכשלה\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "ציון מזערי"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "ציון מרבי"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± יעד"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"מוטל קנס על ערכים מעל ליעד; הציון מתקרב לאפס מתחת ליעד"
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"מוטל קנס על ערכים מתחת ליעד; הציון מתקרב לאפס מעל ליעד"
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"מוטל קנס על סטייה מהיעד; score=0 כאשר value = target"
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "סוכם את הציונים מכל צעדי התדר של NEC2"
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr "מחשב את ממוצע הציונים על פני כל צעדי התדר של NEC2"
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "בוחר את הציון המזערי מבין כל צעדי התדר"
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "בוחר את הציון המרבי מבין כל צעדי התדר"
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr "שורש סכום ריבועי הציונים: sqrt(sum(score<sup>2</sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr "הפרש בין הציון המרבי למזערי על פני צעדי התדר"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6384,6 +7360,14 @@ msgstr "טמפ' רעש (סולם לוגריתמי)"
 msgid "Radiation Pattern: - "
 msgstr "תבנית קרינה: - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - שמיים:"
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - קרקע:"
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "שדות קרובים:"
@@ -6409,7 +7393,15 @@ msgstr "גרפי נתוני תדר - "
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d חורג מהגבולות. calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "יחסי"
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "מוחלט"
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: יצירת משטח נכשלה (%dx%d)\n"
@@ -6471,6 +7463,30 @@ msgstr "לולאת האופטימיזציה לא הושלמה, מונע ציור
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+Scroll: רדיוס תיל"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"OpenGL אינו זמין בתצוגה זו.\n"
+"מציג Cairo פעיל."
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"התוכנה נבנתה ללא תמיכה ב־OpenGL.\n"
+"מציג Cairo פעיל."
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "כללי"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "צבע"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6580,6 +7596,30 @@ msgstr "sy_save_overrides: לא ניתן לפתוח %s לכתיבה: %s\n"
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "נשמרו %d דריסות סמלים ל-%s\n"
 
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr "סמל"
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "עקיפה"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "אופטימיזציה"
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "מזערי"
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "מרבי"
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "ביטוי"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6589,6 +7629,14 @@ msgstr "sy_overrides_init: נכשלה טעינת glade: %s\n"
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: נכשלה השגת ווידג'טים מ-glade\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "סמלי קלט"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "סמלים מחושבים"
 
 #: src/sy_overrides.c:1486
 msgid ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 00:43-0800\n"
+"POT-Creation-Date: 2026-11-24 02:39-0800\n"
 "PO-Revision-Date: 2026-07-11 10:31-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -89,6 +89,18 @@ msgstr "_Magnitud Puncak"
 #: src/rdpattern_ui.c:419
 msgid "Near Field Animation"
 msgstr "Animasi Medan Dekat"
+
+#: resources/animate.glade:205
+msgid "Start"
+msgstr "Mula"
+
+#: resources/animate.glade:220
+msgid "Stop"
+msgstr "Henti"
+
+#: resources/animate.glade:235
+msgid "Close"
+msgstr "Tutup"
 
 #: resources/animate.glade:277
 msgid ""
@@ -178,7 +190,7 @@ msgstr "Paparan"
 msgid "Flow direction:"
 msgstr "Arah aliran:"
 
-#: resources/animate.glade:747
+#: resources/animate.glade:747 resources/settings/opengl_settings.glade:226
 msgid "Patches"
 msgstr "Tampalan"
 
@@ -286,6 +298,7 @@ msgid "Color Quantization"
 msgstr "Kuantisasi Warna"
 
 #: resources/settings/cairo_settings.glade:77
+#: resources/settings/opengl_settings.glade:116
 msgid "Off"
 msgstr "Mati"
 
@@ -778,6 +791,11 @@ msgstr ""
 "Tunggangi kepala terang pada puncak positif seketika supaya pergerakan "
 "gelombang dapat dibaca di sepanjang setiap wayar."
 
+#: resources/settings/color_settings.glade:979
+msgid "<small><i>n = |z| / max|z|,  s = scale transfer,  φ = phase</i></small>"
+msgstr ""
+"<small><i>n = |z| / max|z|,  s = pemindahan skala,  φ = fasa</i></small>"
+
 #: resources/settings/color_settings.glade:997
 msgid "Reset"
 msgstr "Set Semula"
@@ -790,9 +808,87 @@ msgstr ""
 "Pulihkan unjuran warna, skala segmen, keluarga skala, aras minimum "
 "kecerahan, dan setiap parameter keluarga kepada nilai lalainya."
 
+#: resources/settings/opengl_settings.glade:101
+msgid "Anti-aliasing (MSAA)"
+msgstr "Antialias (MSAA)"
+
+#: resources/settings/opengl_settings.glade:179
+msgid "Structure"
+msgstr "Struktur"
+
+#: resources/settings/opengl_settings.glade:196
+#: resources/settings/opengl_settings.glade:281
+#: resources/settings/opengl_settings.glade:421
+msgid "Brightness"
+msgstr "Kecerahan"
+
+#: resources/settings/opengl_settings.glade:200
+#: resources/settings/opengl_settings.glade:285
+#: resources/settings/opengl_settings.glade:425
+msgid "Transparency"
+msgstr "Ketelusan"
+
+#: resources/settings/opengl_settings.glade:204
+msgid "Segments"
+msgstr "Segmen"
+
+#: resources/settings/opengl_settings.glade:264
+msgid "Radiation Pattern"
+msgstr "Corak sinaran"
+
+#: resources/settings/opengl_settings.glade:289
+#: resources/settings/opengl_settings.glade:363 resources/xnec2c.glade:7384
+msgid "Surface"
+msgstr "Permukaan"
+
+#: resources/settings/opengl_settings.glade:311
+#: resources/settings/opengl_settings.glade:370
+msgid "Wireframe"
+msgstr "Rangka dawai"
+
+#: resources/settings/opengl_settings.glade:333
+msgid "Near-field"
+msgstr "Medan dekat"
+
+#: resources/settings/opengl_settings.glade:355
+msgid "Draw Style"
+msgstr "Gaya lukisan"
+
+#: resources/settings/opengl_settings.glade:378
+msgid "Both"
+msgstr "Kedua-duanya"
+
+#: resources/settings/opengl_settings.glade:404
+msgid "Scene"
+msgstr "Adegan"
+
+#: resources/settings/opengl_settings.glade:429
+msgid "Ground"
+msgstr "Bumi"
+
+#: resources/settings/opengl_settings.glade:451
+msgid "Axes"
+msgstr "Paksi"
+
 #: resources/settings/opengl_settings.glade:475
 msgid "Visual only — does not affect NEC2 model calculations."
 msgstr "Hanya visual — tidak menjejaskan pengiraan model NEC2."
+
+#: resources/settings/opengl_settings.glade:484
+msgid "Transparency Only on Click"
+msgstr "Ketelusan hanya apabila diklik"
+
+#: resources/settings/opengl_settings.glade:493
+msgid "Orthographic Projection"
+msgstr "Unjuran ortografik"
+
+#: resources/settings/render_settings.glade:44
+msgid "Renderer:"
+msgstr "Penerap:"
+
+#: resources/settings/render_settings.glade:75
+msgid "Constrained Rotation"
+msgstr "Putaran terhad"
 
 #: resources/settings/render_settings.glade:92
 msgid "_Color Theme"
@@ -811,13 +907,104 @@ msgid "Rendering Settings"
 msgstr "Tetapan Pemaparan"
 
 #: resources/settings/render_settings.glade:282
-#: resources/sy_overrides.glade:744
+#: resources/sy_overrides.glade:744 src/opt_ui_formula.c:747
 msgid "_Close"
 msgstr "_Tutup"
 
 #: resources/sy_overrides.glade:34
 msgid "Symbol Overrides"
 msgstr "Pengatasan Simbol"
+
+#: resources/sy_overrides.glade:82 src/opt_ui_session.c:132
+#: src/opt_ui_session.c:165 src/opt_ui_session.c:195 src/opt_ui_session.c:296
+msgid "Optimization"
+msgstr "Pengoptimuman"
+
+#: resources/sy_overrides.glade:99
+msgid "Algorithm:"
+msgstr "Algoritma:"
+
+# xnec2c-exempt: name
+#: resources/sy_overrides.glade:113
+msgid "Simplex"
+msgstr ""
+
+# xnec2c-exempt: name
+#: resources/sy_overrides.glade:114
+msgid "Particle Swarm"
+msgstr ""
+
+#: resources/sy_overrides.glade:161
+msgid "Advanced"
+msgstr "Lanjutan"
+
+#: resources/sy_overrides.glade:172
+msgid "Common settings"
+msgstr "Tetapan umum"
+
+#: resources/sy_overrides.glade:194
+msgid "Stagnation count:"
+msgstr "Bilangan lelaran tanpa kemajuan:"
+
+#: resources/sy_overrides.glade:221
+msgid "tolerance:"
+msgstr "toleransi:"
+
+#: resources/sy_overrides.glade:248
+msgid "Max iterations:"
+msgstr "Bilangan lelaran maksimum:"
+
+#: resources/sy_overrides.glade:282
+msgid "Simplex settings"
+msgstr "Tetapan Simplex"
+
+#: resources/sy_overrides.glade:310
+msgid "Simplex sizes:"
+msgstr "Saiz simpleks:"
+
+#: resources/sy_overrides.glade:338
+msgid "Min size:"
+msgstr "Saiz minimum:"
+
+#: resources/sy_overrides.glade:365
+msgid "Temperature:"
+msgstr "Suhu:"
+
+#: resources/sy_overrides.glade:407
+msgid "Particle swarm settings"
+msgstr "Tetapan kawanan zarah"
+
+#: resources/sy_overrides.glade:436
+msgid "Particles:"
+msgstr "Zarah:"
+
+#: resources/sy_overrides.glade:463
+msgid "Neighbors:"
+msgstr "Jiran:"
+
+#: resources/sy_overrides.glade:490
+msgid "Inertia:"
+msgstr "Inersia:"
+
+#: resources/sy_overrides.glade:517
+msgid "Cognitive:"
+msgstr "Kognitif:"
+
+#: resources/sy_overrides.glade:544
+msgid "Social:"
+msgstr "Sosial:"
+
+#: resources/sy_overrides.glade:571
+msgid "Search size:"
+msgstr "Saiz carian:"
+
+#: resources/sy_overrides.glade:625
+msgid "Start Optimization"
+msgstr "Mulakan pengoptimuman"
+
+#: resources/sy_overrides.glade:638
+msgid "Cancel Optimization"
+msgstr "Batalkan pengoptimuman"
 
 #: resources/sy_overrides.glade:688
 msgid "_Auto Apply"
@@ -1665,10 +1852,6 @@ msgstr "Segi Tiga"
 msgid "Quadrilateral"
 msgstr "Sisi Empat"
 
-#: resources/xnec2c.glade:7384
-msgid "Surface"
-msgstr "Permukaan"
-
 #: resources/xnec2c.glade:7407
 msgid "Patch Type"
 msgstr "Jenis Tampalan"
@@ -2028,6 +2211,7 @@ msgid "S_wap Left/Right Click Frequency Selection"
 msgstr "T_ukar Pemilihan Frekuensi Klik Kiri/Kanan"
 
 #: resources/xnec2c.glade:9779 resources/xnec2c.glade:9981
+#: src/measurements.c:490
 msgid "Max Gain"
 msgstr "Gandaan Maksimum"
 
@@ -2464,7 +2648,7 @@ msgid ""
 msgstr "Gandaan pada arah pemapar struktur, untuk sudut pandangan semasa."
 
 #: resources/xnec2c.glade:11648 resources/xnec2c.glade:12957
-#: src/freqplots/freqplots_core.c:62
+#: src/freqplots/freqplots_core.c:62 src/rdpattern_ui.c:534
 msgid "Gain"
 msgstr "Gandaan"
 
@@ -3753,7 +3937,7 @@ msgstr ""
 msgid "Gain Direction"
 msgstr "Arah Gandaan"
 
-#: src/freqplots/freqplots_core.c:64
+#: src/freqplots/freqplots_core.c:64 src/measurements.c:494
 msgid "Viewer Gain"
 msgstr "Gandaan Pemerhati"
 
@@ -3856,6 +4040,15 @@ msgstr "peruntukan memori untuk titik gagal\n"
 #, c-format
 msgid "Draw_Graph():Memory allocation for points failed"
 msgstr "Draw_Graph(): Peruntukan memori untuk titik gagal"
+
+#: src/freqplots/freqplots_graph.c:184
+#, c-format
+msgid ""
+"min:%.2f\n"
+"max:%.2f"
+msgstr ""
+"minimum:%.2f\n"
+"maksimum:%.2f"
 
 #: src/freqplots/freqplots_theme_menu.c:47
 msgid "This theme has no inverted variant"
@@ -5093,6 +5286,10 @@ msgstr ""
 "Ralat kad data arahan\n"
 "Kod mnemonik terlalu pendek atau tiada"
 
+#: src/input.c:2072 src/input.c:2103
+msgid "command data"
+msgstr "data arahan"
+
 #: src/input.c:2217
 #, c-format
 msgid ""
@@ -5126,6 +5323,10 @@ msgid ""
 msgstr ""
 "Ralat kad data geometri\n"
 "Kod mnemonik kad terlalu pendek atau tiada"
+
+#: src/input.c:2285 src/input.c:2315
+msgid "geometry data"
+msgstr "data geometri"
 
 #: src/interface.c:138
 #, c-format
@@ -5188,6 +5389,10 @@ msgstr ""
 #, c-format
 msgid "create_animate_dialog: failed to load animate.glade: %s\n"
 msgstr "create_animate_dialog: gagal memuatkan animate.glade: %s\n"
+
+#: src/main.c:126
+msgid "none (no display)"
+msgstr "tiada (tiada paparan)"
 
 #: src/main.c:129
 #, c-format
@@ -5381,6 +5586,81 @@ msgstr ""
 #: src/mathlib.c:830
 msgid "Mathlib Help"
 msgstr "Bantuan Mathlib"
+
+#: src/mathlib.c:831
+msgid ""
+"Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
+"up xnec2c EM simulations if available on your platform. Library detection "
+"details are available in the terminal.\n"
+"\n"
+"* The selected \"Interactive\" math library is used when the frequency is "
+"changed in the UI by changing a Frequency MHz +/- widget or (right-)clicking "
+"on the frequency plot\n"
+"\n"
+"* The selected \"Batch\" math library is used when -j is specified on the "
+"command line to fork multiple jobs to run in parallel.\n"
+"\n"
+"For Intel libraries, only one library can be selected at a time.  Once one "
+"of the Intel MKL math libraries has been used for EM calculations the other "
+"Intel library options will be locked until restart.  Since xnec2c remembers "
+"the previously selected library it may activate when a .NEC file is opened "
+"and lock other options.  To avoid this, close xnec2c and re-open it without "
+"opening a .NEC file (and without specifying a .NEC file on the command line) "
+"so you can change the option.\n"
+"\n"
+"\n"
+"== Math Libraries by Distribution ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Note that you may need to use `alternatives` to select your\n"
+"    openblas implementation. Some combinations of BLAS/LAPACK may\n"
+"    or may not work together:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS is not officially supported by openSUSE so build from source\n"
+"\n"
+"This text is available in the terminal so you can copy-paste.\n"
+msgstr ""
+"Pustaka matematik dipercepat seperti ATLAS, OpenBLAS dan Intel MKL boleh "
+"mempercepat simulasi EM xnec2c jika tersedia pada platform anda. Butiran "
+"pengesanan pustaka tersedia dalam terminal.\n"
+"\n"
+"* Pustaka matematik \"Interaktif\" yang dipilih digunakan apabila frekuensi "
+"diubah dalam antara muka pengguna melalui widget Frekuensi MHz +/- atau "
+"dengan mengklik (kanan) pada plot frekuensi\n"
+"\n"
+"* Pustaka matematik \"Kelompok\" yang dipilih digunakan apabila -j "
+"dinyatakan pada baris perintah untuk melakukan fork bagi menjalankan "
+"beberapa tugas secara selari.\n"
+"\n"
+"Bagi pustaka Intel, hanya satu pustaka boleh dipilih pada satu-satu masa.  "
+"Sebaik sahaja satu pustaka matematik Intel MKL digunakan untuk pengiraan EM, "
+"pilihan pustaka Intel yang lain dikunci sehingga program dimulakan semula.  "
+"Oleh sebab xnec2c mengingati pustaka yang dipilih sebelum ini, pustaka itu "
+"boleh diaktifkan apabila fail .NEC dibuka lalu mengunci pilihan lain.  Untuk "
+"mengelakkannya, tutup dan buka semula xnec2c tanpa membuka fail .NEC (dan "
+"tanpa menyatakan fail .NEC pada baris perintah) supaya pilihan itu boleh "
+"diubah.\n"
+"\n"
+"\n"
+"== Pustaka matematik mengikut edaran ==\n"
+"* CentOS: yum install atlas-devel openblas-devel\n"
+"\n"
+"* Debian/Ubuntu: apt-get install liblapacke libopenblas*-* libatlas3-base\n"
+"    Anda mungkin perlu menggunakan `alternatives` untuk memilih\n"
+"    pelaksanaan openblas anda. Sesetengah gabungan BLAS/LAPACK mungkin\n"
+"    dapat atau tidak dapat berfungsi bersama:\n"
+"      ~# update-alternatives --config libblas.so.3-x86_64-linux-gnu\n"
+"      ~# update-alternatives --config liblapack.so.3-x86_64-linux-gnu\n"
+"\n"
+"* openSUSE: zypper install libopenblas_*0\n"
+"  ATLAS tidak disokong secara rasmi oleh openSUSE, jadi bina daripada kod "
+"sumber\n"
+"\n"
+"Teks ini tersedia dalam terminal untuk disalin dan ditampal.\n"
 
 #: src/mathlib.c:866
 msgid "Mathlib Benchmark Help"
@@ -5598,11 +5878,34 @@ msgstr "Memulakan penanda aras %s (%s %d)\n"
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "Sapuan penanda aras tidak dijalankan: FR_cards=%d steps_total=%d\n"
 
+#: src/mathlib.c:1089
+#, c-format
+msgid "   %f seconds (%s %2d) %c\n"
+msgstr "   %f saat (%s %2d) %c\n"
+
 #: src/mathlib.c:1118
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "diukur sekali: pustaka ini mengekalkan bilangan benang yang digunakan semasa "
 "dibina"
+
+#: src/mathlib.c:1130
+#, c-format
+msgid ""
+"\n"
+"Best Mathlib: %s (%s %d): %f seconds\n"
+msgstr ""
+"\n"
+"Pustaka matematik terbaik: %s (%s %d): %f saat\n"
+
+#: src/mathlib.c:1133
+#, c-format
+msgid ""
+"\n"
+"No result found?  This is a bug."
+msgstr ""
+"\n"
+"Tiada hasil ditemui?  Ini pepijat."
 
 #: src/mathlib.c:1186
 #, c-format
@@ -5671,6 +5974,87 @@ msgstr "Ralat simetri"
 msgid "Solving Failed: %d\n"
 msgstr "Penyelesaian Gagal: %d\n"
 
+#: src/measurements.c:10
+msgid "Snap"
+msgstr "Jajarkan"
+
+#: src/measurements.c:11
+msgid "Interpolate"
+msgstr "Interpolasikan"
+
+# xnec2c-exempt: loanword
+#: src/measurements.c:12
+msgid "Formula"
+msgstr ""
+
+#: src/measurements.c:13
+msgid "Galactic"
+msgstr "Galaksi"
+
+#: src/measurements.c:74
+msgid "G4CQM Min Quiet (pre-2016)"
+msgstr "Minimum senyap G4CQM (pra-2016)"
+
+#: src/measurements.c:81
+msgid "VK3UM Min Quiet (pre-2016)"
+msgstr "Minimum senyap VK3UM (pra-2016)"
+
+#: src/measurements.c:88 src/measurements.c:167
+msgid "VE7BQH Base Ref (pre-2018)"
+msgstr "Rujukan asas VE7BQH (pra-2018)"
+
+#: src/measurements.c:95
+msgid "Galactic P.372 (2022)"
+msgstr "Galaksi P.372 (2022)"
+
+#: src/measurements.c:102
+msgid "DG7YBN Galactic Avg (2025)"
+msgstr "Purata galaksi DG7YBN (2025)"
+
+#: src/measurements.c:109
+msgid "Synth Practical Avg (2026)"
+msgstr "Purata praktikal sintetik (2026)"
+
+#: src/measurements.c:116
+msgid "Synth Min Quiet (2026)"
+msgstr "Minimum senyap sintetik (2026)"
+
+#: src/measurements.c:123 src/measurements.c:195
+msgid "Custom"
+msgstr "Tersuai"
+
+#: src/measurements.c:132
+msgid "ITU-R Business (1974)"
+msgstr "Kawasan perniagaan ITU-R (1974)"
+
+#: src/measurements.c:139
+msgid "ITU-R Residential (1974)"
+msgstr "Kawasan kediaman ITU-R (1974)"
+
+#: src/measurements.c:146
+msgid "ITU-R Rural (1974)"
+msgstr "Luar bandar ITU-R (1974)"
+
+#: src/measurements.c:153
+msgid "ITU-R Quiet Rural (1974)"
+msgstr "Luar bandar senyap ITU-R (1974)"
+
+#: src/measurements.c:160
+msgid "G4CQM Mixed (pre-2016)"
+msgstr "Campuran G4CQM (pra-2016)"
+
+#: src/measurements.c:174
+msgid "DG7YBN Rural (2025)"
+msgstr "Luar bandar DG7YBN (2025)"
+
+#: src/measurements.c:181
+msgid "DG7YBN Residential (2025)"
+msgstr "Kawasan kediaman DG7YBN (2025)"
+
+#: src/measurements.c:188
+msgid "DG7YBN City (2025)"
+msgstr "Bandar DG7YBN (2025)"
+
 #: src/measurements.c:424
 #, c-format
 msgid ""
@@ -5679,6 +6063,78 @@ msgid ""
 msgstr ""
 "noise_temp_resolve: jadual noise_temp tidak diperuntukkan; t_sky/t_earth "
 "lalai kepada 0\n"
+
+#: src/measurements.c:481
+msgid "Z Real"
+msgstr "Bahagian nyata Z"
+
+#: src/measurements.c:482
+msgid "Z Imaginary"
+msgstr "Bahagian khayalan Z"
+
+#: src/measurements.c:483
+msgid "Z Magnitude"
+msgstr "Magnitud Z"
+
+#: src/measurements.c:484
+msgid "Z Phase"
+msgstr "Fasa Z"
+
+#: src/measurements.c:487
+msgid "S11 Real"
+msgstr "Bahagian nyata S11"
+
+#: src/measurements.c:488
+msgid "S11 Imaginary"
+msgstr "Bahagian khayalan S11"
+
+#: src/measurements.c:489
+msgid "S11 Angle"
+msgstr "Sudut S11"
+
+#: src/measurements.c:491
+msgid "Net Gain"
+msgstr "Gandaan bersih"
+
+#: src/measurements.c:492
+msgid "Gain Theta"
+msgstr "Gandaan theta"
+
+#: src/measurements.c:493
+msgid "Gain Phi"
+msgstr "Gandaan phi"
+
+#: src/measurements.c:495
+msgid "Viewer Net Gain"
+msgstr "Gandaan bersih pemapar"
+
+#: src/measurements.c:496
+msgid "F/B Ratio"
+msgstr "Nisbah F/B"
+
+#: src/measurements.c:497
+msgid "Gain Dev +X"
+msgstr "Sisihan gandaan +X"
+
+#: src/measurements.c:498
+msgid "Gain Dev −X"
+msgstr "Sisihan gandaan −X"
+
+#: src/measurements.c:499
+msgid "Gain Dev +Y"
+msgstr "Sisihan gandaan +Y"
+
+#: src/measurements.c:500
+msgid "Gain Dev −Y"
+msgstr "Sisihan gandaan −Y"
+
+#: src/measurements.c:501
+msgid "Gain Dev +Z"
+msgstr "Sisihan gandaan +Z"
+
+#: src/measurements.c:502
+msgid "Gain Dev −Z"
+msgstr "Sisihan gandaan −Z"
 
 #: src/measurements.c:506
 msgid "Precision Lost"
@@ -5699,6 +6155,153 @@ msgstr "Kecekapan gandaan purata"
 #: src/measurements.c:511
 msgid "Average Gain Coverage"
 msgstr "Liputan gandaan purata"
+
+#: src/measurements.c:516
+msgid "Frequency in MHz (independent variable)"
+msgstr "Frekuensi dalam MHz (pemboleh ubah bebas)"
+
+#: src/measurements.c:517
+msgid "Real part of feed-point impedance (ohms)"
+msgstr "Bahagian nyata galangan titik suapan (ohm)"
+
+#: src/measurements.c:518
+msgid "Imaginary part of feed-point impedance (ohms)"
+msgstr "Bahagian khayalan galangan titik suapan (ohm)"
+
+#: src/measurements.c:519
+msgid "Magnitude of feed-point impedance (ohms)"
+msgstr "Magnitud galangan titik suapan (ohm)"
+
+#: src/measurements.c:520
+msgid "Phase angle of feed-point impedance (degrees)"
+msgstr "Sudut fasa galangan titik suapan (darjah)"
+
+#: src/measurements.c:521
+msgid "Voltage standing wave ratio (1.0 = perfect match)"
+msgstr "Nisbah gelombang pegun voltan (1.0 = padanan sempurna)"
+
+#: src/measurements.c:522
+msgid "Return loss in dB (more negative = better match)"
+msgstr "Kehilangan balik dalam dB (lebih negatif = padanan lebih baik)"
+
+#: src/measurements.c:523
+msgid "Real part of S11 in dB"
+msgstr "Bahagian nyata S11 dalam dB"
+
+#: src/measurements.c:524
+msgid "Imaginary part of S11 in dB"
+msgstr "Bahagian khayalan S11 dalam dB"
+
+#: src/measurements.c:525
+msgid "Phase angle of reflection coefficient (degrees)"
+msgstr "Sudut fasa pekali pantulan (darjah)"
+
+#: src/measurements.c:526
+msgid "Peak gain across all angles in dBi"
+msgstr "Gandaan puncak merentas semua sudut dalam dBi"
+
+#: src/measurements.c:527
+msgid "Peak gain adjusted for mismatch loss in dBi"
+msgstr ""
+"Gandaan puncak terlaras untuk kehilangan akibat ketakpadanan, dalam dBi"
+
+#: src/measurements.c:528
+msgid "Elevation angle of peak gain (degrees above horizon)"
+msgstr "Sudut dongak gandaan puncak (darjah di atas ufuk)"
+
+#: src/measurements.c:529
+msgid "Azimuth angle of peak gain (degrees)"
+msgstr "Sudut azimut gandaan puncak (darjah)"
+
+#: src/measurements.c:530
+msgid "Gain toward current viewer angle in dBi"
+msgstr "Gandaan ke arah sudut pemapar semasa dalam dBi"
+
+#: src/measurements.c:531
+msgid "Viewer gain adjusted for mismatch loss in dBi"
+msgstr ""
+"Gandaan pemapar terlaras untuk kehilangan akibat ketakpadanan, dalam dBi"
+
+#: src/measurements.c:532
+msgid "Front-to-back ratio in dB"
+msgstr "Nisbah hadapan kepada belakang dalam dB"
+
+#: src/measurements.c:533
+msgid "Angular deviation of peak gain from +X axis (degrees)"
+msgstr "Sisihan sudut gandaan puncak daripada paksi +X (darjah)"
+
+#: src/measurements.c:534
+msgid "Angular deviation of peak gain from -X axis (degrees)"
+msgstr "Sisihan sudut gandaan puncak daripada paksi -X (darjah)"
+
+#: src/measurements.c:535
+msgid "Angular deviation of peak gain from +Y axis (degrees)"
+msgstr "Sisihan sudut gandaan puncak daripada paksi +Y (darjah)"
+
+#: src/measurements.c:536
+msgid "Angular deviation of peak gain from -Y axis (degrees)"
+msgstr "Sisihan sudut gandaan puncak daripada paksi -Y (darjah)"
+
+#: src/measurements.c:537
+msgid "Angular deviation of peak gain from +Z axis (degrees)"
+msgstr "Sisihan sudut gandaan puncak daripada paksi +Z (darjah)"
+
+#: src/measurements.c:538
+msgid "Angular deviation of peak gain from -Z axis (degrees)"
+msgstr "Sisihan sudut gandaan puncak daripada paksi -Z (darjah)"
+
+#: src/measurements.c:539
+msgid "Antenna noise temperature Ta from sky/earth brightness (K)"
+msgstr "Suhu hingar antena Ta daripada kecerahan langit/tanah (K)"
+
+#: src/measurements.c:540
+msgid "Total system noise temperature TA including ohmic loss (K)"
+msgstr "Jumlah suhu hingar sistem TA termasuk kehilangan ohmik (K)"
+
+#: src/measurements.c:541
+msgid "Gain-to-antenna-temperature ratio (dB), excludes loss"
+msgstr "Nisbah gandaan kepada suhu antena (dB), tidak termasuk kehilangan"
+
+#: src/measurements.c:542
+msgid "Decimal digits of precision lost solving the antenna"
+msgstr "Bilangan digit perpuluhan ketepatan yang hilang dalam pengiraan antena"
+
+#: src/measurements.c:543
+msgid ""
+"Front-to-rear ratio in dB at the peak-gain elevation, rear beyond 90 degrees "
+"azimuth"
+msgstr ""
+"Nisbah hadapan kepada belakang dalam dB pada sudut dongak gandaan puncak, "
+"dengan belakang melebihi 90 darjah azimut"
+
+#: src/measurements.c:544
+msgid ""
+"Front-to-rear ratio in dB over every direction behind the peak-gain direction"
+msgstr ""
+"Nisbah hadapan kepada belakang dalam dB merentas semua arah di belakang arah "
+"gandaan puncak"
+
+#: src/measurements.c:545
+msgid ""
+"Average power gain as a linear ratio over the solid angle the pattern grid "
+"samples"
+msgstr ""
+"Purata gandaan kuasa sebagai nisbah linear merentas sudut pepejal yang "
+"disampel oleh grid corak"
+
+#: src/measurements.c:546
+msgid "Average power gain times the sampled fraction of the sphere, in percent"
+msgstr ""
+"Purata gandaan kuasa didarab dengan pecahan sfera yang disampel, dalam "
+"peratus"
+
+#: src/measurements.c:547
+msgid "Fraction of the full sphere the pattern grid samples"
+msgstr "Pecahan sfera penuh yang disampel oleh grid corak"
+
+#: src/measurements.c:841 src/measurements.c:852
+msgid "Unknown"
+msgstr "Tidak diketahui"
 
 #: src/mem/mem.c:185
 #, c-format
@@ -5862,6 +6465,11 @@ msgstr "Gagal mencipta asas lapisan tindanan cairo\n"
 msgid "Shader declares no version directive: %s\n"
 msgstr "Shader tidak mengisytiharkan arahan versi: %s\n"
 
+#: src/opengl-engine/opengl_renderer.c:100 src/themes/theme.c:223
+#: src/themes/theme.c:233
+msgid "unknown error"
+msgstr "ralat tidak diketahui"
+
 #: src/opengl-engine/opengl_renderer.c:99
 #, c-format
 msgid "Failed to load shader: %s (%s)\n"
@@ -5994,15 +6602,342 @@ msgstr "%d matlamat pengoptimum dimuatkan\n"
 msgid "opt_file_load: %s\n"
 msgstr ""
 
+#: src/opt_ui_formula.c:46
+#, c-format
+msgid ""
+"<b>minimize</b>: penalizes <i>%s</i> above <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>minimize</b>: mengenakan penalti pada <i>%s</i> yang melebihi <b>%s</b>\n"
+"\n"
+"score = (max(%s − <b>%s</b>, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(<b>%s</b> − %s, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (penormalan)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tegangan: kecerunan baki selepas "
+"sasaran)"
+
+#: src/opt_ui_formula.c:53
+#, c-format
+msgid ""
+"<b>maximize</b>: penalizes <i>%s</i> below <b>%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (normalization)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tension: residual gradient past "
+"target)"
+msgstr ""
+"<b>maximize</b>: mengenakan penalti pada <i>%s</i> yang kurang daripada <b>"
+"%s</b>\n"
+"\n"
+"score = (max(<b>%s</b> − %s, 0) / 𝑛)<sup><b>%s</b></sup>\n"
+"            + τ / (1 + max(%s − <b>%s</b>, 0) / 𝑛)\n"
+"\n"
+"𝑛 = √(<b>%s</b>² + 1)  (penormalan)\n"
+"τ = (10<sup>−4</sup>)<sup><b>%s</b></sup>  (tegangan: kecerunan baki selepas "
+"sasaran)"
+
+#: src/opt_ui_formula.c:60
+#, c-format
+msgid ""
+"<b>deviate</b>: penalizes <i>%s</i> away from <b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"No normalization or tension term."
+msgstr ""
+"<b>deviate</b>: mengenakan penalti pada <i>%s</i> yang menyimpang daripada "
+"<b>%s</b>\n"
+"\n"
+"score = |%s − <b>%s</b>|<sup><b>%s</b></sup>\n"
+"\n"
+"Tiada sebutan penormalan atau tegangan."
+
+#: src/opt_ui_formula.c:146
+msgid "<i>No goals enabled</i>"
+msgstr "<i>Tiada matlamat diaktifkan</i>"
+
+#: src/opt_ui_formula.c:154
+msgid ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Optimizer minimizes F</i></small>"
+msgstr ""
+"<b>F = Σ(scores) =</b>\n"
+"<small><i>Pengoptimum meminimumkan F</i></small>"
+
+#: src/opt_ui_formula.c:705
+msgid ""
+"<span size='large' weight='bold'>Transform Directions</span>\n"
+"\n"
+"<b>minimize:</b> Lower values are better\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero below target; penalizes excess above target</"
+"i>\n"
+"\n"
+"<b>maximize:</b> Higher values are better\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Score approaches zero above target; works for positive and negative "
+"targets</i>\n"
+"\n"
+"<b>deviate:</b> Target a specific value\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Penalizes deviation from target; score=0 when value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Reduction Functions</span>\n"
+"\n"
+"<b>avg:</b> Average penalty across band\n"
+"    <i>Balances all frequencies equally</i>\n"
+"\n"
+"<b>max:</b> Returns highest penalty (worst frequency point)\n"
+"    <i>Optimizer improves the worst frequency first\n"
+"    \"No point on the band can exceed X\"</i>\n"
+"\n"
+"<b>min:</b> Returns lowest penalty (best frequency point)\n"
+"    <i>Optimizer improves the best frequency, ignores others\n"
+"    Rarely useful (creates narrow-band solution)</i>\n"
+"\n"
+"<b>diff:</b> Returns penalty range (variation)\n"
+"    <i>Makes metric consistent across band\n"
+"    Use with gain_max for gain flatness</i>\n"
+"\n"
+"<b>sum:</b> Total penalty sum across all frequencies\n"
+"    <i>Emphasizes overall error magnitude</i>\n"
+"\n"
+"<b>mag:</b> Root mean square magnitude\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Emphasizes large deviations more than average</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Gain Direction Metrics</span>\n"
+"\n"
+"The gain_dev_* metrics measure angular deviation (in degrees)\n"
+"between peak gain direction and a coordinate axis.\n"
+"Use direction=minimize with target near 0 to steer the beam.\n"
+"\n"
+"    gain_dev_px: deviation from +X axis\n"
+"    gain_dev_nx: deviation from -X axis\n"
+"    gain_dev_py: deviation from +Y axis\n"
+"    gain_dev_ny: deviation from -Y axis\n"
+"    gain_dev_pz: deviation from +Z axis (zenith)\n"
+"    gain_dev_nz: deviation from -Z axis (nadir)\n"
+msgstr ""
+"<span size='large' weight='bold'>Arah transformasi</span>\n"
+"\n"
+"<b>minimize:</b> Nilai yang lebih rendah lebih baik\n"
+"    Penalty = ((value − target)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Skor menghampiri sifar di bawah sasaran; mengenakan penalti pada "
+"lebihan di atas sasaran</i>\n"
+"\n"
+"<b>maximize:</b> Nilai yang lebih tinggi lebih baik\n"
+"    Penalty = ((target − value)<sup>+</sup> / √(target²+1))<sup>exp</sup>\n"
+"    <i>Skor menghampiri sifar di atas sasaran; berfungsi untuk sasaran "
+"positif dan negatif</i>\n"
+"\n"
+"<b>deviate:</b> Sasarkan nilai tertentu\n"
+"    Penalty = |value − target|<sup>exp</sup>\n"
+"    <i>Mengenakan penalti pada sisihan daripada sasaran; score=0 apabila "
+"value = target</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Fungsi penurunan</span>\n"
+"\n"
+"<b>avg:</b> Purata penalti merentas jalur\n"
+"    <i>Memberi wajaran yang sama kepada semua frekuensi</i>\n"
+"\n"
+"<b>max:</b> Mengembalikan penalti tertinggi (titik frekuensi terburuk)\n"
+"    <i>Pengoptimum membaiki frekuensi terburuk dahulu\n"
+"    \"Tiada titik dalam jalur boleh melebihi X\"</i>\n"
+"\n"
+"<b>min:</b> Mengembalikan penalti terendah (titik frekuensi terbaik)\n"
+"    <i>Pengoptimum membaiki frekuensi terbaik dan mengabaikan yang lain\n"
+"    Jarang berguna (menghasilkan penyelesaian jalur sempit)</i>\n"
+"\n"
+"<b>diff:</b> Mengembalikan julat penalti (variasi)\n"
+"    <i>Menjadikan metrik konsisten merentas jalur\n"
+"    Gunakan bersama gain_max untuk kerataan gandaan</i>\n"
+"\n"
+"<b>sum:</b> Jumlah penalti merentas semua frekuensi\n"
+"    <i>Menekankan magnitud ralat keseluruhan</i>\n"
+"\n"
+"<b>mag:</b> Magnitud punca min kuasa dua\n"
+"    sqrt(sum(penalty<sup>2</sup>))\n"
+"    <i>Menekankan sisihan besar lebih daripada purata</i>\n"
+"\n"
+"\n"
+"<span size='large' weight='bold'>Metrik arah gandaan</span>\n"
+"\n"
+"Metrik gain_dev_* mengukur sisihan sudut (dalam darjah)\n"
+"antara arah gandaan puncak dengan paksi koordinat.\n"
+"Gunakan direction=minimize dengan sasaran hampir 0 untuk mengarahkan alur.\n"
+"\n"
+"    gain_dev_px: sisihan daripada paksi +X\n"
+"    gain_dev_nx: sisihan daripada paksi -X\n"
+"    gain_dev_py: sisihan daripada paksi +Y\n"
+"    gain_dev_ny: sisihan daripada paksi -Y\n"
+"    gain_dev_pz: sisihan daripada paksi +Z (zenit)\n"
+"    gain_dev_nz: sisihan daripada paksi -Z (nadir)\n"
+
+#: src/opt_ui_formula.c:744
+msgid "Fitness Formula Help"
+msgstr "Bantuan formula kesesuaian"
+
+#: src/opt_ui_goals.c:151
+msgid "Current NEC2 value at the frequency spinner position"
+msgstr "Nilai NEC2 semasa pada kedudukan kawalan pelaras frekuensi"
+
+#: src/opt_ui_goals.c:172
+msgid "Goal value for the measurement"
+msgstr "Nilai sasaran bagi ukuran"
+
+#: src/opt_ui_goals.c:180
+msgid "Exponent applied to the transform result"
+msgstr "Eksponen yang dikenakan pada hasil transformasi"
+
+#: src/opt_ui_goals.c:203
+msgid "Multiplier applied after reduction"
+msgstr "Pengganda yang dikenakan selepas penurunan"
+
+#: src/opt_ui_goals.c:210
+msgid "Lower frequency bound (empty = all frequencies)"
+msgstr "Had bawah frekuensi (kosong = semua frekuensi)"
+
+#: src/opt_ui_goals.c:217
+msgid "Upper frequency bound (empty = all frequencies)"
+msgstr "Had atas frekuensi (kosong = semua frekuensi)"
+
+#: src/opt_ui_goals.c:226
+msgid "Formula term for this objective"
+msgstr "Sebutan formula untuk objektif ini"
+
+#: src/opt_ui_goals.c:233
+msgid "Computed: weight × reduce(transform(value, target, exp))"
+msgstr "Dikira: weight × reduce(transform(value, target, exp))"
+
+#: src/opt_ui_goals.c:237
+msgid "Remove this objective"
+msgstr "Buang objektif ini"
+
+#: src/opt_ui_goals.c:322
+msgid "Measurement"
+msgstr "Ukuran"
+
+#: src/opt_ui_goals.c:323 src/sy_overrides.c:772
+msgid "Value"
+msgstr "Nilai"
+
+#: src/opt_ui_goals.c:324
+msgid "Transform →"
+msgstr "Transformasi →"
+
+#: src/opt_ui_goals.c:325
+msgid "Target"
+msgstr "Sasaran"
+
+#: src/opt_ui_goals.c:326
+msgid "Exp →"
+msgstr "Eksponen →"
+
+#: src/opt_ui_goals.c:327
+msgid "Reduce →"
+msgstr "Penurunan →"
+
+#: src/opt_ui_goals.c:328
+msgid "Weight"
+msgstr "Wajaran"
+
+#: src/opt_ui_goals.c:329
+msgid "MHz lo"
+msgstr "Had bawah MHz"
+
+#: src/opt_ui_goals.c:330
+msgid "MHz hi →"
+msgstr "Had atas MHz →"
+
+# xnec2c-exempt: loanword
+#: src/opt_ui_goals.c:331
+msgid "Formula →"
+msgstr ""
+
+#: src/opt_ui_goals.c:332
+msgid "Score"
+msgstr "Skor"
+
+#: src/opt_ui_goals.c:361
+msgid "Optimizer minimizes this value"
+msgstr "Pengoptimum meminimumkan nilai ini"
+
+#: src/opt_ui_goals.c:368
+msgid "+ Add Metric"
+msgstr "+ Tambah metrik"
+
+#: src/opt_ui_session.c:94
+#, c-format
+msgid "%s  [Complete]"
+msgstr "%s  [Selesai]"
+
 #: src/opt_ui_session.c:98
 #, c-format
 msgid "opt_ui: optimization finished, best fitness: %.6g\n"
 msgstr "opt_ui: pengoptimuman selesai, fitness terbaik: %.6g\n"
 
-#: src/opt_ui_session.c:132 src/opt_ui_session.c:165 src/opt_ui_session.c:195
-#: src/opt_ui_session.c:296
-msgid "Optimization"
-msgstr "Pengoptimuman"
+#: src/opt_ui_session.c:133
+#, c-format
+msgid ""
+"No variables are flagged for optimization.\n"
+"Check the Opt column for variables to optimize."
+msgstr ""
+"Tiada pemboleh ubah ditandakan untuk pengoptimuman.\n"
+"Tandakan pemboleh ubah yang hendak dioptimumkan dalam lajur Optimumkan."
+
+#: src/opt_ui_session.c:166
+#, c-format
+msgid ""
+"%d variable(s) have min >= max: %s\n"
+"Set different min and max values for each optimized variable."
+msgstr ""
+"%d pemboleh ubah mempunyai minimum >= maksimum: %s\n"
+"Tetapkan nilai minimum dan maksimum yang berbeza bagi setiap pemboleh ubah "
+"yang dioptimumkan."
+
+#: src/opt_ui_session.c:196
+#, c-format
+msgid ""
+"No fitness goals are enabled.\n"
+"Check at least one metric in the Fitness Goals grid."
+msgstr ""
+"Tiada matlamat kesesuaian diaktifkan.\n"
+"Tandakan sekurang-kurangnya satu metrik dalam grid Matlamat kesesuaian."
+
+#: src/opt_ui_session.c:287
+msgid "Starting..."
+msgstr "Sedang bermula..."
+
+#: src/opt_ui_session.c:297
+#, c-format
+msgid ""
+"Optimization failed to start.\n"
+"Check the terminal for details."
+msgstr ""
+"Pengoptimuman gagal dimulakan.\n"
+"Semak terminal untuk mendapatkan butiran."
+
+#: src/opt_ui_session.c:345
+#, c-format
+msgid ""
+"Pass %d/%d  Iter %d  Evals %d  Fitness %.6g  Best %.6g  Stagnant %d  Cache "
+"%d/%d"
+msgstr ""
+"Pusingan %d/%d  Lelaran %d  Penilaian %d  Kesesuaian %.6g  Terbaik %.6g  "
+"Tanpa kemajuan %d  Cache %d/%d"
 
 #: src/optimize.c:83
 #, c-format
@@ -6128,6 +7063,74 @@ msgstr "gagal mencipta eventfd bangun pengoptimum\n"
 #, c-format
 msgid "failed to create Optimizer Output thread\n"
 msgstr "gagal mencipta benang Output Pengoptimum\n"
+
+#: src/optimizers/opt_fitness.c:311
+msgid "min score"
+msgstr "skor minimum"
+
+#: src/optimizers/opt_fitness.c:312
+msgid "max score"
+msgstr "skor maksimum"
+
+#: src/optimizers/opt_fitness.c:313
+msgid "± target"
+msgstr "± sasaran"
+
+#: src/optimizers/opt_fitness.c:320
+msgid ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Penalizes values above target; score approaches zero below target"
+msgstr ""
+"Score = (max(v − t, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(t − v, 0) / "
+"√(t² + 1))\n"
+"Mengenakan penalti pada nilai melebihi sasaran; skor menghampiri sifar di "
+"bawah sasaran"
+
+#: src/optimizers/opt_fitness.c:324
+msgid ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Penalizes values below target; score approaches zero above target"
+msgstr ""
+"Score = (max(t − v, 0) / √(t² + 1))<sup>exp</sup> + τ / (1 + max(v − t, 0) / "
+"√(t² + 1))\n"
+"Mengenakan penalti pada nilai di bawah sasaran; skor menghampiri sifar di "
+"atas sasaran"
+
+#: src/optimizers/opt_fitness.c:328
+msgid ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Penalizes deviation from target; score=0 when value = target"
+msgstr ""
+"Score = |value − target|<sup>exp</sup>\n"
+"Mengenakan penalti pada sisihan daripada sasaran; score=0 apabila value = "
+"target"
+
+#: src/optimizers/opt_fitness.c:335
+msgid "Adds the score from every NEC2 frequency step"
+msgstr "Menjumlahkan skor daripada setiap langkah frekuensi NEC2"
+
+#: src/optimizers/opt_fitness.c:336
+msgid "Averages the score across all NEC2 frequency steps"
+msgstr "Mengira purata skor merentas semua langkah frekuensi NEC2"
+
+#: src/optimizers/opt_fitness.c:337
+msgid "Selects the smallest score among all frequency steps"
+msgstr "Memilih skor terkecil daripada semua langkah frekuensi"
+
+#: src/optimizers/opt_fitness.c:338
+msgid "Selects the largest score among all frequency steps"
+msgstr "Memilih skor terbesar daripada semua langkah frekuensi"
+
+#: src/optimizers/opt_fitness.c:339
+msgid "Root of summed squared scores: sqrt(sum(score<sup>2</sup>))"
+msgstr "Punca kuasa dua jumlah kuasa dua skor: sqrt(sum(score<sup>2</sup>))"
+
+#: src/optimizers/opt_fitness.c:340
+msgid "Spread between largest and smallest scores across frequency steps"
+msgstr ""
+"Beza antara skor terbesar dengan skor terkecil merentas langkah frekuensi"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
@@ -6552,6 +7555,14 @@ msgstr "Suhu Hingar (skala log)"
 msgid "Radiation Pattern: - "
 msgstr "Corak Sinaran: - "
 
+#: src/rdpattern_ui.c:956
+msgid " - Sky:"
+msgstr " - Langit:"
+
+#: src/rdpattern_ui.c:958
+msgid " - Earth:"
+msgstr " - Tanah:"
+
 #: src/rdpattern_ui.c:968
 msgid "Near Fields:"
 msgstr "Medan Dekat:"
@@ -6577,7 +7588,15 @@ msgstr "Plot Data Frekuensi - "
 msgid "fstep=%d is out of bounds. calc_data.steps_total=%d"
 msgstr "fstep=%d di luar sempadan. calc_data.steps_total=%d"
 
-#: src/render/gradient_cache.c:311
+#: src/render/gradient_cache.c:169
+msgid "Rel."
+msgstr "Relatif"
+
+#: src/render/gradient_cache.c:178
+msgid "Abs."
+msgstr "Mutlak"
+
+#: src/render/gradient_cache.c:312
 #, c-format
 msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
 msgstr "gradient_cache_update: penciptaan surface gagal (%dx%d)\n"
@@ -6640,6 +7659,30 @@ msgstr ""
 #: src/render/render_wire_radius.c:108
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+Scroll: Radius wayar"
+
+#: src/settings/render_settings.c:49
+msgid ""
+"OpenGL is not available on this display.\n"
+"Cairo rendering is active."
+msgstr ""
+"OpenGL tidak tersedia pada paparan ini.\n"
+"Penerapan Cairo aktif."
+
+#: src/settings/render_settings.c:54
+msgid ""
+"Built without OpenGL support.\n"
+"Cairo rendering is active."
+msgstr ""
+"Dibina tanpa sokongan OpenGL.\n"
+"Penerapan Cairo aktif."
+
+#: src/settings/render_settings.c:123
+msgid "General"
+msgstr "Umum"
+
+#: src/settings/render_settings.c:127
+msgid "Color"
+msgstr "Warna"
 
 #: src/settings/render_settings_common.c:141
 #, c-format
@@ -6751,6 +7794,30 @@ msgstr "sy_save_overrides: tidak dapat membuka %s untuk menulis: %s\n"
 msgid "Saved %d symbol overrides to %s\n"
 msgstr "%d pengatasan simbol disimpan ke %s\n"
 
+#: src/sy_overrides.c:772
+msgid "Symbol"
+msgstr "Simbol"
+
+#: src/sy_overrides.c:772
+msgid "Override"
+msgstr "Atasi"
+
+#: src/sy_overrides.c:772
+msgid "Opt"
+msgstr "Optimumkan"
+
+#: src/sy_overrides.c:772
+msgid "Min"
+msgstr "Minimum"
+
+#: src/sy_overrides.c:772
+msgid "Max"
+msgstr "Maksimum"
+
+#: src/sy_overrides.c:772
+msgid "Expression"
+msgstr "Ungkapan"
+
 #: src/sy_overrides.c:1093
 #, c-format
 msgid "sy_overrides_init: failed to load glade: %s\n"
@@ -6760,6 +7827,14 @@ msgstr "sy_overrides_init: gagal memuatkan glade: %s\n"
 #, c-format
 msgid "sy_overrides_init: failed to get widgets from glade\n"
 msgstr "sy_overrides_init: gagal mendapatkan widget daripada glade\n"
+
+#: src/sy_overrides.c:1223
+msgid "Input Symbols"
+msgstr "Simbol input"
+
+#: src/sy_overrides.c:1240
+msgid "Calculated Symbols"
+msgstr "Simbol terhitung"
 
 #: src/sy_overrides.c:1486
 msgid ""
