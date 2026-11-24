@@ -64,6 +64,13 @@ SED_CMDS += -e 's|[@]PACKAGE_STRING@|$(PACKAGE_STRING)|g'
 SED_CMDS += -e 's|[@]PACKAGE_TARNAME@|$(PACKAGE_TARNAME)|g'
 SED_CMDS += -e 's|[@]PACKAGE_VERSION@|$(PACKAGE_VERSION)|g'
 
+# Substitute the package placeholders of template $< into $@, creating the
+# directory of $@ first.
+define substitute_template
+@$(MKDIR_P) $(@D)
+$(AM_V_GEN)$(SED) $(SED_CMDS) < $< > $@
+endef
+
 
 ########################################################################
 # Desktop integration
@@ -114,8 +121,7 @@ man1_MANS     += doc/xnec2c.1
 
 SUFFIXES += .1.in .1
 .1.in.1:
-	@$(MKDIR_P) $(@D)
-	$(AM_V_GEN)$(SED) $(SED_CMDS) < $< > $@
+	$(substitute_template)
 
 dist_doc_DATA  =
 dist_doc_DATA += doc/NEC2-bug.txt
@@ -464,8 +470,7 @@ noinst_DATA += xnec2c.spec
 
 SUFFIXES += .spec.in .spec
 .spec.in.spec:
-	@$(MKDIR_P) $(@D)
-	$(AM_V_GEN)$(SED) $(SED_CMDS) < $< > $@
+	$(substitute_template)
 
 ########################################################################
 # Create locale tree for running from source tree
