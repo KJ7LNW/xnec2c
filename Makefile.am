@@ -101,6 +101,7 @@ desktop-install:
 	  update-mime-database $(datarootdir)/mime || :
 	  update-desktop-database || :
 	  gtk-update-icon-cache $(datarootdir)/icons/hicolor || :
+.PHONY: desktop-install
 
 
 ########################################################################
@@ -350,6 +351,7 @@ check-po: check-potfiles-list check-po-exemptions check-po-clean
 .PHONY: check-po
 check-potfiles-list:
 	@$(srcdir)/scripts/po/po-update.sh --check
+.PHONY: check-potfiles-list
 # Check the catalogs after the refresh sweep so the gate reads final tree
 # state rather than a pre-strip transient. The complete gate runs here: an
 # authoritative catalog answers every entry with a translation or with an
@@ -476,3 +478,27 @@ clean-local:
 	rm -f po/stamp-po po/*.gmo
 
 .PHONY: locale-tree
+
+########################################################################
+# List make targets
+########################################################################
+
+# List every target the make database marks phony, under a count line;
+# make help aliases this listing. Question Makefile.am, a source file no
+# rule remakes, so the query runs no recipe: --question still runs recipe
+# lines naming $(MAKE), and a goal reaching this recipe would recurse. Sort
+# the names in byte order and drop repeats so the listing reads the same
+# under every locale.
+targets:
+	@database=$$($(MAKE) --print-data-base --question --file=Makefile $(srcdir)/Makefile.am) || exit $$?; \
+	names=$$(printf '%s\n' "$$database" | \
+	  awk '/^\.PHONY:/ { for (i = 2; i <= NF; i++) print $$i }' | LC_ALL=C sort --unique); \
+	if test -z "$$names"; then \
+	  echo "$(PACKAGE): err: make targets: no .PHONY entry (make --print-data-base)" >&2; \
+	  exit 1; \
+	fi; \
+	set -- $$names; \
+	echo "$(PACKAGE): info: make targets: $$# (.PHONY)"; \
+	for name in $$names; do echo "  $$name"; done
+help: targets
+.PHONY: targets help
