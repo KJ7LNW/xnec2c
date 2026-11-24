@@ -1858,6 +1858,7 @@ void Gend_Editor(int action);
 void Sy_Card_Editor(int action);
 gboolean Check_Card_Name(GtkListStore *store, GtkTreeIter *iter, gboolean next, const gchar *name);
 gboolean Give_Up(gboolean *busy, GtkWidget *widget);
+gboolean fr_cards_report_unprocessed(void);
 void Remove_Row(GtkListStore *store, GtkTreeIter *iter);
 gboolean Get_Selected_Row(GtkTreeView *view, GtkListStore *store, GtkTreeIter *iter, gchar *name);
 /* geometry.c */

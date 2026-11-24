@@ -2395,13 +2395,7 @@ on_gw_clicked(
     gpointer         user_data)
 {
   /* Abort if FR cards have not been processed */
-  if( calc_data.FR_cards < 1 )
-  {
-    Stop(ERR_OK,
-        _("Frequency (FR) cards not yet processed.\n"
-        "You may need to save the NEC2 Editor data first."));
-    return;
-  }
+  if( fr_cards_report_unprocessed() ) return;
 
   Card_Clicked(
       &wire_editor, &wire_editor_builder,
@@ -2415,13 +2409,7 @@ on_ga_clicked(
     gpointer         user_data)
 {
   /* Abort if FR cards have not been processed */
-  if( calc_data.FR_cards < 1 )
-  {
-    Stop(ERR_OK,
-        _("Frequency (FR) cards not yet processed.\n"
-        "You may need to save the NEC2 Editor data first."));
-    return;
-  }
+  if( fr_cards_report_unprocessed() ) return;
 
   Card_Clicked(
       &arc_editor, &arc_editor_builder,
@@ -2435,13 +2423,7 @@ on_gh_clicked(
     gpointer         user_data)
 {
   /* Abort if FR cards have not been processed */
-  if( calc_data.FR_cards < 1 )
-  {
-    Stop(ERR_OK,
-        _("Frequency (FR) cards not yet processed.\n"
-        "You may need to save the NEC2 Editor data first."));
-    return;
-  }
+  if( fr_cards_report_unprocessed() ) return;
 
   Card_Clicked(
       &helix_editor, &helix_editor_builder,

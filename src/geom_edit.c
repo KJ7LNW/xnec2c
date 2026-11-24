@@ -449,13 +449,7 @@ Wire_Editor( int action )
   };
 
   /* Abort if FR cards have not been processed */
-  if( calc_data.FR_cards < 1 )
-  {
-    Stop( ERR_OK,
-        _("Frequency (FR) cards not yet processed.\n"
-        "You may need to save the NEC2 Editor data first.") );
-    return;
-  }
+  if( fr_cards_report_unprocessed() ) return;
 
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, wire_editor) ) return;
@@ -1321,13 +1315,7 @@ Arc_Editor( int action )
   };
 
   /* Abort if FR cards have not been processed */
-  if( calc_data.FR_cards < 1 )
-  {
-    Stop( ERR_OK,
-        _("Frequency (FR) cards not yet processed.\n"
-        "You may need to save the NEC2 Editor data first.") );
-    return;
-  }
+  if( fr_cards_report_unprocessed() ) return;
 
   /* Block callbacks. (Should be a better way to do this) */
   if( Give_Up( &busy, arc_editor) ) return;
@@ -1576,13 +1564,7 @@ Helix_Editor( int action )
   };
 
   /* Abort if FR cards have not been processed */
-  if( calc_data.FR_cards < 1 )
-  {
-    Stop( ERR_OK,
-        _("Frequency (FR) cards not yet processed.\n"
-        "You may need to save the NEC2 Editor data first.") );
-    return;
-  }
+  if( fr_cards_report_unprocessed() ) return;
 
   /* File names to link and unlink icons */
   gchar link[FILENAME_LEN], unlink[FILENAME_LEN];
@@ -2976,6 +2958,36 @@ Give_Up( gboolean *busy, GtkWidget *widget )
   return( FALSE );
 
 } /* Give_Up() */
+
+/*------------------------------------------------------------------------*/
+
+/**
+ * fr_cards_report_unprocessed() - Report an editor entry made before FR cards are processed
+ *
+ * Shows the "FR cards not yet processed" dialog when the NEC2 Editor data has
+ * not yet produced any frequency steps.
+ *
+ * Return: TRUE when the editor entry must abort, FALSE when FR cards exist.
+ */
+  gboolean
+fr_cards_report_unprocessed( void )
+{
+  gboolean unprocessed;
+
+  if( calc_data.FR_cards < 1 )
+  {
+    Stop( ERR_OK,
+        _("Frequency (FR) cards not yet processed.\n"
+        "You may need to save the NEC2 Editor data first.") );
+    unprocessed = TRUE;
+  }
+  else
+  {
+    unprocessed = FALSE;
+  }
+
+  return( unprocessed );
+}
 
 /*------------------------------------------------------------------------*/
 
