@@ -1,15 +1,15 @@
 #!/bin/bash
 #
-# Report catalog entries that are newly fuzzy or newly untranslated at a tip
-# revision relative to a base revision. Entries are keyed by identity (msgctxt
+# Report work-tree catalog entries that are newly fuzzy or newly untranslated
+# relative to a base revision. Entries are keyed by identity (msgctxt
 # plus msgid), so po-refresh line-number churn never registers as a delta and a
 # pre-existing fuzzy or untranslated entry present at the base never reports.
 #
-# Usage: scripts/po/po-delta.sh <base-ref> [--tip <tip-ref>] <po-path>
+# Usage: scripts/po/po-delta.sh <base-ref> <po-path>
 #
-# With --tip the tip catalog is the blob at <tip-ref>; without it the tip is
-# the work-tree file. The base catalog is the blob at <base-ref>, treated as
-# empty when absent there. Reads git objects and files only; never mutates.
+# The tip catalog is the work-tree file; the base catalog is the blob at
+# <base-ref>, treated as empty when absent there. Reads git objects and files
+# only; never mutates.
 #
 # Exit status: 1 when any new entry is reported, 0 when none, above 1 on a
 # usage error or a failed read.
@@ -17,22 +17,13 @@
 set -euo pipefail
 
 usage() {
-	echo "usage: $0 <base-ref> [--tip <tip-ref>] <po-path>" >&2
+	echo "usage: $0 <base-ref> <po-path>" >&2
 	exit 2
 }
 
 base=${1:-}
 [ -n "$base" ] || usage
 shift
-
-tip=""
-tip_given=false
-if [ "${1:-}" = "--tip" ]; then
-	tip=${2:-}
-	[ -n "$tip" ] || usage
-	tip_given=true
-	shift 2
-fi
 
 po=${1:-}
 [ -n "$po" ] || usage
@@ -54,12 +45,8 @@ else
 	base_records=""
 fi
 
-# Classify the tip: the blob at --tip when given, else the work-tree file.
-if $tip_given; then
-	tip_records=$(git show "$tip:$po" 2>/dev/null | awk -f "$classifier" || true)
-else
-	tip_records=$(awk -f "$classifier" "$po")
-fi
+# Classify the tip: the work-tree file.
+tip_records=$(awk -f "$classifier" "$po")
 
 # A tip record is new when its key is absent from the base key set; the key is
 # field 3, identity-stable across line-number churn.
