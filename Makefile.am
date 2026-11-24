@@ -354,7 +354,7 @@ CLEANFILES += examples-automake.lst
 CLEANFILES += examples-srcdir.lst
 # Run the PO catalog maintenance gates on a development checkout. They
 # rewrite $(srcdir)/po and read git state, which a release tarball lacks.
-check-po: check-potfiles-list check-po-exemptions check-po-clean check-po-dist
+check-po: check-potfiles-list check-po-exemptions check-po-clean check-po-dist check-po-checkout
 .PHONY: check-po
 check-potfiles-list:
 	@$(srcdir)/scripts/po/po-update.sh --check
@@ -385,7 +385,8 @@ check-po-exemptions: check-po-catalogs
 # still modified here carries a change that belongs in a commit. Depends on
 # both po/ gates so the recipe reads the tree after every sweep finishes, including
 # under parallel make. Tarball builds carry no .git and skip.
-check-po-clean: check-potfiles-list check-po-exemptions
+check_po_clean_prerequisites = check-potfiles-list check-po-exemptions
+check-po-clean: $(check_po_clean_prerequisites)
 	@if test -e $(top_srcdir)/.git; then \
 	  residue=`cd $(srcdir) && git status --porcelain -- po`; \
 	  if test -n "$$residue"; then \
@@ -402,12 +403,21 @@ check-po-clean: check-potfiles-list check-po-exemptions
 # a nested make, the pairing parallel make dist runs at once. Depends on
 # po-refresh so the stage copies the refreshed catalogs. The script runs its
 # own serial make apart from the caller's jobs; it receives the make program
-# through po_dist_check_make so make -n only prints its line.
-po_dist_check_make = $(MAKE)
+# through po_check_make so make -n only prints its line.
+po_check_make = $(MAKE)
 check-po-dist: po-refresh
 	@$(MAKE) --directory=po Makefile
-	@$(srcdir)/scripts/po/po-dist-check.sh '$(po_dist_check_make)' po/Makefile $(srcdir)/po
+	@$(srcdir)/scripts/po/po-dist-check.sh '$(po_check_make)' po/Makefile $(srcdir)/po
 .PHONY: check-po-dist
+# Run potfiles-sync and check-po-clean from this makefile in staged layouts and
+# fail unless both run in each git checkout, whose .git is a directory or a
+# gitfile, and stand down in a tree holding no .git. The script receives the
+# make program through po_check_make so make -n only prints its line, and
+# takes check-po-clean's prerequisite gates as current so only the two gates
+# run.
+check-po-checkout:
+	@$(srcdir)/scripts/po/po-checkout-check.sh '$(po_check_make)' Makefile '$(check_po_clean_prerequisites)'
+.PHONY: check-po-checkout
 # Regenerate the template alone, then discard the creation-date churn xgettext
 # writes when no message changed. The list check completes first, so a
 # POTFILES.in that no longer names a source file cannot drive a template
