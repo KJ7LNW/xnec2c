@@ -40,7 +40,7 @@ if [ "${FORCE_COMMIT:-}" != "true" ]; then
 			exit 1
 		fi
 	else
-		echo "pre-commit: po/Makefile missing (tree not configured); po-refresh skipped." >&2
+		hook_notice_print_skipped po/Makefile po-refresh
 	fi
 
 	# Gate 3: translation files must land with the commit that changed them.
@@ -109,7 +109,7 @@ if [ "${FORCE_COMMIT:-}" != "true" ]; then
 			exit 1
 		fi
 	else
-		echo "pre-commit: Makefile missing (tree not configured); check-deck skipped." >&2
+		hook_notice_print_skipped Makefile check-deck
 	fi
 fi
 
