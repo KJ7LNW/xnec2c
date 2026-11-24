@@ -88,7 +88,7 @@ if [ "${FORCE_COMMIT:-}" != "true" ]; then
 			printf '%s\n' "$delta_output"
 			delta_rc=1
 		fi
-	done < <(grep -v '^[[:space:]]*#' po/LINGUAS | grep -v '^[[:space:]]*$')
+	done < <(scripts/po/po-linguas.sh po/LINGUAS)
 
 	if [ "$delta_rc" -ne 0 ]; then
 		echo ""

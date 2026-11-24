@@ -358,7 +358,7 @@ check-potfiles-list:
 # exemption comment recording why it holds none, so an entry carrying neither
 # fails rather than passing as work in progress.
 check-po-catalogs: po-refresh
-	@lc=$$(grep -v '^[[:space:]]*#' $(srcdir)/po/LINGUAS | grep -v '^[[:space:]]*$$'); \
+	@lc=$$($(srcdir)/scripts/po/po-linguas.sh $(srcdir)/po/LINGUAS); \
 	for lang in $$lc; do \
 	  $(srcdir)/scripts/po/po-check.sh $(srcdir)/po/$$lang.po || exit 1; \
 	done
@@ -404,7 +404,7 @@ po-template: check-potfiles-list
 # generation path leaves an obsolete entry or a backup; depends on po-template
 # so the template is regenerated before the per-catalog sweep.
 po-refresh: po-template
-	@lc=$$(grep -v '^[[:space:]]*#' $(srcdir)/po/LINGUAS | grep -v '^[[:space:]]*$$'); \
+	@lc=$$($(srcdir)/scripts/po/po-linguas.sh $(srcdir)/po/LINGUAS); \
 	for lang in $$lc; do \
 	  $(srcdir)/scripts/po/po-refresh.sh $(srcdir)/po/$$lang.po $(srcdir)/po/$(PACKAGE).pot || exit 1; \
 	done
