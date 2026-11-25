@@ -90,7 +90,7 @@ nf_real_vector(const near_field_point_t *p, nf_channel_t chan,
     case NF_CHAN_POV:
     case NF_CHAN_NUM:
       /* Poynting composes E and H externally; it has no own phasor */
-      BUG("nf_real_vector: channel %d carries no phasor\n", chan);
+      BUG("channel %d carries no phasor\n", chan);
       break;
   }
 

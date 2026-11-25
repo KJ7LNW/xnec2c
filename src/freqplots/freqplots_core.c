@@ -265,7 +265,7 @@ fp_field_cond_active(fp_field_cond_t cond)
     case FP_FIELD_IF_NO_ANT_TEMP_VIEW: return rc_config.freqplots_show_ant_temp == 0;
   }
 
-  BUG("fp_field_cond_active: unhandled cond %d\n", cond);
+  BUG("unhandled cond %d\n", cond);
   return FALSE;
 }
 
@@ -477,7 +477,7 @@ void fr_plot_sync_widths(freqplots_view_t *v, fr_plot_t *fr_plot)
 			current = get_plot_rect(v, fr_plot->posn, fr);
 			if (current == NULL)
 			{
-				BUG("fr_plot_sync_widths, current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr=%d posn=%d valid=%d\n",
+				BUG("current == NULL: calc_data.FR_cards=%d v->ngraph=%d fr=%d posn=%d valid=%d\n",
 					calc_data.FR_cards, v->ngraph,
 					fr, fr_plot->posn,
 					FR_PLOT_T_IS_VALID(fr_plot));

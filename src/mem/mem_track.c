@@ -157,7 +157,7 @@ void mem_report(const char *tag)
 		if (recs == NULL)
 		{
 			pthread_mutex_unlock(&mem_track_mutex);
-			BUG("mem_report: snapshot allocation of %llu records failed\n",
+			BUG("snapshot allocation of %llu records failed\n",
 				count);
 			return;
 		}

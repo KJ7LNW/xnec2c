@@ -306,7 +306,7 @@ render_scene(render_surface_t *surface)
 
     case RENDER_MODE_NONE:
     case RENDER_MODE_COUNT:
-      BUG("render: unhandled mode %d\n", r.mode);
+      BUG("unhandled mode %d\n", r.mode);
       ok = FALSE;
       break;
   }

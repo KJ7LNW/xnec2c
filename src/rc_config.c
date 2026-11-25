@@ -1165,7 +1165,7 @@ int rc_config_default_int(void *f)
 
 	if (v == NULL || strcmp(v->format, "%d") != 0)
 	{
-		BUG("rc_config_default_int: no integer default for field\n");
+		BUG("no integer default for field\n");
 		return 0;
 	}
 
@@ -1258,7 +1258,7 @@ size_t rc_config_field_size(const rc_config_vars_t *v)
 	if (strcmp(v->format, "%s") == 0 && v->size > 0)
 		return v->size;
 
-	BUG("rc_config_field_size: %s: unsupported format %s\n", v->desc, v->format);
+	BUG("%s: unsupported format %s\n", v->desc, v->format);
 	return 0;
 }
 

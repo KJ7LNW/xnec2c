@@ -192,7 +192,7 @@ draw_wire_segments(cairo_scenebuffer_t *sb, view_t *v, double scale,
         break;
 
       default:
-        BUG("draw_wire_segments: unknown ntyp=%d\n", netcx.ntyp[idx]);
+        BUG("unknown ntyp=%d\n", netcx.ntyp[idx]);
 
     } /* switch( netcx.ntyp ) */
 

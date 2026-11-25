@@ -72,7 +72,7 @@ config_widget_lookup(GtkBuilder *builder, const char *widget_id)
   GtkWidget *w = GTK_WIDGET(gtk_builder_get_object(builder, widget_id));
 
   if( w == NULL )
-    BUG("config_widget_lookup: missing widget '%s'\n", widget_id);
+    BUG("missing widget '%s'\n", widget_id);
 
   return w;
 }

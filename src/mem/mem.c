@@ -21,7 +21,7 @@ void _mem_validate_fail(void *ptr, void *base)
 {
 	mem_obj_t *m = (mem_obj_t *)base;
 
-	BUG("mem_obj_from_ptr: ptr %p does not match m->ptr %p (base %p)\n",
+	BUG("ptr %p does not match m->ptr %p (base %p)\n",
 		ptr, m->ptr, base);
 	abort();
 }
@@ -420,7 +420,7 @@ void _mem_array_cpy(void *dest, const void *src, size_t elem_size, size_t n)
 		return;
 
 	if (unlikely(n > m->used / elem_size))
-		BUG("mem_array_cpy: %lu elements exceed destination count %lu\n",
+		BUG("%lu elements exceed destination count %lu\n",
 			(unsigned long)n, (unsigned long)(m->used / elem_size));
 	else
 		mem_obj_copy_in(m, src, n * elem_size);
@@ -521,7 +521,7 @@ void _mem_zero(void *ptr)
 
 	if (unlikely(m->array_elem_size != 0))
 	{
-		BUG("mem_zero: array block element size %lu; use mem_array_zero\n",
+		BUG("array block element size %lu; use mem_array_zero\n",
 			(unsigned long)m->array_elem_size);
 		return;
 	}

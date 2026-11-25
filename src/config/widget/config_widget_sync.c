@@ -71,7 +71,7 @@ config_widget_sync_field(void *field)
 
   if( b == NULL )
   {
-    BUG("config_widget_sync_field: field is not registered\n");
+    BUG("field is not registered\n");
     return;
   }
 

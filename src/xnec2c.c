@@ -687,7 +687,7 @@ New_Frequency( void )
    * near_field_fstep[freq_step]; without a slot there is nowhere to solve into */
   if( calc_data.freq_step < 0 || crnt_fstep == NULL )
   {
-    BUG("New_Frequency: no destination slot (freq_step=%d)\n", calc_data.freq_step);
+    BUG("no destination slot (freq_step=%d)\n", calc_data.freq_step);
     return;
   }
 
@@ -2230,13 +2230,13 @@ freq_loop_complete( void )
           break;
 
         default:
-          BUG("freq_loop_complete: invalid batch_mode=%d\n", rc_config.batch_mode);
+          BUG("invalid batch_mode=%d\n", rc_config.batch_mode);
           break;
       }
       break;
 
     default:
-      BUG("freq_loop_complete: invalid stopped=%d\n", stopped);
+      BUG("invalid stopped=%d\n", stopped);
       break;
   }
 

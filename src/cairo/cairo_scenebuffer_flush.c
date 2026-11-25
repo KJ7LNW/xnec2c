@@ -537,7 +537,7 @@ scenebuffer_flush(cairo_scenebuffer_t *sb, cairo_t *cr,
 
   if( depth_bins < 1 )
   {
-    BUG("scenebuffer_flush: depth_bins=%d\n", depth_bins);
+    BUG("depth_bins=%d\n", depth_bins);
     return;
   }
 
@@ -603,7 +603,7 @@ scenebuffer_flush(cairo_scenebuffer_t *sb, cairo_t *cr,
       base_weight = pango_font_description_get_weight(base_desc);
     }
     else
-      BUG("scenebuffer_flush: layout has no base font description\n");
+      BUG("layout has no base font description\n");
   }
 
   int groups = 0;

@@ -86,7 +86,7 @@ freq_sweep_row( void )
 
   if( (unsigned)state >= (unsigned)FREQ_SWEEP_STATE_COUNT )
   {
-    BUG("freq_sweep_row: invalid sweep_state=%d\n", (int)state);
+    BUG("invalid sweep_state=%d\n", (int)state);
     return( &freq_sweep_rows[FREQ_SWEEP_IDLE] );
   }
 

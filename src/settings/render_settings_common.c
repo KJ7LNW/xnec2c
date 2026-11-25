@@ -108,7 +108,7 @@ config_reset_tab_user(settings_tab_t tab)
     v = rc_config_find_by_field(field);
     if( v == NULL )
     {
-      BUG("config_reset_tab_user: field has no rc_config_vars row\n");
+      BUG("field has no rc_config_vars row\n");
       continue;
     }
 

@@ -45,7 +45,7 @@ config_widget_values_at(const int *values, int index)
   for( i = 0; i <= index; i++ )
     if( values[i] == CONFIG_WIDGET_VALUES_END )
     {
-      BUG("config_widget_values_at: index %d exceeds values list\n", index);
+      BUG("index %d exceeds values list\n", index);
       return 0;
     }
 

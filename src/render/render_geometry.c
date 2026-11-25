@@ -228,7 +228,7 @@ render_geom_walk(view_t *view, double frame_phase,
 
     case RENDER_MODE_NONE:
     case RENDER_MODE_COUNT:
-      BUG("render_geom_walk: unresolved render mode %d\n", result.mode);
+      BUG("unresolved render mode %d\n", result.mode);
       break;
   }
 

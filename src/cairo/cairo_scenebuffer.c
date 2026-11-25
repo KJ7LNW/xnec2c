@@ -192,7 +192,7 @@ scenebuffer_add_polygon(cairo_scenebuffer_t *sb, const Polygon_t *p)
 {
   if( p->n > SCENE_POLY_MAX )
   {
-    BUG("scenebuffer_add_polygon: n=%d > SCENE_POLY_MAX\n", p->n);
+    BUG("n=%d > SCENE_POLY_MAX\n", p->n);
     return;
   }
 
@@ -217,7 +217,7 @@ scenebuffer_add_text(cairo_scenebuffer_t *sb, const Text_t *t)
 {
   if( sb->text_layout == NULL )
   {
-    BUG("scenebuffer_add_text: no base layout set\n");
+    BUG("no base layout set\n");
     return;
   }
 

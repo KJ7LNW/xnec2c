@@ -47,7 +47,7 @@ config_widget_sync_element(const void *field, size_t size,
   if( GTK_IS_RADIO_MENU_ITEM(w) )
   {
     if( !config_widget_element_selects(elt) )
-      BUG("config_widget_sync_element: radio menu item '%s' has no values\n",
+      BUG("radio menu item '%s' has no values\n",
           elt->widget_id);
     else if( config_widget_element_holds(field, size, elt) )
       gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(w), TRUE);
@@ -70,7 +70,7 @@ config_widget_sync_element(const void *field, size_t size,
   else if( GTK_IS_COMBO_BOX(w) )
   {
     if( elt->values == NULL )
-      BUG("config_widget_sync_element: combo '%s' has no values\n", elt->widget_id);
+      BUG("combo '%s' has no values\n", elt->widget_id);
     else
     {
       int val = field_read_int(field, size);
@@ -114,5 +114,5 @@ config_widget_sync_element(const void *field, size_t size,
           field_read_int(field, size) == elt->values[0]);
   }
   else
-    BUG("config_widget_sync_element: unknown widget type for '%s'\n", elt->widget_id);
+    BUG("unknown widget type for '%s'\n", elt->widget_id);
 }

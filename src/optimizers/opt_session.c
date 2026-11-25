@@ -199,7 +199,7 @@ int opt_start(simple_var_t *vars, int num_vars,
 	 * would crash the worker thread inside g_idle_add_once. */
 	if (on_complete == NULL)
 	{
-		BUG("opt_start: on_complete notifier is NULL\n");
+		BUG("on_complete notifier is NULL\n");
 		return -1;
 	}
 

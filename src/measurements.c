@@ -634,7 +634,7 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 	/* Validate pol before indexing into NUM_POL-sized arrays */
 	if (pol < 0 || pol >= NUM_POL)
 	{
-		BUG("BUG: pol=%d out of range [0,%d): idx=%d freq_step=%d thr=%lu\n",
+		BUG("pol=%d out of range [0,%d): idx=%d freq_step=%d thr=%lu\n",
 			pol, NUM_POL, idx, calc_data.freq_step,
 			(unsigned long)pthread_self());
 		return;
@@ -648,16 +648,16 @@ static void _meas_calc(measurement_t *m, int idx, int port)
 	int nthph = fpat.nth * fpat.nph;
 	if (mgidx < 0 || mgidx >= nthph)
 	{
-		BUG("BUG: mgidx=%d out of range [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n",
+		BUG("mgidx=%d out of range [0,%d): idx=%d pol=%d freq_step=%d thr=%lu\n",
 			mgidx, nthph, idx, pol, calc_data.freq_step,
 			(unsigned long)pthread_self());
-		BUG("BUG: save.fstep[%d]=%d sweep_state=%s\n",
+		BUG("save.fstep[%d]=%d sweep_state=%s\n",
 			idx, save.fstep[idx], freq_sweep_state_name());
-		BUG("BUG: rad_pattern[%d]: efficiency=%.6e gtot=%p max_gain_idx=%p\n",
+		BUG("rad_pattern[%d]: efficiency=%.6e gtot=%p max_gain_idx=%p\n",
 			idx, rad_pattern[idx].efficiency,
 			(void *)rad_pattern[idx].gtot,
 			(void *)rad_pattern[idx].max_gain_idx);
-		BUG("BUG: max_gain_idx[0]=%d [1]=%d [2]=%d\n",
+		BUG("max_gain_idx[0]=%d [1]=%d [2]=%d\n",
 			rad_pattern[idx].max_gain_idx[0],
 			rad_pattern[idx].max_gain_idx[1],
 			rad_pattern[idx].max_gain_idx[2]);
@@ -819,7 +819,7 @@ int meas_name_idx(const char *name, int len)
 
 	if (i == MEAS_COUNT)
 	{
-		BUG("meas_name_idx: Invalid name with length=%d: %s\n", len, name);
+		BUG("Invalid name with length=%d: %s\n", len, name);
 		print_backtrace(NULL);
 	}
 
@@ -894,7 +894,7 @@ void meas_format(measurement_t *m, const char *format, char *out, int outlen)
 	{
 		if (o >= out+outlen)
 		{
-			BUG("meas_format: output overflow\n");
+			BUG("output overflow\n");
 			break;
 		}
 

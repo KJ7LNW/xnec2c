@@ -530,7 +530,7 @@ static void load_goal_groups(GKeyFile *kf)
 		g_free(str);
 		if (idx < 0 || idx >= MEAS_COUNT)
 		{
-			BUG("opt_file_load: unknown metric in [%s]\n",
+			BUG("unknown metric in [%s]\n",
 				groups[i]);
 			continue;
 		}

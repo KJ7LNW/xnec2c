@@ -251,7 +251,7 @@ generate_network_lines(gl_draw_batch_t *batch, const struct_draw_params_t *param
         break;
 
       default:
-        BUG("generate_network_lines: unknown ntyp=%d\n", netcx.ntyp[idx]);
+        BUG("unknown ntyp=%d\n", netcx.ntyp[idx]);
     }
   }
 

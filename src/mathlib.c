@@ -346,7 +346,7 @@ int open_mathlib(mathlib_t *lib)
 
 	if (lib == NULL)
 	{
-		BUG("open_mathlib: lib is NULL\n");
+		BUG("lib is NULL\n");
 		return 0;
 	}
 
@@ -657,7 +657,7 @@ int mathlib_load(mathlib_t *lib)
 {
 	if (lib == NULL)
 	{
-		BUG("mathlib_load: lib == NULL\n");
+		BUG("lib == NULL\n");
 		return 0;
 	}
 
@@ -711,7 +711,7 @@ void set_mathlib_batch(GtkWidget *widget, mathlib_t *lib)
 
 	if (lib == NULL)
 	{
-		BUG("set_mathlib_batch: lib == NULL\n");
+		BUG("lib == NULL\n");
 		return;
 	}
 
@@ -927,7 +927,7 @@ static void bench_append(char **text, const char *fmt, ...)
 
 	if (add < 0)
 	{
-		BUG("bench_append: vsnprintf failed for \"%s\"\n", fmt);
+		BUG("vsnprintf failed for \"%s\"\n", fmt);
 		return;
 	}
 
@@ -954,7 +954,7 @@ void mathlib_benchmark(int slow)
 
 	if (slow < 0 || slow >= MATHLIB_BENCHMARK_COUNT)
 	{
-		BUG("mathlib_benchmark: invalid mode=%d\n", slow);
+		BUG("invalid mode=%d\n", slow);
 		return;
 	}
 
@@ -1172,7 +1172,7 @@ void mathlib_lock_intel(const char *locked_id, int batch)
 	locked_lib = get_mathlib_by_id(locked_id);
 	if (locked_lib == NULL)
 	{
-		BUG("mathlib_lock_intel: Cannot find library for mathlib ID='%s'\n",
+		BUG("Cannot find library for mathlib ID='%s'\n",
 		        locked_id);
 		return;
 	}
@@ -1258,7 +1258,7 @@ int32_t zgetrf(int32_t order, int32_t m, int32_t n, complex double *a, int32_t n
 
 	if (current_mathlib == NULL)
 	{
-		BUG("zgetrf: current_mathlib is NULL, this should never happen.\n");
+		BUG("current_mathlib is NULL, this should never happen.\n");
 		return 1;
 	}
 
@@ -1282,7 +1282,7 @@ int32_t zgetrf(int32_t order, int32_t m, int32_t n, complex double *a, int32_t n
 		return factr_gauss_elim(n, a, (int32_t*)ip, ndim);
 	}
 	else
-		BUG("%s: unsupported mathlib type %d\n", __func__,
+		BUG("unsupported mathlib type %d\n",
 			current_mathlib->type);
 
 	return 1;
@@ -1295,7 +1295,7 @@ int32_t zgetrs(int32_t order, int32_t trans, int32_t lda, int32_t nrhs,
 
 	if (current_mathlib == NULL)
 	{
-		BUG("zgetrs: current_mathlib is NULL, this should never happen.\n");
+		BUG("current_mathlib is NULL, this should never happen.\n");
 		return 1;
 	}
 
@@ -1320,14 +1320,14 @@ int32_t zgetrs(int32_t order, int32_t trans, int32_t lda, int32_t nrhs,
 	else if (current_mathlib->type == MATHLIB_NEC2)
 	{
 		if (lda != ldb)
-			BUG("zgetrs warning: lda(%d) != ldb(%d)\n", lda,
+			BUG("warning: lda(%d) != ldb(%d)\n", lda,
 				ldb);
 
 		// use the original NEC2 function
 		return solve_gauss_elim(lda, a, (int32_t*)ip, b, ndim);
 	}
 	else
-		BUG("%s: unsupported mathlib type %d\n", __func__,
+		BUG("unsupported mathlib type %d\n",
 			current_mathlib->type);
 
 	return 1;
@@ -1371,7 +1371,7 @@ static const char *mathlib_threads_env(const mathlib_t *lib)
 {
 	if (lib == NULL)
 	{
-		BUG("%s: lib is NULL\n", __func__);
+		BUG("lib is NULL\n");
 		return NULL;
 	}
 
@@ -1434,13 +1434,13 @@ void mathlib_set_num_threads(mathlib_t *lib, int threads)
 {
 	if (lib == NULL)
 	{
-		BUG("%s: lib is NULL\n", __func__);
+		BUG("lib is NULL\n");
 		return;
 	}
 
 	if (threads < 1)
 	{
-		BUG("%s: thread count is %d\n", __func__, threads);
+		BUG("thread count is %d\n", threads);
 		threads = 1;
 	}
 

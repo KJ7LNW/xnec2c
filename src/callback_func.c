@@ -292,7 +292,7 @@ rdpattern_mode_apply( void )
     have_data = FALSE;
   else
   {
-    BUG("rdpattern_mode_apply: invalid rdpattern_mode=%d\n",
+    BUG("invalid rdpattern_mode=%d\n",
         rc_config.rdpattern_mode);
     have_data = FALSE;
   }

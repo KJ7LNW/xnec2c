@@ -58,7 +58,7 @@ static char *notice_format_message(const char *msg_fmt, va_list args)
 
 	if (len < 0)
 	{
-		BUG("notice_format_message: vsnprintf failed for \"%s\"\n", msg_fmt);
+		BUG("vsnprintf failed for \"%s\"\n", msg_fmt);
 		len = 0;
 	}
 
@@ -598,7 +598,7 @@ int xnec2c_threads_per_worker(int workers)
 
 	if (workers < 1)
 	{
-		BUG("%s: worker count is %d\n", __func__, workers);
+		BUG("worker count is %d\n", workers);
 		workers = 1;
 	}
 

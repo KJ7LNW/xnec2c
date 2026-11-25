@@ -58,7 +58,7 @@ render_fit_solve(const render_fit_acc_t *acc, render_fit_frame_t *out)
 {
   if( acc == NULL || out == NULL )
   {
-    BUG("render_fit_solve: NULL input\n");
+    BUG("NULL input\n");
     return FALSE;
   }
 
