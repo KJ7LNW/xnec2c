@@ -266,7 +266,7 @@ generate_network_lines(gl_draw_batch_t *batch, const struct_draw_params_t *param
  *
  * Two-port networks (ntyp 1) draw a filled quadrilateral whose corners
  * sit at the one-third points between the endpoints of segments i1 and i2,
- * matching the corner formulas in generate_network_lines().  Triangulated as
+ * on the port-connector lines generate_network_lines() draws.  Triangulated as
  * (c0,c1,c2) and (c0,c2,c3); 6 vertices per ntyp 1 instance.  Transmission
  * line types (ntyp 2,3) contribute nothing.  Sets batch vertex_count.
  */
