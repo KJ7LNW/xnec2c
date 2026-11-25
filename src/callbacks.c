@@ -18,7 +18,6 @@
  */
 
 #include "callbacks.h"
-#include "gdk_scroll.h"
 #include "shared.h"
 #include "opt_ui.h"
 #include "optimizers/opt_session.h"
@@ -544,38 +543,17 @@ rdpattern_window_build( void )
   /* Spin widgets must be resolved before creating the GL widget:
    * opengl_rdpattern_surface_new() dereferences rdpattern_view,
    * which in turn borrows the spin-button pointers. */
-  rotate_rdpattern  = GTK_SPIN_BUTTON( Builder_Get_Object(
-        rdpattern_window_builder, "rdpattern_rotate_spinbutton") );
-  incline_rdpattern = GTK_SPIN_BUTTON(Builder_Get_Object(
-        rdpattern_window_builder, "rdpattern_incline_spinbutton") );
+  window_view_spins_bind( RDPATTERN_WINDOW );
   config_widget_capture( &calc_data.fmhz_save );
-  rdpattern_zoom = GTK_SPIN_BUTTON(Builder_Get_Object(
-        rdpattern_window_builder, "rdpattern_zoom_spinbutton") );
   rdpattern_fstep_entry = GTK_ENTRY(Builder_Get_Object(
         rdpattern_window_builder, "rdpattern_fstep_entry") ) ;
-
-  /* Override the swept controllers on the rotation and incline spins so a
-   * wheel notch moves five degrees while a trackpad frame still floors at
-   * the one-degree quantum. */
-  scroll_install_spin_notches( rotate_rdpattern,  SCROLL_ANGLE_INCREMENT );
-  scroll_install_spin_notches( incline_rdpattern, SCROLL_ANGLE_INCREMENT );
 
   /* Create the rdpattern view before the GL widget; the GL widget
    * constructor installs observers on rdpattern_view and returns
    * NULL otherwise. */
   if( rdpattern_view == NULL )
-  {
-    rdpattern_view = view_new( VIEW_RDPATTERN,
-        rotate_rdpattern, incline_rdpattern, rdpattern_zoom,
-        rdpattern_view_changed_cb, NULL );
-    view_set_spin_handlers( rdpattern_view,
-        G_CALLBACK(on_rdpattern_rotate_spinbutton_value_changed),
-        G_CALLBACK(on_rdpattern_incline_spinbutton_value_changed),
-        G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed) );
-    view_set_drag_mode( rdpattern_view,
-        rc_config.view_drag_constrained
-            ? VIEW_DRAG_CONSTRAINED : VIEW_DRAG_FREE );
-  }
+    window_view_create( RDPATTERN_WINDOW );
+  /* else rdpattern_view is kept from an earlier build */
 
   GtkWidget *rdpattern_cairo_da = Builder_Get_Object(
       rdpattern_window_builder, "rdpattern_drawingarea" );

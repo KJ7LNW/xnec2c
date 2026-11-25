@@ -30,6 +30,10 @@
 #include "shared.h"
 #include "config/widget/config_widget.h"
 #include "render/render_canvas.h"
+#include "gdk_scroll.h"
+#include "rdpattern_ui.h"
+#include "structure_view.h"
+#include "view/view_core.h"
 
 /* Signature of the main-window check menu item handler a window is tracked
  * by, held so the programmatic deactivation blocks that exact handler. */
@@ -55,16 +59,41 @@ typedef enum
 
 } window_place_t;
 
+/* One spin button a window's view borrows: its builder id, the global
+ * holding the widget, and the value-changed handler the view blocks while
+ * it writes the spin. */
+typedef struct
+{
+  const char     *name;
+  GtkSpinButton **spin;
+  GCallback       handler;
+
+} window_spin_ref_t;
+
+/* How a window's view is built: its drawing-area identity, the rotate,
+ * incline and zoom spin buttons it borrows, and the callback it fires on
+ * each state change. */
+typedef struct
+{
+  view_type_t       type;
+  window_spin_ref_t rotate;
+  window_spin_ref_t incline;
+  window_spin_ref_t zoom;
+  view_observer_fn  changed_cb;
+
+} window_view_spec_t;
+
 /* Resources one window owns.  A window carrying no main-window menu item
  * leaves both menu members null, and a window presenting no rotatable view
- * leaves the view member null.  The main window, which main() constructs,
- * leaves the build member null. */
+ * leaves the view member null and its view_spec zeroed.  The main window,
+ * which main() constructs, leaves the build member null. */
 typedef struct
 {
   GtkWidget     **window;
   GtkBuilder    **builder;
   canvas_id_t     canvas;
   view_t        **view;
+  window_view_spec_t view_spec;
   const char     *menu_item;
   window_menu_handler_t menu_handler;
   void          (*build)(void);
@@ -81,6 +110,21 @@ static const window_desc_t window_desc[WINDOW_COUNT] =
   [MAIN_WINDOW] =
     { .window = &main_window, .builder = &main_window_builder,
       .canvas = CANVAS_STRUCTURE, .view = &structure_view,
+      .view_spec =
+        { .type = VIEW_STRUCTURE,
+          .rotate = { .name = "main_rotate_spinbutton",
+            .spin = &rotate_structure,
+            .handler =
+              G_CALLBACK(on_main_rotate_spinbutton_value_changed) },
+          .incline = { .name = "main_incline_spinbutton",
+            .spin = &incline_structure,
+            .handler =
+              G_CALLBACK(on_main_incline_spinbutton_value_changed) },
+          .zoom = { .name = "main_zoom_spinbutton",
+            .spin = &structure_zoom,
+            .handler =
+              G_CALLBACK(on_main_zoom_spinbutton_value_changed) },
+          .changed_cb = structure_view_changed_cb },
       .geom = { .x = &rc_config.main_x, .y = &rc_config.main_y,
                 .width = &rc_config.main_width,
                 .height = &rc_config.main_height } },
@@ -96,6 +140,21 @@ static const window_desc_t window_desc[WINDOW_COUNT] =
   [RDPATTERN_WINDOW] =
     { .window = &rdpattern_window, .builder = &rdpattern_window_builder,
       .canvas = CANVAS_RDPATTERN, .view = &rdpattern_view,
+      .view_spec =
+        { .type = VIEW_RDPATTERN,
+          .rotate = { .name = "rdpattern_rotate_spinbutton",
+            .spin = &rotate_rdpattern,
+            .handler =
+              G_CALLBACK(on_rdpattern_rotate_spinbutton_value_changed) },
+          .incline = { .name = "rdpattern_incline_spinbutton",
+            .spin = &incline_rdpattern,
+            .handler =
+              G_CALLBACK(on_rdpattern_incline_spinbutton_value_changed) },
+          .zoom = { .name = "rdpattern_zoom_spinbutton",
+            .spin = &rdpattern_zoom,
+            .handler =
+              G_CALLBACK(on_rdpattern_zoom_spinbutton_value_changed) },
+          .changed_cb = rdpattern_view_changed_cb },
       .menu_item = "main_rdpattern",
       .menu_handler = on_main_rdpattern_activate,
       .build = rdpattern_window_build,
@@ -248,6 +307,110 @@ window_view(window_t type)
   return( *row->view );
 
 } /* window_view() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * window_view_row() - Resolve the descriptor of a window presenting a view
+ * @type: window whose view is set up
+ *
+ * Return: the descriptor, or NULL when @type names no window or a window
+ * presenting no rotatable view.
+ */
+static const window_desc_t *
+window_view_row(window_t type)
+{
+  const window_desc_t *row = window_row( type );
+
+  if( row == NULL )
+    return NULL;
+
+  if( unlikely(row->view == NULL) )
+  {
+    BUG("window %d presents no rotatable view\n", (int)type);
+    return NULL;
+  }
+
+  return( row );
+
+} /* window_view_row() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * window_view_spin_resolve() - Resolve one spin button a window's view borrows
+ * @builder: builder owning the window's widgets
+ * @ref:     builder id of the spin button and the global receiving it
+ */
+static void
+window_view_spin_resolve(GtkBuilder *builder, const window_spin_ref_t *ref)
+{
+  *ref->spin = GTK_SPIN_BUTTON( Builder_Get_Object(builder, ref->name) );
+
+} /* window_view_spin_resolve() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * window_view_spins_bind() - Bind the spin buttons a window's view borrows
+ * @type: window whose spin buttons are bound
+ *
+ * Resolves the rotate, incline and zoom spin buttons from the window's
+ * builder into the globals its descriptor names, and installs the angle
+ * scroll notches on the rotate and incline spins.
+ */
+void
+window_view_spins_bind(window_t type)
+{
+  const window_desc_t *row = window_view_row( type );
+  const window_view_spec_t *spec;
+
+  if( row == NULL )
+    return;
+
+  spec = &row->view_spec;
+  window_view_spin_resolve( *row->builder, &spec->rotate );
+  window_view_spin_resolve( *row->builder, &spec->incline );
+  window_view_spin_resolve( *row->builder, &spec->zoom );
+
+  /* Override the swept controllers on the rotation and incline spins so a
+   * wheel notch moves five degrees while a trackpad frame still floors at
+   * the one-degree quantum. */
+  scroll_install_spin_notches( *spec->rotate.spin,  SCROLL_ANGLE_INCREMENT );
+  scroll_install_spin_notches( *spec->incline.spin, SCROLL_ANGLE_INCREMENT );
+
+} /* window_view_spins_bind() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * window_view_create() - Create the view a window rotates
+ * @type: window whose view is created
+ *
+ * Creates the view over the spin buttons window_view_spins_bind() resolved,
+ * with the descriptor's change callback, binds the spin handlers the view
+ * blocks while it writes its spins, and selects the configured drag mode.
+ */
+void
+window_view_create(window_t type)
+{
+  const window_desc_t *row = window_view_row( type );
+  const window_view_spec_t *spec;
+
+  if( row == NULL )
+    return;
+
+  spec = &row->view_spec;
+  *row->view = view_new( spec->type,
+      *spec->rotate.spin, *spec->incline.spin, *spec->zoom.spin,
+      spec->changed_cb, NULL );
+  view_set_spin_handlers( *row->view,
+      spec->rotate.handler, spec->incline.handler, spec->zoom.handler );
+  view_set_drag_mode( *row->view,
+      rc_config.view_drag_constrained
+          ? VIEW_DRAG_CONSTRAINED : VIEW_DRAG_FREE );
+
+} /* window_view_create() */
 
 /*-----------------------------------------------------------------------*/
 

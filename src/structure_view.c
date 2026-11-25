@@ -26,7 +26,7 @@
 #include "structure_view.h"
 #include "structure_ui.h"
 #include "shared.h"
-#include "gdk_scroll.h"
+#include "window_lifecycle.h"
 #include "render/render_canvas.h"
 #include "view/view_core.h"
 
@@ -43,7 +43,8 @@
  * Propagation to the rdpattern view under
  * common-projection sharing is handled internally by view_t via the
  * rotation_follower link established by view_share_master().  Bound as
- * changed_cb at view_new() in structure_view_create().
+ * the main window descriptor's changed_cb, which window_view_create()
+ * passes to view_new().
  */
   void
 structure_view_changed_cb(view_t *v, gpointer _user_data)
@@ -67,40 +68,22 @@ structure_view_changed_cb(view_t *v, gpointer _user_data)
  * structure_view_create() - Create the structure view over its spin buttons
  *
  * Binds the main window rotate, incline and zoom spin buttons and the
- * frequency-step entry, installs the angle scroll notches, and creates
- * structure_view from the spin angles and the configured drag mode, with
- * structure_view_changed_cb() as its change callback.
+ * frequency-step entry, creates structure_view through the main window
+ * descriptor, and seeds its angles from the spins.
  */
   void
 structure_view_create( void )
 {
   /* Spin buttons and entry backing the structure view */
-  rotate_structure  = GTK_SPIN_BUTTON(
-      Builder_Get_Object(main_window_builder, "main_rotate_spinbutton") );
-  incline_structure = GTK_SPIN_BUTTON(
-      Builder_Get_Object(main_window_builder, "main_incline_spinbutton") );
-  scroll_install_spin_notches( rotate_structure,  SCROLL_ANGLE_INCREMENT );
-  scroll_install_spin_notches( incline_structure, SCROLL_ANGLE_INCREMENT );
-  structure_zoom = GTK_SPIN_BUTTON(
-      Builder_Get_Object(main_window_builder, "main_zoom_spinbutton") );
+  window_view_spins_bind( MAIN_WINDOW );
   structure_fstep_entry = GTK_ENTRY(
       Builder_Get_Object(main_window_builder, "structure_fstep_entry") );
 
-  /* Create the view over the spin buttons, bind their handlers, and seed
-   * its angles and drag mode */
-  structure_view = view_new( VIEW_STRUCTURE,
-      rotate_structure, incline_structure, structure_zoom,
-      structure_view_changed_cb, NULL );
-  view_set_spin_handlers( structure_view,
-      G_CALLBACK(on_main_rotate_spinbutton_value_changed),
-      G_CALLBACK(on_main_incline_spinbutton_value_changed),
-      G_CALLBACK(on_main_zoom_spinbutton_value_changed) );
+  /* Create the view over the spin buttons, then seed its angles from them */
+  window_view_create( MAIN_WINDOW );
   view_set_angles( structure_view,
       gtk_spin_button_get_value( rotate_structure ),
       gtk_spin_button_get_value( incline_structure ) );
-  view_set_drag_mode( structure_view,
-      rc_config.view_drag_constrained
-          ? VIEW_DRAG_CONSTRAINED : VIEW_DRAG_FREE );
 }
 
 /*-----------------------------------------------------------------------*/

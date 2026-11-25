@@ -27,6 +27,8 @@ gboolean window_is_open(window_t type);
 gboolean window_build(window_t type);
 GtkBuilder *window_builder(window_t type);
 view_t *window_view(window_t type);
+void window_view_spins_bind(window_t type);
+void window_view_create(window_t type);
 canvas_id_t window_canvas(window_t type);
 GtkRequisition window_geom_size(window_t type);
 window_t window_from_widget(GtkWidget *widget);
