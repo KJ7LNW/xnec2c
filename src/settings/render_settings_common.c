@@ -75,7 +75,8 @@ void
 hook_set_radius_scale(void)
 {
   rc_config.wire_radius_scale =
-    CLAMP(rc_config.wire_radius_scale, 0.0, WIRE_RADIUS_SCALE_MAX);
+    CLAMP(rc_config.wire_radius_scale,
+        WIRE_RADIUS_SCALE_MIN, WIRE_RADIUS_SCALE_MAX);
   hook_render_redraw();
 }
 

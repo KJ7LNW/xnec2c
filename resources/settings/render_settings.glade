@@ -13,9 +13,9 @@
     <property name="can-focus">False</property>
   </object>
 
-  <!-- Wire radius scale range for the General tab slider -->
+  <!-- Wire radius scale steps for the General tab slider; its bounds come
+       from the wire radius limits when the settings window is built -->
   <object class="GtkAdjustment" id="adj_cylinder_scale">
-    <property name="lower">0.1</property><property name="upper">10</property>
     <property name="step-increment">0.1</property>
     <property name="page-increment">1</property>
   </object>

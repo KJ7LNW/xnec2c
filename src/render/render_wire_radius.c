@@ -83,7 +83,7 @@ wire_radius_scroll(
 
     if( dl_flt(new_scale, WIRE_FORM_LINE_THRESHOLD) )
     {
-      new_scale = 0.0;
+      new_scale = WIRE_RADIUS_SCALE_MIN;
     }
   }
 

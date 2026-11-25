@@ -20,6 +20,7 @@
 #include "../shared.h"
 #include "../callbacks.h"
 #include "../config/widget/config_widget_ops.h"
+#include "../render/render_wire_radius.h"
 #include "render_settings.h"
 #include "render_settings_internal.h"
 #include "render_settings_common.h"
@@ -57,6 +58,30 @@ general_tab_apply_gl_sensitivity(void)
 
   config_widget_set_sensitive(&rc_config.use_opengl_renderer, usable);
   config_widget_set_tooltip(&rc_config.use_opengl_renderer, reason);
+}
+
+/*------------------------------------------------------------------------*/
+
+/** general_tab_apply_radius_bounds - Bound the wire radius slider by the scale limits
+ * @builder: the settings builder holding adj_cylinder_scale
+ *
+ * Called by render_settings_init() before the first sync, so the slider
+ * presents every scale ctrl+scroll stores, line mode at the minimum included.
+ */
+static void
+general_tab_apply_radius_bounds(GtkBuilder *builder)
+{
+  GtkAdjustment *adjustment = GTK_ADJUSTMENT(
+      gtk_builder_get_object(builder, "adj_cylinder_scale"));
+
+  if( adjustment == NULL )
+  {
+    BUG("adj_cylinder_scale is absent from the settings builder\n");
+    return;
+  }
+
+  gtk_adjustment_set_lower(adjustment, WIRE_RADIUS_SCALE_MIN);
+  gtk_adjustment_set_upper(adjustment, WIRE_RADIUS_SCALE_MAX);
 }
 
 /*------------------------------------------------------------------------*/
@@ -100,6 +125,9 @@ render_settings_init(void)
 
   /* Family sliders read their snap marks and value format from the tone rows */
   color_tone_marks_attach( render_settings_builder );
+
+  /* The wire radius slider spans the limits every ctrl+scroll store obeys */
+  general_tab_apply_radius_bounds( render_settings_builder );
 
   /* Append tab pages: General (from render_settings.glade),
    * Color (from color_settings.glade), OpenGL (from opengl_settings.glade),

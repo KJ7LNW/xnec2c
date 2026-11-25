@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PROGRAM = Path(sys.argv[0]).name
 DISPLAY_LOG = "display.log"
 VIEWER_SOCKET = "vnc.sock"
+XNEC2C = ROOT / "src" / "xnec2c"
 
 
 def pr_message(severity: str, subject: str, state: str) -> None:
@@ -62,19 +63,41 @@ def start_display(gl_environment: dict[str, str], viewer_socket: Path, glx: bool
     return server, number
 
 
-def run_app(gl_environment: dict[str, str], run_dir: Path, display: str, app_args: list[str]) -> int:
-    """Run xnec2c on the display with its home in the run directory and return its exit status."""
+def run_app(gl_environment: dict[str, str], run_dir: Path, display: str, command: list[str]) -> int:
+    """Run the command, xnec2c or a program running it, on the display with its home in the run directory and
+    return its exit status."""
 
     # Keep the app's settings out of the user's home
     environment = dict(gl_environment, DISPLAY=display, GDK_BACKEND="x11", HOME=str(run_dir),
                        XDG_CONFIG_HOME=str(run_dir / "config"), XDG_CACHE_HOME=str(run_dir / "cache"))
-    result = subprocess.run([str(ROOT / "src" / "xnec2c"), *app_args], env=environment)
+    result = subprocess.run(command, env=environment)
     if result.returncode < 0:
-        pr_err("xnec2c", f"terminated by {signal.Signals(-result.returncode).name}")
+        pr_err(Path(command[0]).name, f"terminated by {signal.Signals(-result.returncode).name}")
         status = 128 - result.returncode
     else:
-        # xnec2c reports its own failures
+        # The command reports its own failures
         status = result.returncode
+    return status
+
+
+def run_on_display(run_dir: Path, glx: bool, egl_vendor: Path | None, command: list[str]) -> int:
+    """Run the command on a private display that closes when the command exits and return its exit status."""
+    viewer_socket = run_dir / VIEWER_SOCKET
+    run_dir.mkdir(parents=True, exist_ok=True)
+    gl_environment = software_gl_environment(egl_vendor)
+    with (run_dir / DISPLAY_LOG).open("w") as log:
+        server, number = start_display(gl_environment, viewer_socket, glx, log)
+        try:
+            if number.isdecimal():
+                display = f":{number}"
+                pr_info("display", f"{display} (GLX {'on' if glx else 'off'}; viewer {viewer_socket})")
+                status = run_app(gl_environment, run_dir, display, command)
+            else:
+                pr_err("Xvnc", f"exited before reporting a display ({log.name})")
+                status = 1
+        finally:
+            server.terminate()
+            server.wait()
     return status
 
 
@@ -90,23 +113,7 @@ def main() -> int:
     args = parser.parse_args()
     if args.egl_vendor is not None and not args.egl_vendor.is_file():
         parser.error(f"--egl-vendor {args.egl_vendor}: no such manifest file")
-    viewer_socket = args.run_dir / VIEWER_SOCKET
-    args.run_dir.mkdir(parents=True, exist_ok=True)
-    gl_environment = software_gl_environment(args.egl_vendor)
-    with (args.run_dir / DISPLAY_LOG).open("w") as log:
-        server, number = start_display(gl_environment, viewer_socket, args.glx, log)
-        try:
-            if number.isdecimal():
-                display = f":{number}"
-                pr_info("display", f"{display} (GLX {'on' if args.glx else 'off'}; viewer {viewer_socket})")
-                status = run_app(gl_environment, args.run_dir, display, args.app_args)
-            else:
-                pr_err("Xvnc", f"exited before reporting a display ({log.name})")
-                status = 1
-        finally:
-            server.terminate()
-            server.wait()
-    return status
+    return run_on_display(args.run_dir, args.glx, args.egl_vendor, [str(XNEC2C), *args.app_args])
 
 
 if __name__ == "__main__":

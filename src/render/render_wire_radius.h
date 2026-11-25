@@ -25,6 +25,9 @@
 /* Scale below which segments render as lines instead of solids with 0.001 epsilon for slider */
 #define WIRE_FORM_LINE_THRESHOLD 0.101
 
+/* Minimum allowed radius scale; it draws wires as lines */
+#define WIRE_RADIUS_SCALE_MIN 0.0
+
 /* Maximum allowed radius scale */
 #define WIRE_RADIUS_SCALE_MAX 100.0
 
