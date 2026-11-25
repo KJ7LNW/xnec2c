@@ -25,12 +25,7 @@
 #include "structure_canvas.h"
 #include "structure_view.h"
 #include "signal_handler.h"
-#include "window_lifecycle.h"
-#include "cairo/cairo_draw.h"
 #include "cairo/cairo_fit.h"
-#ifdef HAVE_OPENGL
-#include "opengl-engine/opengl_view_fit.h"
-#endif
 #include "config_hooks.h"
 #include "config/config_frequency.h"
 #include "config/widget/config_widget_ops.h"
@@ -38,8 +33,6 @@
 #include "ui_style.h"
 
 #include <getopt.h>
-#include <poll.h>
-#include <time.h>
 
 /* Child process pid returned by fork() */
 static pid_t child_pid = (pid_t)(-1);
