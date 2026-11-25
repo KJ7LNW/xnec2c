@@ -747,7 +747,7 @@ on_main_freqplots_activate(
 
 /* opengl_common_projection_sync()
  *
- * Public entry point used by main.c when the rdpattern window is
+ * Public entry point used by input_open.c when the rdpattern window is
  * already open during file load.  Applies the persisted common-
  * projection preference by installing or removing the master-follower
  * link between the two view_t instances.
@@ -767,7 +767,7 @@ opengl_common_projection_sync(void)
 /* Common_Pan_Sync()
  *
  * Public entry point (mirrors opengl_common_projection_sync() above,
- * called the same way from main.c on new file load) applying the
+ * called the same way from input_open.c on new file load) applying the
  * persisted common-pan preference. Unlike projection, pan isn't a
  * live master/follower link -- Pan_View_On_Arrow_Key() already keeps
  * both views moving together going forward once enabled by mirroring

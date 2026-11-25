@@ -107,6 +107,7 @@ src/fields.c
 src/fields.h
 src/fork.c
 src/fork.h
+src/fork_teardown.c
 src/freq_sweep_controls.c
 src/freq_sweep_state.c
 src/freqplots/freqplots_action.c
@@ -143,6 +144,7 @@ src/ground.h
 src/i18n.h
 src/input.c
 src/input.h
+src/input_open.c
 src/interface.c
 src/interface.h
 src/location.h
@@ -310,6 +312,8 @@ src/settings/render_settings_opengl.c
 src/settings/render_settings_stubs.c
 src/shared.c
 src/shared.h
+src/signal_handler.c
+src/signal_handler.h
 src/somnec.c
 src/somnec.h
 src/structure_canvas.c

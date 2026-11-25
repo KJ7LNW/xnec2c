@@ -8,6 +8,7 @@ bin_PROGRAMS = xnec2c
 
 xnec2c_SOURCES = \
     main.c          main.h \
+    signal_handler.c signal_handler.h \
     args.c          args.h \
     branch_hints.h \
     location.h \
@@ -35,12 +36,14 @@ xnec2c_SOURCES = \
     window_lifecycle.c window_lifecycle.h \
     fields.c        fields.h \
     fork.c          fork.h \
+    fork_teardown.c \
     geometry.c      geometry.h \
     ground.c        ground.h \
     xnec2c.c        xnec2c.h \
     freq_sweep_controls.c \
     freq_sweep_state.c \
     input.c         input.h \
+    input_open.c \
     matrix.c        matrix.h \
     ui_style.c      ui_style.h \
     utils.c         utils.h \
