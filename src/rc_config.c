@@ -811,7 +811,7 @@ rc_config_vars_t rc_config_vars[] = {
 		.vars = { rc_config.mathlib_id }, .size = MATHLIB_ID_LEN, .init = mathlib_config_init },
 
 	{ .desc = "Selected Batch Mathlib", .format = "%s",
-		.vars = { rc_config.mathlib_batch_id }, .size = MATHLIB_ID_LEN, .init = mathlib_config_init },
+		.vars = { rc_config.mathlib_batch_id }, .size = MATHLIB_ID_LEN, .init = mathlib_config_batch_init },
 
 	{ .desc = "Selected Mathlib Benchmarks",
 		.parse = mathlib_config_benchmark_parse,

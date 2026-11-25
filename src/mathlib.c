@@ -29,7 +29,6 @@
     "Restart to change MKL threading library.")
 
 void mathlib_mkl_set_threading_intel(mathlib_t *lib);
-void set_mathlib_batch(GtkWidget *widget, mathlib_t *lib);
 static void mathlib_resolve_set_threads(mathlib_t *lib);
 
 // Legacy index mapping for backwards compatibility with integer-based configs.
@@ -531,19 +530,38 @@ static const char *migrate_legacy_index(const char *id_str)
 	return NULL;
 }
 
-// Restore selection on open with backwards compatibility migration:
-void mathlib_config_init(rc_config_vars_t *v, char *line)
+/**
+ * migrate_mathlib_id() - replace a legacy index stored in a mathlib id field
+ * @id_field: stored selection, MATHLIB_ID_LEN bytes
+ *
+ * A legacy index in range becomes the id it names.  An id, or a legacy index
+ * out of range, stays as stored for the lookup after it to accept or reject.
+ */
+static void migrate_mathlib_id(char *id_field)
+{
+	const char *migrated_id = migrate_legacy_index(id_field);
+
+	if ((migrated_id != NULL) && (migrated_id != id_field))
+	{
+		strncpy(id_field, migrated_id, MATHLIB_ID_LEN - 1);
+		id_field[MATHLIB_ID_LEN - 1] = '\0';
+	}
+	// else the field holds an id, or a legacy index out of range
+}
+
+/**
+ * mathlib_config_init() - restore the interactive library selection on open
+ * @_v:    config entry restored, unused: its field is rc_config.mathlib_id
+ * @_line: value line parsed, unused: the parse stored it in that field
+ *
+ * Migrates a legacy index, then loads a stored library that is available and
+ * otherwise the first available one.
+ */
+void mathlib_config_init(rc_config_vars_t *_v, char *_line)
 {
 	mathlib_t *lib;
-	const char *migrated_id;
 
-	migrated_id = migrate_legacy_index(rc_config.mathlib_id);
-
-	if (migrated_id != NULL && migrated_id != rc_config.mathlib_id)
-	{
-		strncpy(rc_config.mathlib_id, migrated_id, MATHLIB_ID_LEN - 1);
-		rc_config.mathlib_id[MATHLIB_ID_LEN - 1] = '\0';
-	}
+	migrate_mathlib_id(rc_config.mathlib_id);
 
 	if (rc_config.mathlib_id[0] != '\0')
 	{
@@ -570,31 +588,27 @@ void mathlib_config_init(rc_config_vars_t *v, char *line)
 	{
 		select_first_available_mathlib(rc_config.mathlib_id, 1);
 	}
+}
 
-	migrated_id = migrate_legacy_index(rc_config.mathlib_batch_id);
+/**
+ * mathlib_config_batch_init() - restore the batch library selection on open
+ * @_v:    config entry restored, unused: its field is rc_config.mathlib_batch_id
+ * @_line: value line parsed, unused: the parse stored it in that field
+ *
+ * Migrates a legacy index, then keeps a stored id naming an available library
+ * and otherwise takes the first available one.  Child processes load the batch
+ * library, so the parent records its id and opens none.
+ */
+void mathlib_config_batch_init(rc_config_vars_t *_v, char *_line)
+{
+	mathlib_t *lib;
 
-	if (migrated_id != NULL && migrated_id != rc_config.mathlib_batch_id)
-	{
-		strncpy(rc_config.mathlib_batch_id, migrated_id, MATHLIB_ID_LEN - 1);
-		rc_config.mathlib_batch_id[MATHLIB_ID_LEN - 1] = '\0';
-	}
+	migrate_mathlib_id(rc_config.mathlib_batch_id);
 
-	if (rc_config.mathlib_batch_id[0] != '\0')
-	{
-		lib = get_mathlib_by_id(rc_config.mathlib_batch_id);
-		if (lib && lib->available)
-		{
-			set_mathlib_batch(NULL, lib);
-		}
-		else
-		{
-			select_first_available_mathlib(rc_config.mathlib_batch_id, 0);
-		}
-	}
-	else
-	{
+	lib = get_mathlib_by_id(rc_config.mathlib_batch_id);
+	if ((lib == NULL) || !lib->available)
 		select_first_available_mathlib(rc_config.mathlib_batch_id, 0);
-	}
+	// else the stored id names an available library and stands as loaded
 }
 
 int mathlib_config_benchmark_parse(rc_config_vars_t *v, char *line)

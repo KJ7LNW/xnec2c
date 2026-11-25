@@ -138,7 +138,8 @@ void set_mathlib_interactive(GtkWidget *widget, mathlib_t *lib);
 void mathlib_lock_intel_interactive(const char *locked_id);
 void mathlib_lock_intel_batch(const char *locked_id);
 
-void mathlib_config_init(rc_config_vars_t *v, char *line);
+void mathlib_config_init(rc_config_vars_t *_v, char *_line);
+void mathlib_config_batch_init(rc_config_vars_t *_v, char *_line);
 int mathlib_config_benchmark_parse(rc_config_vars_t *v, char *line);
 int mathlib_config_benchmark_save(rc_config_vars_t *v, FILE *fp);
 
