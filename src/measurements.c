@@ -421,7 +421,7 @@ noise_temp_resolve(int fstep, double *t_sky, double *t_earth)
     if( !warned )
     {
       warned = TRUE;
-      pr_warn("noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting to 0\n");
+      pr_warn("noise_temp table not allocated; t_sky/t_earth defaulting to 0\n");
     }
     return;
   }

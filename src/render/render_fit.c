@@ -64,7 +64,7 @@ render_fit_solve(const render_fit_acc_t *acc, render_fit_frame_t *out)
 
   if( !acc->any )
   {
-    pr_warn("render_fit_solve: no geometry to fit\n");
+    pr_warn("no geometry to fit\n");
     return FALSE;
   }
 

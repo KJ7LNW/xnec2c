@@ -68,7 +68,7 @@ gl_view_fit_parallel(gl_view_state_t *state, view_fit_t *fit)
   if( !fl_fgt(tangent, 0.0f) || !fl_fgt(distance, 0.0f)
       || !fl_fgt(r_max, 0.0f) || !fl_fgt(pan_scale, 0.0f) )
   {
-    pr_warn("gl_view_fit_view: no frame solved: r_max=%g distance=%g proj=%d"
+    pr_warn("no frame solved: r_max=%g distance=%g proj=%d"
         " box=[%g,%g,%g,%g]\n", (double)r_max, (double)distance, 0,
         (double)acc.minx, (double)acc.miny, (double)acc.maxx, (double)acc.maxy);
     return FALSE;

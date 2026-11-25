@@ -309,7 +309,7 @@ gradient_cache_update(gradient_cache_t *cache, int w, int h)
   cache->surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, w, h);
   if( cairo_surface_status(cache->surface) != CAIRO_STATUS_SUCCESS )
   {
-    pr_warn("gradient_cache_update: surface creation failed (%dx%d)\n", w, h);
+    pr_warn("surface creation failed (%dx%d)\n", w, h);
     cairo_surface_destroy(cache->surface);
     cache->surface    = NULL;
     /* Invalidate input snapshot so a transient retry rebuilds even when

@@ -369,7 +369,7 @@ Stop( int err, const char *format, ... )
   else
     g_rec_mutex_unlock(&freq_data_lock);
 
-  pr_err("Stop: %s\n", mesg);
+  pr_err("%s\n", mesg);
 
   /* For child processes */
   if( CHILD )

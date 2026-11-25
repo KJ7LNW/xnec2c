@@ -1846,7 +1846,7 @@ verify_kernel_limits(void)
   retval &= verify_kernel_limits();
 
   if (calc_data.FR_cards == 0) {
-    pr_debug("verify_segments() skipping frequency-dependent checks - no frequency data\n");
+    pr_debug("skipping frequency-dependent checks - no frequency data\n");
     return retval;
   }
 

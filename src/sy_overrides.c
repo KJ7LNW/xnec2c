@@ -1090,7 +1090,7 @@ sy_overrides_init(void)
   if( !gtk_builder_add_from_resource(sy_overrides_builder,
         "/sy_overrides.glade", &gerror) )
   {
-    pr_err("sy_overrides_init: failed to load glade: %s\n", gerror->message);
+    pr_err("failed to load glade: %s\n", gerror->message);
     g_error_free(gerror);
     return FALSE;
   }
@@ -1104,7 +1104,7 @@ sy_overrides_init(void)
 
   if( sy_overrides_window == NULL || content_grid == NULL )
   {
-    pr_err("sy_overrides_init: failed to get widgets from glade\n");
+    pr_err("failed to get widgets from glade\n");
     return FALSE;
   }
 

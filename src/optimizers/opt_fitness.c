@@ -506,7 +506,7 @@ double fitness_transform(enum fitness_direction direction,
 			break;
 	}
 
-	pr_err("fitness_transform: unknown direction %d\n", direction);
+	pr_err("unknown direction %d\n", direction);
 	abort();
 }
 
@@ -579,7 +579,7 @@ static double reduce_values(const double *values, int n,
 			break;
 	}
 
-	pr_err("reduce_values: unknown reduction method %d\n", reduce);
+	pr_err("unknown reduction method %d\n", reduce);
 	abort();
 }
 

@@ -294,7 +294,7 @@ void simple_config_init(simple_config_t *cfg, enum optimizer_algo algo)
 			break;
 
 		default:
-			pr_err("simple_config_init: unknown algorithm %d\n", algo);
+			pr_err("unknown algorithm %d\n", algo);
 			break;
 	}
 }

@@ -666,7 +666,7 @@ int mathlib_load(mathlib_t *lib)
 
 	if (!lib->available)
 	{
-		pr_err("mathlib_load[%d]: mathlib.available=0, skipping: %s\n",
+		pr_err("[%d]: mathlib.available=0, skipping: %s\n",
 		        getpid(), lib->name);
 		return 0;
 	}

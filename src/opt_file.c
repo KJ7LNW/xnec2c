@@ -339,7 +339,7 @@ gboolean opt_file_save(void)
 	ok = g_key_file_save_to_file(kf, path, &err);
 	if (!ok)
 	{
-		pr_err("opt_file_save: %s\n", err->message);
+		pr_err("%s\n", err->message);
 		g_clear_error(&err);
 	}
 
@@ -655,7 +655,7 @@ gboolean opt_file_load(void)
 		/* File not found is normal for new models */
 		if (!g_error_matches(err, G_FILE_ERROR, G_FILE_ERROR_NOENT))
 		{
-			pr_err("opt_file_load: %s\n", err->message);
+			pr_err("%s\n", err->message);
 		}
 		g_clear_error(&err);
 		g_key_file_free(kf);

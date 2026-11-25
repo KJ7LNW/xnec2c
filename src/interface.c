@@ -367,7 +367,7 @@ create_animate_dialog( GtkBuilder **builder )
   *builder = gtk_builder_new();
   if( !gtk_builder_add_from_resource( *builder, "/animate.glade", &gerror ) )
   {
-    pr_err("create_animate_dialog: failed to load animate.glade: %s\n", gerror->message);
+    pr_err("failed to load animate.glade: %s\n", gerror->message);
     exit( -1 );
   }
 

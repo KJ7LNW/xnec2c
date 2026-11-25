@@ -247,7 +247,7 @@ void mem_backtrace(void *ptr)
 
 	m = mem_obj_from_ptr(ptr);
 
-	pr_debug("mem_backtrace(%p):\n", ptr);
+	pr_debug("%p:\n", ptr);
 
 	if (m->backtrace == NULL)
 		pr_debug("  m->backtrace is null, no backtrace data\n");
@@ -276,7 +276,7 @@ void *_mem_clone(void *ptr, char *site)
 	dst = mem_obj_alloc(src, NULL, src->used, src->used, site);
 	if (unlikely(dst == NULL))
 	{
-		pr_crit("mem_clone: allocation failed for %lu bytes\n",
+		pr_crit("allocation failed for %lu bytes\n",
 			(unsigned long)src->used);
 		abort();
 	}

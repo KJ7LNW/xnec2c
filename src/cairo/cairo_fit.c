@@ -112,7 +112,7 @@ cairo_fit_view(render_surface_t *surface, view_fit_t *fit)
   g_rec_mutex_unlock(&freq_data_lock);
 
   if( acc.any && !solved )
-    pr_warn("cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g]"
+    pr_warn("no frame solved: extent=%g box=[%g,%g,%g,%g]"
         " view=%dx%d\n", (double)extent, (double)acc.minx, (double)acc.miny,
         (double)acc.maxx, (double)acc.maxy, view->width, view->height);
 

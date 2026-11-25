@@ -1243,7 +1243,7 @@ sy_load_overrides(const gchar *filename)
     colon = strchr(p, ':');
     if( colon == NULL )
     {
-      pr_err("sy_load_overrides: malformed line (no colon): %s", line);
+      pr_err("malformed line (no colon): %s", line);
       continue;
     }
 
@@ -1450,8 +1450,8 @@ sy_save_overrides(const gchar *filename)
   fp = fopen(filename, "w");
   if( fp == NULL )
   {
-    pr_err("sy_save_overrides: cannot open %s for writing: %s\n",
-        filename, strerror(errno));
+    pr_err("cannot open %s for writing: %s\n",
+           filename, strerror(errno));
     return FALSE;
   }
 

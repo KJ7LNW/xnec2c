@@ -191,7 +191,7 @@ int opt_start(simple_var_t *vars, int num_vars,
 
 	if (active_session != NULL && active_session->running)
 	{
-		pr_err("opt_start: optimizer already running\n");
+		pr_err("optimizer already running\n");
 		return -1;
 	}
 
@@ -255,7 +255,7 @@ int opt_start(simple_var_t *vars, int num_vars,
 	session->simple = simple_new(&session->simple_cfg);
 	if (session->simple == NULL)
 	{
-		pr_err("opt_start: simple_new failed\n");
+		pr_err("simple_new failed\n");
 		goto cleanup;
 	}
 
@@ -264,7 +264,7 @@ int opt_start(simple_var_t *vars, int num_vars,
 	ret = pthread_create(&session->thread, NULL, opt_thread_func, session);
 	if (ret != 0)
 	{
-		pr_err("opt_start: pthread_create failed: %d\n", ret);
+		pr_err("pthread_create failed: %d\n", ret);
 		simple_free(session->simple);
 		active_session = NULL;
 		goto cleanup;

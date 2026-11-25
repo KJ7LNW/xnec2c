@@ -772,7 +772,7 @@ datagn( void )
             }
           }
           else
-            pr_info("Read_Geometry: verify_segments() passed\n");
+            pr_info("verify_segments() passed\n");
         }
 
         if( !conect(itg) ) return( FALSE );

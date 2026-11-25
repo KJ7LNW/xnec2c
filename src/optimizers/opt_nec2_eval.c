@@ -77,7 +77,7 @@ void nec2_eval_signal(void)
 
 	if (!g_mutex_trylock(&eval_mutex))
 	{
-		pr_warn("nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n",
+		pr_warn("eval_mutex contention, blocking (thr=%lu)\n",
 			(unsigned long)pthread_self());
 		g_mutex_lock(&eval_mutex);
 	}
@@ -191,7 +191,7 @@ int nec2_eval_run(const simple_var_t *vars, int num_vars,
 
 	if (!eval_initialized)
 	{
-		pr_err("nec2_eval_run: not initialized\n");
+		pr_err("not initialized\n");
 		return -1;
 	}
 

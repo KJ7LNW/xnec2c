@@ -139,8 +139,8 @@ render_settings_load_glade(void)
   if( !gtk_builder_add_from_resource(render_settings_builder,
         "/settings/render_settings.glade", &gerror) )
   {
-    pr_err("render_settings_init: failed to load glade: %s\n",
-        gerror->message);
+    pr_err("failed to load glade: %s\n",
+           gerror->message);
     g_error_free(gerror);
     return FALSE;
   }
@@ -149,8 +149,8 @@ render_settings_load_glade(void)
   if( !gtk_builder_add_from_resource(render_settings_builder,
         "/settings/opengl_settings.glade", &gerror) )
   {
-    pr_err("render_settings_init: failed to load opengl glade: %s\n",
-        gerror->message);
+    pr_err("failed to load opengl glade: %s\n",
+           gerror->message);
     g_error_free(gerror);
     return FALSE;
   }
@@ -159,8 +159,8 @@ render_settings_load_glade(void)
   if( !gtk_builder_add_from_resource(render_settings_builder,
         "/settings/cairo_settings.glade", &gerror) )
   {
-    pr_err("render_settings_init: failed to load cairo glade: %s\n",
-        gerror->message);
+    pr_err("failed to load cairo glade: %s\n",
+           gerror->message);
     g_error_free(gerror);
     return FALSE;
   }
@@ -180,8 +180,7 @@ render_settings_load_glade(void)
         "render_settings_window"));
   if( render_settings_window == NULL )
   {
-    pr_err("render_settings_init: "
-        "failed to get render_settings_window from glade\n");
+    pr_err("failed to get render_settings_window from glade\n");
     return FALSE;
   }
 
