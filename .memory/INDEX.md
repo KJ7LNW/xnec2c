@@ -1,0 +1,13 @@
+Read a .memory/ file before any task resembling the one it names.
+- batch_png_export.md: changing how batch mode sizes, renders, fits, or captures PNG frames
+- child_pipe_protocol.md: changing the pipe communication or field transfer schema between the frequency child processes and the parent
+- doc_manual.md: changing doc/xnec2c.html or doc/xnec2c.1.in
+- launch_xvnc.md: launching xnec2c for a test, proof, or screenshot, or reproducing serial sweep failures
+- mem_alloc.md: writing C code that allocates, copies, zeroes, or frees memory, or designing a data structure
+- po_catalog.md: changing po/Makevars flags or keywords, refreshing po catalogs, running catalog format gates, or changing how po scripts classify entry states
+- po_message_text.md: authoring, rewording, or moving user-visible strings in C source or glade files
+- render_canvas.md: binding engines to canvases, requesting frames or widget repaints, or calling GTK draw functions
+- render_pipeline.md: changing prerender, render-layer dispatch, or render backends, OpenGL framebuffer handling included
+- structure_view.md: changing structure view startup, theme timing before the first draw, structure geometry colors, or two-port network drawing
+- theme_palette.md: changing magnitude color producers or presentation caches, or authoring a theme gradient ladder
+- ui_widget.md: writing widget values programmatically, changing signal handlers or reset sequences, disabling a widget, branching on widget state, or adding config item hooks
