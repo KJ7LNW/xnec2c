@@ -64,6 +64,7 @@ Draw_Structure_UI(void)
 
   if( calc_data.freq_step >= 0 )
     Display_Fstep( structure_fstep_entry, calc_data.freq_step );
+  /* else no frequency step: the step entry retains its previous value */
 
   /* Update structure-window color code labels for current/charge display */
   int fstep = calc_data.freq_step;
@@ -142,7 +143,7 @@ Draw_Structure_UI(void)
   void
 Show_Viewer_Gain(
     GtkBuilder *builder,
-    gchar *widget,
+    const gchar *widget,
     view_t *v )
 {
   if(struct_view_currents() ||
@@ -156,7 +157,9 @@ Show_Viewer_Gain(
       snprintf( txt, sizeof(txt)-1, "%.2f", Viewer_Gain(v, calc_data.freq_step) );
       gtk_entry_set_text( GTK_ENTRY(Builder_Get_Object(builder, widget)), txt );
     }
+    /* else no radiation pattern at this step: entry retains its previous value */
   }
+  /* else no current, charge or gain display, no sweep: entry retains its value */
 
 } /* Show_Viewer_Gain() */
 

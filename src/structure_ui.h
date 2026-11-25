@@ -24,7 +24,7 @@
 #include "chroma/chroma.h"
 
 void Draw_Structure_UI(void);
-void Show_Viewer_Gain(GtkBuilder *builder, gchar *widget, view_t *v);
+void Show_Viewer_Gain(GtkBuilder *builder, const gchar *widget, view_t *v);
 void structure_viewer_readout(void);
 
 #endif
