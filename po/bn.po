@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 02:39-0800\n"
+"POT-Creation-Date: 2026-11-25 13:19-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -1001,11 +1001,11 @@ msgid "Automatically apply changes and reload model after 300ms delay"
 msgstr ""
 "300ms বিলম্বের পরে স্বয়ংক্রিয়ভাবে পরিবর্তন প্রয়োগ করুন এবং মডেল পুনরায় লোড করুন"
 
-#: resources/sy_overrides.glade:714 src/geom_edit.c:2866
+#: resources/sy_overrides.glade:714 src/geom_edit.c:2848
 msgid "_Apply"
 msgstr "_প্রয়োগ করুন"
 
-#: resources/sy_overrides.glade:729 src/geom_edit.c:2865
+#: resources/sy_overrides.glade:729 src/geom_edit.c:2847
 msgid "_Cancel"
 msgstr "_বাতিল"
 
@@ -1639,7 +1639,7 @@ msgstr "কার্ড পরিচালনা"
 msgid "File Save"
 msgstr "ফাইল সংরক্ষণ"
 
-#: resources/xnec2c.glade:6003 src/nec2_model.c:279
+#: resources/xnec2c.glade:6003 src/nec2_model.c:278
 msgid "Comments"
 msgstr "মন্তব্য"
 
@@ -1848,27 +1848,27 @@ msgstr "কোণ 2-3 উপবিভাগ (NY)"
 msgid "Surface Sub-division"
 msgstr "পৃষ্ঠতল উপবিভাগ"
 
-#: resources/xnec2c.glade:7533 src/geom_edit.c:1157
+#: resources/xnec2c.glade:7533 src/geom_edit.c:1151
 msgid "Center - X"
 msgstr "কেন্দ্র - X"
 
-#: resources/xnec2c.glade:7565 src/geom_edit.c:1163
+#: resources/xnec2c.glade:7565 src/geom_edit.c:1157
 msgid "Normal - Elev."
 msgstr "অভিলম্ব - উন্নতি"
 
-#: resources/xnec2c.glade:7597 src/geom_edit.c:1159
+#: resources/xnec2c.glade:7597 src/geom_edit.c:1153
 msgid "Center - Y"
 msgstr "কেন্দ্র - Y"
 
-#: resources/xnec2c.glade:7629 src/geom_edit.c:1165
+#: resources/xnec2c.glade:7629 src/geom_edit.c:1159
 msgid "Normal - Azim."
 msgstr "অভিলম্ব - দিগংশ"
 
-#: resources/xnec2c.glade:7661 src/geom_edit.c:1161
+#: resources/xnec2c.glade:7661 src/geom_edit.c:1155
 msgid "Center - Z"
 msgstr "কেন্দ্র - Z"
 
-#: resources/xnec2c.glade:7693 src/geom_edit.c:1167
+#: resources/xnec2c.glade:7693 src/geom_edit.c:1161
 msgid "Patch Area"
 msgstr "প্যাচ ক্ষেত্রফল"
 
@@ -3329,10 +3329,10 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "কনফিগ ফাইল বিদ্যমান নেই বা পাঠযোগ্য নয়: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1836 src/input.c:1837
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
-#: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
+#: src/sy_expr.c:172 src/utils.c:680
 #, c-format
 msgid "%s"
 msgstr ""
@@ -3364,11 +3364,8 @@ msgstr "--%s-এর জন্য <width>x<height> প্রয়োজন: %s\n
 
 #: src/cairo/cairo_fit.c:115
 #, c-format
-msgid ""
-"cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
-msgstr ""
-"cairo_fit_view: কোনো ফ্রেম সমাধান করা হয়নি: extent=%g box=[%g,%g,%g,%g] view="
-"%dx%d\n"
+msgid "no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
+msgstr "কোনো ফ্রেম সমাধান করা হয়নি: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
 # xnec2c-exempt: notation
 #: src/cairo/cairo_frame.c:302
@@ -3477,11 +3474,11 @@ msgstr "Touchstone 2-port ফাইল (*.s2p)"
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "কমা-বিভক্ত CSV ফাইল (*.csv)"
 
-#: src/callbacks.c:83 src/callbacks.c:99 src/freqplots/freqplots_core.c:69
+#: src/callbacks.c:81 src/callbacks.c:97 src/freqplots/freqplots_core.c:69
 msgid "Antenna Temperature"
 msgstr "অ্যান্টেনা তাপমাত্রা"
 
-#: src/callbacks.c:84
+#: src/callbacks.c:82
 #, c-format
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
@@ -3490,7 +3487,7 @@ msgstr ""
 "মডেলে গ্রাউন্ড প্লেন সনাক্ত হয়েছে। Ta ফলাফল গ্রাউন্ড প্রভাব অতিরিক্ত গণনা করবে। "
 "অ্যান্টেনা তাপমাত্রা মূল্যায়নের জন্য ফ্রি-স্পেস মডেল প্রমিত।"
 
-#: src/callbacks.c:100
+#: src/callbacks.c:98
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3499,12 +3496,12 @@ msgstr ""
 "θ=%.0f°-এ সর্বোচ্চ গেইন (XY সমতল থেকে %.0f°)। কনভেনশন অনুসারে বিম XY সমতলে এবং "
 "পর্যবেক্ষণ উন্নতি স্পিনবাটন দ্বারা সেট করা হয়।"
 
-#: src/callbacks.c:186 src/callbacks.c:520 src/callbacks.c:1675
-#: src/callbacks.c:1845
+#: src/callbacks.c:184 src/callbacks.c:518 src/callbacks.c:1652
+#: src/callbacks.c:1822
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "আপনি কি নিশ্চিত যে xnec2c থেকে প্রস্থান করতে চান?"
 
-#: src/callbacks.c:290
+#: src/callbacks.c:288
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3512,7 +3509,7 @@ msgstr ""
 "ফ্রিকোয়েন্সি লুপ চলাকালীন\n"
 "নতুন NEC2 ইনপুট ফাইল তৈরি করা যাবে না"
 
-#: src/callbacks.c:327
+#: src/callbacks.c:325
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3520,22 +3517,22 @@ msgstr ""
 "ফ্রিকোয়েন্সি লুপ চলাকালীন\n"
 "নতুন NEC2 ইনপুট ফাইল খোলা যাবে না"
 
-#: src/callbacks.c:446
+#: src/callbacks.c:444
 msgid "xnec2c geometry optimizer"
 msgstr "xnec2c জ্যামিতি অপ্টিমাইজার"
 
-#: src/callbacks.c:447
+#: src/callbacks.c:445
 #, c-format
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
 "xnec2c inotify সমর্থন ছাড়া তৈরি করা হয়েছে: অপ্টিমাইজার সক্রিয় করা যাবে না।"
 
-#: src/callbacks.c:468
+#: src/callbacks.c:466
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c অপ্টিমাইজার"
 
-#: src/callbacks.c:468
+#: src/callbacks.c:466
 #, c-format
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
@@ -3546,21 +3543,21 @@ msgstr ""
 "এখনও পরিবর্তনের সময় ইনপুট ফাইল পুনরায় লোড এবং পুনঃগণনা করবে। \"File-"
 ">Optimization Settings\"-এ লেখার জন্য ফাইল নির্বাচন করুন।"
 
-#: src/callbacks.c:972 src/callbacks.c:1289 src/callbacks.c:1871
+#: src/callbacks.c:949 src/callbacks.c:1266 src/callbacks.c:1848
 msgid "Are you sure you wish to close this window?"
 msgstr "আপনি কি নিশ্চিত যে এই উইন্ডোটি বন্ধ করতে চান?"
 
-#: src/callbacks.c:1503
+#: src/callbacks.c:1480
 #, c-format
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr "এই ডিসপ্লেতে OpenGL উপলব্ধ নেই; রেন্ডারার সক্রিয় করা যাচ্ছে না।\n"
 
-#: src/callbacks.c:1811
+#: src/callbacks.c:1788
 #, c-format
 msgid "No open NEC2 input file"
 msgstr "কোনো NEC2 ইনপুট ফাইল খোলা নেই"
 
-#: src/callbacks.c:1902 src/callbacks.c:1932
+#: src/callbacks.c:1879 src/callbacks.c:1909
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3569,26 +3566,16 @@ msgstr ""
 "NEC2 এডিটরের ডেটা সংরক্ষণ করা যাবে না"
 
 # xnec2c-exempt: name
-#: src/callbacks.c:1914 src/callbacks.c:1940
+#: src/callbacks.c:1891 src/callbacks.c:1917
 msgid "untitled.nec"
 msgstr ""
 
-#: src/callbacks.c:2401 src/callbacks.c:2421 src/callbacks.c:2441
-#: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
-#, c-format
-msgid ""
-"Frequency (FR) cards not yet processed.\n"
-"You may need to save the NEC2 Editor data first."
-msgstr ""
-"Frequency (FR) কার্ড এখনো প্রক্রিয়া করা হয়নি।\n"
-"আপনাকে প্রথমে NEC2 এডিটর ডেটা সংরক্ষণ করতে হতে পারে।"
-
-#: src/chroma/chroma.c:315
+#: src/chroma/chroma.c:313
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "অবৈধ রং প্রক্ষেপণ %d, instant ব্যবহার করা হচ্ছে\n"
 
-#: src/chroma/chroma.c:627
+#: src/chroma/chroma.c:626
 #, c-format
 msgid "invalid segment scale encoding %d, using model radius\n"
 msgstr "অবৈধ সেগমেন্ট স্কেল এনকোডিং %d, মডেল ব্যাসার্ধ ব্যবহার করা হচ্ছে\n"
@@ -4166,8 +4153,8 @@ msgstr ""
 msgid "VSWR vs Frequency"
 msgstr "VSWR বনাম ফ্রিকোয়েন্সি"
 
-#: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
-#: src/geom_edit.c:2703
+#: src/geom_edit.c:108 src/geom_edit.c:1982 src/geom_edit.c:2254
+#: src/geom_edit.c:2685
 #, c-format
 msgid ""
 "Error reading row data\n"
@@ -4185,7 +4172,7 @@ msgstr ""
 "সারি ডেটা লিখতে ত্রুটি\n"
 "অনুগ্রহ করে সারি পুনরায় নির্বাচন করুন"
 
-#: src/geom_edit.c:583
+#: src/geom_edit.c:577
 #, c-format
 msgid ""
 "GC card preceded by GW card\n"
@@ -4194,12 +4181,12 @@ msgstr ""
 "অশূন্য তার ব্যাসার্ধ সহ GW কার্ডের\n"
 "পরে GC কার্ড রয়েছে"
 
-#: src/geom_edit.c:587
+#: src/geom_edit.c:581
 #, c-format
 msgid "No GW card before GC card"
 msgstr "GC কার্ডের আগে কোনো GW কার্ড নেই"
 
-#: src/geom_edit.c:611
+#: src/geom_edit.c:605
 #, c-format
 msgid ""
 "No GC card after a GW card\n"
@@ -4208,7 +4195,7 @@ msgstr ""
 "শূন্য তার ব্যাসার্ধ সহ GW কার্ডের পরে\n"
 "কোনো GC কার্ড নেই"
 
-#: src/geom_edit.c:620
+#: src/geom_edit.c:614
 #, c-format
 msgid ""
 "GC card follows a GW card\n"
@@ -4217,7 +4204,7 @@ msgstr ""
 "GC কার্ড অশূন্য তার ব্যাসার্ধ সহ\n"
 "GW কার্ডের পরে এসেছে"
 
-#: src/geom_edit.c:1025
+#: src/geom_edit.c:1019
 #, c-format
 msgid ""
 "SC card preceded by SP card\n"
@@ -4226,12 +4213,12 @@ msgstr ""
 "স্বেচ্ছাচারী প্যাচ প্রকার সহ SP কার্ডের\n"
 "পরে SC কার্ড রয়েছে"
 
-#: src/geom_edit.c:1037
+#: src/geom_edit.c:1031
 #, c-format
 msgid "No SP or SM card before SC card"
 msgstr "SC কার্ডের আগে কোনো SP বা SM কার্ড নেই"
 
-#: src/geom_edit.c:1057
+#: src/geom_edit.c:1051
 #, c-format
 msgid ""
 "No SC card after an SP card\n"
@@ -4240,7 +4227,7 @@ msgstr ""
 "অ-স্বেচ্ছাচারী প্যাচ প্রকার সহ SP কার্ডের পরে\n"
 "কোনো SC কার্ড নেই"
 
-#: src/geom_edit.c:1064
+#: src/geom_edit.c:1058
 #, c-format
 msgid ""
 "SC card follows an SP card\n"
@@ -4249,47 +4236,56 @@ msgstr ""
 "SC কার্ড স্বেচ্ছাচারী প্যাচ প্রকার সহ\n"
 "SP কার্ডের পরে এসেছে"
 
-#: src/geom_edit.c:1077
+#: src/geom_edit.c:1071
 #, c-format
 msgid "No SC card after an SM card"
 msgstr "SM কার্ডের পরে কোনো SC কার্ড নেই"
 
-#: src/geom_edit.c:1172
+#: src/geom_edit.c:1166
 msgid "Corner 1 - X"
 msgstr "কোণ 1 - X"
 
-#: src/geom_edit.c:1174
+#: src/geom_edit.c:1168
 msgid "Corner 1 - Y"
 msgstr "কোণ 1 - Y"
 
-#: src/geom_edit.c:1176
+#: src/geom_edit.c:1170
 msgid "Corner 1 - Z"
 msgstr "কোণ 1 - Z"
 
-#: src/geom_edit.c:1178
+#: src/geom_edit.c:1172
 msgid "Corner 2 - X"
 msgstr "কোণ 2 - X"
 
-#: src/geom_edit.c:1180
+#: src/geom_edit.c:1174
 msgid "Corner 2 - Y"
 msgstr "কোণ 2 - Y"
 
-#: src/geom_edit.c:1182
+#: src/geom_edit.c:1176
 msgid "Corner 2 - Z"
 msgstr "কোণ 2 - Z"
 
-#: src/geom_edit.c:2861
+#: src/geom_edit.c:2843
 msgid "SY Card Editor"
 msgstr "SY কার্ড এডিটর"
 
-#: src/geom_edit.c:2871
+#: src/geom_edit.c:2853
 msgid "SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"
 msgstr "SY সংজ্ঞা (যেমন FREQ=146, LAMBDA=300/FREQ):"
 
-#: src/geom_edit.c:2970
+#: src/geom_edit.c:2952
 #, c-format
 msgid "NEC2 editor window not open"
 msgstr "NEC2 এডিটর উইন্ডো খোলা নেই"
+
+#: src/geom_edit.c:2980
+#, c-format
+msgid ""
+"Frequency (FR) cards not yet processed.\n"
+"You may need to save the NEC2 Editor data first."
+msgstr ""
+"Frequency (FR) কার্ড এখনো প্রক্রিয়া করা হয়নি।\n"
+"আপনাকে প্রথমে NEC2 এডিটর ডেটা সংরক্ষণ করতে হতে পারে।"
 
 #: src/geometry.c:118
 #, c-format
@@ -4625,11 +4621,8 @@ msgstr "%d সেগমেন্টের জন্য ওভারল্যা�
 
 #: src/geometry.c:1849
 #, c-format
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr ""
-"verify_segments() ফ্রিকোয়েন্সি-নির্ভর পরীক্ষা এড়িয়ে যাচ্ছে - কোনো ফ্রিকোয়েন্সি ডেটা "
-"নেই\n"
+msgid "skipping frequency-dependent checks - no frequency data\n"
+msgstr "ফ্রিকোয়েন্সি-নির্ভর পরীক্ষা এড়িয়ে যাচ্ছে - কোনো ফ্রিকোয়েন্সি ডেটা নেই\n"
 
 #: src/gnuplot.c:43
 msgid "Gnuplot Data"
@@ -4764,7 +4757,7 @@ msgstr "b, a-এর চেয়ে ছোট"
 msgid "step size limited at z = %12.5E\n"
 msgstr "Z = %12.5E-এ ধাপের আকার সীমিত\n"
 
-#: src/input.c:150
+#: src/input.c:151
 #, c-format
 msgid ""
 "Error reading Comments\n"
@@ -4773,7 +4766,7 @@ msgstr ""
 "মন্তব্য পড়তে ত্রুটি\n"
 "অপ্রত্যাশিত EOF (ফাইলের শেষ)"
 
-#: src/input.c:164
+#: src/input.c:165
 #, c-format
 msgid ""
 "Error reading Comments\n"
@@ -4782,7 +4775,7 @@ msgstr ""
 "মন্তব্য পড়তে ত্রুটি\n"
 "মন্তব্য মেমোনিক ছোট বা অনুপস্থিত"
 
-#: src/input.c:175
+#: src/input.c:176
 #, c-format
 msgid ""
 "Read_Comments():\n"
@@ -4793,7 +4786,7 @@ msgstr ""
 " ইনপুট ফাইল পড়তে ত্রুটি\n"
 "মন্তব্য মেমোনিক ভুল"
 
-#: src/input.c:215
+#: src/input.c:216
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4802,7 +4795,7 @@ msgstr ""
 "জ্যামিতি ডেটা ত্রুটি\n"
 "ট্যাগ নম্বর ঋণাত্মক"
 
-#: src/input.c:222
+#: src/input.c:223
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4811,12 +4804,12 @@ msgstr ""
 "জ্যামিতি ডেটা ত্রুটি\n"
 "সেগমেন্ট সংখ্যা 1-এর কম"
 
-#: src/input.c:229
+#: src/input.c:230
 #, c-format
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "সতর্কতা - সেগমেন্ট সংখ্যা 1000000-এর বেশি\n"
 
-#: src/input.c:252
+#: src/input.c:253
 #, c-format
 msgid ""
 "%s card: tag 0 selects segment %d by absolute position in the structure, not "
@@ -4827,12 +4820,12 @@ msgstr ""
 "%d নির্বাচন করে; পরম অবস্থান নির্ধারণ উদ্দেশ্য না হলে তারটিকে একটি ট্যাগ নম্বর দিন "
 "এবং সেই ট্যাগের মধ্যে সেগমেন্টটি উল্লেখ করুন\n"
 
-#: src/input.c:299
+#: src/input.c:300
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "%s ডেটা কার্ড ত্রুটি: ভুল অক্ষর '%c' কলাম %d-এ\n"
 
-#: src/input.c:301
+#: src/input.c:302
 #, c-format
 msgid ""
 "Data card error\n"
@@ -4841,37 +4834,37 @@ msgstr ""
 "ডেটা কার্ড ত্রুটি\n"
 "কার্ডে ভুল অক্ষর"
 
-#: src/input.c:372
+#: src/input.c:373
 #, c-format
 msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: \"%s\"-এর জন্য এক্সপ্রেশন মূল্যায়ন ব্যর্থ\n"
 
-#: src/input.c:413
+#: src/input.c:414
 #, c-format
 msgid "SY card: no line content available\n"
 msgstr "SY কার্ড: কোনো লাইন বিষয়বস্তু উপলব্ধ নেই\n"
 
-#: src/input.c:414
+#: src/input.c:415
 #, c-format
 msgid "SY card: no line content available"
 msgstr "SY কার্ড: কোনো লাইন বিষয়বস্তু উপলব্ধ নেই"
 
-#: src/input.c:431
+#: src/input.c:432
 #, c-format
 msgid "SY card: missing '=' in definition\n"
 msgstr "SY কার্ড: সংজ্ঞায় '=' অনুপস্থিত\n"
 
-#: src/input.c:432
+#: src/input.c:433
 #, c-format
 msgid "SY card: missing '=' in definition"
 msgstr "SY কার্ড: সংজ্ঞায় '=' অনুপস্থিত"
 
-#: src/input.c:465
+#: src/input.c:466
 #, c-format
 msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "SY কার্ড: %s=%s-এর জন্য সিম্বল সংজ্ঞা ব্যর্থ\n"
 
-#: src/input.c:652
+#: src/input.c:653
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4880,31 +4873,31 @@ msgstr ""
 "জ্যামিতি ডেটা ত্রুটি\n"
 "টেপার্ড তারের জন্য কোনো GC কার্ড নেই"
 
-#: src/input.c:659
+#: src/input.c:660
 #, c-format
 msgid "Geometry GC data card error"
 msgstr "জ্যামিতি GC ডেটা কার্ড ত্রুটি"
 
-#: src/input.c:675
+#: src/input.c:676
 #, c-format
 msgid "Geometry GX data card error"
 msgstr "জ্যামিতি GX ডেটা কার্ড ত্রুটি"
 
-#: src/input.c:698
+#: src/input.c:699
 #, c-format
 msgid "Geometry GR data card error"
 msgstr "জ্যামিতি GR ডেটা কার্ড ত্রুটি"
 
-#: src/input.c:752
+#: src/input.c:753
 #, c-format
 msgid "No geometry data cards"
 msgstr "কোনো জ্যামিতি ডেটা কার্ড নেই"
 
-#: src/input.c:763
+#: src/input.c:764
 msgid "Probable invalid segment geometry.\n"
 msgstr "সম্ভাব্য অবৈধ সেগমেন্ট জ্যামিতি।\n"
 
-#: src/input.c:764
+#: src/input.c:765
 #, c-format
 msgid ""
 "Invalid segment geometry.\n"
@@ -4915,43 +4908,43 @@ msgstr ""
 "বিস্তারিত জন্য কনসোলে সতর্কতা দেখুন।\n"
 "চালিয়ে যাওয়ার চেষ্টা করা হচ্ছে..."
 
-#: src/input.c:770
+#: src/input.c:771
 #, c-format
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "সম্ভাব্য অবৈধ সেগমেন্ট জ্যামিতি (উপরে দেখুন)\n"
 
-#: src/input.c:774
+#: src/input.c:775
 #, c-format
-msgid "Read_Geometry: verify_segments() passed\n"
-msgstr "Read_Geometry: verify_segments() পাস হয়েছে\n"
+msgid "verify_segments() passed\n"
+msgstr "verify_segments() পাস হয়েছে\n"
 
-#: src/input.c:811
+#: src/input.c:812
 #, c-format
 msgid "segment data error: tag=%d si=%f, bi=%f\n"
 msgstr "সেগমেন্ট ডেটা ত্রুটি: tag=%d si=%f, bi=%f\n"
 
-#: src/input.c:813
+#: src/input.c:814
 #, c-format
 msgid "Segment data error, zero-length line?  See console."
 msgstr "সেগমেন্ট ডেটা ত্রুটি, শূন্য-দৈর্ঘ্যের লাইন? কনসোল দেখুন।"
 
-#: src/input.c:853
+#: src/input.c:854
 #, c-format
 msgid "Move GM data card error"
 msgstr "Move GM ডেটা কার্ড ত্রুটি"
 
-#: src/input.c:869 src/input.c:910 src/input.c:927 src/input.c:945
-#: src/input.c:953
+#: src/input.c:870 src/input.c:911 src/input.c:928 src/input.c:946
+#: src/input.c:954
 #, c-format
 msgid "Patch data card error"
 msgstr "Patch ডেটা কার্ড ত্রুটি"
 
-#: src/input.c:891
+#: src/input.c:892
 #, c-format
 msgid "Patch data error"
 msgstr "Patch ডেটা ত্রুটি"
 
-#: src/input.c:1000
+#: src/input.c:1001
 #, c-format
 msgid ""
 "\"GF\" card (NGF solution)\n"
@@ -4960,73 +4953,73 @@ msgstr ""
 "\"GF\" কার্ড (NGF সমাধান)\n"
 "সমর্থিত নয়"
 
-#: src/input.c:1005
+#: src/input.c:1006
 #, c-format
 msgid "Ignoring CM card in geometry"
 msgstr "জ্যামিতিতে CM কার্ড উপেক্ষা করা হচ্ছে"
 
-#: src/input.c:1018
+#: src/input.c:1019
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
 msgstr "জ্যামিতি ডেটা কার্ড ত্রুটি (nwire=%d)\n"
 
 # xnec2c-exempt: symbol
-#: src/input.c:1019
+#: src/input.c:1020
 #, c-format
 msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
-#: src/input.c:1025
+#: src/input.c:1026
 #, c-format
 msgid "Command card in geometry section"
 msgstr "জ্যামিতি বিভাগে কমান্ড কার্ড"
 
-#: src/input.c:1027
+#: src/input.c:1028
 #, c-format
 msgid "Unrecognized geometry card"
 msgstr "অস্বীকৃত জ্যামিতি কার্ড"
 
-#: src/input.c:1051
+#: src/input.c:1052
 #, c-format
 msgid "Failed to initialize symbol table\n"
 msgstr "সিম্বল টেবিল আরম্ভ করতে ব্যর্থ\n"
 
-#: src/input.c:1052
+#: src/input.c:1053
 #, c-format
 msgid "Failed to initialize symbol table"
 msgstr "সিম্বল টেবিল আরম্ভ করতে ব্যর্থ"
 
-#: src/input.c:1192
+#: src/input.c:1193
 #, c-format
 msgid "No FR card: computing one step at the NEC-2 default %g MHz\n"
 msgstr "কোনো FR কার্ড নেই: NEC-2 ডিফল্ট %g MHz-এ এক ধাপ গণনা করা হচ্ছে\n"
 
-#: src/input.c:1283
+#: src/input.c:1284
 #, c-format
 msgid "ignoring CM card in commands\n"
 msgstr "কমান্ডে CM কার্ড উপেক্ষা করা হচ্ছে\n"
 
-#: src/input.c:1284
+#: src/input.c:1285
 #, c-format
 msgid "Ignoring CM card in commands"
 msgstr "কমান্ডে CM কার্ড উপেক্ষা করা হচ্ছে"
 
-#: src/input.c:1296
+#: src/input.c:1297
 #, c-format
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "CP কার্ড উপেক্ষা করা হয়েছে: কাপলিং গণনা বাস্তবায়িত নয়\n"
 
-#: src/input.c:1392
+#: src/input.c:1393
 #, c-format
 msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "%g MHz-এ ডুপ্লিকেট FR কার্ড এড়িয়ে যাওয়া হচ্ছে\n"
 
-#: src/input.c:1457
+#: src/input.c:1458
 #, c-format
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "FR কার্ডে সর্বোচ্চ ফ্রিকোয়েন্সি <= সর্বনিম্ন ফ্রিকোয়েন্সি\n"
 
-#: src/input.c:1458
+#: src/input.c:1459
 #, c-format
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
@@ -5035,7 +5028,7 @@ msgstr ""
 "FR কার্ডে সর্বোচ্চ ফ্রিকোয়েন্সি <= সর্বনিম্ন ফ্রিকোয়েন্সি\n"
 "অনুগ্রহ করে FR কার্ড ডেটা পরীক্ষা করে সংশোধন করুন"
 
-#: src/input.c:1481
+#: src/input.c:1482
 #, c-format
 msgid ""
 "Fix the GE/GN cards:\n"
@@ -5045,12 +5038,12 @@ msgstr ""
 "GE/GN কার্ড ঠিক করুন:\n"
 "GE কার্ড নির্দেশ করে যে গ্রাউন্ড আছে, কিন্তু GN অন্যথা নির্দেশ করে।"
 
-#: src/input.c:1495
+#: src/input.c:1496
 #, c-format
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "গ্রাউন্ড নির্দিষ্ট করার সাথে theta > 90 ডিগ্রি\n"
 
-#: src/input.c:1496 src/radiation.c:911
+#: src/input.c:1497 src/radiation.c:911
 #, c-format
 msgid ""
 "Theta > 90 deg with ground specified\n"
@@ -5059,7 +5052,7 @@ msgstr ""
 "গ্রাউন্ড নির্দিষ্ট করার সাথে Theta > 90 ডিগ্রি\n"
 "অনুগ্রহ করে RP কার্ড ডেটা পরীক্ষা করে সংশোধন করুন"
 
-#: src/input.c:1505
+#: src/input.c:1506
 #, c-format
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
@@ -5067,7 +5060,7 @@ msgid ""
 msgstr ""
 "রেডিয়াল তার g.s. আনুমানিক: Sommerfeld গ্রাউন্ড অপশনের সাথে ব্যবহার করা যাবে না\n"
 
-#: src/input.c:1506
+#: src/input.c:1507
 #, c-format
 msgid ""
 "radial wire g.s. approximation\n"
@@ -5076,7 +5069,7 @@ msgstr ""
 "রেডিয়াল তার g.s. আনুমানিক\n"
 "Sommerfeld গ্রাউন্ড অপশনের সাথে ব্যবহার করা যাবে না"
 
-#: src/input.c:1554
+#: src/input.c:1555
 #, c-format
 msgid ""
 "data fault on loading card no %d: itag step1 %d is greater than itag step2 "
@@ -5084,7 +5077,7 @@ msgid ""
 msgstr ""
 "লোডিং কার্ড নম্বর %d-এ ডেটা ত্রুটি: itag step1 %d itag step2 %d-এর চেয়ে বড়\n"
 
-#: src/input.c:1556
+#: src/input.c:1557
 #, c-format
 msgid ""
 "Data fault on loading card\n"
@@ -5093,14 +5086,14 @@ msgstr ""
 "লোডিং কার্ডে ডেটা ত্রুটি\n"
 "itag step1 itag step2-এর চেয়ে বড়"
 
-#: src/input.c:1685
+#: src/input.c:1686
 #, c-format
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr ""
 "ট্রান্সমিশন লাইন ইম্পিড্যান্স = 0: বৈধ নয়। অনুগ্রহ করে NT বা TL কার্ড সংশোধন করুন\n"
 
-#: src/input.c:1686
+#: src/input.c:1687
 #, c-format
 msgid ""
 "Transmission Line impedance = 0\n"
@@ -5109,12 +5102,12 @@ msgstr ""
 "ট্রান্সমিশন লাইন ইম্পিড্যান্স = 0\n"
 "বৈধ নয়। অনুগ্রহ করে NT বা TL কার্ড সংশোধন করুন"
 
-#: src/input.c:1697
+#: src/input.c:1698
 #, c-format
 msgid "Segment number error in TL or NT card\n"
 msgstr "TL বা NT কার্ডে সেগমেন্ট নম্বর ত্রুটি\n"
 
-#: src/input.c:1698
+#: src/input.c:1699
 #, c-format
 msgid ""
 "Segment number\n"
@@ -5123,22 +5116,22 @@ msgstr ""
 "NT বা TL কার্ডে\n"
 "সেগমেন্ট নম্বর ত্রুটি"
 
-#: src/input.c:1720
+#: src/input.c:1721
 #, c-format
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr "PQ এবং PT কার্ড উপেক্ষা করা হয়েছে: ফাইলে মুদ্রণ বাস্তবায়িত নয়\n"
 
-#: src/input.c:1724
+#: src/input.c:1725
 #, c-format
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "PL কার্ড উপেক্ষা করা হয়েছে: ফাইলে প্লটিং সমর্থিত নয়\n"
 
-#: src/input.c:1730
+#: src/input.c:1731
 #, c-format
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "সারফেস ওয়েভ অপশন (I1=1): RP কমান্ডের বাস্তবায়িত হয়নি\n"
 
-#: src/input.c:1731
+#: src/input.c:1732
 #, c-format
 msgid ""
 "Surface wave option (I1=1)\n"
@@ -5147,7 +5140,7 @@ msgstr ""
 "সারফেস ওয়েভ অপশন (I1=1)\n"
 "RP কমান্ডের বাস্তবায়িত হয়নি"
 
-#: src/input.c:1763
+#: src/input.c:1764
 #, c-format
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
@@ -5156,7 +5149,7 @@ msgstr ""
 "গ্রাউন্ড নির্দিষ্ট করার সাথে Theta > 90 ডিগ্রি: অনুগ্রহ করে RP কার্ড ডেটা পরীক্ষা করে "
 "সংশোধন করুন\n"
 
-#: src/input.c:1764
+#: src/input.c:1765
 #, c-format
 msgid ""
 "Theta > 90 deg. with ground specified\n"
@@ -5165,27 +5158,27 @@ msgstr ""
 "গ্রাউন্ড নির্দিষ্ট করার সাথে Theta > 90 ডিগ্রি\n"
 "অনুগ্রহ করে RP কার্ড ডেটা পরীক্ষা করে সংশোধন করুন"
 
-#: src/input.c:1831
+#: src/input.c:1832
 msgid "Geometry card in command section"
 msgstr "কমান্ড বিভাগে জ্যামিতি কার্ড"
 
-#: src/input.c:1834
+#: src/input.c:1835
 msgid "Unrecognized command card"
 msgstr "অস্বীকৃত কমান্ড কার্ড"
 
-#: src/input.c:1879
+#: src/input.c:1880
 #, c-format
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
 msgstr "অনুপস্থিত বা সারফেস-ওয়েভ RP কার্ড: বিকিরণ প্যাটার্ন এবং গেইন গণনা অক্ষম\n"
 
-#: src/input.c:1906
+#: src/input.c:1907
 #, c-format
 msgid "Unexpected exit from while loop"
 msgstr "while লুপ থেকে অপ্রত্যাশিত প্রস্থান"
 
-#: src/input.c:1997
+#: src/input.c:1998
 #, c-format
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
@@ -5194,7 +5187,7 @@ msgstr ""
 "কমান্ড ডেটা কার্ড ত্রুটি: ইনপুট ফাইল পড়ার সময় অপ্রত্যাশিত EOF - EN কার্ড যোগ করা "
 "হচ্ছে\n"
 
-#: src/input.c:1998
+#: src/input.c:1999
 #, c-format
 msgid ""
 "Command data card error\n"
@@ -5205,12 +5198,12 @@ msgstr ""
 "ইনপুট ফাইল পড়ার সময় অপ্রত্যাশিত EOF\n"
 "ডিফল্ট EN কার্ড যোগ করা হচ্ছে"
 
-#: src/input.c:2015
+#: src/input.c:2016
 #, c-format
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr "কমান্ড ডেটা কার্ড ত্রুটি: কার্ডের মেমোনিক কোড খুব ছোট বা অনুপস্থিত\n"
 
-#: src/input.c:2016
+#: src/input.c:2017
 #, c-format
 msgid ""
 "Command data card error\n"
@@ -5219,11 +5212,11 @@ msgstr ""
 "কমান্ড ডেটা কার্ড ত্রুটি\n"
 "মেমোনিক কোড খুব ছোট বা অনুপস্থিত"
 
-#: src/input.c:2072 src/input.c:2103
+#: src/input.c:2073 src/input.c:2104
 msgid "command data"
 msgstr "নির্দেশের উপাত্ত"
 
-#: src/input.c:2217
+#: src/input.c:2218
 #, c-format
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
@@ -5232,7 +5225,7 @@ msgstr ""
 "জ্যামিতি ডেটা কার্ড ত্রুটি: ইনপুট ফাইল পড়ার সময় অপ্রত্যাশিত EOF - GE কার্ড যোগ করা "
 "হচ্ছে\n"
 
-#: src/input.c:2218
+#: src/input.c:2219
 #, c-format
 msgid ""
 "Geometry data card error\n"
@@ -5243,12 +5236,12 @@ msgstr ""
 "ইনপুট ফাইল পড়ার সময় অপ্রত্যাশিত EOF\n"
 "ডিফল্ট GE কার্ড যোগ করা হচ্ছে"
 
-#: src/input.c:2235
+#: src/input.c:2236
 #, c-format
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr "জ্যামিতি ডেটা কার্ড ত্রুটি: কার্ডের মেমোনিক কোড খুব ছোট বা অনুপস্থিত\n"
 
-#: src/input.c:2236
+#: src/input.c:2237
 #, c-format
 msgid ""
 "Geometry data card error\n"
@@ -5257,7 +5250,7 @@ msgstr ""
 "জ্যামিতি ডেটা কার্ড ত্রুটি\n"
 "কার্ডের মেমোনিক কোড খুব ছোট বা অনুপস্থিত"
 
-#: src/input.c:2285 src/input.c:2315
+#: src/input.c:2286 src/input.c:2316
 msgid "geometry data"
 msgstr "জ্যামিতির উপাত্ত"
 
@@ -5297,8 +5290,8 @@ msgid "Listing Object Ids:\n"
 msgstr "অবজেক্ট আইডি তালিকা:\n"
 
 # xnec2c-exempt: symbol
-#: src/interface.c:202 src/utils.c:424 src/utils.c:428 src/utils.c:438
-#: src/utils.c:440
+#: src/interface.c:202 src/opt_file.c:342 src/opt_file.c:658 src/utils.c:372
+#: src/utils.c:379 src/utils.c:383 src/utils.c:393 src/utils.c:395
 #, c-format
 msgid "%s\n"
 msgstr ""
@@ -5319,102 +5312,62 @@ msgstr ""
 
 #: src/interface.c:370
 #, c-format
-msgid "create_animate_dialog: failed to load animate.glade: %s\n"
-msgstr "create_animate_dialog: animate.glade লোড করতে ব্যর্থ: %s\n"
+msgid "failed to load animate.glade: %s\n"
+msgstr "animate.glade লোড করতে ব্যর্থ: %s\n"
 
-#: src/main.c:126
+#: src/main.c:113
 msgid "none (no display)"
 msgstr "কিছুই নয় (প্রদর্শন নেই)"
 
-#: src/main.c:129
+#: src/main.c:116
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s উইন্ডোয়িং ব্যাকএন্ড সনাক্ত হয়েছে\n"
 
-#: src/main.c:137
+#: src/main.c:124
 #, c-format
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch এবং --optimize পারস্পরিক একচেটিয়া।\n"
 
-#: src/main.c:157
+#: src/main.c:144
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "ইনপুট ফাইল পাথ নাম অনেক দীর্ঘ ( > %d অক্ষর )\n"
 
-#: src/main.c:164
+#: src/main.c:151
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "অপ্রত্যাশিত আর্গুমেন্ট '%s' একটি .nec ফাইল বলে মনে হচ্ছে না\n"
 
-#: src/main.c:171
+#: src/main.c:158
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "অপ্রত্যাশিত আর্গুমেন্ট: %s\n"
 
-#: src/main.c:177
+#: src/main.c:164
 #, c-format
 msgid "batch mode requires an input file\n"
 msgstr "ব্যাচ মোডে একটি ইনপুট ফাইল প্রয়োজন\n"
 
-#: src/main.c:187
+#: src/main.c:174
 #, c-format
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "ডিসপ্লে খোলা যাচ্ছে না: একটি চলমান X11 বা Wayland সেশন প্রয়োজন\n"
 
-#: src/main.c:210
+#: src/main.c:197
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d প্রসেসরজুড়ে %d জব ফর্ক করা হচ্ছে।\n"
 
-#: src/main.c:223 src/main.c:231
+#: src/main.c:210 src/main.c:218
 #, c-format
 msgid "exiting after fatal error: pipe() failed"
 msgstr "মারাত্মক ত্রুটির পর প্রস্থান: pipe() ব্যর্থ"
 
-#: src/main.c:240
+#: src/main.c:227
 #, c-format
 msgid "exiting after fatal error: fork() failed"
 msgstr "মারাত্মক ত্রুটির পর প্রস্থান: fork() ব্যর্থ"
-
-#: src/main.c:840
-#, c-format
-msgid "exiting via user interrupt\n"
-msgstr "ব্যবহারকারীর বাধার মাধ্যমে প্রস্থান করা হচ্ছে\n"
-
-#: src/main.c:844
-#, c-format
-msgid "segmentation fault, exiting\n"
-msgstr "সেগমেন্টেশন ফল্ট, প্রস্থান করা হচ্ছে\n"
-
-#: src/main.c:848
-#, c-format
-msgid "floating point exception, exiting\n"
-msgstr "ফ্লোটিং পয়েন্ট এক্সেপশন, প্রস্থান করা হচ্ছে\n"
-
-#: src/main.c:852
-#, c-format
-msgid "abort signal received, exiting\n"
-msgstr "অ্যাবর্ট সিগন্যাল পাওয়া গেছে, প্রস্থান করা হচ্ছে\n"
-
-#: src/main.c:856
-#, c-format
-msgid "termination request received, exiting\n"
-msgstr "সমাপ্তির অনুরোধ পাওয়া গেছে, প্রস্থান করা হচ্ছে\n"
-
-#: src/main.c:866
-#, c-format
-msgid "not forked, ignoring SIGCHLD from pid %d\n"
-msgstr "ফর্ক করা হয়নি, pid %d থেকে SIGCHLD উপেক্ষা করা হচ্ছে\n"
-
-#: src/main.c:874
-#, c-format
-msgid "child process pid %d exited\n"
-msgstr "চাইল্ড প্রসেস pid %d প্রস্থান করেছে\n"
-
-#: src/main.c:883
-#, c-format
-msgid "default exit with signal: %d\n"
-msgstr "সিগন্যাল দিয়ে ডিফল্ট প্রস্থান: %d\n"
 
 #: src/mathlib.c:28
 msgid ""
@@ -5425,7 +5378,7 @@ msgstr ""
 "MKL থ্রেডিং লাইব্রেরি পরিবর্তন করতে পুনরায় চালু করুন।"
 
 # xnec2c-exempt: symbol
-#: src/mathlib.c:368 src/utils.c:729
+#: src/mathlib.c:368 src/utils.c:684
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
@@ -5488,8 +5441,8 @@ msgstr "প্রথম উপলব্ধ mathlib নির্বাচিত: 
 
 #: src/mathlib.c:669
 #, c-format
-msgid "mathlib_load[%d]: mathlib.available=0, skipping: %s\n"
-msgstr "mathlib_load[%d]: mathlib.available=0, বাদ দেওয়া হচ্ছে: %s\n"
+msgid "[%d]: mathlib.available=0, skipping: %s\n"
+msgstr "[%d]: mathlib.available=0, বাদ দেওয়া হচ্ছে: %s\n"
 
 #: src/mathlib.c:719
 msgid "Batch Math Library"
@@ -5961,11 +5914,8 @@ msgstr "DG7YBN নগর এলাকা (2025)"
 
 #: src/measurements.c:424
 #, c-format
-msgid ""
-"noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
-"to 0\n"
-msgstr ""
-"noise_temp_resolve: noise_temp টেবিল বরাদ্দ করা হয়নি; t_sky/t_earth ডিফল্ট 0\n"
+msgid "noise_temp table not allocated; t_sky/t_earth defaulting to 0\n"
+msgstr "noise_temp টেবিল বরাদ্দ করা হয়নি; t_sky/t_earth ডিফল্ট 0\n"
 
 #: src/measurements.c:481
 msgid "Z Real"
@@ -6209,10 +6159,10 @@ msgstr "মেমরি বরাদ্দ অস্বীকৃত %s: অন�
 msgid "mem_obj_t at %p: size=%lu used=%lu addr=%p\n"
 msgstr "mem_obj_t %p-এ: size=%lu used=%lu addr=%p\n"
 
-# xnec2c-exempt: name
+# xnec2c-exempt: symbol
 #: src/mem/mem.c:250
 #, c-format
-msgid "mem_backtrace(%p):\n"
+msgid "%p:\n"
 msgstr ""
 
 #: src/mem/mem.c:253
@@ -6222,8 +6172,8 @@ msgstr "  m->backtrace হল null, কোনো ব্যাকট্রেস 
 
 #: src/mem/mem.c:279
 #, c-format
-msgid "mem_clone: allocation failed for %lu bytes\n"
-msgstr "mem_clone: %lu bytes বরাদ্দ ব্যর্থ\n"
+msgid "allocation failed for %lu bytes\n"
+msgstr "%lu bytes বরাদ্দ ব্যর্থ\n"
 
 # xnec2c-exempt: notation
 #: src/mem/mem_track.c:208
@@ -6248,19 +6198,19 @@ msgstr ""
 msgid "mem-report %s:   frame %d %s\n"
 msgstr "mem-report %s:   ফ্রেম %d %s\n"
 
-#: src/nec2_model.c:279 src/nec2_model.c:283 src/nec2_model.c:287
+#: src/nec2_model.c:278 src/nec2_model.c:282 src/nec2_model.c:286
 msgid "Card"
 msgstr "কার্ড"
 
-#: src/nec2_model.c:369
+#: src/nec2_model.c:368
 msgid "--- NEC2 Input File created or edited by "
 msgstr "--- NEC2 ইনপুট ফাইল তৈরি বা সম্পাদনা করেছেন "
 
-#: src/nec2_model.c:386
+#: src/nec2_model.c:385
 msgid "--- End Comments ---"
 msgstr "--- মন্তব্য সমাপ্ত ---"
 
-#: src/nec2_model.c:525
+#: src/nec2_model.c:524
 #, c-format
 msgid ""
 "List_Comments():\n"
@@ -6271,7 +6221,7 @@ msgstr ""
 "ইনপুট ফাইল পড়তে ত্রুটি\n"
 "অপ্রত্যাশিত EOF (ফাইলের শেষ)"
 
-#: src/nec2_model.c:532
+#: src/nec2_model.c:531
 #, c-format
 msgid ""
 "List_Comments():\n"
@@ -6282,11 +6232,11 @@ msgstr ""
 "ইনপুট ফাইল পড়তে ত্রুটি\n"
 "মন্তব্য মেমোনিক সংক্ষিপ্ত বা অনুপস্থিত"
 
-#: src/nec2_model.c:818
+#: src/nec2_model.c:817
 msgid "End Comments"
 msgstr "মন্তব্য সমাপ্ত"
 
-#: src/nec2_model.c:916
+#: src/nec2_model.c:915
 #, c-format
 msgid ""
 "Cannot save treeview data\n"
@@ -6424,12 +6374,9 @@ msgstr "OpenGL নিষ্ক্রিয়: peel composite shader ব্য�
 
 #: src/opengl-engine/opengl_view_fit.c:71
 #, c-format
-msgid ""
-"gl_view_fit_view: no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,"
-"%g,%g]\n"
+msgid "no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,%g,%g]\n"
 msgstr ""
-"gl_view_fit_view: কোনো ফ্রেম সমাধান করা হয়নি: r_max=%g distance=%g proj=%d "
-"box=[%g,%g,%g,%g]\n"
+"কোনো ফ্রেম সমাধান করা হয়নি: r_max=%g distance=%g proj=%d box=[%g,%g,%g,%g]\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:141
 #, c-format
@@ -6480,22 +6427,10 @@ msgstr ""
 "এই ডিসপ্লেতে OpenGL উপলব্ধ নেই; Cairo রেন্ডারারে স্যুইচ করা হচ্ছে। 'OpenGL "
 "Renderer' দেখুন View > Rendering Settings-এ।\n"
 
-# xnec2c-exempt: name
-#: src/opt_file.c:342
-#, c-format
-msgid "opt_file_save: %s\n"
-msgstr ""
-
 #: src/opt_file.c:622
 #, c-format
 msgid "Loaded %d optimizer goals\n"
 msgstr "%d অপ্টিমাইজার লক্ষ্য লোড হয়েছে\n"
-
-# xnec2c-exempt: name
-#: src/opt_file.c:658
-#, c-format
-msgid "opt_file_load: %s\n"
-msgstr ""
 
 #: src/opt_ui_formula.c:46
 #, c-format
@@ -7016,23 +6951,23 @@ msgstr "ফ্রিকোয়েন্সি ধাপগুলোর সর�
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
-msgid "fitness_transform: unknown direction %d\n"
-msgstr "fitness_transform: অজানা দিক %d\n"
+msgid "unknown direction %d\n"
+msgstr "অজানা দিক %d\n"
 
 #: src/optimizers/opt_fitness.c:582
 #, c-format
-msgid "reduce_values: unknown reduction method %d\n"
-msgstr "reduce_values: অজানা হ্রাস পদ্ধতি %d\n"
+msgid "unknown reduction method %d\n"
+msgstr "অজানা হ্রাস পদ্ধতি %d\n"
 
 #: src/optimizers/opt_nec2_eval.c:80
 #, c-format
-msgid "nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n"
-msgstr "nec2_eval_signal: eval_mutex প্রতিযোগিতা, অবরোধ (thr=%lu)\n"
+msgid "eval_mutex contention, blocking (thr=%lu)\n"
+msgstr "eval_mutex প্রতিযোগিতা, অবরোধ (thr=%lu)\n"
 
 #: src/optimizers/opt_nec2_eval.c:194
 #, c-format
-msgid "nec2_eval_run: not initialized\n"
-msgstr "nec2_eval_run: আরম্ভ করা হয়নি\n"
+msgid "not initialized\n"
+msgstr "আরম্ভ করা হয়নি\n"
 
 #: src/optimizers/opt_session.c:96
 #, c-format
@@ -7049,23 +6984,23 @@ msgstr "opt: অপ্টিমাইজেশন সম্পন্ন, সে�
 
 #: src/optimizers/opt_session.c:194
 #, c-format
-msgid "opt_start: optimizer already running\n"
-msgstr "opt_start: অপ্টিমাইজার ইতিমধ্যে চলছে\n"
+msgid "optimizer already running\n"
+msgstr "অপ্টিমাইজার ইতিমধ্যে চলছে\n"
 
 #: src/optimizers/opt_session.c:258
 #, c-format
-msgid "opt_start: simple_new failed\n"
-msgstr "opt_start: simple_new ব্যর্থ\n"
+msgid "simple_new failed\n"
+msgstr "simple_new ব্যর্থ\n"
 
 #: src/optimizers/opt_session.c:267
 #, c-format
-msgid "opt_start: pthread_create failed: %d\n"
-msgstr "opt_start: pthread_create ব্যর্থ: %d\n"
+msgid "pthread_create failed: %d\n"
+msgstr "pthread_create ব্যর্থ: %d\n"
 
 #: src/optimizers/opt_simple.c:297
 #, c-format
-msgid "simple_config_init: unknown algorithm %d\n"
-msgstr "simple_config_init: অজানা অ্যালগরিদম %d\n"
+msgid "unknown algorithm %d\n"
+msgstr "অজানা অ্যালগরিদম %d\n"
 
 #: src/optimizers/opt_simple_var.c:43
 #, c-format
@@ -7321,12 +7256,8 @@ msgstr ""
 
 #: src/rdpattern_ui.c:132
 #, c-format
-msgid ""
-"Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
-"GS_LINP\n"
-msgstr ""
-"Scale_Gain_Resolved: gain_style %d পরিসরের বাইরে [0..%d], GS_LINP-এ ডিফল্ট "
-"করা হচ্ছে\n"
+msgid "gain_style %d out of range [0..%d], defaulting to GS_LINP\n"
+msgstr "gain_style %d পরিসরের বাইরে [0..%d], GS_LINP-এ ডিফল্ট করা হচ্ছে\n"
 
 #: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
@@ -7463,13 +7394,13 @@ msgstr "পরম"
 
 #: src/render/gradient_cache.c:312
 #, c-format
-msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
-msgstr "gradient_cache_update: সারফেস তৈরি ব্যর্থ হয়েছে (%dx%d)\n"
+msgid "surface creation failed (%dx%d)\n"
+msgstr "সারফেস তৈরি ব্যর্থ হয়েছে (%dx%d)\n"
 
 #: src/render/render_fit.c:67
 #, c-format
-msgid "render_fit_solve: no geometry to fit\n"
-msgstr "render_fit_solve: ফিট করার জন্য কোনো জ্যামিতি নেই\n"
+msgid "no geometry to fit\n"
+msgstr "ফিট করার জন্য কোনো জ্যামিতি নেই\n"
 
 #: src/render/render_message.h:29
 msgid "File ▸ Open to load an NEC file"
@@ -7524,7 +7455,7 @@ msgstr "অপ্টিমাইজার লুপ অসম্পূর্ণ,
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+Scroll: তারের ব্যাসার্ধ"
 
-#: src/settings/render_settings.c:49
+#: src/settings/render_settings.c:50
 msgid ""
 "OpenGL is not available on this display.\n"
 "Cairo rendering is active."
@@ -7532,7 +7463,7 @@ msgstr ""
 "এই ডিসপ্লেতে OpenGL উপলব্ধ নয়।\n"
 "Cairo রেন্ডারিং সক্রিয়।"
 
-#: src/settings/render_settings.c:54
+#: src/settings/render_settings.c:55
 msgid ""
 "Built without OpenGL support.\n"
 "Cairo rendering is active."
@@ -7540,33 +7471,73 @@ msgstr ""
 "OpenGL সমর্থন ছাড়া বিল্ড করা হয়েছে।\n"
 "Cairo রেন্ডারিং সক্রিয়।"
 
-#: src/settings/render_settings.c:123
+#: src/settings/render_settings.c:151
 msgid "General"
 msgstr "সাধারণ"
 
-#: src/settings/render_settings.c:127
+#: src/settings/render_settings.c:155
 msgid "Color"
 msgstr "রং"
 
-#: src/settings/render_settings_common.c:141
+#: src/settings/render_settings_common.c:142 src/sy_overrides.c:1093
 #, c-format
-msgid "render_settings_init: failed to load glade: %s\n"
-msgstr "render_settings_init: glade লোড করতে ব্যর্থ: %s\n"
+msgid "failed to load glade: %s\n"
+msgstr "glade লোড করতে ব্যর্থ: %s\n"
 
-#: src/settings/render_settings_common.c:151
+#: src/settings/render_settings_common.c:152
 #, c-format
-msgid "render_settings_init: failed to load opengl glade: %s\n"
-msgstr "render_settings_init: opengl glade লোড করতে ব্যর্থ: %s\n"
+msgid "failed to load opengl glade: %s\n"
+msgstr "opengl glade লোড করতে ব্যর্থ: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:162
 #, c-format
-msgid "render_settings_init: failed to load cairo glade: %s\n"
-msgstr "render_settings_init: cairo glade লোড করতে ব্যর্থ: %s\n"
+msgid "failed to load cairo glade: %s\n"
+msgstr "cairo glade লোড করতে ব্যর্থ: %s\n"
 
-#: src/settings/render_settings_common.c:182
+#: src/settings/render_settings_common.c:183
 #, c-format
-msgid "render_settings_init: failed to get render_settings_window from glade\n"
-msgstr "render_settings_init: glade থেকে render_settings_window পেতে ব্যর্থ\n"
+msgid "failed to get render_settings_window from glade\n"
+msgstr "glade থেকে render_settings_window পেতে ব্যর্থ\n"
+
+#: src/signal_handler.c:29
+#, c-format
+msgid "exiting via user interrupt\n"
+msgstr "ব্যবহারকারীর বাধার মাধ্যমে প্রস্থান করা হচ্ছে\n"
+
+#: src/signal_handler.c:33
+#, c-format
+msgid "segmentation fault, exiting\n"
+msgstr "সেগমেন্টেশন ফল্ট, প্রস্থান করা হচ্ছে\n"
+
+#: src/signal_handler.c:37
+#, c-format
+msgid "floating point exception, exiting\n"
+msgstr "ফ্লোটিং পয়েন্ট এক্সেপশন, প্রস্থান করা হচ্ছে\n"
+
+#: src/signal_handler.c:41
+#, c-format
+msgid "abort signal received, exiting\n"
+msgstr "অ্যাবর্ট সিগন্যাল পাওয়া গেছে, প্রস্থান করা হচ্ছে\n"
+
+#: src/signal_handler.c:45
+#, c-format
+msgid "termination request received, exiting\n"
+msgstr "সমাপ্তির অনুরোধ পাওয়া গেছে, প্রস্থান করা হচ্ছে\n"
+
+#: src/signal_handler.c:55
+#, c-format
+msgid "not forked, ignoring SIGCHLD from pid %d\n"
+msgstr "ফর্ক করা হয়নি, pid %d থেকে SIGCHLD উপেক্ষা করা হচ্ছে\n"
+
+#: src/signal_handler.c:63
+#, c-format
+msgid "child process pid %d exited\n"
+msgstr "চাইল্ড প্রসেস pid %d প্রস্থান করেছে\n"
+
+#: src/signal_handler.c:72
+#, c-format
+msgid "default exit with signal: %d\n"
+msgstr "সিগন্যাল দিয়ে ডিফল্ট প্রস্থান: %d\n"
 
 #: src/somnec.c:302
 #, c-format
@@ -7638,8 +7609,8 @@ msgstr "sy_evaluate-এ অবৈধ আর্গুমেন্ট"
 
 #: src/sy_expr.c:1246
 #, c-format
-msgid "sy_load_overrides: malformed line (no colon): %s"
-msgstr "sy_load_overrides: বিকৃত লাইন (কোলন নেই): %s"
+msgid "malformed line (no colon): %s"
+msgstr "বিকৃত লাইন (কোলন নেই): %s"
 
 #: src/sy_expr.c:1336
 #, c-format
@@ -7648,8 +7619,8 @@ msgstr "%d প্রতীক ওভাররাইড %s থেকে লোড
 
 #: src/sy_expr.c:1453
 #, c-format
-msgid "sy_save_overrides: cannot open %s for writing: %s\n"
-msgstr "sy_save_overrides: %s লেখার জন্য খোলা যাচ্ছে না: %s\n"
+msgid "cannot open %s for writing: %s\n"
+msgstr "%s লেখার জন্য খোলা যাচ্ছে না: %s\n"
 
 #: src/sy_expr.c:1475
 #, c-format
@@ -7680,15 +7651,10 @@ msgstr "সর্বোচ্চ"
 msgid "Expression"
 msgstr "রাশি"
 
-#: src/sy_overrides.c:1093
-#, c-format
-msgid "sy_overrides_init: failed to load glade: %s\n"
-msgstr "sy_overrides_init: glade লোড করতে ব্যর্থ: %s\n"
-
 #: src/sy_overrides.c:1107
 #, c-format
-msgid "sy_overrides_init: failed to get widgets from glade\n"
-msgstr "sy_overrides_init: glade থেকে উইজেট পেতে ব্যর্থ\n"
+msgid "failed to get widgets from glade\n"
+msgstr "glade থেকে উইজেট পেতে ব্যর্থ\n"
 
 #: src/sy_overrides.c:1223
 msgid "Input Symbols"
@@ -7754,44 +7720,39 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:417
-#, c-format
-msgid "Stop: %s\n"
-msgstr "থামুন: %s\n"
-
-#: src/utils.c:456 src/utils.c:458
+#: src/utils.c:411 src/utils.c:413
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "ফ্রিকোয়েন্সি লুপের সময় থামুন, ডেডলক প্রতিরোধ করা হয়েছে: %s\n"
 
-#: src/utils.c:684
+#: src/utils.c:639
 #, c-format
 msgid "applying an OpenMP budget of %d threads\n"
 msgstr "%d থ্রেডের একটি OpenMP বাজেট প্রয়োগ করা হচ্ছে\n"
 
-#: src/utils.c:699
+#: src/utils.c:654
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f সেকেন্ড\n"
 
-#: src/utils.c:724
+#: src/utils.c:679
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: ফাইল খুলতে ব্যর্থ: %s\n"
 
-#: src/utils.c:1090
+#: src/utils.c:1045
 #, c-format
 msgid "  Backtrace:\n"
 msgstr "  ব্যাকট্রেস:\n"
 
 # xnec2c-exempt: symbol
-#: src/utils.c:1092
+#: src/utils.c:1047
 #, c-format
 msgid "    %d. %s\n"
 msgstr ""
 
 # xnec2c-exempt: symbol
-#: src/utils.c:1119
+#: src/utils.c:1074
 #, c-format
 msgid "%s:\n"
 msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 02:39-0800\n"
+"POT-Creation-Date: 2026-11-25 13:19-0800\n"
 "PO-Revision-Date: 2026-05-25 01:51-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -1022,11 +1022,11 @@ msgstr ""
 "Oʻzgarishlarni avtomatik qoʻllash va modelni 300ms kechikishdan soʻng qayta "
 "yuklash"
 
-#: resources/sy_overrides.glade:714 src/geom_edit.c:2866
+#: resources/sy_overrides.glade:714 src/geom_edit.c:2848
 msgid "_Apply"
 msgstr "_Qoʻllash"
 
-#: resources/sy_overrides.glade:729 src/geom_edit.c:2865
+#: resources/sy_overrides.glade:729 src/geom_edit.c:2847
 msgid "_Cancel"
 msgstr "_Bekor qilish"
 
@@ -1665,7 +1665,7 @@ msgstr "Kartalarni boshqarish"
 msgid "File Save"
 msgstr "Faylni saqlash"
 
-#: resources/xnec2c.glade:6003 src/nec2_model.c:279
+#: resources/xnec2c.glade:6003 src/nec2_model.c:278
 msgid "Comments"
 msgstr "Izohlar"
 
@@ -1875,27 +1875,27 @@ msgstr "2-3 burchaklar boʻlinishi (NY)"
 msgid "Surface Sub-division"
 msgstr "Sirt boʻlinishi"
 
-#: resources/xnec2c.glade:7533 src/geom_edit.c:1157
+#: resources/xnec2c.glade:7533 src/geom_edit.c:1151
 msgid "Center - X"
 msgstr "Markaz - X"
 
-#: resources/xnec2c.glade:7565 src/geom_edit.c:1163
+#: resources/xnec2c.glade:7565 src/geom_edit.c:1157
 msgid "Normal - Elev."
 msgstr "Normal - balandlik"
 
-#: resources/xnec2c.glade:7597 src/geom_edit.c:1159
+#: resources/xnec2c.glade:7597 src/geom_edit.c:1153
 msgid "Center - Y"
 msgstr "Markaz - Y"
 
-#: resources/xnec2c.glade:7629 src/geom_edit.c:1165
+#: resources/xnec2c.glade:7629 src/geom_edit.c:1159
 msgid "Normal - Azim."
 msgstr "Normal - azimut"
 
-#: resources/xnec2c.glade:7661 src/geom_edit.c:1161
+#: resources/xnec2c.glade:7661 src/geom_edit.c:1155
 msgid "Center - Z"
 msgstr "Markaz - Z"
 
-#: resources/xnec2c.glade:7693 src/geom_edit.c:1167
+#: resources/xnec2c.glade:7693 src/geom_edit.c:1161
 msgid "Patch Area"
 msgstr "Patch maydoni"
 
@@ -3390,10 +3390,10 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "konfiguratsiya fayli mavjud emas yoki oʻqib boʻlmaydi: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1836 src/input.c:1837
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
-#: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
+#: src/sy_expr.c:172 src/utils.c:680
 #, c-format
 msgid "%s"
 msgstr ""
@@ -3427,10 +3427,8 @@ msgstr "--%s uchun <width>x<height> kerak: %s\n"
 
 #: src/cairo/cairo_fit.c:115
 #, c-format
-msgid ""
-"cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
-msgstr ""
-"cairo_fit_view: freym yechilmadi: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
+msgid "no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
+msgstr "freym yechilmadi: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
 # xnec2c-exempt: notation
 #: src/cairo/cairo_frame.c:302
@@ -3540,11 +3538,11 @@ msgstr "Touchstone 2-portli fayllar (*.s2p)"
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "Vergul bilan ajratilgan CSV fayllar (*.csv)"
 
-#: src/callbacks.c:83 src/callbacks.c:99 src/freqplots/freqplots_core.c:69
+#: src/callbacks.c:81 src/callbacks.c:97 src/freqplots/freqplots_core.c:69
 msgid "Antenna Temperature"
 msgstr "Antenna harorati"
 
-#: src/callbacks.c:84
+#: src/callbacks.c:82
 #, c-format
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
@@ -3554,7 +3552,7 @@ msgstr ""
 "hisoblaydi. Antenna haroratini baholash uchun erkin boʻshliq modellari "
 "standart hisoblanadi."
 
-#: src/callbacks.c:100
+#: src/callbacks.c:98
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3563,12 +3561,12 @@ msgstr ""
 "θ=%.0f° da maks kuchaytirish (XY tekisligidan %.0f°). Konvensiya XY "
 "tekisligidagi nurni kuzatish balandligi bilan belgilaydi."
 
-#: src/callbacks.c:186 src/callbacks.c:520 src/callbacks.c:1675
-#: src/callbacks.c:1845
+#: src/callbacks.c:184 src/callbacks.c:518 src/callbacks.c:1652
+#: src/callbacks.c:1822
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "xnec2c dasturidan chiqishni xohlaysizmi?"
 
-#: src/callbacks.c:290
+#: src/callbacks.c:288
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3576,7 +3574,7 @@ msgstr ""
 "Chastota sikli ishlayotganda yangi NEC2\n"
 "kirish fayli yaratib boʻlmaydi"
 
-#: src/callbacks.c:327
+#: src/callbacks.c:325
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3584,11 +3582,11 @@ msgstr ""
 "Chastota sikli ishlayotganda yangi NEC2\n"
 "kirish faylini ochib boʻlmaydi"
 
-#: src/callbacks.c:446
+#: src/callbacks.c:444
 msgid "xnec2c geometry optimizer"
 msgstr "xnec2c geometriya optimallashtiruvchisi"
 
-#: src/callbacks.c:447
+#: src/callbacks.c:445
 #, c-format
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
@@ -3596,11 +3594,11 @@ msgstr ""
 "xnec2c inotify qoʻllab-quvvatlamasdan qurilgan: optimallashtiruvchini "
 "faollashtirish mumkin emas."
 
-#: src/callbacks.c:468
+#: src/callbacks.c:466
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c Optimallashtiruvchisi"
 
-#: src/callbacks.c:468
+#: src/callbacks.c:466
 #, c-format
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
@@ -3611,21 +3609,21 @@ msgstr ""
 "tushganda kirish faylini qayta yuklaydi va hisobni bajaradi. \"Fayl-"
 ">Optimallashtirish sozlamalari\" da yozish uchun fayllarni tanlang."
 
-#: src/callbacks.c:972 src/callbacks.c:1289 src/callbacks.c:1871
+#: src/callbacks.c:949 src/callbacks.c:1266 src/callbacks.c:1848
 msgid "Are you sure you wish to close this window?"
 msgstr "Bu oynani yopishni xohlaysizmi?"
 
-#: src/callbacks.c:1503
+#: src/callbacks.c:1480
 #, c-format
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr "OpenGL bu displeyda mavjud emas; renderni faollashtirib boʻlmaydi.\n"
 
-#: src/callbacks.c:1811
+#: src/callbacks.c:1788
 #, c-format
 msgid "No open NEC2 input file"
 msgstr "Ochiq NEC2 kirish fayli yoʻq"
 
-#: src/callbacks.c:1902 src/callbacks.c:1932
+#: src/callbacks.c:1879 src/callbacks.c:1909
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3633,26 +3631,16 @@ msgstr ""
 "Chastota sikli ishlayotganda NEC2 Muharriri\n"
 "maʼlumotlarini saqlab boʻlmaydi"
 
-#: src/callbacks.c:1914 src/callbacks.c:1940
+#: src/callbacks.c:1891 src/callbacks.c:1917
 msgid "untitled.nec"
 msgstr "nomsiz.nec"
 
-#: src/callbacks.c:2401 src/callbacks.c:2421 src/callbacks.c:2441
-#: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
-#, c-format
-msgid ""
-"Frequency (FR) cards not yet processed.\n"
-"You may need to save the NEC2 Editor data first."
-msgstr ""
-"Chastota (FR) kartalari hali qayta ishlanmagan.\n"
-"Avval NEC2 Muharriri maʼlumotlarini saqlashingiz kerak."
-
-#: src/chroma/chroma.c:315
+#: src/chroma/chroma.c:313
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "notoʻgʻri rang proeksiyasi %d, momentan proeksiyasi ishlatilmoqda\n"
 
-#: src/chroma/chroma.c:627
+#: src/chroma/chroma.c:626
 #, c-format
 msgid "invalid segment scale encoding %d, using model radius\n"
 msgstr "notoʻgʻri segment masshtabi kodlash %d, model radiusi ishlatilmoqda\n"
@@ -4237,8 +4225,8 @@ msgstr ""
 msgid "VSWR vs Frequency"
 msgstr "VSWR / chastota"
 
-#: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
-#: src/geom_edit.c:2703
+#: src/geom_edit.c:108 src/geom_edit.c:1982 src/geom_edit.c:2254
+#: src/geom_edit.c:2685
 #, c-format
 msgid ""
 "Error reading row data\n"
@@ -4256,7 +4244,7 @@ msgstr ""
 "Qator maʼlumotlarini yozishda xato\n"
 "Iltimos, qatorni qayta tanlang"
 
-#: src/geom_edit.c:583
+#: src/geom_edit.c:577
 #, c-format
 msgid ""
 "GC card preceded by GW card\n"
@@ -4265,12 +4253,12 @@ msgstr ""
 "GC kartasidan oldin nol boʻlmagan sim radiusli\n"
 "GW kartasi keladi"
 
-#: src/geom_edit.c:587
+#: src/geom_edit.c:581
 #, c-format
 msgid "No GW card before GC card"
 msgstr "GC kartasidan oldin GW kartasi yoʻq"
 
-#: src/geom_edit.c:611
+#: src/geom_edit.c:605
 #, c-format
 msgid ""
 "No GC card after a GW card\n"
@@ -4279,7 +4267,7 @@ msgstr ""
 "Nol sim radiusli GW kartasidan\n"
 "keyin GC kartasi yoʻq"
 
-#: src/geom_edit.c:620
+#: src/geom_edit.c:614
 #, c-format
 msgid ""
 "GC card follows a GW card\n"
@@ -4288,7 +4276,7 @@ msgstr ""
 "GC kartasi nol boʻlmagan sim radiusli\n"
 "GW kartasidan keyin keladi"
 
-#: src/geom_edit.c:1025
+#: src/geom_edit.c:1019
 #, c-format
 msgid ""
 "SC card preceded by SP card\n"
@@ -4297,12 +4285,12 @@ msgstr ""
 "SC kartasidan oldin ixtiyoriy patch turli\n"
 "SP kartasi keladi"
 
-#: src/geom_edit.c:1037
+#: src/geom_edit.c:1031
 #, c-format
 msgid "No SP or SM card before SC card"
 msgstr "SC kartasidan oldin SP yoki SM kartasi yoʻq"
 
-#: src/geom_edit.c:1057
+#: src/geom_edit.c:1051
 #, c-format
 msgid ""
 "No SC card after an SP card\n"
@@ -4311,7 +4299,7 @@ msgstr ""
 "Ixtiyoriy boʻlmagan patch turli SP\n"
 "kartasidan keyin SC kartasi yoʻq"
 
-#: src/geom_edit.c:1064
+#: src/geom_edit.c:1058
 #, c-format
 msgid ""
 "SC card follows an SP card\n"
@@ -4320,47 +4308,56 @@ msgstr ""
 "SC kartasi ixtiyoriy patch turli\n"
 "SP kartasidan keyin keladi"
 
-#: src/geom_edit.c:1077
+#: src/geom_edit.c:1071
 #, c-format
 msgid "No SC card after an SM card"
 msgstr "SM kartasidan keyin SC kartasi yoʻq"
 
-#: src/geom_edit.c:1172
+#: src/geom_edit.c:1166
 msgid "Corner 1 - X"
 msgstr "1-burchak - X"
 
-#: src/geom_edit.c:1174
+#: src/geom_edit.c:1168
 msgid "Corner 1 - Y"
 msgstr "1-burchak - Y"
 
-#: src/geom_edit.c:1176
+#: src/geom_edit.c:1170
 msgid "Corner 1 - Z"
 msgstr "1-burchak - Z"
 
-#: src/geom_edit.c:1178
+#: src/geom_edit.c:1172
 msgid "Corner 2 - X"
 msgstr "2-burchak - X"
 
-#: src/geom_edit.c:1180
+#: src/geom_edit.c:1174
 msgid "Corner 2 - Y"
 msgstr "2-burchak - Y"
 
-#: src/geom_edit.c:1182
+#: src/geom_edit.c:1176
 msgid "Corner 2 - Z"
 msgstr "2-burchak - Z"
 
-#: src/geom_edit.c:2861
+#: src/geom_edit.c:2843
 msgid "SY Card Editor"
 msgstr "SY Karta Muharriri"
 
-#: src/geom_edit.c:2871
+#: src/geom_edit.c:2853
 msgid "SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"
 msgstr "SY taʼrifi (masalan FREQ=146, LAMBDA=300/FREQ):"
 
-#: src/geom_edit.c:2970
+#: src/geom_edit.c:2952
 #, c-format
 msgid "NEC2 editor window not open"
 msgstr "NEC2 muharriri oynasi ochiq emas"
+
+#: src/geom_edit.c:2980
+#, c-format
+msgid ""
+"Frequency (FR) cards not yet processed.\n"
+"You may need to save the NEC2 Editor data first."
+msgstr ""
+"Chastota (FR) kartalari hali qayta ishlanmagan.\n"
+"Avval NEC2 Muharriri maʼlumotlarini saqlashingiz kerak."
 
 #: src/geometry.c:118
 #, c-format
@@ -4717,11 +4714,10 @@ msgstr "%d segment uchun qoplashish tekshiruvi majburlab bajarilmoqda\n"
 
 #: src/geometry.c:1849
 #, c-format
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgid "skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
-"verify_segments() chastotaga bogʻliq tekshiruvlarni oʻtkazib yubormoqda - "
-"chastota maʼlumotlari yoʻq\n"
+"chastotaga bogʻliq tekshiruvlarni oʻtkazib yubormoqda - chastota "
+"maʼlumotlari yoʻq\n"
 
 #: src/gnuplot.c:43
 msgid "Gnuplot Data"
@@ -4856,7 +4852,7 @@ msgstr "b a dan kichik"
 msgid "step size limited at z = %12.5E\n"
 msgstr "qadam oʻlchami z = %12.5E da cheklangan\n"
 
-#: src/input.c:150
+#: src/input.c:151
 #, c-format
 msgid ""
 "Error reading Comments\n"
@@ -4865,7 +4861,7 @@ msgstr ""
 "Izohlarni oʻqishda xato\n"
 "Kutilmagan fayl oxiri (EOF)"
 
-#: src/input.c:164
+#: src/input.c:165
 #, c-format
 msgid ""
 "Error reading Comments\n"
@@ -4874,7 +4870,7 @@ msgstr ""
 "Izohlarni oʻqishda xato\n"
 "Izoh mnemonik kodi qisqa yoki yoʻq"
 
-#: src/input.c:175
+#: src/input.c:176
 #, c-format
 msgid ""
 "Read_Comments():\n"
@@ -4885,7 +4881,7 @@ msgstr ""
 " Kirish faylini oʻqishda xato\n"
 "Izoh mnemonik kodi notoʻgʻri"
 
-#: src/input.c:215
+#: src/input.c:216
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4894,7 +4890,7 @@ msgstr ""
 "Geometriya maʼlumotlari xatosi\n"
 "Tag raqami manfiy"
 
-#: src/input.c:222
+#: src/input.c:223
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4903,12 +4899,12 @@ msgstr ""
 "Geometriya maʼlumot xatosi\n"
 "Segmentlar soni 1 dan kichik"
 
-#: src/input.c:229
+#: src/input.c:230
 #, c-format
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "ogohlantirish - segmentlar soni 1000000 dan katta\n"
 
-#: src/input.c:252
+#: src/input.c:253
 #, c-format
 msgid ""
 "%s card: tag 0 selects segment %d by absolute position in the structure, not "
@@ -4920,12 +4916,12 @@ msgstr ""
 "boʻlsa, simga tag raqamini bering va segmentga shu tag ichida murojaat "
 "qiling\n"
 
-#: src/input.c:299
+#: src/input.c:300
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "%s maʼlumot kartasi xatosi: '%c' notoʻgʻri belgi %d-ustunda\n"
 
-#: src/input.c:301
+#: src/input.c:302
 #, c-format
 msgid ""
 "Data card error\n"
@@ -4934,37 +4930,37 @@ msgstr ""
 "Maʼlumot kartasi xatosi\n"
 "Kartada notoʻgʻri belgi"
 
-#: src/input.c:372
+#: src/input.c:373
 #, c-format
 msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: \"%s\" uchun ifodani baholash muvaffaqiyatsiz boʻldi\n"
 
-#: src/input.c:413
+#: src/input.c:414
 #, c-format
 msgid "SY card: no line content available\n"
 msgstr "SY kartasi: satr mazmuni mavjud emas\n"
 
-#: src/input.c:414
+#: src/input.c:415
 #, c-format
 msgid "SY card: no line content available"
 msgstr "SY kartasi: satr mazmuni mavjud emas"
 
-#: src/input.c:431
+#: src/input.c:432
 #, c-format
 msgid "SY card: missing '=' in definition\n"
 msgstr "SY kartasi: taʼrifda '=' belgisi yoʻq\n"
 
-#: src/input.c:432
+#: src/input.c:433
 #, c-format
 msgid "SY card: missing '=' in definition"
 msgstr "SY kartasi: taʼrifda '=' belgisi yoʻq"
 
-#: src/input.c:465
+#: src/input.c:466
 #, c-format
 msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "SY kartasi: %s=%s uchun ramz taʼrifi muvaffaqiyatsiz boʻldi\n"
 
-#: src/input.c:652
+#: src/input.c:653
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4973,31 +4969,31 @@ msgstr ""
 "Geometriya maʼlumot xatosi\n"
 "Torayuvchi sim uchun GC kartasi yoʻq"
 
-#: src/input.c:659
+#: src/input.c:660
 #, c-format
 msgid "Geometry GC data card error"
 msgstr "Geometriya GC maʼlumot kartasi xatosi"
 
-#: src/input.c:675
+#: src/input.c:676
 #, c-format
 msgid "Geometry GX data card error"
 msgstr "Geometriya GX maʼlumot kartasi xatosi"
 
-#: src/input.c:698
+#: src/input.c:699
 #, c-format
 msgid "Geometry GR data card error"
 msgstr "Geometriya GR maʼlumot kartasi xatosi"
 
-#: src/input.c:752
+#: src/input.c:753
 #, c-format
 msgid "No geometry data cards"
 msgstr "Geometriya maʼlumot kartalari yoʻq"
 
-#: src/input.c:763
+#: src/input.c:764
 msgid "Probable invalid segment geometry.\n"
 msgstr "Ehtimol, notoʻgʻri segment geometriyasi.\n"
 
-#: src/input.c:764
+#: src/input.c:765
 #, c-format
 msgid ""
 "Invalid segment geometry.\n"
@@ -5008,43 +5004,43 @@ msgstr ""
 "Tafsilot uchun konsoldagi ogohlantirishlarni koʻring.\n"
 "Davom etishga urinilmoqda..."
 
-#: src/input.c:770
+#: src/input.c:771
 #, c-format
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "Ehtimol, notoʻgʻri segment geometriyasi (yuqoriga qarang)\n"
 
-#: src/input.c:774
+#: src/input.c:775
 #, c-format
-msgid "Read_Geometry: verify_segments() passed\n"
-msgstr "Read_Geometry: verify_segments() muvaffaqiyatli oʻtdi\n"
+msgid "verify_segments() passed\n"
+msgstr "verify_segments() muvaffaqiyatli oʻtdi\n"
 
-#: src/input.c:811
+#: src/input.c:812
 #, c-format
 msgid "segment data error: tag=%d si=%f, bi=%f\n"
 msgstr "segment maʼlumot xatosi: teg=%d si=%f, bi=%f\n"
 
-#: src/input.c:813
+#: src/input.c:814
 #, c-format
 msgid "Segment data error, zero-length line?  See console."
 msgstr "Segment maʼlumot xatosi, nol uzunlikli chiziq?  Konsolga qarang."
 
-#: src/input.c:853
+#: src/input.c:854
 #, c-format
 msgid "Move GM data card error"
 msgstr "GM koʻchirish maʼlumot kartasi xatosi"
 
-#: src/input.c:869 src/input.c:910 src/input.c:927 src/input.c:945
-#: src/input.c:953
+#: src/input.c:870 src/input.c:911 src/input.c:928 src/input.c:946
+#: src/input.c:954
 #, c-format
 msgid "Patch data card error"
 msgstr "Patch maʼlumot kartasi xatosi"
 
-#: src/input.c:891
+#: src/input.c:892
 #, c-format
 msgid "Patch data error"
 msgstr "Patch maʼlumot xatosi"
 
-#: src/input.c:1000
+#: src/input.c:1001
 #, c-format
 msgid ""
 "\"GF\" card (NGF solution)\n"
@@ -5053,74 +5049,74 @@ msgstr ""
 "\"GF\" kartasi (NGF yechimi)\n"
 "qoʻllab-quvvatlanmaydi"
 
-#: src/input.c:1005
+#: src/input.c:1006
 #, c-format
 msgid "Ignoring CM card in geometry"
 msgstr "Geometriyadagi CM kartasi eʼtiborga olinmaydi"
 
-#: src/input.c:1018
+#: src/input.c:1019
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
 msgstr "geometriya maʼlumot kartasi xatosi (nwire=%d)\n"
 
 # xnec2c-exempt: symbol
-#: src/input.c:1019
+#: src/input.c:1020
 #, c-format
 msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
-#: src/input.c:1025
+#: src/input.c:1026
 #, c-format
 msgid "Command card in geometry section"
 msgstr "Geometriya boʻlimida buyruq kartasi"
 
-#: src/input.c:1027
+#: src/input.c:1028
 #, c-format
 msgid "Unrecognized geometry card"
 msgstr "Tanib boʻlmaydigan geometriya kartasi"
 
-#: src/input.c:1051
+#: src/input.c:1052
 #, c-format
 msgid "Failed to initialize symbol table\n"
 msgstr "Ramzlar jadvalini ishga tushirishda muvaffaqiyatsizlik\n"
 
-#: src/input.c:1052
+#: src/input.c:1053
 #, c-format
 msgid "Failed to initialize symbol table"
 msgstr "Ramzlar jadvalini ishga tushirishda muvaffaqiyatsizlik"
 
-#: src/input.c:1192
+#: src/input.c:1193
 #, c-format
 msgid "No FR card: computing one step at the NEC-2 default %g MHz\n"
 msgstr "FR kartasi yoʻq: NEC-2 standart %g MHz da bitta qadam hisoblanmoqda\n"
 
-#: src/input.c:1283
+#: src/input.c:1284
 #, c-format
 msgid "ignoring CM card in commands\n"
 msgstr "buyruqlardagi CM kartasi eʼtiborga olinmaydi\n"
 
-#: src/input.c:1284
+#: src/input.c:1285
 #, c-format
 msgid "Ignoring CM card in commands"
 msgstr "Buyruqlardagi CM kartasi eʼtiborga olinmaydi"
 
-#: src/input.c:1296
+#: src/input.c:1297
 #, c-format
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr ""
 "CP kartasi eʼtiborga olinmaydi: bogʻlanish hisobi amalga oshirilmagan\n"
 
-#: src/input.c:1392
+#: src/input.c:1393
 #, c-format
 msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "%g MHz da takroriy FR kartasi oʻtkazib yuborilmoqda\n"
 
-#: src/input.c:1457
+#: src/input.c:1458
 #, c-format
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "FR kartasida maksimal chastota <= minimal chastota\n"
 
-#: src/input.c:1458
+#: src/input.c:1459
 #, c-format
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
@@ -5129,7 +5125,7 @@ msgstr ""
 "FR kartasida maksimal chastota <= minimal chastota\n"
 "Iltimos, FR kartasi maʼlumotlarini tekshiring va toʻgʻirlang"
 
-#: src/input.c:1481
+#: src/input.c:1482
 #, c-format
 msgid ""
 "Fix the GE/GN cards:\n"
@@ -5139,12 +5135,12 @@ msgstr ""
 "GE/GN kartalarini tuzating:\n"
 "GE kartasi zaminning mavjudligini koʻrsatadi, lekin GN boshqacha koʻrsatadi."
 
-#: src/input.c:1495
+#: src/input.c:1496
 #, c-format
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "yer belgilanganda theta > 90 daraja.\n"
 
-#: src/input.c:1496 src/radiation.c:911
+#: src/input.c:1497 src/radiation.c:911
 #, c-format
 msgid ""
 "Theta > 90 deg with ground specified\n"
@@ -5153,7 +5149,7 @@ msgstr ""
 "Zamin belgilanganda Theta > 90 daraja\n"
 "Iltimos, RP kartasi maʼlumotlarini tekshiring va toʻgʻirlang"
 
-#: src/input.c:1505
+#: src/input.c:1506
 #, c-format
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
@@ -5162,7 +5158,7 @@ msgstr ""
 "radial sim z.s. taxminiylik: Sommerfeld zamin opsiyasi bilan ishlatib "
 "boʻlmaydi\n"
 
-#: src/input.c:1506
+#: src/input.c:1507
 #, c-format
 msgid ""
 "radial wire g.s. approximation\n"
@@ -5171,7 +5167,7 @@ msgstr ""
 "radial sim z.s. taxminiylik\n"
 "Sommerfeld zamin opsiyasi bilan ishlatib boʻlmaydi"
 
-#: src/input.c:1554
+#: src/input.c:1555
 #, c-format
 msgid ""
 "data fault on loading card no %d: itag step1 %d is greater than itag step2 "
@@ -5180,7 +5176,7 @@ msgstr ""
 "karta yuklanishida maʼlumot xatosi %d: itag qadam1 %d itag qadam2 %d dan "
 "katta\n"
 
-#: src/input.c:1556
+#: src/input.c:1557
 #, c-format
 msgid ""
 "Data fault on loading card\n"
@@ -5189,7 +5185,7 @@ msgstr ""
 "Karta yuklanishida maʼlumot xatosi\n"
 "itag qadam1 itag qadam2 dan katta"
 
-#: src/input.c:1685
+#: src/input.c:1686
 #, c-format
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
@@ -5197,7 +5193,7 @@ msgstr ""
 "Uzatish liniyasi impedansi = 0: yaroqsiz. Iltimos, NT yoki TL kartasini "
 "toʻgʻirlang\n"
 
-#: src/input.c:1686
+#: src/input.c:1687
 #, c-format
 msgid ""
 "Transmission Line impedance = 0\n"
@@ -5206,12 +5202,12 @@ msgstr ""
 "Uzatish liniyasi impedansi = 0\n"
 "yaroqsiz. Iltimos, NT yoki TL kartasini toʻgʻirlang"
 
-#: src/input.c:1697
+#: src/input.c:1698
 #, c-format
 msgid "Segment number error in TL or NT card\n"
 msgstr "TL yoki NT kartasida segment raqam xatosi\n"
 
-#: src/input.c:1698
+#: src/input.c:1699
 #, c-format
 msgid ""
 "Segment number\n"
@@ -5220,26 +5216,26 @@ msgstr ""
 "Segment raqami\n"
 "NT yoki TL kartasida xato"
 
-#: src/input.c:1720
+#: src/input.c:1721
 #, c-format
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr ""
 "PQ va PT kartalari eʼtiborga olinmaydi: faylga chop etish amalga "
 "oshirilmagan\n"
 
-#: src/input.c:1724
+#: src/input.c:1725
 #, c-format
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr ""
 "PL kartasi eʼtiborga olinmaydi: faylga chizma chiqarish qoʻllab-"
 "quvvatlanmaydi\n"
 
-#: src/input.c:1730
+#: src/input.c:1731
 #, c-format
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "Sirt toʻlqini opsiyasi (I1=1): RP buyrugʻi amalga oshirilmagan\n"
 
-#: src/input.c:1731
+#: src/input.c:1732
 #, c-format
 msgid ""
 "Surface wave option (I1=1)\n"
@@ -5248,7 +5244,7 @@ msgstr ""
 "Sirt toʻlqini opsiyasi (I1=1)\n"
 "RP buyrugʻi amalga oshirilmagan"
 
-#: src/input.c:1763
+#: src/input.c:1764
 #, c-format
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
@@ -5257,7 +5253,7 @@ msgstr ""
 "Zamin belgilanganda Theta > 90 daraja.: Iltimos, RP kartasi maʼlumotlarini "
 "tekshiring va toʻgʻirlang\n"
 
-#: src/input.c:1764
+#: src/input.c:1765
 #, c-format
 msgid ""
 "Theta > 90 deg. with ground specified\n"
@@ -5266,15 +5262,15 @@ msgstr ""
 "Zamin belgilanganda Theta > 90 daraja.\n"
 "Iltimos, RP kartasi maʼlumotlarini tekshiring va toʻgʻirlang"
 
-#: src/input.c:1831
+#: src/input.c:1832
 msgid "Geometry card in command section"
 msgstr "Buyruq boʻlimida geometriya kartasi"
 
-#: src/input.c:1834
+#: src/input.c:1835
 msgid "Unrecognized command card"
 msgstr "Tanib boʻlmaydigan buyruq kartasi"
 
-#: src/input.c:1879
+#: src/input.c:1880
 #, c-format
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
@@ -5283,12 +5279,12 @@ msgstr ""
 "RP kartasi yoʻq yoki sirt-toʻlqin RP kartasi: Nurlanish diagrammasi va "
 "kuchaytirish hisob-kitoblari oʻchirildi\n"
 
-#: src/input.c:1906
+#: src/input.c:1907
 #, c-format
 msgid "Unexpected exit from while loop"
 msgstr "While siklidan kutilmagan chiqish"
 
-#: src/input.c:1997
+#: src/input.c:1998
 #, c-format
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
@@ -5297,7 +5293,7 @@ msgstr ""
 "buyruq maʼlumot kartasi xatosi: Kirish faylini oʻqishda kutilmagan EOF - EN "
 "kartasi qoʻshilmoqda\n"
 
-#: src/input.c:1998
+#: src/input.c:1999
 #, c-format
 msgid ""
 "Command data card error\n"
@@ -5308,14 +5304,14 @@ msgstr ""
 "Kirish faylini oʻqishda kutilmagan EOF\n"
 "Birlamchi EN kartasi qoʻshilmoqda"
 
-#: src/input.c:2015
+#: src/input.c:2016
 #, c-format
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "buyruq maʼlumot kartasi xatosi: kartaning mnemonik kodi juda qisqa yoki "
 "yoʻq\n"
 
-#: src/input.c:2016
+#: src/input.c:2017
 #, c-format
 msgid ""
 "Command data card error\n"
@@ -5324,11 +5320,11 @@ msgstr ""
 "Buyruq maʼlumot kartasi xatosi\n"
 "Mnemonik kod juda qisqa yoki yoʻq"
 
-#: src/input.c:2072 src/input.c:2103
+#: src/input.c:2073 src/input.c:2104
 msgid "command data"
 msgstr "buyruq maʼlumotlari"
 
-#: src/input.c:2217
+#: src/input.c:2218
 #, c-format
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
@@ -5337,7 +5333,7 @@ msgstr ""
 "geometriya maʼlumot kartasi xatosi: Kirish faylini oʻqishda kutilmagan EOF - "
 "GE kartasi qoʻshilmoqda\n"
 
-#: src/input.c:2218
+#: src/input.c:2219
 #, c-format
 msgid ""
 "Geometry data card error\n"
@@ -5348,14 +5344,14 @@ msgstr ""
 "Kirish faylini oʻqishda kutilmagan EOF\n"
 "Birlamchi GE kartasi qoʻshilmoqda"
 
-#: src/input.c:2235
+#: src/input.c:2236
 #, c-format
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "geometriya maʼlumot kartasi xatosi: kartaning mnemonik kodi juda qisqa yoki "
 "yoʻq\n"
 
-#: src/input.c:2236
+#: src/input.c:2237
 #, c-format
 msgid ""
 "Geometry data card error\n"
@@ -5364,7 +5360,7 @@ msgstr ""
 "Geometriya maʼlumot kartasi xatosi\n"
 "Kartaning mnemonik kodi juda qisqa yoki yoʻq"
 
-#: src/input.c:2285 src/input.c:2315
+#: src/input.c:2286 src/input.c:2316
 msgid "geometry data"
 msgstr "geometriya maʼlumotlari"
 
@@ -5404,8 +5400,8 @@ msgid "Listing Object Ids:\n"
 msgstr "Obʼekt identifikatorlari roʻyxati:\n"
 
 # xnec2c-exempt: symbol
-#: src/interface.c:202 src/utils.c:424 src/utils.c:428 src/utils.c:438
-#: src/utils.c:440
+#: src/interface.c:202 src/opt_file.c:342 src/opt_file.c:658 src/utils.c:372
+#: src/utils.c:379 src/utils.c:383 src/utils.c:393 src/utils.c:395
 #, c-format
 msgid "%s\n"
 msgstr ""
@@ -5427,104 +5423,64 @@ msgstr ""
 
 #: src/interface.c:370
 #, c-format
-msgid "create_animate_dialog: failed to load animate.glade: %s\n"
-msgstr "create_animate_dialog: animate.glade yuklab boʻlmadi: %s\n"
+msgid "failed to load animate.glade: %s\n"
+msgstr "animate.glade yuklab boʻlmadi: %s\n"
 
-#: src/main.c:126
+#: src/main.c:113
 msgid "none (no display)"
 msgstr "yoʻq (koʻrsatilmaydi)"
 
-#: src/main.c:129
+#: src/main.c:116
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "%s oyna tizimi aniqlandi\n"
 
-#: src/main.c:137
+#: src/main.c:124
 #, c-format
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch va --optimize oʻzaro mos kelmaydi.\n"
 
-#: src/main.c:157
+#: src/main.c:144
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "kirish fayl yoʻl nomi juda uzun ( > %d belgi )\n"
 
-#: src/main.c:164
+#: src/main.c:151
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "kutilmagan argument '%s' .nec fayli emas\n"
 
-#: src/main.c:171
+#: src/main.c:158
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "kutilmagan argument: %s\n"
 
-#: src/main.c:177
+#: src/main.c:164
 #, c-format
 msgid "batch mode requires an input file\n"
 msgstr "paketli rejim kirish faylini talab qiladi\n"
 
-#: src/main.c:187
+#: src/main.c:174
 #, c-format
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "displeyni ochib boʻlmaydi: ishlaydigan X11 yoki Wayland sessiyasi talab "
 "qilinadi\n"
 
-#: src/main.c:210
+#: src/main.c:197
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "%d ta ish %d ta protsessorga fork qilinmoqda.\n"
 
-#: src/main.c:223 src/main.c:231
+#: src/main.c:210 src/main.c:218
 #, c-format
 msgid "exiting after fatal error: pipe() failed"
 msgstr "jiddiy xatodan keyin chiqilmoqda: pipe() muvaffaqiyatsiz boʻldi"
 
-#: src/main.c:240
+#: src/main.c:227
 #, c-format
 msgid "exiting after fatal error: fork() failed"
 msgstr "jiddiy xatodan keyin chiqilmoqda: fork() muvaffaqiyatsiz boʻldi"
-
-#: src/main.c:840
-#, c-format
-msgid "exiting via user interrupt\n"
-msgstr "foydalanuvchi uzilishi orqali chiqilmoqda\n"
-
-#: src/main.c:844
-#, c-format
-msgid "segmentation fault, exiting\n"
-msgstr "segmentatsiya xatosi, chiqilmoqda\n"
-
-#: src/main.c:848
-#, c-format
-msgid "floating point exception, exiting\n"
-msgstr "suzuvchi nuqta istisnosi, chiqilmoqda\n"
-
-#: src/main.c:852
-#, c-format
-msgid "abort signal received, exiting\n"
-msgstr "toʻxtatish signali qabul qilindi, chiqilmoqda\n"
-
-#: src/main.c:856
-#, c-format
-msgid "termination request received, exiting\n"
-msgstr "tugatish soʻrovi qabul qilindi, chiqilmoqda\n"
-
-#: src/main.c:866
-#, c-format
-msgid "not forked, ignoring SIGCHLD from pid %d\n"
-msgstr "tarmoqlanmagan, pid %d dan SIGCHLD eʼtiborga olinmaydi\n"
-
-#: src/main.c:874
-#, c-format
-msgid "child process pid %d exited\n"
-msgstr "bola jarayoni pid %d chiqdi\n"
-
-#: src/main.c:883
-#, c-format
-msgid "default exit with signal: %d\n"
-msgstr "signal bilan standart chiqish: %d\n"
 
 #: src/mathlib.c:28
 msgid ""
@@ -5535,7 +5491,7 @@ msgstr ""
 "MKL iplash kutubxonasini oʻzgartirish uchun qayta ishga tushiring."
 
 # xnec2c-exempt: symbol
-#: src/mathlib.c:368 src/utils.c:729
+#: src/mathlib.c:368 src/utils.c:684
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
@@ -5599,8 +5555,8 @@ msgstr "Birinchi mavjud mathlib tanlandi: %s\n"
 
 #: src/mathlib.c:669
 #, c-format
-msgid "mathlib_load[%d]: mathlib.available=0, skipping: %s\n"
-msgstr "mathlib_load[%d]: mathlib.available=0, oʻtkazib yuborilmoqda: %s\n"
+msgid "[%d]: mathlib.available=0, skipping: %s\n"
+msgstr "[%d]: mathlib.available=0, oʻtkazib yuborilmoqda: %s\n"
 
 #: src/mathlib.c:719
 msgid "Batch Math Library"
@@ -6086,12 +6042,8 @@ msgstr "DG7YBN shahar (2025)"
 
 #: src/measurements.c:424
 #, c-format
-msgid ""
-"noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
-"to 0\n"
-msgstr ""
-"noise_temp_resolve: noise_temp jadvali ajratilmagan; t_sky/t_earth 0 ga "
-"qaytarilmoqda\n"
+msgid "noise_temp table not allocated; t_sky/t_earth defaulting to 0\n"
+msgstr "noise_temp jadvali ajratilmagan; t_sky/t_earth 0 ga qaytarilmoqda\n"
 
 #: src/measurements.c:481
 msgid "Z Real"
@@ -6353,10 +6305,10 @@ msgstr "Xotira ajratish rad etildi %s: %lu bayt soʻraldi\n"
 msgid "mem_obj_t at %p: size=%lu used=%lu addr=%p\n"
 msgstr "mem_obj_t %p da: size=%lu used=%lu addr=%p\n"
 
-# xnec2c-exempt: name
+# xnec2c-exempt: symbol
 #: src/mem/mem.c:250
 #, c-format
-msgid "mem_backtrace(%p):\n"
+msgid "%p:\n"
 msgstr ""
 
 #: src/mem/mem.c:253
@@ -6366,8 +6318,8 @@ msgstr "  m->backtrace null, orqaga iz maʼlumotlari yoʻq\n"
 
 #: src/mem/mem.c:279
 #, c-format
-msgid "mem_clone: allocation failed for %lu bytes\n"
-msgstr "mem_clone: %lu bayt uchun ajratish muvaffaqiyatsiz boʻldi\n"
+msgid "allocation failed for %lu bytes\n"
+msgstr "%lu bayt uchun ajratish muvaffaqiyatsiz boʻldi\n"
 
 # xnec2c-exempt: notation
 #: src/mem/mem_track.c:208
@@ -6392,19 +6344,19 @@ msgstr ""
 msgid "mem-report %s:   frame %d %s\n"
 msgstr "mem-report %s:   freym %d %s\n"
 
-#: src/nec2_model.c:279 src/nec2_model.c:283 src/nec2_model.c:287
+#: src/nec2_model.c:278 src/nec2_model.c:282 src/nec2_model.c:286
 msgid "Card"
 msgstr "Karta"
 
-#: src/nec2_model.c:369
+#: src/nec2_model.c:368
 msgid "--- NEC2 Input File created or edited by "
 msgstr "--- NEC2 kirish fayli yaratilgan yoki tahrirlangan: "
 
-#: src/nec2_model.c:386
+#: src/nec2_model.c:385
 msgid "--- End Comments ---"
 msgstr "--- Izohlar tugadi ---"
 
-#: src/nec2_model.c:525
+#: src/nec2_model.c:524
 #, c-format
 msgid ""
 "List_Comments():\n"
@@ -6415,7 +6367,7 @@ msgstr ""
 "Kirish faylini oʻqishda xato\n"
 "Kutilmagan fayl oxiri (EOF)"
 
-#: src/nec2_model.c:532
+#: src/nec2_model.c:531
 #, c-format
 msgid ""
 "List_Comments():\n"
@@ -6426,11 +6378,11 @@ msgstr ""
 "Kirish faylini oʻqishda xato\n"
 "Izoh mnemonik kodi qisqa yoki yoʻq"
 
-#: src/nec2_model.c:818
+#: src/nec2_model.c:817
 msgid "End Comments"
 msgstr "Izohlar tugadi"
 
-#: src/nec2_model.c:916
+#: src/nec2_model.c:915
 #, c-format
 msgid ""
 "Cannot save treeview data\n"
@@ -6570,12 +6522,8 @@ msgstr "OpenGL oʻchirilmoqda: qatlam kompozit shaderi muvaffaqiyatsiz boʻldi\n
 
 #: src/opengl-engine/opengl_view_fit.c:71
 #, c-format
-msgid ""
-"gl_view_fit_view: no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,"
-"%g,%g]\n"
-msgstr ""
-"gl_view_fit_view: freym yechilmadi: r_max=%g distance=%g proj=%d box=[%g,%g,"
-"%g,%g]\n"
+msgid "no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,%g,%g]\n"
+msgstr "freym yechilmadi: r_max=%g distance=%g proj=%d box=[%g,%g,%g,%g]\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:141
 #, c-format
@@ -6628,22 +6576,10 @@ msgstr ""
 "Koʻrish > Renderlash sozlamalari boʻlimidagi 'OpenGL Renderlash tizimi' ga "
 "qarang.\n"
 
-# xnec2c-exempt: name
-#: src/opt_file.c:342
-#, c-format
-msgid "opt_file_save: %s\n"
-msgstr ""
-
 #: src/opt_file.c:622
 #, c-format
 msgid "Loaded %d optimizer goals\n"
 msgstr "%d optimallashtiruvchi maqsadi yuklandi\n"
-
-# xnec2c-exempt: name
-#: src/opt_file.c:658
-#, c-format
-msgid "opt_file_load: %s\n"
-msgstr ""
 
 #: src/opt_ui_formula.c:46
 #, c-format
@@ -7180,23 +7116,23 @@ msgstr "Chastota qadamlari boʻyicha eng katta va eng kichik ballar farqi"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
-msgid "fitness_transform: unknown direction %d\n"
-msgstr "fitness_transform: nomaʼlum yoʻnalish %d\n"
+msgid "unknown direction %d\n"
+msgstr "nomaʼlum yoʻnalish %d\n"
 
 #: src/optimizers/opt_fitness.c:582
 #, c-format
-msgid "reduce_values: unknown reduction method %d\n"
-msgstr "reduce_values: nomaʼlum kamaytirish usuli %d\n"
+msgid "unknown reduction method %d\n"
+msgstr "nomaʼlum kamaytirish usuli %d\n"
 
 #: src/optimizers/opt_nec2_eval.c:80
 #, c-format
-msgid "nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n"
-msgstr "nec2_eval_signal: eval_mutex raqobati, bloklanyapti (thr=%lu)\n"
+msgid "eval_mutex contention, blocking (thr=%lu)\n"
+msgstr "eval_mutex raqobati, bloklanyapti (thr=%lu)\n"
 
 #: src/optimizers/opt_nec2_eval.c:194
 #, c-format
-msgid "nec2_eval_run: not initialized\n"
-msgstr "nec2_eval_run: ishga tushirilmagan\n"
+msgid "not initialized\n"
+msgstr "ishga tushirilmagan\n"
 
 #: src/optimizers/opt_session.c:96
 #, c-format
@@ -7214,23 +7150,23 @@ msgstr "opt: optimallashtirish tugadi, eng yaxshi moslashish: %.6g\n"
 
 #: src/optimizers/opt_session.c:194
 #, c-format
-msgid "opt_start: optimizer already running\n"
-msgstr "opt_start: optimallashtiruvchi allaqachon ishlayapti\n"
+msgid "optimizer already running\n"
+msgstr "optimallashtiruvchi allaqachon ishlayapti\n"
 
 #: src/optimizers/opt_session.c:258
 #, c-format
-msgid "opt_start: simple_new failed\n"
-msgstr "opt_start: simple_new muvaffaqiyatsiz boʻldi\n"
+msgid "simple_new failed\n"
+msgstr "simple_new muvaffaqiyatsiz boʻldi\n"
 
 #: src/optimizers/opt_session.c:267
 #, c-format
-msgid "opt_start: pthread_create failed: %d\n"
-msgstr "opt_start: pthread_create muvaffaqiyatsiz boʻldi: %d\n"
+msgid "pthread_create failed: %d\n"
+msgstr "pthread_create muvaffaqiyatsiz boʻldi: %d\n"
 
 #: src/optimizers/opt_simple.c:297
 #, c-format
-msgid "simple_config_init: unknown algorithm %d\n"
-msgstr "simple_config_init: nomaʼlum algoritm %d\n"
+msgid "unknown algorithm %d\n"
+msgstr "nomaʼlum algoritm %d\n"
 
 #: src/optimizers/opt_simple_var.c:43
 #, c-format
@@ -7499,12 +7435,9 @@ msgstr ""
 
 #: src/rdpattern_ui.c:132
 #, c-format
-msgid ""
-"Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
-"GS_LINP\n"
+msgid "gain_style %d out of range [0..%d], defaulting to GS_LINP\n"
 msgstr ""
-"Scale_Gain_Resolved: gain_style %d [0..%d] diapazonidan tashqari, GS_LINP ga "
-"qaytarilmoqda\n"
+"gain_style %d [0..%d] diapazonidan tashqari, GS_LINP ga qaytarilmoqda\n"
 
 #: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
@@ -7646,13 +7579,13 @@ msgstr "Mutlaq"
 
 #: src/render/gradient_cache.c:312
 #, c-format
-msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
-msgstr "gradient_cache_update: sirt yaratib boʻlmadi (%dx%d)\n"
+msgid "surface creation failed (%dx%d)\n"
+msgstr "sirt yaratib boʻlmadi (%dx%d)\n"
 
 #: src/render/render_fit.c:67
 #, c-format
-msgid "render_fit_solve: no geometry to fit\n"
-msgstr "render_fit_solve: moslashtirish uchun geometriya yoʻq\n"
+msgid "no geometry to fit\n"
+msgstr "moslashtirish uchun geometriya yoʻq\n"
 
 #: src/render/render_message.h:29
 msgid "File ▸ Open to load an NEC file"
@@ -7710,7 +7643,7 @@ msgstr ""
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+Scroll: sim radiusi"
 
-#: src/settings/render_settings.c:49
+#: src/settings/render_settings.c:50
 msgid ""
 "OpenGL is not available on this display.\n"
 "Cairo rendering is active."
@@ -7718,7 +7651,7 @@ msgstr ""
 "Bu displeyda OpenGL mavjud emas.\n"
 "Cairo orqali renderlash faol."
 
-#: src/settings/render_settings.c:54
+#: src/settings/render_settings.c:55
 msgid ""
 "Built without OpenGL support.\n"
 "Cairo rendering is active."
@@ -7726,33 +7659,73 @@ msgstr ""
 "Dastur OpenGL qoʻllovisiz yigʻilgan.\n"
 "Cairo orqali renderlash faol."
 
-#: src/settings/render_settings.c:123
+#: src/settings/render_settings.c:151
 msgid "General"
 msgstr "Umumiy"
 
-#: src/settings/render_settings.c:127
+#: src/settings/render_settings.c:155
 msgid "Color"
 msgstr "Rang"
 
-#: src/settings/render_settings_common.c:141
+#: src/settings/render_settings_common.c:142 src/sy_overrides.c:1093
 #, c-format
-msgid "render_settings_init: failed to load glade: %s\n"
-msgstr "render_settings_init: glade yuklab boʻlmadi: %s\n"
+msgid "failed to load glade: %s\n"
+msgstr "glade yuklab boʻlmadi: %s\n"
 
-#: src/settings/render_settings_common.c:151
+#: src/settings/render_settings_common.c:152
 #, c-format
-msgid "render_settings_init: failed to load opengl glade: %s\n"
-msgstr "render_settings_init: opengl glade yuklab boʻlmadi: %s\n"
+msgid "failed to load opengl glade: %s\n"
+msgstr "opengl glade yuklab boʻlmadi: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:162
 #, c-format
-msgid "render_settings_init: failed to load cairo glade: %s\n"
-msgstr "render_settings_init: cairo glade yuklab boʻlmadi: %s\n"
+msgid "failed to load cairo glade: %s\n"
+msgstr "cairo glade yuklab boʻlmadi: %s\n"
 
-#: src/settings/render_settings_common.c:182
+#: src/settings/render_settings_common.c:183
 #, c-format
-msgid "render_settings_init: failed to get render_settings_window from glade\n"
-msgstr "render_settings_init: glade dan render_settings_window olib boʻlmadi\n"
+msgid "failed to get render_settings_window from glade\n"
+msgstr "glade dan render_settings_window olib boʻlmadi\n"
+
+#: src/signal_handler.c:29
+#, c-format
+msgid "exiting via user interrupt\n"
+msgstr "foydalanuvchi uzilishi orqali chiqilmoqda\n"
+
+#: src/signal_handler.c:33
+#, c-format
+msgid "segmentation fault, exiting\n"
+msgstr "segmentatsiya xatosi, chiqilmoqda\n"
+
+#: src/signal_handler.c:37
+#, c-format
+msgid "floating point exception, exiting\n"
+msgstr "suzuvchi nuqta istisnosi, chiqilmoqda\n"
+
+#: src/signal_handler.c:41
+#, c-format
+msgid "abort signal received, exiting\n"
+msgstr "toʻxtatish signali qabul qilindi, chiqilmoqda\n"
+
+#: src/signal_handler.c:45
+#, c-format
+msgid "termination request received, exiting\n"
+msgstr "tugatish soʻrovi qabul qilindi, chiqilmoqda\n"
+
+#: src/signal_handler.c:55
+#, c-format
+msgid "not forked, ignoring SIGCHLD from pid %d\n"
+msgstr "tarmoqlanmagan, pid %d dan SIGCHLD eʼtiborga olinmaydi\n"
+
+#: src/signal_handler.c:63
+#, c-format
+msgid "child process pid %d exited\n"
+msgstr "bola jarayoni pid %d chiqdi\n"
+
+#: src/signal_handler.c:72
+#, c-format
+msgid "default exit with signal: %d\n"
+msgstr "signal bilan standart chiqish: %d\n"
 
 #: src/somnec.c:302
 #, c-format
@@ -7824,8 +7797,8 @@ msgstr "sy_evaluate uchun notoʻgʻri argumentlar"
 
 #: src/sy_expr.c:1246
 #, c-format
-msgid "sy_load_overrides: malformed line (no colon): %s"
-msgstr "sy_load_overrides: notoʻgʻri qator (ikki nuqta yoʻq): %s"
+msgid "malformed line (no colon): %s"
+msgstr "notoʻgʻri qator (ikki nuqta yoʻq): %s"
 
 #: src/sy_expr.c:1336
 #, c-format
@@ -7834,8 +7807,8 @@ msgstr "%2$s dan %1$d ta belgi ustidan yozish yuklandi\n"
 
 #: src/sy_expr.c:1453
 #, c-format
-msgid "sy_save_overrides: cannot open %s for writing: %s\n"
-msgstr "sy_save_overrides: %s ni yozish uchun ochib boʻlmadi: %s\n"
+msgid "cannot open %s for writing: %s\n"
+msgstr "%s ni yozish uchun ochib boʻlmadi: %s\n"
 
 #: src/sy_expr.c:1475
 #, c-format
@@ -7866,15 +7839,10 @@ msgstr "Eng katta"
 msgid "Expression"
 msgstr "Ifoda"
 
-#: src/sy_overrides.c:1093
-#, c-format
-msgid "sy_overrides_init: failed to load glade: %s\n"
-msgstr "sy_overrides_init: glade yuklab boʻlmadi: %s\n"
-
 #: src/sy_overrides.c:1107
 #, c-format
-msgid "sy_overrides_init: failed to get widgets from glade\n"
-msgstr "sy_overrides_init: glade dan vidjetlarni olib boʻlmadi\n"
+msgid "failed to get widgets from glade\n"
+msgstr "glade dan vidjetlarni olib boʻlmadi\n"
 
 #: src/sy_overrides.c:1223
 msgid "Input Symbols"
@@ -7941,44 +7909,39 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:417
-#, c-format
-msgid "Stop: %s\n"
-msgstr "Toʻxtash: %s\n"
-
-#: src/utils.c:456 src/utils.c:458
+#: src/utils.c:411 src/utils.c:413
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "Chastota siklida toʻxtash, deadlock oldini olindi: %s\n"
 
-#: src/utils.c:684
+#: src/utils.c:639
 #, c-format
 msgid "applying an OpenMP budget of %d threads\n"
 msgstr "%d ta toladan iborat OpenMP byudjeti qoʻllanmoqda\n"
 
-#: src/utils.c:699
+#: src/utils.c:654
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f soniya\n"
 
-#: src/utils.c:724
+#: src/utils.c:679
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Faylni ochib boʻlmadi: %s\n"
 
-#: src/utils.c:1090
+#: src/utils.c:1045
 #, c-format
 msgid "  Backtrace:\n"
 msgstr "  Qayta iz:\n"
 
 # xnec2c-exempt: symbol
-#: src/utils.c:1092
+#: src/utils.c:1047
 #, c-format
 msgid "    %d. %s\n"
 msgstr ""
 
 # xnec2c-exempt: symbol
-#: src/utils.c:1119
+#: src/utils.c:1074
 #, c-format
 msgid "%s:\n"
 msgstr ""

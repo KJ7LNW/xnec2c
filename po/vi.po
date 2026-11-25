@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 02:39-0800\n"
+"POT-Creation-Date: 2026-11-25 13:19-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -1005,11 +1005,11 @@ msgstr "_Tự động áp dụng"
 msgid "Automatically apply changes and reload model after 300ms delay"
 msgstr "Tự động áp dụng thay đổi và tải lại mô hình sau 300ms"
 
-#: resources/sy_overrides.glade:714 src/geom_edit.c:2866
+#: resources/sy_overrides.glade:714 src/geom_edit.c:2848
 msgid "_Apply"
 msgstr "_Áp dụng"
 
-#: resources/sy_overrides.glade:729 src/geom_edit.c:2865
+#: resources/sy_overrides.glade:729 src/geom_edit.c:2847
 msgid "_Cancel"
 msgstr "_Hủy"
 
@@ -1641,7 +1641,7 @@ msgstr "Quản lý thẻ"
 msgid "File Save"
 msgstr "Lưu tệp"
 
-#: resources/xnec2c.glade:6003 src/nec2_model.c:279
+#: resources/xnec2c.glade:6003 src/nec2_model.c:278
 msgid "Comments"
 msgstr "Ghi chú"
 
@@ -1850,27 +1850,27 @@ msgstr "Chia nhỏ góc 2-3 (NY)"
 msgid "Surface Sub-division"
 msgstr "Chia nhỏ bề mặt"
 
-#: resources/xnec2c.glade:7533 src/geom_edit.c:1157
+#: resources/xnec2c.glade:7533 src/geom_edit.c:1151
 msgid "Center - X"
 msgstr "Tâm - X"
 
-#: resources/xnec2c.glade:7565 src/geom_edit.c:1163
+#: resources/xnec2c.glade:7565 src/geom_edit.c:1157
 msgid "Normal - Elev."
 msgstr "Pháp tuyến - Cao độ"
 
-#: resources/xnec2c.glade:7597 src/geom_edit.c:1159
+#: resources/xnec2c.glade:7597 src/geom_edit.c:1153
 msgid "Center - Y"
 msgstr "Tâm - Y"
 
-#: resources/xnec2c.glade:7629 src/geom_edit.c:1165
+#: resources/xnec2c.glade:7629 src/geom_edit.c:1159
 msgid "Normal - Azim."
 msgstr "Pháp tuyến - Phương vị"
 
-#: resources/xnec2c.glade:7661 src/geom_edit.c:1161
+#: resources/xnec2c.glade:7661 src/geom_edit.c:1155
 msgid "Center - Z"
 msgstr "Tâm - Z"
 
-#: resources/xnec2c.glade:7693 src/geom_edit.c:1167
+#: resources/xnec2c.glade:7693 src/geom_edit.c:1161
 msgid "Patch Area"
 msgstr "Diện tích mảnh"
 
@@ -3342,10 +3342,10 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "tệp cấu hình không tồn tại hoặc không thể đọc: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1836 src/input.c:1837
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
-#: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
+#: src/sy_expr.c:172 src/utils.c:680
 #, c-format
 msgid "%s"
 msgstr ""
@@ -3377,11 +3377,8 @@ msgstr "--%s yêu cầu <width>x<height>: %s\n"
 
 #: src/cairo/cairo_fit.c:115
 #, c-format
-msgid ""
-"cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
-msgstr ""
-"cairo_fit_view: không giải được khung: extent=%g box=[%g,%g,%g,%g] view=%dx"
-"%d\n"
+msgid "no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
+msgstr "không giải được khung: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
 # xnec2c-exempt: notation
 #: src/cairo/cairo_frame.c:302
@@ -3490,11 +3487,11 @@ msgstr "Tệp Touchstone 2 cổng (*.s2p)"
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "Tệp CSV phân cách bằng dấu phẩy (*.csv)"
 
-#: src/callbacks.c:83 src/callbacks.c:99 src/freqplots/freqplots_core.c:69
+#: src/callbacks.c:81 src/callbacks.c:97 src/freqplots/freqplots_core.c:69
 msgid "Antenna Temperature"
 msgstr "Nhiệt độ ăng-ten"
 
-#: src/callbacks.c:84
+#: src/callbacks.c:82
 #, c-format
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
@@ -3503,7 +3500,7 @@ msgstr ""
 "Phát hiện mặt phẳng đất trong mô hình. Kết quả Ta sẽ tính thừa hiệu ứng đất. "
 "Mô hình không gian tự do là tiêu chuẩn để đánh giá nhiệt độ ăng-ten."
 
-#: src/callbacks.c:100
+#: src/callbacks.c:98
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3512,12 +3509,12 @@ msgstr ""
 "Độ lợi cực đại tại θ=%.0f° (%.0f° từ mặt phẳng XY). Quy ước giả định chùm "
 "tia nằm trong mặt phẳng XY với góc ngẩng quan sát được đặt bởi spinbutton."
 
-#: src/callbacks.c:186 src/callbacks.c:520 src/callbacks.c:1675
-#: src/callbacks.c:1845
+#: src/callbacks.c:184 src/callbacks.c:518 src/callbacks.c:1652
+#: src/callbacks.c:1822
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "Bạn có chắc chắn muốn thoát xnec2c không?"
 
-#: src/callbacks.c:290
+#: src/callbacks.c:288
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3525,7 +3522,7 @@ msgstr ""
 "Không thể tạo tệp đầu vào NEC2 mới\n"
 "khi vòng lặp tần số đang chạy"
 
-#: src/callbacks.c:327
+#: src/callbacks.c:325
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3533,11 +3530,11 @@ msgstr ""
 "Không thể mở tệp đầu vào NEC2 mới\n"
 "khi vòng lặp tần số đang chạy"
 
-#: src/callbacks.c:446
+#: src/callbacks.c:444
 msgid "xnec2c geometry optimizer"
 msgstr "Trình tối ưu hóa hình học xnec2c"
 
-#: src/callbacks.c:447
+#: src/callbacks.c:445
 #, c-format
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
@@ -3545,11 +3542,11 @@ msgstr ""
 "xnec2c được xây dựng không có hỗ trợ inotify: không thể kích hoạt trình tối "
 "ưu hóa."
 
-#: src/callbacks.c:468
+#: src/callbacks.c:466
 msgid "Xnec2c Optimizer"
 msgstr "Trình tối ưu hóa Xnec2c"
 
-#: src/callbacks.c:468
+#: src/callbacks.c:466
 #, c-format
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
@@ -3560,21 +3557,21 @@ msgstr ""
 "toán lại tệp đầu vào khi có thay đổi được kích hoạt bởi inotify. Chọn tệp để "
 "ghi trong \"File->Optimization Settings\"."
 
-#: src/callbacks.c:972 src/callbacks.c:1289 src/callbacks.c:1871
+#: src/callbacks.c:949 src/callbacks.c:1266 src/callbacks.c:1848
 msgid "Are you sure you wish to close this window?"
 msgstr "Bạn có chắc chắn muốn đóng cửa sổ này không?"
 
-#: src/callbacks.c:1503
+#: src/callbacks.c:1480
 #, c-format
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr "OpenGL không khả dụng trên màn hình này; không thể bật bộ kết xuất.\n"
 
-#: src/callbacks.c:1811
+#: src/callbacks.c:1788
 #, c-format
 msgid "No open NEC2 input file"
 msgstr "Không có tệp đầu vào NEC2 nào đang mở"
 
-#: src/callbacks.c:1902 src/callbacks.c:1932
+#: src/callbacks.c:1879 src/callbacks.c:1909
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3582,26 +3579,16 @@ msgstr ""
 "Dữ liệu trình soạn thảo NEC2 có thể không được lưu\n"
 "khi vòng lặp tần số đang chạy"
 
-#: src/callbacks.c:1914 src/callbacks.c:1940
+#: src/callbacks.c:1891 src/callbacks.c:1917
 msgid "untitled.nec"
 msgstr "chưa_đặt_tên.nec"
 
-#: src/callbacks.c:2401 src/callbacks.c:2421 src/callbacks.c:2441
-#: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
-#, c-format
-msgid ""
-"Frequency (FR) cards not yet processed.\n"
-"You may need to save the NEC2 Editor data first."
-msgstr ""
-"Thẻ tần số (FR) chưa được xử lý.\n"
-"Bạn có thể cần lưu dữ liệu trình soạn thảo NEC2 trước."
-
-#: src/chroma/chroma.c:315
+#: src/chroma/chroma.c:313
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "phép chiếu màu không hợp lệ %d, dùng tức thời\n"
 
-#: src/chroma/chroma.c:627
+#: src/chroma/chroma.c:626
 #, c-format
 msgid "invalid segment scale encoding %d, using model radius\n"
 msgstr "mã hoá tỷ lệ đoạn không hợp lệ %d, dùng bán kính mô hình\n"
@@ -4180,8 +4167,8 @@ msgstr ""
 msgid "VSWR vs Frequency"
 msgstr "VSWR theo tần số"
 
-#: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
-#: src/geom_edit.c:2703
+#: src/geom_edit.c:108 src/geom_edit.c:1982 src/geom_edit.c:2254
+#: src/geom_edit.c:2685
 #, c-format
 msgid ""
 "Error reading row data\n"
@@ -4199,7 +4186,7 @@ msgstr ""
 "Lỗi ghi dữ liệu hàng\n"
 "Vui lòng chọn lại hàng"
 
-#: src/geom_edit.c:583
+#: src/geom_edit.c:577
 #, c-format
 msgid ""
 "GC card preceded by GW card\n"
@@ -4208,12 +4195,12 @@ msgstr ""
 "Thẻ GC đứng trước thẻ GW\n"
 "có bán kính dây khác không"
 
-#: src/geom_edit.c:587
+#: src/geom_edit.c:581
 #, c-format
 msgid "No GW card before GC card"
 msgstr "Không có thẻ GW trước thẻ GC"
 
-#: src/geom_edit.c:611
+#: src/geom_edit.c:605
 #, c-format
 msgid ""
 "No GC card after a GW card\n"
@@ -4222,7 +4209,7 @@ msgstr ""
 "Không có thẻ GC sau thẻ GW\n"
 "có bán kính dây bằng không"
 
-#: src/geom_edit.c:620
+#: src/geom_edit.c:614
 #, c-format
 msgid ""
 "GC card follows a GW card\n"
@@ -4231,7 +4218,7 @@ msgstr ""
 "Thẻ GC theo sau thẻ GW\n"
 "có bán kính dây khác không"
 
-#: src/geom_edit.c:1025
+#: src/geom_edit.c:1019
 #, c-format
 msgid ""
 "SC card preceded by SP card\n"
@@ -4240,12 +4227,12 @@ msgstr ""
 "Thẻ SC đứng trước thẻ SP\n"
 "có loại mảnh tùy ý"
 
-#: src/geom_edit.c:1037
+#: src/geom_edit.c:1031
 #, c-format
 msgid "No SP or SM card before SC card"
 msgstr "Không có thẻ SP hoặc SM trước thẻ SC"
 
-#: src/geom_edit.c:1057
+#: src/geom_edit.c:1051
 #, c-format
 msgid ""
 "No SC card after an SP card\n"
@@ -4254,7 +4241,7 @@ msgstr ""
 "Không có thẻ SC sau thẻ SP\n"
 "có loại mảnh không tùy ý"
 
-#: src/geom_edit.c:1064
+#: src/geom_edit.c:1058
 #, c-format
 msgid ""
 "SC card follows an SP card\n"
@@ -4263,47 +4250,56 @@ msgstr ""
 "Thẻ SC theo sau thẻ SP\n"
 "có loại mảnh tùy ý"
 
-#: src/geom_edit.c:1077
+#: src/geom_edit.c:1071
 #, c-format
 msgid "No SC card after an SM card"
 msgstr "Không có thẻ SC sau thẻ SM"
 
-#: src/geom_edit.c:1172
+#: src/geom_edit.c:1166
 msgid "Corner 1 - X"
 msgstr "Góc 1 - X"
 
-#: src/geom_edit.c:1174
+#: src/geom_edit.c:1168
 msgid "Corner 1 - Y"
 msgstr "Góc 1 - Y"
 
-#: src/geom_edit.c:1176
+#: src/geom_edit.c:1170
 msgid "Corner 1 - Z"
 msgstr "Góc 1 - Z"
 
-#: src/geom_edit.c:1178
+#: src/geom_edit.c:1172
 msgid "Corner 2 - X"
 msgstr "Góc 2 - X"
 
-#: src/geom_edit.c:1180
+#: src/geom_edit.c:1174
 msgid "Corner 2 - Y"
 msgstr "Góc 2 - Y"
 
-#: src/geom_edit.c:1182
+#: src/geom_edit.c:1176
 msgid "Corner 2 - Z"
 msgstr "Góc 2 - Z"
 
-#: src/geom_edit.c:2861
+#: src/geom_edit.c:2843
 msgid "SY Card Editor"
 msgstr "Trình soạn thẻ SY"
 
-#: src/geom_edit.c:2871
+#: src/geom_edit.c:2853
 msgid "SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"
 msgstr "Định nghĩa SY (ví dụ: FREQ=146, LAMBDA=300/FREQ):"
 
-#: src/geom_edit.c:2970
+#: src/geom_edit.c:2952
 #, c-format
 msgid "NEC2 editor window not open"
 msgstr "Cửa sổ trình soạn thảo NEC2 chưa mở"
+
+#: src/geom_edit.c:2980
+#, c-format
+msgid ""
+"Frequency (FR) cards not yet processed.\n"
+"You may need to save the NEC2 Editor data first."
+msgstr ""
+"Thẻ tần số (FR) chưa được xử lý.\n"
+"Bạn có thể cần lưu dữ liệu trình soạn thảo NEC2 trước."
 
 #: src/geometry.c:118
 #, c-format
@@ -4645,11 +4641,8 @@ msgstr "Buộc kiểm tra chồng chéo cho %d đoạn\n"
 
 #: src/geometry.c:1849
 #, c-format
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr ""
-"verify_segments() bỏ qua kiểm tra phụ thuộc tần số - không có dữ liệu tần "
-"số\n"
+msgid "skipping frequency-dependent checks - no frequency data\n"
+msgstr "bỏ qua kiểm tra phụ thuộc tần số - không có dữ liệu tần số\n"
 
 #: src/gnuplot.c:43
 msgid "Gnuplot Data"
@@ -4784,7 +4777,7 @@ msgstr "b nhỏ hơn a"
 msgid "step size limited at z = %12.5E\n"
 msgstr "kích thước bước bị giới hạn tại Z = %12.5E\n"
 
-#: src/input.c:150
+#: src/input.c:151
 #, c-format
 msgid ""
 "Error reading Comments\n"
@@ -4793,7 +4786,7 @@ msgstr ""
 "Lỗi đọc chú thích\n"
 "Gặp EOF (Kết thúc tệp) không mong đợi"
 
-#: src/input.c:164
+#: src/input.c:165
 #, c-format
 msgid ""
 "Error reading Comments\n"
@@ -4802,7 +4795,7 @@ msgstr ""
 "Lỗi đọc chú thích\n"
 "Mã gợi nhớ chú thích ngắn hoặc thiếu"
 
-#: src/input.c:175
+#: src/input.c:176
 #, c-format
 msgid ""
 "Read_Comments():\n"
@@ -4813,7 +4806,7 @@ msgstr ""
 " Lỗi đọc tệp đầu vào\n"
 "Mã gợi nhớ chú thích không đúng"
 
-#: src/input.c:215
+#: src/input.c:216
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4822,7 +4815,7 @@ msgstr ""
 "Lỗi dữ liệu hình học\n"
 "Số tag là âm"
 
-#: src/input.c:222
+#: src/input.c:223
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4831,12 +4824,12 @@ msgstr ""
 "Lỗi dữ liệu hình học\n"
 "Số đoạn nhỏ hơn 1"
 
-#: src/input.c:229
+#: src/input.c:230
 #, c-format
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "cảnh báo - số đoạn lớn hơn 1000000\n"
 
-#: src/input.c:252
+#: src/input.c:253
 #, c-format
 msgid ""
 "%s card: tag 0 selects segment %d by absolute position in the structure, not "
@@ -4847,12 +4840,12 @@ msgstr ""
 "trong một dây đã gắn tag; hãy gán cho dây một số tag và tham chiếu đoạn "
 "trong tag đó trừ khi chủ định định vị tuyệt đối\n"
 
-#: src/input.c:299
+#: src/input.c:300
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "lỗi thẻ dữ liệu %s: Ký tự không hợp lệ '%c' tại cột %d\n"
 
-#: src/input.c:301
+#: src/input.c:302
 #, c-format
 msgid ""
 "Data card error\n"
@@ -4861,37 +4854,37 @@ msgstr ""
 "Lỗi thẻ dữ liệu\n"
 "Ký tự không hợp lệ trong thẻ"
 
-#: src/input.c:372
+#: src/input.c:373
 #, c-format
 msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: đánh giá biểu thức thất bại cho \"%s\"\n"
 
-#: src/input.c:413
+#: src/input.c:414
 #, c-format
 msgid "SY card: no line content available\n"
 msgstr "Thẻ SY: không có nội dung dòng\n"
 
-#: src/input.c:414
+#: src/input.c:415
 #, c-format
 msgid "SY card: no line content available"
 msgstr "Thẻ SY: không có nội dung dòng"
 
-#: src/input.c:431
+#: src/input.c:432
 #, c-format
 msgid "SY card: missing '=' in definition\n"
 msgstr "Thẻ SY: thiếu '=' trong định nghĩa\n"
 
-#: src/input.c:432
+#: src/input.c:433
 #, c-format
 msgid "SY card: missing '=' in definition"
 msgstr "Thẻ SY: thiếu '=' trong định nghĩa"
 
-#: src/input.c:465
+#: src/input.c:466
 #, c-format
 msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "Thẻ SY: định nghĩa ký hiệu thất bại cho %s=%s\n"
 
-#: src/input.c:652
+#: src/input.c:653
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4900,31 +4893,31 @@ msgstr ""
 "Lỗi dữ liệu hình học\n"
 "Không có thẻ GC cho dây dẫn côn"
 
-#: src/input.c:659
+#: src/input.c:660
 #, c-format
 msgid "Geometry GC data card error"
 msgstr "Lỗi thẻ dữ liệu GC hình học"
 
-#: src/input.c:675
+#: src/input.c:676
 #, c-format
 msgid "Geometry GX data card error"
 msgstr "Lỗi thẻ dữ liệu GX hình học"
 
-#: src/input.c:698
+#: src/input.c:699
 #, c-format
 msgid "Geometry GR data card error"
 msgstr "Lỗi thẻ dữ liệu GR hình học"
 
-#: src/input.c:752
+#: src/input.c:753
 #, c-format
 msgid "No geometry data cards"
 msgstr "Không có thẻ dữ liệu hình học"
 
-#: src/input.c:763
+#: src/input.c:764
 msgid "Probable invalid segment geometry.\n"
 msgstr "Có thể hình học đoạn không hợp lệ.\n"
 
-#: src/input.c:764
+#: src/input.c:765
 #, c-format
 msgid ""
 "Invalid segment geometry.\n"
@@ -4935,43 +4928,43 @@ msgstr ""
 "Xem cảnh báo trong bảng điều khiển để biết chi tiết.\n"
 "Đang cố gắng tiếp tục..."
 
-#: src/input.c:770
+#: src/input.c:771
 #, c-format
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "Có thể hình học đoạn không hợp lệ (xem ở trên)\n"
 
-#: src/input.c:774
+#: src/input.c:775
 #, c-format
-msgid "Read_Geometry: verify_segments() passed\n"
-msgstr "Read_Geometry: verify_segments() đã thành công\n"
+msgid "verify_segments() passed\n"
+msgstr "verify_segments() đã thành công\n"
 
-#: src/input.c:811
+#: src/input.c:812
 #, c-format
 msgid "segment data error: tag=%d si=%f, bi=%f\n"
 msgstr "lỗi dữ liệu đoạn: tag=%d si=%f, bi=%f\n"
 
-#: src/input.c:813
+#: src/input.c:814
 #, c-format
 msgid "Segment data error, zero-length line?  See console."
 msgstr "Lỗi dữ liệu đoạn, đường có độ dài bằng không? Xem bảng điều khiển."
 
-#: src/input.c:853
+#: src/input.c:854
 #, c-format
 msgid "Move GM data card error"
 msgstr "Lỗi thẻ dữ liệu di chuyển GM"
 
-#: src/input.c:869 src/input.c:910 src/input.c:927 src/input.c:945
-#: src/input.c:953
+#: src/input.c:870 src/input.c:911 src/input.c:928 src/input.c:946
+#: src/input.c:954
 #, c-format
 msgid "Patch data card error"
 msgstr "Lỗi thẻ dữ liệu mảnh"
 
-#: src/input.c:891
+#: src/input.c:892
 #, c-format
 msgid "Patch data error"
 msgstr "Lỗi dữ liệu mảnh"
 
-#: src/input.c:1000
+#: src/input.c:1001
 #, c-format
 msgid ""
 "\"GF\" card (NGF solution)\n"
@@ -4980,74 +4973,74 @@ msgstr ""
 "Thẻ \"GF\" (giải pháp NGF)\n"
 "không được hỗ trợ"
 
-#: src/input.c:1005
+#: src/input.c:1006
 #, c-format
 msgid "Ignoring CM card in geometry"
 msgstr "Bỏ qua thẻ CM trong hình học"
 
-#: src/input.c:1018
+#: src/input.c:1019
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
 msgstr "lỗi thẻ dữ liệu hình học (nwire=%d)\n"
 
 # xnec2c-exempt: symbol
-#: src/input.c:1019
+#: src/input.c:1020
 #, c-format
 msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
-#: src/input.c:1025
+#: src/input.c:1026
 #, c-format
 msgid "Command card in geometry section"
 msgstr "Thẻ lệnh trong phần hình học"
 
-#: src/input.c:1027
+#: src/input.c:1028
 #, c-format
 msgid "Unrecognized geometry card"
 msgstr "Thẻ hình học không được nhận dạng"
 
-#: src/input.c:1051
+#: src/input.c:1052
 #, c-format
 msgid "Failed to initialize symbol table\n"
 msgstr "Khởi tạo bảng ký hiệu thất bại\n"
 
-#: src/input.c:1052
+#: src/input.c:1053
 #, c-format
 msgid "Failed to initialize symbol table"
 msgstr "Khởi tạo bảng ký hiệu thất bại"
 
-#: src/input.c:1192
+#: src/input.c:1193
 #, c-format
 msgid "No FR card: computing one step at the NEC-2 default %g MHz\n"
 msgstr ""
 "Không có thẻ FR: đang tính một bước tại giá trị mặc định NEC-2 %g MHz\n"
 
-#: src/input.c:1283
+#: src/input.c:1284
 #, c-format
 msgid "ignoring CM card in commands\n"
 msgstr "bỏ qua thẻ CM trong lệnh\n"
 
-#: src/input.c:1284
+#: src/input.c:1285
 #, c-format
 msgid "Ignoring CM card in commands"
 msgstr "Bỏ qua thẻ CM trong lệnh"
 
-#: src/input.c:1296
+#: src/input.c:1297
 #, c-format
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "Thẻ CP bị bỏ qua: chưa triển khai tính toán ghép nối\n"
 
-#: src/input.c:1392
+#: src/input.c:1393
 #, c-format
 msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "Bỏ qua thẻ FR trùng lặp tại %g MHz\n"
 
-#: src/input.c:1457
+#: src/input.c:1458
 #, c-format
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "Tần số tối đa <= Tần số tối thiểu trong thẻ FR\n"
 
-#: src/input.c:1458
+#: src/input.c:1459
 #, c-format
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
@@ -5056,7 +5049,7 @@ msgstr ""
 "Tần số tối đa <= Tần số tối thiểu trong thẻ FR\n"
 "Vui lòng kiểm tra dữ liệu thẻ FR và sửa"
 
-#: src/input.c:1481
+#: src/input.c:1482
 #, c-format
 msgid ""
 "Fix the GE/GN cards:\n"
@@ -5066,12 +5059,12 @@ msgstr ""
 "Sửa các thẻ GE/GN:\n"
 "Thẻ GE chỉ định có mặt phẳng đất, nhưng thẻ GN chỉ định ngược lại."
 
-#: src/input.c:1495
+#: src/input.c:1496
 #, c-format
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "theta > 90 độ với mặt phẳng đất được chỉ định\n"
 
-#: src/input.c:1496 src/radiation.c:911
+#: src/input.c:1497 src/radiation.c:911
 #, c-format
 msgid ""
 "Theta > 90 deg with ground specified\n"
@@ -5080,7 +5073,7 @@ msgstr ""
 "Theta > 90 độ với mặt phẳng đất được chỉ định\n"
 "Vui lòng kiểm tra dữ liệu thẻ RP và sửa"
 
-#: src/input.c:1505
+#: src/input.c:1506
 #, c-format
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
@@ -5088,7 +5081,7 @@ msgid ""
 msgstr ""
 "xấp xỉ g.s. dây radial: không thể sử dụng với tùy chọn mặt đất Sommerfeld\n"
 
-#: src/input.c:1506
+#: src/input.c:1507
 #, c-format
 msgid ""
 "radial wire g.s. approximation\n"
@@ -5097,14 +5090,14 @@ msgstr ""
 "xấp xỉ g.s. dây radial\n"
 "không thể sử dụng với tùy chọn mặt đất Sommerfeld"
 
-#: src/input.c:1554
+#: src/input.c:1555
 #, c-format
 msgid ""
 "data fault on loading card no %d: itag step1 %d is greater than itag step2 "
 "%d\n"
 msgstr "lỗi dữ liệu trên thẻ tải số %d: itag step1 %d lớn hơn itag step2 %d\n"
 
-#: src/input.c:1556
+#: src/input.c:1557
 #, c-format
 msgid ""
 "Data fault on loading card\n"
@@ -5113,14 +5106,14 @@ msgstr ""
 "Lỗi dữ liệu trên thẻ tải\n"
 "itag step1 lớn hơn itag step2"
 
-#: src/input.c:1685
+#: src/input.c:1686
 #, c-format
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr ""
 "Trở kháng đường truyền = 0: không hợp lệ. Vui lòng sửa thẻ NT hoặc TL\n"
 
-#: src/input.c:1686
+#: src/input.c:1687
 #, c-format
 msgid ""
 "Transmission Line impedance = 0\n"
@@ -5129,12 +5122,12 @@ msgstr ""
 "Trở kháng đường truyền = 0\n"
 "không hợp lệ. Vui lòng sửa thẻ NT hoặc TL"
 
-#: src/input.c:1697
+#: src/input.c:1698
 #, c-format
 msgid "Segment number error in TL or NT card\n"
 msgstr "Lỗi số đoạn trong thẻ TL hoặc NT\n"
 
-#: src/input.c:1698
+#: src/input.c:1699
 #, c-format
 msgid ""
 "Segment number\n"
@@ -5143,22 +5136,22 @@ msgstr ""
 "Số đoạn\n"
 "lỗi trong thẻ NT hoặc TL"
 
-#: src/input.c:1720
+#: src/input.c:1721
 #, c-format
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr "Thẻ PQ và PT bị bỏ qua: chưa triển khai in ra tệp\n"
 
-#: src/input.c:1724
+#: src/input.c:1725
 #, c-format
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "Thẻ PL bị bỏ qua: không hỗ trợ vẽ đồ thị ra tệp\n"
 
-#: src/input.c:1730
+#: src/input.c:1731
 #, c-format
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "Tùy chọn sóng mặt (I1=1): của lệnh RP chưa được triển khai\n"
 
-#: src/input.c:1731
+#: src/input.c:1732
 #, c-format
 msgid ""
 "Surface wave option (I1=1)\n"
@@ -5167,7 +5160,7 @@ msgstr ""
 "Tùy chọn sóng mặt (I1=1)\n"
 "của lệnh RP chưa được triển khai"
 
-#: src/input.c:1763
+#: src/input.c:1764
 #, c-format
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
@@ -5176,7 +5169,7 @@ msgstr ""
 "Theta > 90 độ với mặt phẳng đất được chỉ định: Vui lòng kiểm tra dữ liệu thẻ "
 "RP và sửa\n"
 
-#: src/input.c:1764
+#: src/input.c:1765
 #, c-format
 msgid ""
 "Theta > 90 deg. with ground specified\n"
@@ -5185,15 +5178,15 @@ msgstr ""
 "Theta > 90 độ với mặt phẳng đất được chỉ định\n"
 "Vui lòng kiểm tra dữ liệu thẻ RP và sửa"
 
-#: src/input.c:1831
+#: src/input.c:1832
 msgid "Geometry card in command section"
 msgstr "Thẻ hình học trong phần lệnh"
 
-#: src/input.c:1834
+#: src/input.c:1835
 msgid "Unrecognized command card"
 msgstr "Thẻ lệnh không được nhận dạng"
 
-#: src/input.c:1879
+#: src/input.c:1880
 #, c-format
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
@@ -5202,12 +5195,12 @@ msgstr ""
 "Thiếu hoặc thẻ RP sóng mặt: Tính toán giản đồ bức xạ và độ lợi bị vô hiệu "
 "hóa\n"
 
-#: src/input.c:1906
+#: src/input.c:1907
 #, c-format
 msgid "Unexpected exit from while loop"
 msgstr "Thoát không mong đợi khỏi vòng lặp while"
 
-#: src/input.c:1997
+#: src/input.c:1998
 #, c-format
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
@@ -5215,7 +5208,7 @@ msgid ""
 msgstr ""
 "lỗi thẻ dữ liệu lệnh: EOF không mong đợi khi đọc tệp đầu vào - thêm thẻ EN\n"
 
-#: src/input.c:1998
+#: src/input.c:1999
 #, c-format
 msgid ""
 "Command data card error\n"
@@ -5226,12 +5219,12 @@ msgstr ""
 "EOF không mong đợi khi đọc tệp đầu vào\n"
 "Thêm thẻ EN mặc định"
 
-#: src/input.c:2015
+#: src/input.c:2016
 #, c-format
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr "lỗi thẻ dữ liệu lệnh: mã gợi nhớ của thẻ quá ngắn hoặc thiếu\n"
 
-#: src/input.c:2016
+#: src/input.c:2017
 #, c-format
 msgid ""
 "Command data card error\n"
@@ -5240,11 +5233,11 @@ msgstr ""
 "Lỗi thẻ dữ liệu lệnh\n"
 "Mã gợi nhớ quá ngắn hoặc thiếu"
 
-#: src/input.c:2072 src/input.c:2103
+#: src/input.c:2073 src/input.c:2104
 msgid "command data"
 msgstr "dữ liệu lệnh"
 
-#: src/input.c:2217
+#: src/input.c:2218
 #, c-format
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
@@ -5253,7 +5246,7 @@ msgstr ""
 "lỗi thẻ dữ liệu hình học: EOF không mong đợi khi đọc tệp đầu vào - thêm thẻ "
 "GE\n"
 
-#: src/input.c:2218
+#: src/input.c:2219
 #, c-format
 msgid ""
 "Geometry data card error\n"
@@ -5264,12 +5257,12 @@ msgstr ""
 "EOF không mong đợi khi đọc tệp đầu vào\n"
 "Thêm thẻ GE mặc định"
 
-#: src/input.c:2235
+#: src/input.c:2236
 #, c-format
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr "lỗi thẻ dữ liệu hình học: mã gợi nhớ của thẻ quá ngắn hoặc thiếu\n"
 
-#: src/input.c:2236
+#: src/input.c:2237
 #, c-format
 msgid ""
 "Geometry data card error\n"
@@ -5278,7 +5271,7 @@ msgstr ""
 "Lỗi thẻ dữ liệu hình học\n"
 "Mã gợi nhớ của thẻ quá ngắn hoặc thiếu"
 
-#: src/input.c:2285 src/input.c:2315
+#: src/input.c:2286 src/input.c:2316
 msgid "geometry data"
 msgstr "dữ liệu hình học"
 
@@ -5318,8 +5311,8 @@ msgid "Listing Object Ids:\n"
 msgstr "Danh sách ID đối tượng:\n"
 
 # xnec2c-exempt: symbol
-#: src/interface.c:202 src/utils.c:424 src/utils.c:428 src/utils.c:438
-#: src/utils.c:440
+#: src/interface.c:202 src/opt_file.c:342 src/opt_file.c:658 src/utils.c:372
+#: src/utils.c:379 src/utils.c:383 src/utils.c:393 src/utils.c:395
 #, c-format
 msgid "%s\n"
 msgstr ""
@@ -5341,102 +5334,62 @@ msgstr ""
 
 #: src/interface.c:370
 #, c-format
-msgid "create_animate_dialog: failed to load animate.glade: %s\n"
-msgstr "create_animate_dialog: tải animate.glade thất bại: %s\n"
+msgid "failed to load animate.glade: %s\n"
+msgstr "tải animate.glade thất bại: %s\n"
 
-#: src/main.c:126
+#: src/main.c:113
 msgid "none (no display)"
 msgstr "không có (không hiển thị)"
 
-#: src/main.c:129
+#: src/main.c:116
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Phát hiện backend cửa sổ %s\n"
 
-#: src/main.c:137
+#: src/main.c:124
 #, c-format
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch và --optimize loại trừ lẫn nhau.\n"
 
-#: src/main.c:157
+#: src/main.c:144
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "đường dẫn tệp đầu vào quá dài ( > %d ký tự )\n"
 
-#: src/main.c:164
+#: src/main.c:151
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "đối số không mong đợi '%s' dường như không phải là tệp .nec\n"
 
-#: src/main.c:171
+#: src/main.c:158
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "đối số không mong đợi: %s\n"
 
-#: src/main.c:177
+#: src/main.c:164
 #, c-format
 msgid "batch mode requires an input file\n"
 msgstr "chế độ batch yêu cầu một tệp đầu vào\n"
 
-#: src/main.c:187
+#: src/main.c:174
 #, c-format
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "không thể mở màn hình: cần có phiên X11 hoặc Wayland đang chạy\n"
 
-#: src/main.c:210
+#: src/main.c:197
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "Fork %d công việc trên %d bộ xử lý.\n"
 
-#: src/main.c:223 src/main.c:231
+#: src/main.c:210 src/main.c:218
 #, c-format
 msgid "exiting after fatal error: pipe() failed"
 msgstr "thoát sau lỗi nghiêm trọng: pipe() thất bại"
 
-#: src/main.c:240
+#: src/main.c:227
 #, c-format
 msgid "exiting after fatal error: fork() failed"
 msgstr "thoát sau lỗi nghiêm trọng: fork() thất bại"
-
-#: src/main.c:840
-#, c-format
-msgid "exiting via user interrupt\n"
-msgstr "thoát do ngắt người dùng\n"
-
-#: src/main.c:844
-#, c-format
-msgid "segmentation fault, exiting\n"
-msgstr "lỗi phân đoạn bộ nhớ, đang thoát\n"
-
-#: src/main.c:848
-#, c-format
-msgid "floating point exception, exiting\n"
-msgstr "lỗi ngoại lệ dấu phẩy động, đang thoát\n"
-
-#: src/main.c:852
-#, c-format
-msgid "abort signal received, exiting\n"
-msgstr "đã nhận tín hiệu hủy bỏ, đang thoát\n"
-
-#: src/main.c:856
-#, c-format
-msgid "termination request received, exiting\n"
-msgstr "đã nhận yêu cầu kết thúc, đang thoát\n"
-
-#: src/main.c:866
-#, c-format
-msgid "not forked, ignoring SIGCHLD from pid %d\n"
-msgstr "không fork, bỏ qua SIGCHLD từ pid %d\n"
-
-#: src/main.c:874
-#, c-format
-msgid "child process pid %d exited\n"
-msgstr "tiến trình con pid %d đã thoát\n"
-
-#: src/main.c:883
-#, c-format
-msgid "default exit with signal: %d\n"
-msgstr "thoát mặc định với tín hiệu: %d\n"
 
 #: src/mathlib.c:28
 msgid ""
@@ -5447,7 +5400,7 @@ msgstr ""
 "Khởi động lại để thay đổi thư viện đa luồng MKL."
 
 # xnec2c-exempt: symbol
-#: src/mathlib.c:368 src/utils.c:729
+#: src/mathlib.c:368 src/utils.c:684
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
@@ -5510,8 +5463,8 @@ msgstr "Đã chọn mathlib khả dụng đầu tiên: %s\n"
 
 #: src/mathlib.c:669
 #, c-format
-msgid "mathlib_load[%d]: mathlib.available=0, skipping: %s\n"
-msgstr "mathlib_load[%d]: mathlib.available=0, bỏ qua: %s\n"
+msgid "[%d]: mathlib.available=0, skipping: %s\n"
+msgstr "[%d]: mathlib.available=0, bỏ qua: %s\n"
 
 #: src/mathlib.c:719
 msgid "Batch Math Library"
@@ -5986,12 +5939,8 @@ msgstr "DG7YBN thành phố (2025)"
 
 #: src/measurements.c:424
 #, c-format
-msgid ""
-"noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
-"to 0\n"
-msgstr ""
-"noise_temp_resolve: bảng noise_temp chưa được cấp phát; t_sky/t_earth mặc "
-"định về 0\n"
+msgid "noise_temp table not allocated; t_sky/t_earth defaulting to 0\n"
+msgstr "bảng noise_temp chưa được cấp phát; t_sky/t_earth mặc định về 0\n"
 
 #: src/measurements.c:481
 msgid "Z Real"
@@ -6242,10 +6191,10 @@ msgstr "Cấp phát bộ nhớ bị từ chối %s: đã yêu cầu %lu byte\n"
 msgid "mem_obj_t at %p: size=%lu used=%lu addr=%p\n"
 msgstr "mem_obj_t tại %p: size=%lu used=%lu addr=%p\n"
 
-# xnec2c-exempt: name
+# xnec2c-exempt: symbol
 #: src/mem/mem.c:250
 #, c-format
-msgid "mem_backtrace(%p):\n"
+msgid "%p:\n"
 msgstr ""
 
 #: src/mem/mem.c:253
@@ -6255,8 +6204,8 @@ msgstr "  m->backtrace là null, không có dữ liệu backtrace\n"
 
 #: src/mem/mem.c:279
 #, c-format
-msgid "mem_clone: allocation failed for %lu bytes\n"
-msgstr "mem_clone: cấp phát thất bại cho %lu byte\n"
+msgid "allocation failed for %lu bytes\n"
+msgstr "cấp phát thất bại cho %lu byte\n"
 
 # xnec2c-exempt: notation
 #: src/mem/mem_track.c:208
@@ -6281,19 +6230,19 @@ msgstr ""
 msgid "mem-report %s:   frame %d %s\n"
 msgstr "mem-report %s:   khung %d %s\n"
 
-#: src/nec2_model.c:279 src/nec2_model.c:283 src/nec2_model.c:287
+#: src/nec2_model.c:278 src/nec2_model.c:282 src/nec2_model.c:286
 msgid "Card"
 msgstr "Thẻ"
 
-#: src/nec2_model.c:369
+#: src/nec2_model.c:368
 msgid "--- NEC2 Input File created or edited by "
 msgstr "--- Tệp đầu vào NEC2 được tạo hoặc chỉnh sửa bởi "
 
-#: src/nec2_model.c:386
+#: src/nec2_model.c:385
 msgid "--- End Comments ---"
 msgstr "--- Kết thúc ghi chú ---"
 
-#: src/nec2_model.c:525
+#: src/nec2_model.c:524
 #, c-format
 msgid ""
 "List_Comments():\n"
@@ -6304,7 +6253,7 @@ msgstr ""
 "Lỗi đọc tệp đầu vào\n"
 "EOF (Kết thúc tệp) không mong đợi"
 
-#: src/nec2_model.c:532
+#: src/nec2_model.c:531
 #, c-format
 msgid ""
 "List_Comments():\n"
@@ -6315,11 +6264,11 @@ msgstr ""
 "Lỗi đọc tệp đầu vào\n"
 "Mã gợi nhớ chú thích bị thiếu hoặc quá ngắn"
 
-#: src/nec2_model.c:818
+#: src/nec2_model.c:817
 msgid "End Comments"
 msgstr "Kết thúc ghi chú"
 
-#: src/nec2_model.c:916
+#: src/nec2_model.c:915
 #, c-format
 msgid ""
 "Cannot save treeview data\n"
@@ -6458,12 +6407,9 @@ msgstr "Vô hiệu hóa OpenGL: shader hỗn hợp peel thất bại\n"
 
 #: src/opengl-engine/opengl_view_fit.c:71
 #, c-format
-msgid ""
-"gl_view_fit_view: no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,"
-"%g,%g]\n"
+msgid "no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,%g,%g]\n"
 msgstr ""
-"gl_view_fit_view: không giải được khung: r_max=%g distance=%g proj=%d "
-"box=[%g,%g,%g,%g]\n"
+"không giải được khung: r_max=%g distance=%g proj=%d box=[%g,%g,%g,%g]\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:141
 #, c-format
@@ -6514,22 +6460,10 @@ msgstr ""
 "OpenGL không khả dụng trên màn hình này; đang chuyển sang bộ kết xuất Cairo. "
 "Xem 'Bộ kết xuất OpenGL' trong Xem > Cài đặt kết xuất.\n"
 
-# xnec2c-exempt: name
-#: src/opt_file.c:342
-#, c-format
-msgid "opt_file_save: %s\n"
-msgstr ""
-
 #: src/opt_file.c:622
 #, c-format
 msgid "Loaded %d optimizer goals\n"
 msgstr "Đã tải %d mục tiêu tối ưu hóa\n"
-
-# xnec2c-exempt: name
-#: src/opt_file.c:658
-#, c-format
-msgid "opt_file_load: %s\n"
-msgstr ""
 
 #: src/opt_ui_formula.c:46
 #, c-format
@@ -7055,23 +6989,23 @@ msgstr "Chênh lệch giữa điểm lớn nhất và nhỏ nhất trên các b�
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
-msgid "fitness_transform: unknown direction %d\n"
-msgstr "fitness_transform: hướng không xác định %d\n"
+msgid "unknown direction %d\n"
+msgstr "hướng không xác định %d\n"
 
 #: src/optimizers/opt_fitness.c:582
 #, c-format
-msgid "reduce_values: unknown reduction method %d\n"
-msgstr "reduce_values: phương pháp rút gọn không xác định %d\n"
+msgid "unknown reduction method %d\n"
+msgstr "phương pháp rút gọn không xác định %d\n"
 
 #: src/optimizers/opt_nec2_eval.c:80
 #, c-format
-msgid "nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n"
-msgstr "nec2_eval_signal: tranh chấp eval_mutex, đang chặn (thr=%lu)\n"
+msgid "eval_mutex contention, blocking (thr=%lu)\n"
+msgstr "tranh chấp eval_mutex, đang chặn (thr=%lu)\n"
 
 #: src/optimizers/opt_nec2_eval.c:194
 #, c-format
-msgid "nec2_eval_run: not initialized\n"
-msgstr "nec2_eval_run: chưa khởi tạo\n"
+msgid "not initialized\n"
+msgstr "chưa khởi tạo\n"
 
 #: src/optimizers/opt_session.c:96
 #, c-format
@@ -7089,23 +7023,23 @@ msgstr "opt: tối ưu hóa hoàn thành, độ thích nghi tốt nhất: %.6g\n
 
 #: src/optimizers/opt_session.c:194
 #, c-format
-msgid "opt_start: optimizer already running\n"
-msgstr "opt_start: trình tối ưu hóa đang chạy rồi\n"
+msgid "optimizer already running\n"
+msgstr "trình tối ưu hóa đang chạy rồi\n"
 
 #: src/optimizers/opt_session.c:258
 #, c-format
-msgid "opt_start: simple_new failed\n"
-msgstr "opt_start: simple_new thất bại\n"
+msgid "simple_new failed\n"
+msgstr "simple_new thất bại\n"
 
 #: src/optimizers/opt_session.c:267
 #, c-format
-msgid "opt_start: pthread_create failed: %d\n"
-msgstr "opt_start: pthread_create thất bại: %d\n"
+msgid "pthread_create failed: %d\n"
+msgstr "pthread_create thất bại: %d\n"
 
 #: src/optimizers/opt_simple.c:297
 #, c-format
-msgid "simple_config_init: unknown algorithm %d\n"
-msgstr "simple_config_init: thuật toán không xác định %d\n"
+msgid "unknown algorithm %d\n"
+msgstr "thuật toán không xác định %d\n"
 
 #: src/optimizers/opt_simple_var.c:43
 #, c-format
@@ -7368,12 +7302,8 @@ msgstr ""
 
 #: src/rdpattern_ui.c:132
 #, c-format
-msgid ""
-"Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
-"GS_LINP\n"
-msgstr ""
-"Scale_Gain_Resolved: gain_style %d nằm ngoài phạm vi [0..%d], mặc định "
-"GS_LINP\n"
+msgid "gain_style %d out of range [0..%d], defaulting to GS_LINP\n"
+msgstr "gain_style %d nằm ngoài phạm vi [0..%d], mặc định GS_LINP\n"
 
 #: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
@@ -7511,13 +7441,13 @@ msgstr "Tuyệt đối"
 
 #: src/render/gradient_cache.c:312
 #, c-format
-msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
-msgstr "gradient_cache_update: tạo bề mặt thất bại (%dx%d)\n"
+msgid "surface creation failed (%dx%d)\n"
+msgstr "tạo bề mặt thất bại (%dx%d)\n"
 
 #: src/render/render_fit.c:67
 #, c-format
-msgid "render_fit_solve: no geometry to fit\n"
-msgstr "render_fit_solve: không có hình học để khớp\n"
+msgid "no geometry to fit\n"
+msgstr "không có hình học để khớp\n"
 
 #: src/render/render_message.h:29
 msgid "File ▸ Open to load an NEC file"
@@ -7572,7 +7502,7 @@ msgstr "Vòng lặp tối ưu hóa chưa hoàn tất, bỏ qua vẽ lại trung 
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+Cuộn: bán kính dây"
 
-#: src/settings/render_settings.c:49
+#: src/settings/render_settings.c:50
 msgid ""
 "OpenGL is not available on this display.\n"
 "Cairo rendering is active."
@@ -7580,7 +7510,7 @@ msgstr ""
 "OpenGL không khả dụng trên màn hình này.\n"
 "Đang dựng hình bằng Cairo."
 
-#: src/settings/render_settings.c:54
+#: src/settings/render_settings.c:55
 msgid ""
 "Built without OpenGL support.\n"
 "Cairo rendering is active."
@@ -7588,33 +7518,73 @@ msgstr ""
 "Bản biên dịch không hỗ trợ OpenGL.\n"
 "Đang dựng hình bằng Cairo."
 
-#: src/settings/render_settings.c:123
+#: src/settings/render_settings.c:151
 msgid "General"
 msgstr "Chung"
 
-#: src/settings/render_settings.c:127
+#: src/settings/render_settings.c:155
 msgid "Color"
 msgstr "Màu"
 
-#: src/settings/render_settings_common.c:141
+#: src/settings/render_settings_common.c:142 src/sy_overrides.c:1093
 #, c-format
-msgid "render_settings_init: failed to load glade: %s\n"
-msgstr "render_settings_init: tải glade thất bại: %s\n"
+msgid "failed to load glade: %s\n"
+msgstr "tải glade thất bại: %s\n"
 
-#: src/settings/render_settings_common.c:151
+#: src/settings/render_settings_common.c:152
 #, c-format
-msgid "render_settings_init: failed to load opengl glade: %s\n"
-msgstr "render_settings_init: tải opengl glade thất bại: %s\n"
+msgid "failed to load opengl glade: %s\n"
+msgstr "tải opengl glade thất bại: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:162
 #, c-format
-msgid "render_settings_init: failed to load cairo glade: %s\n"
-msgstr "render_settings_init: tải cairo glade thất bại: %s\n"
+msgid "failed to load cairo glade: %s\n"
+msgstr "tải cairo glade thất bại: %s\n"
 
-#: src/settings/render_settings_common.c:182
+#: src/settings/render_settings_common.c:183
 #, c-format
-msgid "render_settings_init: failed to get render_settings_window from glade\n"
-msgstr "render_settings_init: lấy render_settings_window từ glade thất bại\n"
+msgid "failed to get render_settings_window from glade\n"
+msgstr "lấy render_settings_window từ glade thất bại\n"
+
+#: src/signal_handler.c:29
+#, c-format
+msgid "exiting via user interrupt\n"
+msgstr "thoát do ngắt người dùng\n"
+
+#: src/signal_handler.c:33
+#, c-format
+msgid "segmentation fault, exiting\n"
+msgstr "lỗi phân đoạn bộ nhớ, đang thoát\n"
+
+#: src/signal_handler.c:37
+#, c-format
+msgid "floating point exception, exiting\n"
+msgstr "lỗi ngoại lệ dấu phẩy động, đang thoát\n"
+
+#: src/signal_handler.c:41
+#, c-format
+msgid "abort signal received, exiting\n"
+msgstr "đã nhận tín hiệu hủy bỏ, đang thoát\n"
+
+#: src/signal_handler.c:45
+#, c-format
+msgid "termination request received, exiting\n"
+msgstr "đã nhận yêu cầu kết thúc, đang thoát\n"
+
+#: src/signal_handler.c:55
+#, c-format
+msgid "not forked, ignoring SIGCHLD from pid %d\n"
+msgstr "không fork, bỏ qua SIGCHLD từ pid %d\n"
+
+#: src/signal_handler.c:63
+#, c-format
+msgid "child process pid %d exited\n"
+msgstr "tiến trình con pid %d đã thoát\n"
+
+#: src/signal_handler.c:72
+#, c-format
+msgid "default exit with signal: %d\n"
+msgstr "thoát mặc định với tín hiệu: %d\n"
 
 #: src/somnec.c:302
 #, c-format
@@ -7686,9 +7656,8 @@ msgstr "Đối số không hợp lệ cho sy_evaluate"
 
 #: src/sy_expr.c:1246
 #, c-format
-msgid "sy_load_overrides: malformed line (no colon): %s"
-msgstr ""
-"sy_load_overrides: dòng không đúng định dạng (không có dấu hai chấm): %s"
+msgid "malformed line (no colon): %s"
+msgstr "dòng không đúng định dạng (không có dấu hai chấm): %s"
 
 #: src/sy_expr.c:1336
 #, c-format
@@ -7697,8 +7666,8 @@ msgstr "Đã tải %d ghi đè ký hiệu từ %s\n"
 
 #: src/sy_expr.c:1453
 #, c-format
-msgid "sy_save_overrides: cannot open %s for writing: %s\n"
-msgstr "sy_save_overrides: không thể mở %s để ghi: %s\n"
+msgid "cannot open %s for writing: %s\n"
+msgstr "không thể mở %s để ghi: %s\n"
 
 #: src/sy_expr.c:1475
 #, c-format
@@ -7729,15 +7698,10 @@ msgstr "Tối đa"
 msgid "Expression"
 msgstr "Biểu thức"
 
-#: src/sy_overrides.c:1093
-#, c-format
-msgid "sy_overrides_init: failed to load glade: %s\n"
-msgstr "sy_overrides_init: tải glade thất bại: %s\n"
-
 #: src/sy_overrides.c:1107
 #, c-format
-msgid "sy_overrides_init: failed to get widgets from glade\n"
-msgstr "sy_overrides_init: lấy widget từ glade thất bại\n"
+msgid "failed to get widgets from glade\n"
+msgstr "lấy widget từ glade thất bại\n"
 
 #: src/sy_overrides.c:1223
 msgid "Input Symbols"
@@ -7803,44 +7767,39 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:417
-#, c-format
-msgid "Stop: %s\n"
-msgstr "Dừng: %s\n"
-
-#: src/utils.c:456 src/utils.c:458
+#: src/utils.c:411 src/utils.c:413
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "Dừng trong vòng lặp tần số, đã ngăn chặn deadlock: %s\n"
 
-#: src/utils.c:684
+#: src/utils.c:639
 #, c-format
 msgid "applying an OpenMP budget of %d threads\n"
 msgstr "Áp dụng ngân sách OpenMP gồm %d luồng\n"
 
-#: src/utils.c:699
+#: src/utils.c:654
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f giây\n"
 
-#: src/utils.c:724
+#: src/utils.c:679
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Không thể mở tệp: %s\n"
 
-#: src/utils.c:1090
+#: src/utils.c:1045
 #, c-format
 msgid "  Backtrace:\n"
 msgstr "  Dấu vết ngăn xếp:\n"
 
 # xnec2c-exempt: symbol
-#: src/utils.c:1092
+#: src/utils.c:1047
 #, c-format
 msgid "    %d. %s\n"
 msgstr ""
 
 # xnec2c-exempt: symbol
-#: src/utils.c:1119
+#: src/utils.c:1074
 #, c-format
 msgid "%s:\n"
 msgstr ""

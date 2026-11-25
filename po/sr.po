@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 02:39-0800\n"
+"POT-Creation-Date: 2026-11-25 13:19-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -1010,11 +1010,11 @@ msgid "Automatically apply changes and reload model after 300ms delay"
 msgstr ""
 "Аутоматски примените измене и поново учитајте модел након 300ms кашњења"
 
-#: resources/sy_overrides.glade:714 src/geom_edit.c:2866
+#: resources/sy_overrides.glade:714 src/geom_edit.c:2848
 msgid "_Apply"
 msgstr "_Примени"
 
-#: resources/sy_overrides.glade:729 src/geom_edit.c:2865
+#: resources/sy_overrides.glade:729 src/geom_edit.c:2847
 msgid "_Cancel"
 msgstr "_Откажи"
 
@@ -1648,7 +1648,7 @@ msgstr "Управљање картицама"
 msgid "File Save"
 msgstr "Сачувај датотеку"
 
-#: resources/xnec2c.glade:6003 src/nec2_model.c:279
+#: resources/xnec2c.glade:6003 src/nec2_model.c:278
 msgid "Comments"
 msgstr "Коментари"
 
@@ -1857,27 +1857,27 @@ msgstr "Подела углова 2-3 (NY)"
 msgid "Surface Sub-division"
 msgstr "Подела површине"
 
-#: resources/xnec2c.glade:7533 src/geom_edit.c:1157
+#: resources/xnec2c.glade:7533 src/geom_edit.c:1151
 msgid "Center - X"
 msgstr "Центар - X"
 
-#: resources/xnec2c.glade:7565 src/geom_edit.c:1163
+#: resources/xnec2c.glade:7565 src/geom_edit.c:1157
 msgid "Normal - Elev."
 msgstr "Нормала - Елевација"
 
-#: resources/xnec2c.glade:7597 src/geom_edit.c:1159
+#: resources/xnec2c.glade:7597 src/geom_edit.c:1153
 msgid "Center - Y"
 msgstr "Центар - Y"
 
-#: resources/xnec2c.glade:7629 src/geom_edit.c:1165
+#: resources/xnec2c.glade:7629 src/geom_edit.c:1159
 msgid "Normal - Azim."
 msgstr "Нормала - Азимут"
 
-#: resources/xnec2c.glade:7661 src/geom_edit.c:1161
+#: resources/xnec2c.glade:7661 src/geom_edit.c:1155
 msgid "Center - Z"
 msgstr "Центар - Z"
 
-#: resources/xnec2c.glade:7693 src/geom_edit.c:1167
+#: resources/xnec2c.glade:7693 src/geom_edit.c:1161
 msgid "Patch Area"
 msgstr "Површина патча"
 
@@ -3354,10 +3354,10 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "конфигурациона датотека не постоји или није читљива: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1836 src/input.c:1837
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
-#: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
+#: src/sy_expr.c:172 src/utils.c:680
 #, c-format
 msgid "%s"
 msgstr ""
@@ -3389,10 +3389,8 @@ msgstr "--%s захтева <width>x<height>: %s\n"
 
 #: src/cairo/cairo_fit.c:115
 #, c-format
-msgid ""
-"cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
-msgstr ""
-"cairo_fit_view: оквир није решен: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
+msgid "no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
+msgstr "оквир није решен: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
 #: src/cairo/cairo_frame.c:302
 #, c-format
@@ -3503,11 +3501,11 @@ msgstr "Touchstone 2-port датотеке (*.s2p)"
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "CSV датотеке раздвојене зарезима (*.csv)"
 
-#: src/callbacks.c:83 src/callbacks.c:99 src/freqplots/freqplots_core.c:69
+#: src/callbacks.c:81 src/callbacks.c:97 src/freqplots/freqplots_core.c:69
 msgid "Antenna Temperature"
 msgstr "Температура антене"
 
-#: src/callbacks.c:84
+#: src/callbacks.c:82
 #, c-format
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
@@ -3517,7 +3515,7 @@ msgstr ""
 "ефекте уземљења. Модели слободног простора су стандардни за евалуацију "
 "температуре антене."
 
-#: src/callbacks.c:100
+#: src/callbacks.c:98
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3526,12 +3524,12 @@ msgstr ""
 "Максималан добитак при θ=%.0f° (%.0f° од XY равни). Конвенција претпоставља "
 "сноп у XY равни са елевацијом посматрања подешеном помоћу spinbutton-а."
 
-#: src/callbacks.c:186 src/callbacks.c:520 src/callbacks.c:1675
-#: src/callbacks.c:1845
+#: src/callbacks.c:184 src/callbacks.c:518 src/callbacks.c:1652
+#: src/callbacks.c:1822
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "Да ли сте сигурни да желите да затворите xnec2c?"
 
-#: src/callbacks.c:290
+#: src/callbacks.c:288
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3539,7 +3537,7 @@ msgstr ""
 "Нова NEC2 улазна датотека не може бити креирана\n"
 "док је фреквенцијска петља покренута"
 
-#: src/callbacks.c:327
+#: src/callbacks.c:325
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3547,22 +3545,22 @@ msgstr ""
 "Нова NEC2 улазна датотека не може бити отворена\n"
 "док је фреквенцијска петља покренута"
 
-#: src/callbacks.c:446
+#: src/callbacks.c:444
 msgid "xnec2c geometry optimizer"
 msgstr "xnec2c оптимизатор геометрије"
 
-#: src/callbacks.c:447
+#: src/callbacks.c:445
 #, c-format
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr ""
 "xnec2c је изграђен без подршке за inotify: оптимизатор не може бити омогућен."
 
-#: src/callbacks.c:468
+#: src/callbacks.c:466
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c оптимизатор"
 
-#: src/callbacks.c:468
+#: src/callbacks.c:466
 #, c-format
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
@@ -3573,21 +3571,21 @@ msgstr ""
 "прерачунати улазну датотеку при измени када је покренуто од стране inotify."
 "Изаберите датотеке за писање у \"Датотека->Подешавања оптимизације\"."
 
-#: src/callbacks.c:972 src/callbacks.c:1289 src/callbacks.c:1871
+#: src/callbacks.c:949 src/callbacks.c:1266 src/callbacks.c:1848
 msgid "Are you sure you wish to close this window?"
 msgstr "Да ли сте сигурни да желите да затворите овај прозор?"
 
-#: src/callbacks.c:1503
+#: src/callbacks.c:1480
 #, c-format
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr "OpenGL није доступан на овом екрану; рендерер не може бити омогућен.\n"
 
-#: src/callbacks.c:1811
+#: src/callbacks.c:1788
 #, c-format
 msgid "No open NEC2 input file"
 msgstr "Нема отворене NEC2 улазне датотеке"
 
-#: src/callbacks.c:1902 src/callbacks.c:1932
+#: src/callbacks.c:1879 src/callbacks.c:1909
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3595,26 +3593,16 @@ msgstr ""
 "Подаци NEC2 уређивача не могу бити сачувани\n"
 "док је фреквенцијска петља покренута"
 
-#: src/callbacks.c:1914 src/callbacks.c:1940
+#: src/callbacks.c:1891 src/callbacks.c:1917
 msgid "untitled.nec"
 msgstr "безимени.nec"
 
-#: src/callbacks.c:2401 src/callbacks.c:2421 src/callbacks.c:2441
-#: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
-#, c-format
-msgid ""
-"Frequency (FR) cards not yet processed.\n"
-"You may need to save the NEC2 Editor data first."
-msgstr ""
-"Картице фреквенције (FR) још нису обрађене.\n"
-"Можда ћете морати прво да сачувате податке NEC2 уређивача."
-
-#: src/chroma/chroma.c:315
+#: src/chroma/chroma.c:313
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "неважећа пројекција боје %d, користим тренутно\n"
 
-#: src/chroma/chroma.c:627
+#: src/chroma/chroma.c:626
 #, c-format
 msgid "invalid segment scale encoding %d, using model radius\n"
 msgstr "неисправно кодирање скале сегмента %d, користи се полупречник модела\n"
@@ -4195,8 +4183,8 @@ msgstr ""
 msgid "VSWR vs Frequency"
 msgstr "VSWR у односу на фреквенцију"
 
-#: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
-#: src/geom_edit.c:2703
+#: src/geom_edit.c:108 src/geom_edit.c:1982 src/geom_edit.c:2254
+#: src/geom_edit.c:2685
 #, c-format
 msgid ""
 "Error reading row data\n"
@@ -4214,7 +4202,7 @@ msgstr ""
 "Грешка при уписивању података реда\n"
 "Поново изаберите ред"
 
-#: src/geom_edit.c:583
+#: src/geom_edit.c:577
 #, c-format
 msgid ""
 "GC card preceded by GW card\n"
@@ -4223,12 +4211,12 @@ msgstr ""
 "GC картица претходи GW картици\n"
 "са ненултим полупречником жице"
 
-#: src/geom_edit.c:587
+#: src/geom_edit.c:581
 #, c-format
 msgid "No GW card before GC card"
 msgstr "Нема GW картице пре GC картице"
 
-#: src/geom_edit.c:611
+#: src/geom_edit.c:605
 #, c-format
 msgid ""
 "No GC card after a GW card\n"
@@ -4237,7 +4225,7 @@ msgstr ""
 "Нема GC картице после GW картице\n"
 "са нултим полупречником жице"
 
-#: src/geom_edit.c:620
+#: src/geom_edit.c:614
 #, c-format
 msgid ""
 "GC card follows a GW card\n"
@@ -4246,7 +4234,7 @@ msgstr ""
 "GC картица следи GW картицу\n"
 "са ненултим полупречником жице"
 
-#: src/geom_edit.c:1025
+#: src/geom_edit.c:1019
 #, c-format
 msgid ""
 "SC card preceded by SP card\n"
@@ -4255,12 +4243,12 @@ msgstr ""
 "SC картица претходи SP картици\n"
 "са произвољним типом патча"
 
-#: src/geom_edit.c:1037
+#: src/geom_edit.c:1031
 #, c-format
 msgid "No SP or SM card before SC card"
 msgstr "Нема SP или SM картице пре SC картице"
 
-#: src/geom_edit.c:1057
+#: src/geom_edit.c:1051
 #, c-format
 msgid ""
 "No SC card after an SP card\n"
@@ -4269,7 +4257,7 @@ msgstr ""
 "Нема SC картице после SP картице\n"
 "са непроизвољним типом патча"
 
-#: src/geom_edit.c:1064
+#: src/geom_edit.c:1058
 #, c-format
 msgid ""
 "SC card follows an SP card\n"
@@ -4278,47 +4266,56 @@ msgstr ""
 "SC картица следи SP картицу\n"
 "са произвољним типом патча"
 
-#: src/geom_edit.c:1077
+#: src/geom_edit.c:1071
 #, c-format
 msgid "No SC card after an SM card"
 msgstr "Нема SC картице после SM картице"
 
-#: src/geom_edit.c:1172
+#: src/geom_edit.c:1166
 msgid "Corner 1 - X"
 msgstr "Угао 1 - X"
 
-#: src/geom_edit.c:1174
+#: src/geom_edit.c:1168
 msgid "Corner 1 - Y"
 msgstr "Угао 1 - Y"
 
-#: src/geom_edit.c:1176
+#: src/geom_edit.c:1170
 msgid "Corner 1 - Z"
 msgstr "Угао 1 - Z"
 
-#: src/geom_edit.c:1178
+#: src/geom_edit.c:1172
 msgid "Corner 2 - X"
 msgstr "Угао 2 - X"
 
-#: src/geom_edit.c:1180
+#: src/geom_edit.c:1174
 msgid "Corner 2 - Y"
 msgstr "Угао 2 - Y"
 
-#: src/geom_edit.c:1182
+#: src/geom_edit.c:1176
 msgid "Corner 2 - Z"
 msgstr "Угао 2 - Z"
 
-#: src/geom_edit.c:2861
+#: src/geom_edit.c:2843
 msgid "SY Card Editor"
 msgstr "SY уређивач картица"
 
-#: src/geom_edit.c:2871
+#: src/geom_edit.c:2853
 msgid "SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"
 msgstr "SY дефиниција (нпр. FREQ=146, LAMBDA=300/FREQ):"
 
-#: src/geom_edit.c:2970
+#: src/geom_edit.c:2952
 #, c-format
 msgid "NEC2 editor window not open"
 msgstr "NEC2 прозор уређивача није отворен"
+
+#: src/geom_edit.c:2980
+#, c-format
+msgid ""
+"Frequency (FR) cards not yet processed.\n"
+"You may need to save the NEC2 Editor data first."
+msgstr ""
+"Картице фреквенције (FR) још нису обрађене.\n"
+"Можда ћете морати прво да сачувате податке NEC2 уређивача."
 
 #: src/geometry.c:118
 #, c-format
@@ -4664,11 +4661,9 @@ msgstr "Принудна провера преклапања за %d сегме�
 
 #: src/geometry.c:1849
 #, c-format
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgid "skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
-"verify_segments() прескаче фреквенцијски зависне провере - нема "
-"фреквенцијских података\n"
+"прескаче фреквенцијски зависне провере - нема фреквенцијских података\n"
 
 #: src/gnuplot.c:43
 msgid "Gnuplot Data"
@@ -4803,7 +4798,7 @@ msgstr "b мање од a"
 msgid "step size limited at z = %12.5E\n"
 msgstr "величина корака ограничена на z = %12.5E\n"
 
-#: src/input.c:150
+#: src/input.c:151
 #, c-format
 msgid ""
 "Error reading Comments\n"
@@ -4812,7 +4807,7 @@ msgstr ""
 "Грешка при читању коментара\n"
 "Неочекивани EOF (крај датотеке)"
 
-#: src/input.c:164
+#: src/input.c:165
 #, c-format
 msgid ""
 "Error reading Comments\n"
@@ -4821,7 +4816,7 @@ msgstr ""
 "Грешка при читању коментара\n"
 "Мнемоника коментара кратка или недостаје"
 
-#: src/input.c:175
+#: src/input.c:176
 #, c-format
 msgid ""
 "Read_Comments():\n"
@@ -4832,7 +4827,7 @@ msgstr ""
 " Грешка при читању улазне датотеке\n"
 "Мнемоника коментара нетачна"
 
-#: src/input.c:215
+#: src/input.c:216
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4841,7 +4836,7 @@ msgstr ""
 "Грешка података геометрије\n"
 "Број ознаке је негативан"
 
-#: src/input.c:222
+#: src/input.c:223
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4850,12 +4845,12 @@ msgstr ""
 "Грешка геометријских података\n"
 "Број сегмената је мањи од 1"
 
-#: src/input.c:229
+#: src/input.c:230
 #, c-format
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "упозорење - број сегмената је већи од 1000000\n"
 
-#: src/input.c:252
+#: src/input.c:253
 #, c-format
 msgid ""
 "%s card: tag 0 selects segment %d by absolute position in the structure, not "
@@ -4866,12 +4861,12 @@ msgstr ""
 "унутар жице са ознаком; доделите жици број ознаке и наведите сегмент у "
 "оквиру те ознаке, осим ако је апсолутно позиционирање намеравано\n"
 
-#: src/input.c:299
+#: src/input.c:300
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "грешка %s картице података: Неисправан знак '%c' на колони %d\n"
 
-#: src/input.c:301
+#: src/input.c:302
 #, c-format
 msgid ""
 "Data card error\n"
@@ -4880,37 +4875,37 @@ msgstr ""
 "Грешка картице података\n"
 "Неисправан знак у картици"
 
-#: src/input.c:372
+#: src/input.c:373
 #, c-format
 msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: процена израза није успела за \"%s\"\n"
 
-#: src/input.c:413
+#: src/input.c:414
 #, c-format
 msgid "SY card: no line content available\n"
 msgstr "SY картица: садржај линије није доступан\n"
 
-#: src/input.c:414
+#: src/input.c:415
 #, c-format
 msgid "SY card: no line content available"
 msgstr "SY картица: садржај линије није доступан"
 
-#: src/input.c:431
+#: src/input.c:432
 #, c-format
 msgid "SY card: missing '=' in definition\n"
 msgstr "SY картица: недостаје '=' у дефиницији\n"
 
-#: src/input.c:432
+#: src/input.c:433
 #, c-format
 msgid "SY card: missing '=' in definition"
 msgstr "SY картица: недостаје '=' у дефиницији"
 
-#: src/input.c:465
+#: src/input.c:466
 #, c-format
 msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "SY картица: дефиниција симбола није успела за %s=%s\n"
 
-#: src/input.c:652
+#: src/input.c:653
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4919,31 +4914,31 @@ msgstr ""
 "Грешка геометријских података\n"
 "Нема GC картице за конусну жицу"
 
-#: src/input.c:659
+#: src/input.c:660
 #, c-format
 msgid "Geometry GC data card error"
 msgstr "Грешка GC картице геометријских података"
 
-#: src/input.c:675
+#: src/input.c:676
 #, c-format
 msgid "Geometry GX data card error"
 msgstr "Грешка GX картице геометријских података"
 
-#: src/input.c:698
+#: src/input.c:699
 #, c-format
 msgid "Geometry GR data card error"
 msgstr "Грешка GR картице геометријских података"
 
-#: src/input.c:752
+#: src/input.c:753
 #, c-format
 msgid "No geometry data cards"
 msgstr "Нема картица геометријских података"
 
-#: src/input.c:763
+#: src/input.c:764
 msgid "Probable invalid segment geometry.\n"
 msgstr "Вероватно неисправна геометрија сегмента.\n"
 
-#: src/input.c:764
+#: src/input.c:765
 #, c-format
 msgid ""
 "Invalid segment geometry.\n"
@@ -4954,43 +4949,43 @@ msgstr ""
 "Погледајте упозорења у конзоли за детаље.\n"
 "Покушавам да наставим..."
 
-#: src/input.c:770
+#: src/input.c:771
 #, c-format
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "Вероватно неисправна геометрија сегмента (погледајте горе)\n"
 
-#: src/input.c:774
+#: src/input.c:775
 #, c-format
-msgid "Read_Geometry: verify_segments() passed\n"
-msgstr "Read_Geometry: verify_segments() прошла\n"
+msgid "verify_segments() passed\n"
+msgstr "verify_segments() прошла\n"
 
-#: src/input.c:811
+#: src/input.c:812
 #, c-format
 msgid "segment data error: tag=%d si=%f, bi=%f\n"
 msgstr "грешка података сегмента: tag=%d si=%f, bi=%f\n"
 
-#: src/input.c:813
+#: src/input.c:814
 #, c-format
 msgid "Segment data error, zero-length line?  See console."
 msgstr "Грешка података сегмента, линија нулте дужине?  Погледајте конзолу."
 
-#: src/input.c:853
+#: src/input.c:854
 #, c-format
 msgid "Move GM data card error"
 msgstr "Грешка GM картице података за померање"
 
-#: src/input.c:869 src/input.c:910 src/input.c:927 src/input.c:945
-#: src/input.c:953
+#: src/input.c:870 src/input.c:911 src/input.c:928 src/input.c:946
+#: src/input.c:954
 #, c-format
 msgid "Patch data card error"
 msgstr "Грешка картице података патча"
 
-#: src/input.c:891
+#: src/input.c:892
 #, c-format
 msgid "Patch data error"
 msgstr "Грешка података патча"
 
-#: src/input.c:1000
+#: src/input.c:1001
 #, c-format
 msgid ""
 "\"GF\" card (NGF solution)\n"
@@ -4999,75 +4994,75 @@ msgstr ""
 "\"GF\" картица (NGF решење)\n"
 "није подржана"
 
-#: src/input.c:1005
+#: src/input.c:1006
 #, c-format
 msgid "Ignoring CM card in geometry"
 msgstr "Игнорисање CM картице у геометрији"
 
-#: src/input.c:1018
+#: src/input.c:1019
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
 msgstr "грешка картице геометријских података (nwire=%d)\n"
 
 # xnec2c-exempt: symbol
-#: src/input.c:1019
+#: src/input.c:1020
 #, c-format
 msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
-#: src/input.c:1025
+#: src/input.c:1026
 #, c-format
 msgid "Command card in geometry section"
 msgstr "Командна картица у одељку геометрије"
 
-#: src/input.c:1027
+#: src/input.c:1028
 #, c-format
 msgid "Unrecognized geometry card"
 msgstr "Непозната картица геометрије"
 
-#: src/input.c:1051
+#: src/input.c:1052
 #, c-format
 msgid "Failed to initialize symbol table\n"
 msgstr "Иницијализација табеле симбола није успела\n"
 
-#: src/input.c:1052
+#: src/input.c:1053
 #, c-format
 msgid "Failed to initialize symbol table"
 msgstr "Иницијализација табеле симбола није успела"
 
-#: src/input.c:1192
+#: src/input.c:1193
 #, c-format
 msgid "No FR card: computing one step at the NEC-2 default %g MHz\n"
 msgstr ""
 "Нема FR картице: израчунава се један корак при NEC-2 подразумеваној "
 "вредности %g MHz\n"
 
-#: src/input.c:1283
+#: src/input.c:1284
 #, c-format
 msgid "ignoring CM card in commands\n"
 msgstr "игнорисање CM картице у командама\n"
 
-#: src/input.c:1284
+#: src/input.c:1285
 #, c-format
 msgid "Ignoring CM card in commands"
 msgstr "Игнорисање CM картице у командама"
 
-#: src/input.c:1296
+#: src/input.c:1297
 #, c-format
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "Картица CP се занемарује: прорачун спрезања није имплементиран\n"
 
-#: src/input.c:1392
+#: src/input.c:1393
 #, c-format
 msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "Прескачем дуплирану FR картицу на %g MHz\n"
 
-#: src/input.c:1457
+#: src/input.c:1458
 #, c-format
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "Максимална фреквенција <= Минимална фреквенција у FR картици\n"
 
-#: src/input.c:1458
+#: src/input.c:1459
 #, c-format
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
@@ -5076,7 +5071,7 @@ msgstr ""
 "Максимална фреквенција <= Минимална фреквенција у FR картици\n"
 "Молимо проверите податке FR картице и исправите"
 
-#: src/input.c:1481
+#: src/input.c:1482
 #, c-format
 msgid ""
 "Fix the GE/GN cards:\n"
@@ -5086,12 +5081,12 @@ msgstr ""
 "Исправите GE/GN картице:\n"
 "GE картица наводи да је присутно уземљење, али GN показује супротно."
 
-#: src/input.c:1495
+#: src/input.c:1496
 #, c-format
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "theta > 90 степени са наведеним уземљењем\n"
 
-#: src/input.c:1496 src/radiation.c:911
+#: src/input.c:1497 src/radiation.c:911
 #, c-format
 msgid ""
 "Theta > 90 deg with ground specified\n"
@@ -5100,7 +5095,7 @@ msgstr ""
 "Theta > 90 степени са наведеним уземљењем\n"
 "Молимо проверите податке RP картице и исправите"
 
-#: src/input.c:1505
+#: src/input.c:1506
 #, c-format
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
@@ -5109,7 +5104,7 @@ msgstr ""
 "апроксимација радијалних жица: не може се користити са Sommerfeld опцијом "
 "уземљења\n"
 
-#: src/input.c:1506
+#: src/input.c:1507
 #, c-format
 msgid ""
 "radial wire g.s. approximation\n"
@@ -5118,7 +5113,7 @@ msgstr ""
 "апроксимација радијалних жица\n"
 "не може се користити са Sommerfeld опцијом уземљења"
 
-#: src/input.c:1554
+#: src/input.c:1555
 #, c-format
 msgid ""
 "data fault on loading card no %d: itag step1 %d is greater than itag step2 "
@@ -5127,7 +5122,7 @@ msgstr ""
 "грешка података на картици оптерећења бр. %d: itag step1 %d је већи од itag "
 "step2 %d\n"
 
-#: src/input.c:1556
+#: src/input.c:1557
 #, c-format
 msgid ""
 "Data fault on loading card\n"
@@ -5136,7 +5131,7 @@ msgstr ""
 "Грешка података на картици оптерећења\n"
 "itag step1 је већи од itag step2"
 
-#: src/input.c:1685
+#: src/input.c:1686
 #, c-format
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
@@ -5144,7 +5139,7 @@ msgstr ""
 "Импеданса преносне линије = 0: није исправно. Молимо исправите NT или TL "
 "картицу\n"
 
-#: src/input.c:1686
+#: src/input.c:1687
 #, c-format
 msgid ""
 "Transmission Line impedance = 0\n"
@@ -5153,12 +5148,12 @@ msgstr ""
 "Импеданса преносне линије = 0\n"
 "није исправно. Молимо исправите NT или TL картицу"
 
-#: src/input.c:1697
+#: src/input.c:1698
 #, c-format
 msgid "Segment number error in TL or NT card\n"
 msgstr "Грешка броја сегмента у TL или NT картици\n"
 
-#: src/input.c:1698
+#: src/input.c:1699
 #, c-format
 msgid ""
 "Segment number\n"
@@ -5167,23 +5162,23 @@ msgstr ""
 "Грешка броја сегмента\n"
 "у NT или TL картици"
 
-#: src/input.c:1720
+#: src/input.c:1721
 #, c-format
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr ""
 "Картице PQ и PT се занемарују: штампање у датотеку није имплементирано\n"
 
-#: src/input.c:1724
+#: src/input.c:1725
 #, c-format
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "Картица PL се занемарује: исцртавање у датотеку није подржано\n"
 
-#: src/input.c:1730
+#: src/input.c:1731
 #, c-format
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "Опција површинског таласа (I1=1): RP команде није имплементирана\n"
 
-#: src/input.c:1731
+#: src/input.c:1732
 #, c-format
 msgid ""
 "Surface wave option (I1=1)\n"
@@ -5192,7 +5187,7 @@ msgstr ""
 "Опција површинског таласа (I1=1)\n"
 "RP команде није имплементирана"
 
-#: src/input.c:1763
+#: src/input.c:1764
 #, c-format
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
@@ -5201,7 +5196,7 @@ msgstr ""
 "Theta > 90 степени са наведеним уземљењем: Молимо проверите податке RP "
 "картице и исправите\n"
 
-#: src/input.c:1764
+#: src/input.c:1765
 #, c-format
 msgid ""
 "Theta > 90 deg. with ground specified\n"
@@ -5210,15 +5205,15 @@ msgstr ""
 "Theta > 90 степени са наведеним уземљењем\n"
 "Молимо проверите податке RP картице и исправите"
 
-#: src/input.c:1831
+#: src/input.c:1832
 msgid "Geometry card in command section"
 msgstr "Картица геометрије у одељку команди"
 
-#: src/input.c:1834
+#: src/input.c:1835
 msgid "Unrecognized command card"
 msgstr "Непозната командна картица"
 
-#: src/input.c:1879
+#: src/input.c:1880
 #, c-format
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
@@ -5227,12 +5222,12 @@ msgstr ""
 "Недостаје или површински-таласна RP картица: Прорачуни дијаграма зрачења и "
 "добитка су онемогућени\n"
 
-#: src/input.c:1906
+#: src/input.c:1907
 #, c-format
 msgid "Unexpected exit from while loop"
 msgstr "Неочекивани излазак из while петље"
 
-#: src/input.c:1997
+#: src/input.c:1998
 #, c-format
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
@@ -5241,7 +5236,7 @@ msgstr ""
 "грешка картице командних података: Неочекивани EOF при читању улазне "
 "датотеке - додавање EN картице\n"
 
-#: src/input.c:1998
+#: src/input.c:1999
 #, c-format
 msgid ""
 "Command data card error\n"
@@ -5252,14 +5247,14 @@ msgstr ""
 "Неочекивани EOF при читању улазне датотеке\n"
 "Додавање подразумеване EN картице"
 
-#: src/input.c:2015
+#: src/input.c:2016
 #, c-format
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "грешка картице командних података: мнемонички код картице је прекратак или "
 "недостаје\n"
 
-#: src/input.c:2016
+#: src/input.c:2017
 #, c-format
 msgid ""
 "Command data card error\n"
@@ -5268,11 +5263,11 @@ msgstr ""
 "Грешка картице командних података\n"
 "Мнемонички код је прекратак или недостаје"
 
-#: src/input.c:2072 src/input.c:2103
+#: src/input.c:2073 src/input.c:2104
 msgid "command data"
 msgstr "командни подаци"
 
-#: src/input.c:2217
+#: src/input.c:2218
 #, c-format
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
@@ -5281,7 +5276,7 @@ msgstr ""
 "грешка картице геометријских података: Неочекивани EOF при читању улазне "
 "датотеке - додавање GE картице\n"
 
-#: src/input.c:2218
+#: src/input.c:2219
 #, c-format
 msgid ""
 "Geometry data card error\n"
@@ -5292,14 +5287,14 @@ msgstr ""
 "Неочекивани EOF при читању улазне датотеке\n"
 "Додавање подразумеване GE картице"
 
-#: src/input.c:2235
+#: src/input.c:2236
 #, c-format
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "грешка картице геометријских података: мнемонички код картице је прекратак "
 "или недостаје\n"
 
-#: src/input.c:2236
+#: src/input.c:2237
 #, c-format
 msgid ""
 "Geometry data card error\n"
@@ -5308,7 +5303,7 @@ msgstr ""
 "Грешка картице геометријских података\n"
 "Мнемонички код картице је прекратак или недостаје"
 
-#: src/input.c:2285 src/input.c:2315
+#: src/input.c:2286 src/input.c:2316
 msgid "geometry data"
 msgstr "подаци о геометрији"
 
@@ -5348,8 +5343,8 @@ msgid "Listing Object Ids:\n"
 msgstr "Списак ID-ова објеката:\n"
 
 # xnec2c-exempt: symbol
-#: src/interface.c:202 src/utils.c:424 src/utils.c:428 src/utils.c:438
-#: src/utils.c:440
+#: src/interface.c:202 src/opt_file.c:342 src/opt_file.c:658 src/utils.c:372
+#: src/utils.c:379 src/utils.c:383 src/utils.c:393 src/utils.c:395
 #, c-format
 msgid "%s\n"
 msgstr ""
@@ -5371,103 +5366,63 @@ msgstr ""
 
 #: src/interface.c:370
 #, c-format
-msgid "create_animate_dialog: failed to load animate.glade: %s\n"
-msgstr "create_animate_dialog: није успело учитавање animate.glade: %s\n"
+msgid "failed to load animate.glade: %s\n"
+msgstr "није успело учитавање animate.glade: %s\n"
 
-#: src/main.c:126
+#: src/main.c:113
 msgid "none (no display)"
 msgstr "ништа (без приказа)"
 
-#: src/main.c:129
+#: src/main.c:116
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Детектовано %s позадинско окружење прозора\n"
 
-#: src/main.c:137
+#: src/main.c:124
 #, c-format
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch и --optimize су међусобно искључиви.\n"
 
-#: src/main.c:157
+#: src/main.c:144
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "путања улазне датотеке је предугачка ( > %d знакова )\n"
 
-#: src/main.c:164
+#: src/main.c:151
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "неочекивани аргумент '%s' не изгледа као .nec датотека\n"
 
-#: src/main.c:171
+#: src/main.c:158
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "неочекивани аргумент: %s\n"
 
-#: src/main.c:177
+#: src/main.c:164
 #, c-format
 msgid "batch mode requires an input file\n"
 msgstr "batch режим захтева улазну датотеку\n"
 
-#: src/main.c:187
+#: src/main.c:174
 #, c-format
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "Није могуће отворити екран: потребна је активна X11 или Wayland сесија\n"
 
-#: src/main.c:210
+#: src/main.c:197
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "Покретање fork-а за %d послова на %d процесора.\n"
 
-#: src/main.c:223 src/main.c:231
+#: src/main.c:210 src/main.c:218
 #, c-format
 msgid "exiting after fatal error: pipe() failed"
 msgstr "излазак након фаталне грешке: pipe() није успео"
 
-#: src/main.c:240
+#: src/main.c:227
 #, c-format
 msgid "exiting after fatal error: fork() failed"
 msgstr "излазак након фаталне грешке: fork() није успео"
-
-#: src/main.c:840
-#, c-format
-msgid "exiting via user interrupt\n"
-msgstr "излазак прекидом корисника\n"
-
-#: src/main.c:844
-#, c-format
-msgid "segmentation fault, exiting\n"
-msgstr "грешка сегментације, излазак\n"
-
-#: src/main.c:848
-#, c-format
-msgid "floating point exception, exiting\n"
-msgstr "грешка са покретним зарезом, излазак\n"
-
-#: src/main.c:852
-#, c-format
-msgid "abort signal received, exiting\n"
-msgstr "примљен сигнал за прекид, излазак\n"
-
-#: src/main.c:856
-#, c-format
-msgid "termination request received, exiting\n"
-msgstr "примљен захтев за завршетак, излазак\n"
-
-#: src/main.c:866
-#, c-format
-msgid "not forked, ignoring SIGCHLD from pid %d\n"
-msgstr "није форковано, игноришем SIGCHLD од pid %d\n"
-
-#: src/main.c:874
-#, c-format
-msgid "child process pid %d exited\n"
-msgstr "подређени процес pid %d је завршен\n"
-
-#: src/main.c:883
-#, c-format
-msgid "default exit with signal: %d\n"
-msgstr "подразумевани излаз са сигналом: %d\n"
 
 #: src/mathlib.c:28
 msgid ""
@@ -5478,7 +5433,7 @@ msgstr ""
 "Поново покрените да бисте изменили MKL threading библиотеку."
 
 # xnec2c-exempt: symbol
-#: src/mathlib.c:368 src/utils.c:729
+#: src/mathlib.c:368 src/utils.c:684
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
@@ -5542,8 +5497,8 @@ msgstr "Изабран први доступни mathlib: %s\n"
 
 #: src/mathlib.c:669
 #, c-format
-msgid "mathlib_load[%d]: mathlib.available=0, skipping: %s\n"
-msgstr "mathlib_load[%d]: mathlib.available=0, прескаче се: %s\n"
+msgid "[%d]: mathlib.available=0, skipping: %s\n"
+msgstr "[%d]: mathlib.available=0, прескаче се: %s\n"
 
 #: src/mathlib.c:719
 msgid "Batch Math Library"
@@ -6022,12 +5977,8 @@ msgstr "DG7YBN градска зона (2025)"
 
 #: src/measurements.c:424
 #, c-format
-msgid ""
-"noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
-"to 0\n"
-msgstr ""
-"noise_temp_resolve: табела noise_temp није додељена; t_sky/t_earth "
-"подразумевано 0\n"
+msgid "noise_temp table not allocated; t_sky/t_earth defaulting to 0\n"
+msgstr "табела noise_temp није додељена; t_sky/t_earth подразумевано 0\n"
 
 #: src/measurements.c:481
 msgid "Z Real"
@@ -6274,10 +6225,10 @@ msgstr "Додела меморије одбијена %s: затражено %l
 msgid "mem_obj_t at %p: size=%lu used=%lu addr=%p\n"
 msgstr "mem_obj_t на %p: величина=%lu коришћено=%lu адреса=%p\n"
 
-# xnec2c-exempt: name
+# xnec2c-exempt: symbol
 #: src/mem/mem.c:250
 #, c-format
-msgid "mem_backtrace(%p):\n"
+msgid "%p:\n"
 msgstr ""
 
 #: src/mem/mem.c:253
@@ -6287,8 +6238,8 @@ msgstr "  m->backtrace је null, нема података о повратно�
 
 #: src/mem/mem.c:279
 #, c-format
-msgid "mem_clone: allocation failed for %lu bytes\n"
-msgstr "mem_clone: додела меморије није успела за %lu бајтова\n"
+msgid "allocation failed for %lu bytes\n"
+msgstr "додела меморије није успела за %lu бајтова\n"
 
 # xnec2c-exempt: notation
 #: src/mem/mem_track.c:208
@@ -6313,19 +6264,19 @@ msgstr ""
 msgid "mem-report %s:   frame %d %s\n"
 msgstr "mem-report %s:   оквир %d %s\n"
 
-#: src/nec2_model.c:279 src/nec2_model.c:283 src/nec2_model.c:287
+#: src/nec2_model.c:278 src/nec2_model.c:282 src/nec2_model.c:286
 msgid "Card"
 msgstr "Картица"
 
-#: src/nec2_model.c:369
+#: src/nec2_model.c:368
 msgid "--- NEC2 Input File created or edited by "
 msgstr "--- NEC2 улазна датотека креирана или уређена од "
 
-#: src/nec2_model.c:386
+#: src/nec2_model.c:385
 msgid "--- End Comments ---"
 msgstr "--- Крај коментара ---"
 
-#: src/nec2_model.c:525
+#: src/nec2_model.c:524
 #, c-format
 msgid ""
 "List_Comments():\n"
@@ -6336,7 +6287,7 @@ msgstr ""
 "Грешка при читању улазне датотеке\n"
 "Неочекивани EOF (крај датотеке)"
 
-#: src/nec2_model.c:532
+#: src/nec2_model.c:531
 #, c-format
 msgid ""
 "List_Comments():\n"
@@ -6347,11 +6298,11 @@ msgstr ""
 "Грешка при читању улазне датотеке\n"
 "Мнемоник коментара је кратак или недостаје"
 
-#: src/nec2_model.c:818
+#: src/nec2_model.c:817
 msgid "End Comments"
 msgstr "Крај коментара"
 
-#: src/nec2_model.c:916
+#: src/nec2_model.c:915
 #, c-format
 msgid ""
 "Cannot save treeview data\n"
@@ -6491,12 +6442,8 @@ msgstr "Онемогућавање OpenGL: peel composite сенчар није 
 
 #: src/opengl-engine/opengl_view_fit.c:71
 #, c-format
-msgid ""
-"gl_view_fit_view: no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,"
-"%g,%g]\n"
-msgstr ""
-"gl_view_fit_view: оквир није решен: r_max=%g distance=%g proj=%d box=[%g,%g,"
-"%g,%g]\n"
+msgid "no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,%g,%g]\n"
+msgstr "оквир није решен: r_max=%g distance=%g proj=%d box=[%g,%g,%g,%g]\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:141
 #, c-format
@@ -6547,22 +6494,10 @@ msgstr ""
 "OpenGL није доступан на овом екрану; прелазим на Cairo рендерер. Погледајте "
 "'OpenGL Renderer' у Приказ > Подешавања рендеровања.\n"
 
-# xnec2c-exempt: name
-#: src/opt_file.c:342
-#, c-format
-msgid "opt_file_save: %s\n"
-msgstr ""
-
 #: src/opt_file.c:622
 #, c-format
 msgid "Loaded %d optimizer goals\n"
 msgstr "Учитано %d циљева оптимизатора\n"
-
-# xnec2c-exempt: name
-#: src/opt_file.c:658
-#, c-format
-msgid "opt_file_load: %s\n"
-msgstr ""
 
 #: src/opt_ui_formula.c:46
 #, c-format
@@ -7091,23 +7026,23 @@ msgstr "Разлика између највеће и најмање оцене 
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
-msgid "fitness_transform: unknown direction %d\n"
-msgstr "fitness_transform: непознати правац %d\n"
+msgid "unknown direction %d\n"
+msgstr "непознати правац %d\n"
 
 #: src/optimizers/opt_fitness.c:582
 #, c-format
-msgid "reduce_values: unknown reduction method %d\n"
-msgstr "reduce_values: непозната метода редукције %d\n"
+msgid "unknown reduction method %d\n"
+msgstr "непозната метода редукције %d\n"
 
 #: src/optimizers/opt_nec2_eval.c:80
 #, c-format
-msgid "nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n"
-msgstr "nec2_eval_signal: заузетост eval_mutex, блокирање (thr=%lu)\n"
+msgid "eval_mutex contention, blocking (thr=%lu)\n"
+msgstr "заузетост eval_mutex, блокирање (thr=%lu)\n"
 
 #: src/optimizers/opt_nec2_eval.c:194
 #, c-format
-msgid "nec2_eval_run: not initialized\n"
-msgstr "nec2_eval_run: није иницијализовано\n"
+msgid "not initialized\n"
+msgstr "није иницијализовано\n"
 
 #: src/optimizers/opt_session.c:96
 #, c-format
@@ -7125,23 +7060,23 @@ msgstr "opt: оптимизација завршена, најбољи фитн�
 
 #: src/optimizers/opt_session.c:194
 #, c-format
-msgid "opt_start: optimizer already running\n"
-msgstr "opt_start: оптимизатор већ ради\n"
+msgid "optimizer already running\n"
+msgstr "оптимизатор већ ради\n"
 
 #: src/optimizers/opt_session.c:258
 #, c-format
-msgid "opt_start: simple_new failed\n"
-msgstr "opt_start: simple_new није успело\n"
+msgid "simple_new failed\n"
+msgstr "simple_new није успело\n"
 
 #: src/optimizers/opt_session.c:267
 #, c-format
-msgid "opt_start: pthread_create failed: %d\n"
-msgstr "opt_start: pthread_create није успело: %d\n"
+msgid "pthread_create failed: %d\n"
+msgstr "pthread_create није успело: %d\n"
 
 #: src/optimizers/opt_simple.c:297
 #, c-format
-msgid "simple_config_init: unknown algorithm %d\n"
-msgstr "simple_config_init: непознати алгоритам %d\n"
+msgid "unknown algorithm %d\n"
+msgstr "непознати алгоритам %d\n"
 
 #: src/optimizers/opt_simple_var.c:43
 #, c-format
@@ -7408,12 +7343,8 @@ msgstr ""
 
 #: src/rdpattern_ui.c:132
 #, c-format
-msgid ""
-"Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
-"GS_LINP\n"
-msgstr ""
-"Scale_Gain_Resolved: gain_style %d ван опсега [0..%d], подразумевано "
-"GS_LINP\n"
+msgid "gain_style %d out of range [0..%d], defaulting to GS_LINP\n"
+msgstr "gain_style %d ван опсега [0..%d], подразумевано GS_LINP\n"
 
 #: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
@@ -7553,13 +7484,13 @@ msgstr "Апс."
 
 #: src/render/gradient_cache.c:312
 #, c-format
-msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
-msgstr "gradient_cache_update: креирање површине није успело (%dx%d)\n"
+msgid "surface creation failed (%dx%d)\n"
+msgstr "креирање површине није успело (%dx%d)\n"
 
 #: src/render/render_fit.c:67
 #, c-format
-msgid "render_fit_solve: no geometry to fit\n"
-msgstr "render_fit_solve: нема геометрије за уклапање\n"
+msgid "no geometry to fit\n"
+msgstr "нема геометрије за уклапање\n"
 
 #: src/render/render_message.h:29
 msgid "File ▸ Open to load an NEC file"
@@ -7614,7 +7545,7 @@ msgstr "Петља оптимизатора није завршена, прес�
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+Scroll: полупречник жице"
 
-#: src/settings/render_settings.c:49
+#: src/settings/render_settings.c:50
 msgid ""
 "OpenGL is not available on this display.\n"
 "Cairo rendering is active."
@@ -7622,7 +7553,7 @@ msgstr ""
 "OpenGL није доступан на овом екрану.\n"
 "Активно је исцртавање помоћу библиотеке Cairo."
 
-#: src/settings/render_settings.c:54
+#: src/settings/render_settings.c:55
 msgid ""
 "Built without OpenGL support.\n"
 "Cairo rendering is active."
@@ -7630,35 +7561,73 @@ msgstr ""
 "Програм је изграђен без подршке за OpenGL.\n"
 "Активно је исцртавање помоћу библиотеке Cairo."
 
-#: src/settings/render_settings.c:123
+#: src/settings/render_settings.c:151
 msgid "General"
 msgstr "Опште"
 
-#: src/settings/render_settings.c:127
+#: src/settings/render_settings.c:155
 msgid "Color"
 msgstr "Боја"
 
-#: src/settings/render_settings_common.c:141
+#: src/settings/render_settings_common.c:142 src/sy_overrides.c:1093
 #, c-format
-msgid "render_settings_init: failed to load glade: %s\n"
-msgstr "render_settings_init: није успело учитавање glade: %s\n"
+msgid "failed to load glade: %s\n"
+msgstr "није успело учитавање glade: %s\n"
 
-#: src/settings/render_settings_common.c:151
+#: src/settings/render_settings_common.c:152
 #, c-format
-msgid "render_settings_init: failed to load opengl glade: %s\n"
-msgstr "render_settings_init: није успело учитавање opengl glade: %s\n"
+msgid "failed to load opengl glade: %s\n"
+msgstr "није успело учитавање opengl glade: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:162
 #, c-format
-msgid "render_settings_init: failed to load cairo glade: %s\n"
-msgstr "render_settings_init: није успело учитавање cairo glade: %s\n"
+msgid "failed to load cairo glade: %s\n"
+msgstr "није успело учитавање cairo glade: %s\n"
 
-#: src/settings/render_settings_common.c:182
+#: src/settings/render_settings_common.c:183
 #, c-format
-msgid "render_settings_init: failed to get render_settings_window from glade\n"
-msgstr ""
-"render_settings_init: није успело преузимање render_settings_window из "
-"glade\n"
+msgid "failed to get render_settings_window from glade\n"
+msgstr "није успело преузимање render_settings_window из glade\n"
+
+#: src/signal_handler.c:29
+#, c-format
+msgid "exiting via user interrupt\n"
+msgstr "излазак прекидом корисника\n"
+
+#: src/signal_handler.c:33
+#, c-format
+msgid "segmentation fault, exiting\n"
+msgstr "грешка сегментације, излазак\n"
+
+#: src/signal_handler.c:37
+#, c-format
+msgid "floating point exception, exiting\n"
+msgstr "грешка са покретним зарезом, излазак\n"
+
+#: src/signal_handler.c:41
+#, c-format
+msgid "abort signal received, exiting\n"
+msgstr "примљен сигнал за прекид, излазак\n"
+
+#: src/signal_handler.c:45
+#, c-format
+msgid "termination request received, exiting\n"
+msgstr "примљен захтев за завршетак, излазак\n"
+
+#: src/signal_handler.c:55
+#, c-format
+msgid "not forked, ignoring SIGCHLD from pid %d\n"
+msgstr "није форковано, игноришем SIGCHLD од pid %d\n"
+
+#: src/signal_handler.c:63
+#, c-format
+msgid "child process pid %d exited\n"
+msgstr "подређени процес pid %d је завршен\n"
+
+#: src/signal_handler.c:72
+#, c-format
+msgid "default exit with signal: %d\n"
+msgstr "подразумевани излаз са сигналом: %d\n"
 
 #: src/somnec.c:302
 #, c-format
@@ -7730,8 +7699,8 @@ msgstr "Неважећи аргументи за sy_evaluate"
 
 #: src/sy_expr.c:1246
 #, c-format
-msgid "sy_load_overrides: malformed line (no colon): %s"
-msgstr "sy_load_overrides: неисправна линија (без двотачке): %s"
+msgid "malformed line (no colon): %s"
+msgstr "неисправна линија (без двотачке): %s"
 
 #: src/sy_expr.c:1336
 #, c-format
@@ -7740,8 +7709,8 @@ msgstr "Учитано %d замена симбола из %s\n"
 
 #: src/sy_expr.c:1453
 #, c-format
-msgid "sy_save_overrides: cannot open %s for writing: %s\n"
-msgstr "sy_save_overrides: није могуће отворити %s за писање: %s\n"
+msgid "cannot open %s for writing: %s\n"
+msgstr "није могуће отворити %s за писање: %s\n"
 
 #: src/sy_expr.c:1475
 #, c-format
@@ -7772,15 +7741,10 @@ msgstr "Макс"
 msgid "Expression"
 msgstr "Израз"
 
-#: src/sy_overrides.c:1093
-#, c-format
-msgid "sy_overrides_init: failed to load glade: %s\n"
-msgstr "sy_overrides_init: није успело учитавање glade: %s\n"
-
 #: src/sy_overrides.c:1107
 #, c-format
-msgid "sy_overrides_init: failed to get widgets from glade\n"
-msgstr "sy_overrides_init: није успело преузимање виџета из glade\n"
+msgid "failed to get widgets from glade\n"
+msgstr "није успело преузимање виџета из glade\n"
 
 #: src/sy_overrides.c:1223
 msgid "Input Symbols"
@@ -7847,44 +7811,39 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:417
-#, c-format
-msgid "Stop: %s\n"
-msgstr "Заустави: %s\n"
-
-#: src/utils.c:456 src/utils.c:458
+#: src/utils.c:411 src/utils.c:413
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "Заустављање током фреквенцијске петље, deadlock спречен: %s\n"
 
-#: src/utils.c:684
+#: src/utils.c:639
 #, c-format
 msgid "applying an OpenMP budget of %d threads\n"
 msgstr "примењује се OpenMP буџет од %d нити\n"
 
-#: src/utils.c:699
+#: src/utils.c:654
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f секунди\n"
 
-#: src/utils.c:724
+#: src/utils.c:679
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Није успело отварање датотеке: %s\n"
 
-#: src/utils.c:1090
+#: src/utils.c:1045
 #, c-format
 msgid "  Backtrace:\n"
 msgstr "  Повратни траг:\n"
 
 # xnec2c-exempt: symbol
-#: src/utils.c:1092
+#: src/utils.c:1047
 #, c-format
 msgid "    %d. %s\n"
 msgstr ""
 
 # xnec2c-exempt: symbol
-#: src/utils.c:1119
+#: src/utils.c:1074
 #, c-format
 msgid "%s:\n"
 msgstr ""

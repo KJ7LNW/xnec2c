@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 02:39-0800\n"
+"POT-Creation-Date: 2026-11-25 13:19-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -1016,11 +1016,11 @@ msgstr ""
 "Tillämpar automatiskt ändringar och laddar om modellen efter 300 ms "
 "fördröjning"
 
-#: resources/sy_overrides.glade:714 src/geom_edit.c:2866
+#: resources/sy_overrides.glade:714 src/geom_edit.c:2848
 msgid "_Apply"
 msgstr "_Tillämpa"
 
-#: resources/sy_overrides.glade:729 src/geom_edit.c:2865
+#: resources/sy_overrides.glade:729 src/geom_edit.c:2847
 msgid "_Cancel"
 msgstr "_Avbryt"
 
@@ -1657,7 +1657,7 @@ msgstr "Hantera kort"
 msgid "File Save"
 msgstr "Spara fil"
 
-#: resources/xnec2c.glade:6003 src/nec2_model.c:279
+#: resources/xnec2c.glade:6003 src/nec2_model.c:278
 msgid "Comments"
 msgstr "Kommentarer"
 
@@ -1869,29 +1869,29 @@ msgstr "Hörn 2-3-underdelning (NY)"
 msgid "Surface Sub-division"
 msgstr "Ytunderdelning"
 
-#: resources/xnec2c.glade:7533 src/geom_edit.c:1157
+#: resources/xnec2c.glade:7533 src/geom_edit.c:1151
 msgid "Center - X"
 msgstr "Centrum - X"
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:7565 src/geom_edit.c:1163
+#: resources/xnec2c.glade:7565 src/geom_edit.c:1157
 msgid "Normal - Elev."
 msgstr ""
 
-#: resources/xnec2c.glade:7597 src/geom_edit.c:1159
+#: resources/xnec2c.glade:7597 src/geom_edit.c:1153
 msgid "Center - Y"
 msgstr "Centrum - Y"
 
 # xnec2c-exempt: notation
-#: resources/xnec2c.glade:7629 src/geom_edit.c:1165
+#: resources/xnec2c.glade:7629 src/geom_edit.c:1159
 msgid "Normal - Azim."
 msgstr ""
 
-#: resources/xnec2c.glade:7661 src/geom_edit.c:1161
+#: resources/xnec2c.glade:7661 src/geom_edit.c:1155
 msgid "Center - Z"
 msgstr "Centrum - Z"
 
-#: resources/xnec2c.glade:7693 src/geom_edit.c:1167
+#: resources/xnec2c.glade:7693 src/geom_edit.c:1161
 msgid "Patch Area"
 msgstr "Patcharea"
 
@@ -3379,10 +3379,10 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "konfigurationsfil finns inte eller är inte läsbar: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1836 src/input.c:1837
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
-#: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
+#: src/sy_expr.c:172 src/utils.c:680
 #, c-format
 msgid "%s"
 msgstr ""
@@ -3414,10 +3414,8 @@ msgstr "--%s kräver <bredd>x<höjd>: %s\n"
 
 #: src/cairo/cairo_fit.c:115
 #, c-format
-msgid ""
-"cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
-msgstr ""
-"cairo_fit_view: ingen ram löstes: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
+msgid "no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
+msgstr "ingen ram löstes: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
 # xnec2c-exempt: notation
 #: src/cairo/cairo_frame.c:302
@@ -3526,11 +3524,11 @@ msgstr "Touchstone 2-portsfiler (*.s2p)"
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "Kommaseparerade CSV-filer (*.csv)"
 
-#: src/callbacks.c:83 src/callbacks.c:99 src/freqplots/freqplots_core.c:69
+#: src/callbacks.c:81 src/callbacks.c:97 src/freqplots/freqplots_core.c:69
 msgid "Antenna Temperature"
 msgstr "Antenntemperatur"
 
-#: src/callbacks.c:84
+#: src/callbacks.c:82
 #, c-format
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
@@ -3540,7 +3538,7 @@ msgstr ""
 "markeffekter. Frirumsmodeller är standard för utvärdering av "
 "antenntemperatur."
 
-#: src/callbacks.c:100
+#: src/callbacks.c:98
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3549,12 +3547,12 @@ msgstr ""
 "Maxförstärkning vid θ=%.0f° (%.0f° från XY-planet). Konventionen antar "
 "stråle i XY-planet med observationselevation inställd via spinknapp."
 
-#: src/callbacks.c:186 src/callbacks.c:520 src/callbacks.c:1675
-#: src/callbacks.c:1845
+#: src/callbacks.c:184 src/callbacks.c:518 src/callbacks.c:1652
+#: src/callbacks.c:1822
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "Är du säker på att du vill avsluta xnec2c?"
 
-#: src/callbacks.c:290
+#: src/callbacks.c:288
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3562,7 +3560,7 @@ msgstr ""
 "En ny NEC2-indatafil kan inte skapas\n"
 "medan frekvensslingan körs"
 
-#: src/callbacks.c:327
+#: src/callbacks.c:325
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3570,21 +3568,21 @@ msgstr ""
 "En ny NEC2-indatafil kan inte öppnas\n"
 "medan frekvensslingan körs"
 
-#: src/callbacks.c:446
+#: src/callbacks.c:444
 msgid "xnec2c geometry optimizer"
 msgstr "xnec2c geometrioptimerare"
 
-#: src/callbacks.c:447
+#: src/callbacks.c:445
 #, c-format
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr "xnec2c byggdes utan inotify-stöd: optimeraren kan inte aktiveras."
 
-#: src/callbacks.c:468
+#: src/callbacks.c:466
 msgid "Xnec2c Optimizer"
 msgstr "Xnec2c Optimerare"
 
-#: src/callbacks.c:468
+#: src/callbacks.c:466
 #, c-format
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
@@ -3595,22 +3593,22 @@ msgstr ""
 "om och beräkna om indatafilen vid ändring när den triggas av inotify. Välj "
 "filer för skrivning i \"Arkiv->Optimeringsinställningar\"."
 
-#: src/callbacks.c:972 src/callbacks.c:1289 src/callbacks.c:1871
+#: src/callbacks.c:949 src/callbacks.c:1266 src/callbacks.c:1848
 msgid "Are you sure you wish to close this window?"
 msgstr "Är du säker på att du vill stänga detta fönster?"
 
-#: src/callbacks.c:1503
+#: src/callbacks.c:1480
 #, c-format
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr ""
 "OpenGL är inte tillgängligt på denna skärm; kan inte aktivera renderare.\n"
 
-#: src/callbacks.c:1811
+#: src/callbacks.c:1788
 #, c-format
 msgid "No open NEC2 input file"
 msgstr "Ingen öppen NEC2-indatafil"
 
-#: src/callbacks.c:1902 src/callbacks.c:1932
+#: src/callbacks.c:1879 src/callbacks.c:1909
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3618,26 +3616,16 @@ msgstr ""
 "NEC2-editorns data kan inte sparas\n"
 "medan frekvensslingan körs"
 
-#: src/callbacks.c:1914 src/callbacks.c:1940
+#: src/callbacks.c:1891 src/callbacks.c:1917
 msgid "untitled.nec"
 msgstr "namnlös.nec"
 
-#: src/callbacks.c:2401 src/callbacks.c:2421 src/callbacks.c:2441
-#: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
-#, c-format
-msgid ""
-"Frequency (FR) cards not yet processed.\n"
-"You may need to save the NEC2 Editor data first."
-msgstr ""
-"Frekvenskort (FR) har inte behandlats ännu.\n"
-"Du kan behöva spara NEC2-editorns data först."
-
-#: src/chroma/chroma.c:315
+#: src/chroma/chroma.c:313
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "ogiltig färgprojektion %d, använder momentan\n"
 
-#: src/chroma/chroma.c:627
+#: src/chroma/chroma.c:626
 #, c-format
 msgid "invalid segment scale encoding %d, using model radius\n"
 msgstr "ogiltig segmentskalekodning %d, använder modellradie\n"
@@ -4219,8 +4207,8 @@ msgstr ""
 msgid "VSWR vs Frequency"
 msgstr "VSWR mot frekvens"
 
-#: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
-#: src/geom_edit.c:2703
+#: src/geom_edit.c:108 src/geom_edit.c:1982 src/geom_edit.c:2254
+#: src/geom_edit.c:2685
 #, c-format
 msgid ""
 "Error reading row data\n"
@@ -4238,7 +4226,7 @@ msgstr ""
 "Fel vid skrivning av raddata\n"
 "Välj rad igen"
 
-#: src/geom_edit.c:583
+#: src/geom_edit.c:577
 #, c-format
 msgid ""
 "GC card preceded by GW card\n"
@@ -4247,12 +4235,12 @@ msgstr ""
 "GC-kort föregås av GW-kort\n"
 "med trådradie skild från noll"
 
-#: src/geom_edit.c:587
+#: src/geom_edit.c:581
 #, c-format
 msgid "No GW card before GC card"
 msgstr "Inget GW-kort före GC-kort"
 
-#: src/geom_edit.c:611
+#: src/geom_edit.c:605
 #, c-format
 msgid ""
 "No GC card after a GW card\n"
@@ -4261,7 +4249,7 @@ msgstr ""
 "Inget GC-kort efter ett GW-kort\n"
 "med trådradie lika med noll"
 
-#: src/geom_edit.c:620
+#: src/geom_edit.c:614
 #, c-format
 msgid ""
 "GC card follows a GW card\n"
@@ -4270,7 +4258,7 @@ msgstr ""
 "GC-kort följer ett GW-kort\n"
 "med trådradie skild från noll"
 
-#: src/geom_edit.c:1025
+#: src/geom_edit.c:1019
 #, c-format
 msgid ""
 "SC card preceded by SP card\n"
@@ -4279,12 +4267,12 @@ msgstr ""
 "SC-kort föregås av SP-kort\n"
 "med godtycklig patchtyp"
 
-#: src/geom_edit.c:1037
+#: src/geom_edit.c:1031
 #, c-format
 msgid "No SP or SM card before SC card"
 msgstr "Inget SP- eller SM-kort före SC-kort"
 
-#: src/geom_edit.c:1057
+#: src/geom_edit.c:1051
 #, c-format
 msgid ""
 "No SC card after an SP card\n"
@@ -4293,7 +4281,7 @@ msgstr ""
 "Inget SC-kort efter ett SP-kort\n"
 "med icke-godtycklig patchtyp"
 
-#: src/geom_edit.c:1064
+#: src/geom_edit.c:1058
 #, c-format
 msgid ""
 "SC card follows an SP card\n"
@@ -4302,47 +4290,56 @@ msgstr ""
 "SC-kort följer ett SP-kort\n"
 "med godtycklig patchtyp"
 
-#: src/geom_edit.c:1077
+#: src/geom_edit.c:1071
 #, c-format
 msgid "No SC card after an SM card"
 msgstr "Inget SC-kort efter ett SM-kort"
 
-#: src/geom_edit.c:1172
+#: src/geom_edit.c:1166
 msgid "Corner 1 - X"
 msgstr "Hörn 1 - X"
 
-#: src/geom_edit.c:1174
+#: src/geom_edit.c:1168
 msgid "Corner 1 - Y"
 msgstr "Hörn 1 - Y"
 
-#: src/geom_edit.c:1176
+#: src/geom_edit.c:1170
 msgid "Corner 1 - Z"
 msgstr "Hörn 1 - Z"
 
-#: src/geom_edit.c:1178
+#: src/geom_edit.c:1172
 msgid "Corner 2 - X"
 msgstr "Hörn 2 - X"
 
-#: src/geom_edit.c:1180
+#: src/geom_edit.c:1174
 msgid "Corner 2 - Y"
 msgstr "Hörn 2 - Y"
 
-#: src/geom_edit.c:1182
+#: src/geom_edit.c:1176
 msgid "Corner 2 - Z"
 msgstr "Hörn 2 - Z"
 
-#: src/geom_edit.c:2861
+#: src/geom_edit.c:2843
 msgid "SY Card Editor"
 msgstr "SY-kortredigerare"
 
-#: src/geom_edit.c:2871
+#: src/geom_edit.c:2853
 msgid "SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"
 msgstr "SY-definition (t.ex. FREQ=146, LAMBDA=300/FREQ):"
 
-#: src/geom_edit.c:2970
+#: src/geom_edit.c:2952
 #, c-format
 msgid "NEC2 editor window not open"
 msgstr "NEC2-editorfönstret är inte öppet"
+
+#: src/geom_edit.c:2980
+#, c-format
+msgid ""
+"Frequency (FR) cards not yet processed.\n"
+"You may need to save the NEC2 Editor data first."
+msgstr ""
+"Frekvenskort (FR) har inte behandlats ännu.\n"
+"Du kan behöva spara NEC2-editorns data först."
 
 #: src/geometry.c:118
 #, c-format
@@ -4691,11 +4688,8 @@ msgstr "Tvingar överlappningskontroll för %d segment\n"
 
 #: src/geometry.c:1849
 #, c-format
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr ""
-"verify_segments() hoppar över frekvensberoende kontroller - ingen "
-"frekvensdata\n"
+msgid "skipping frequency-dependent checks - no frequency data\n"
+msgstr "frekvensberoende kontroller hoppas över - ingen frekvensdata\n"
 
 #: src/gnuplot.c:43
 msgid "Gnuplot Data"
@@ -4830,7 +4824,7 @@ msgstr "b mindre än a"
 msgid "step size limited at z = %12.5E\n"
 msgstr "stegstorlek begränsad vid Z = %12.5E\n"
 
-#: src/input.c:150
+#: src/input.c:151
 #, c-format
 msgid ""
 "Error reading Comments\n"
@@ -4839,7 +4833,7 @@ msgstr ""
 "Fel vid läsning av kommentarer\n"
 "Oväntat filslut (EOF)"
 
-#: src/input.c:164
+#: src/input.c:165
 #, c-format
 msgid ""
 "Error reading Comments\n"
@@ -4848,7 +4842,7 @@ msgstr ""
 "Fel vid läsning av kommentarer\n"
 "Kommentarmnemonik kort eller saknas"
 
-#: src/input.c:175
+#: src/input.c:176
 #, c-format
 msgid ""
 "Read_Comments():\n"
@@ -4859,7 +4853,7 @@ msgstr ""
 " Fel vid läsning av indatafil\n"
 "Kommentarmnemonik felaktig"
 
-#: src/input.c:215
+#: src/input.c:216
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4868,7 +4862,7 @@ msgstr ""
 "Fel i geometridata\n"
 "Taggnumret är negativt"
 
-#: src/input.c:222
+#: src/input.c:223
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4877,12 +4871,12 @@ msgstr ""
 "Geometridatafel\n"
 "Antal segment är mindre än 1"
 
-#: src/input.c:229
+#: src/input.c:230
 #, c-format
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "varning - antal segment är större än 1000000\n"
 
-#: src/input.c:252
+#: src/input.c:253
 #, c-format
 msgid ""
 "%s card: tag 0 selects segment %d by absolute position in the structure, not "
@@ -4893,12 +4887,12 @@ msgstr ""
 "inom ett taggat trådelement; ge trådelementet ett taggnummer och referera "
 "segmentet inom den taggen om inte absolut positionering avses\n"
 
-#: src/input.c:299
+#: src/input.c:300
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "%s datakortfel: Ogiltigt tecken '%c' vid kolumn %d\n"
 
-#: src/input.c:301
+#: src/input.c:302
 #, c-format
 msgid ""
 "Data card error\n"
@@ -4907,37 +4901,37 @@ msgstr ""
 "Datakortfel\n"
 "Ogiltigt tecken i kort"
 
-#: src/input.c:372
+#: src/input.c:373
 #, c-format
 msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: uttrycksutvärdering misslyckades för \"%s\"\n"
 
-#: src/input.c:413
+#: src/input.c:414
 #, c-format
 msgid "SY card: no line content available\n"
 msgstr "SY-kort: inget radinnehåll tillgängligt\n"
 
-#: src/input.c:414
+#: src/input.c:415
 #, c-format
 msgid "SY card: no line content available"
 msgstr "SY-kort: inget radinnehåll tillgängligt"
 
-#: src/input.c:431
+#: src/input.c:432
 #, c-format
 msgid "SY card: missing '=' in definition\n"
 msgstr "SY-kort: saknar '=' i definition\n"
 
-#: src/input.c:432
+#: src/input.c:433
 #, c-format
 msgid "SY card: missing '=' in definition"
 msgstr "SY-kort: saknar '=' i definition"
 
-#: src/input.c:465
+#: src/input.c:466
 #, c-format
 msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "SY-kort: symboldefinition misslyckades för %s=%s\n"
 
-#: src/input.c:652
+#: src/input.c:653
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4946,31 +4940,31 @@ msgstr ""
 "Geometridatafel\n"
 "Inget GC-kort för avsmalnande tråd"
 
-#: src/input.c:659
+#: src/input.c:660
 #, c-format
 msgid "Geometry GC data card error"
 msgstr "Fel på geometri GC-datakort"
 
-#: src/input.c:675
+#: src/input.c:676
 #, c-format
 msgid "Geometry GX data card error"
 msgstr "Fel på geometri GX-datakort"
 
-#: src/input.c:698
+#: src/input.c:699
 #, c-format
 msgid "Geometry GR data card error"
 msgstr "Fel på geometri GR-datakort"
 
-#: src/input.c:752
+#: src/input.c:753
 #, c-format
 msgid "No geometry data cards"
 msgstr "Inga geometridatakort"
 
-#: src/input.c:763
+#: src/input.c:764
 msgid "Probable invalid segment geometry.\n"
 msgstr "Troligen ogiltig segmentgeometri.\n"
 
-#: src/input.c:764
+#: src/input.c:765
 #, c-format
 msgid ""
 "Invalid segment geometry.\n"
@@ -4981,43 +4975,43 @@ msgstr ""
 "Se varningar i konsolen för detaljer.\n"
 "Försöker fortsätta..."
 
-#: src/input.c:770
+#: src/input.c:771
 #, c-format
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "Troligen ogiltig segmentgeometri (se ovan)\n"
 
-#: src/input.c:774
+#: src/input.c:775
 #, c-format
-msgid "Read_Geometry: verify_segments() passed\n"
-msgstr "Read_Geometry: verify_segments() godkänd\n"
+msgid "verify_segments() passed\n"
+msgstr "verify_segments() godkänd\n"
 
-#: src/input.c:811
+#: src/input.c:812
 #, c-format
 msgid "segment data error: tag=%d si=%f, bi=%f\n"
 msgstr "segmentdatafel: tag=%d si=%f, bi=%f\n"
 
-#: src/input.c:813
+#: src/input.c:814
 #, c-format
 msgid "Segment data error, zero-length line?  See console."
 msgstr "Segmentdatafel, noll-längdslinje?  Se konsolen."
 
-#: src/input.c:853
+#: src/input.c:854
 #, c-format
 msgid "Move GM data card error"
 msgstr "Fel vid flytt av GM-datakort"
 
-#: src/input.c:869 src/input.c:910 src/input.c:927 src/input.c:945
-#: src/input.c:953
+#: src/input.c:870 src/input.c:911 src/input.c:928 src/input.c:946
+#: src/input.c:954
 #, c-format
 msgid "Patch data card error"
 msgstr "Fel på patchdatakort"
 
-#: src/input.c:891
+#: src/input.c:892
 #, c-format
 msgid "Patch data error"
 msgstr "Fel på patchdata"
 
-#: src/input.c:1000
+#: src/input.c:1001
 #, c-format
 msgid ""
 "\"GF\" card (NGF solution)\n"
@@ -5026,73 +5020,73 @@ msgstr ""
 "\"GF\"-kort (NGF-lösning)\n"
 "stöds inte"
 
-#: src/input.c:1005
+#: src/input.c:1006
 #, c-format
 msgid "Ignoring CM card in geometry"
 msgstr "Ignorerar CM-kort i geometri"
 
-#: src/input.c:1018
+#: src/input.c:1019
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
 msgstr "fel på geometridatakort (nwire=%d)\n"
 
 # xnec2c-exempt: symbol
-#: src/input.c:1019
+#: src/input.c:1020
 #, c-format
 msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
-#: src/input.c:1025
+#: src/input.c:1026
 #, c-format
 msgid "Command card in geometry section"
 msgstr "Kommandokort i geometrisektion"
 
-#: src/input.c:1027
+#: src/input.c:1028
 #, c-format
 msgid "Unrecognized geometry card"
 msgstr "Okänt geometrikort"
 
-#: src/input.c:1051
+#: src/input.c:1052
 #, c-format
 msgid "Failed to initialize symbol table\n"
 msgstr "Misslyckades att initiera symboltabell\n"
 
-#: src/input.c:1052
+#: src/input.c:1053
 #, c-format
 msgid "Failed to initialize symbol table"
 msgstr "Misslyckades att initiera symboltabell"
 
-#: src/input.c:1192
+#: src/input.c:1193
 #, c-format
 msgid "No FR card: computing one step at the NEC-2 default %g MHz\n"
 msgstr "Inget FR-kort: beräknar ett steg med NEC-2-standardvärdet %g MHz\n"
 
-#: src/input.c:1283
+#: src/input.c:1284
 #, c-format
 msgid "ignoring CM card in commands\n"
 msgstr "ignorerar CM-kort i kommandon\n"
 
-#: src/input.c:1284
+#: src/input.c:1285
 #, c-format
 msgid "Ignoring CM card in commands"
 msgstr "Ignorerar CM-kort i kommandon"
 
-#: src/input.c:1296
+#: src/input.c:1297
 #, c-format
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "CP-kort ignoreras: kopplingsberäkning är inte implementerad\n"
 
-#: src/input.c:1392
+#: src/input.c:1393
 #, c-format
 msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "Hoppar över dubblett-FR-kort vid %g MHz\n"
 
-#: src/input.c:1457
+#: src/input.c:1458
 #, c-format
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "Maxfrekvens <= Minfrekvens i FR-kort\n"
 
-#: src/input.c:1458
+#: src/input.c:1459
 #, c-format
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
@@ -5101,7 +5095,7 @@ msgstr ""
 "Maxfrekvens <= Minfrekvens i FR-kort\n"
 "Kontrollera FR-kortdata och korrigera"
 
-#: src/input.c:1481
+#: src/input.c:1482
 #, c-format
 msgid ""
 "Fix the GE/GN cards:\n"
@@ -5111,12 +5105,12 @@ msgstr ""
 "Fixa GE/GN-korten:\n"
 "GE-kortet anger att en jord finns, men GN indikerar motsatsen."
 
-#: src/input.c:1495
+#: src/input.c:1496
 #, c-format
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "theta > 90 grader med angiven jord\n"
 
-#: src/input.c:1496 src/radiation.c:911
+#: src/input.c:1497 src/radiation.c:911
 #, c-format
 msgid ""
 "Theta > 90 deg with ground specified\n"
@@ -5125,7 +5119,7 @@ msgstr ""
 "Theta > 90 grader med angiven jord\n"
 "Kontrollera RP-kortdata och korrigera"
 
-#: src/input.c:1505
+#: src/input.c:1506
 #, c-format
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
@@ -5134,7 +5128,7 @@ msgstr ""
 "radiell tråd g.s.-approximation: kan inte användas med Sommerfeld-"
 "jordalternativ\n"
 
-#: src/input.c:1506
+#: src/input.c:1507
 #, c-format
 msgid ""
 "radial wire g.s. approximation\n"
@@ -5143,7 +5137,7 @@ msgstr ""
 "radiell tråd g.s.-approximation\n"
 "kan inte användas med Sommerfeld-jordalternativ"
 
-#: src/input.c:1554
+#: src/input.c:1555
 #, c-format
 msgid ""
 "data fault on loading card no %d: itag step1 %d is greater than itag step2 "
@@ -5151,7 +5145,7 @@ msgid ""
 msgstr ""
 "datafel på belastningskort nr %d: itag step1 %d är större än itag step2 %d\n"
 
-#: src/input.c:1556
+#: src/input.c:1557
 #, c-format
 msgid ""
 "Data fault on loading card\n"
@@ -5160,14 +5154,14 @@ msgstr ""
 "Datafel på belastningskort\n"
 "itag step1 är större än itag step2"
 
-#: src/input.c:1685
+#: src/input.c:1686
 #, c-format
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr ""
 "Transmissionsledningsimpedans = 0: är ogiltigt. Korrigera NT- eller TL-kort\n"
 
-#: src/input.c:1686
+#: src/input.c:1687
 #, c-format
 msgid ""
 "Transmission Line impedance = 0\n"
@@ -5176,12 +5170,12 @@ msgstr ""
 "Transmissionsledningsimpedans = 0\n"
 "är ogiltigt. Korrigera NT- eller TL-kort"
 
-#: src/input.c:1697
+#: src/input.c:1698
 #, c-format
 msgid "Segment number error in TL or NT card\n"
 msgstr "Segmentnummerfel i TL- eller NT-kort\n"
 
-#: src/input.c:1698
+#: src/input.c:1699
 #, c-format
 msgid ""
 "Segment number\n"
@@ -5190,22 +5184,22 @@ msgstr ""
 "Segmentnummer-\n"
 "fel i NT- eller TL-kort"
 
-#: src/input.c:1720
+#: src/input.c:1721
 #, c-format
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr "PQ- och PT-kort ignoreras: utskrift till fil är inte implementerad\n"
 
-#: src/input.c:1724
+#: src/input.c:1725
 #, c-format
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "PL-kort ignoreras: plottning till fil stöds inte\n"
 
-#: src/input.c:1730
+#: src/input.c:1731
 #, c-format
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "Ytvågsalternativ (I1=1): av RP-kommando är inte implementerat\n"
 
-#: src/input.c:1731
+#: src/input.c:1732
 #, c-format
 msgid ""
 "Surface wave option (I1=1)\n"
@@ -5214,7 +5208,7 @@ msgstr ""
 "Ytvågsalternativ (I1=1)\n"
 "av RP-kommando är inte implementerat"
 
-#: src/input.c:1763
+#: src/input.c:1764
 #, c-format
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
@@ -5222,7 +5216,7 @@ msgid ""
 msgstr ""
 "Theta > 90 grader med angiven jord: Kontrollera RP-kortdata och korrigera\n"
 
-#: src/input.c:1764
+#: src/input.c:1765
 #, c-format
 msgid ""
 "Theta > 90 deg. with ground specified\n"
@@ -5231,15 +5225,15 @@ msgstr ""
 "Theta > 90 grader med angiven jord\n"
 "Kontrollera RP-kortdata och korrigera"
 
-#: src/input.c:1831
+#: src/input.c:1832
 msgid "Geometry card in command section"
 msgstr "Geometrikort i kommandosektion"
 
-#: src/input.c:1834
+#: src/input.c:1835
 msgid "Unrecognized command card"
 msgstr "Okänt kommandokort"
 
-#: src/input.c:1879
+#: src/input.c:1880
 #, c-format
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
@@ -5248,12 +5242,12 @@ msgstr ""
 "Saknat eller ytvågs-RP-kort: Strålningsdiagram och förstärkningsberäkningar "
 "inaktiverade\n"
 
-#: src/input.c:1906
+#: src/input.c:1907
 #, c-format
 msgid "Unexpected exit from while loop"
 msgstr "Oväntat avslut från while-loop"
 
-#: src/input.c:1997
+#: src/input.c:1998
 #, c-format
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
@@ -5262,7 +5256,7 @@ msgstr ""
 "fel på kommandodatakort: Oväntat filslut vid läsning av indatafil - lägger "
 "till EN-kort\n"
 
-#: src/input.c:1998
+#: src/input.c:1999
 #, c-format
 msgid ""
 "Command data card error\n"
@@ -5273,12 +5267,12 @@ msgstr ""
 "Oväntat filslut vid läsning av indatafil\n"
 "Lägger till ett standard EN-kort"
 
-#: src/input.c:2015
+#: src/input.c:2016
 #, c-format
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr "fel på kommandodatakort: kortets mnemonik är för kort eller saknas\n"
 
-#: src/input.c:2016
+#: src/input.c:2017
 #, c-format
 msgid ""
 "Command data card error\n"
@@ -5287,11 +5281,11 @@ msgstr ""
 "Kommandodatakortfel\n"
 "Mnemonik är för kort eller saknas"
 
-#: src/input.c:2072 src/input.c:2103
+#: src/input.c:2073 src/input.c:2104
 msgid "command data"
 msgstr "kommandodata"
 
-#: src/input.c:2217
+#: src/input.c:2218
 #, c-format
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
@@ -5300,7 +5294,7 @@ msgstr ""
 "fel på geometridatakort: Oväntat filslut vid läsning av indatafil - lägger "
 "till GE-kort\n"
 
-#: src/input.c:2218
+#: src/input.c:2219
 #, c-format
 msgid ""
 "Geometry data card error\n"
@@ -5311,12 +5305,12 @@ msgstr ""
 "Oväntat filslut vid läsning av indatafil\n"
 "Lägger till ett standard GE-kort"
 
-#: src/input.c:2235
+#: src/input.c:2236
 #, c-format
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr "fel på geometridatakort: kortets mnemonik är för kort eller saknas\n"
 
-#: src/input.c:2236
+#: src/input.c:2237
 #, c-format
 msgid ""
 "Geometry data card error\n"
@@ -5325,7 +5319,7 @@ msgstr ""
 "Geometridatakortfel\n"
 "Kortets mnemonik är för kort eller saknas"
 
-#: src/input.c:2285 src/input.c:2315
+#: src/input.c:2286 src/input.c:2316
 msgid "geometry data"
 msgstr "geometridata"
 
@@ -5365,8 +5359,8 @@ msgid "Listing Object Ids:\n"
 msgstr "Listar objekt-ID:n:\n"
 
 # xnec2c-exempt: symbol
-#: src/interface.c:202 src/utils.c:424 src/utils.c:428 src/utils.c:438
-#: src/utils.c:440
+#: src/interface.c:202 src/opt_file.c:342 src/opt_file.c:658 src/utils.c:372
+#: src/utils.c:379 src/utils.c:383 src/utils.c:393 src/utils.c:395
 #, c-format
 msgid "%s\n"
 msgstr ""
@@ -5388,102 +5382,62 @@ msgstr ""
 
 #: src/interface.c:370
 #, c-format
-msgid "create_animate_dialog: failed to load animate.glade: %s\n"
-msgstr "create_animate_dialog: misslyckades att läsa in animate.glade: %s\n"
+msgid "failed to load animate.glade: %s\n"
+msgstr "misslyckades att läsa in animate.glade: %s\n"
 
-#: src/main.c:126
+#: src/main.c:113
 msgid "none (no display)"
 msgstr "ingen (visas inte)"
 
-#: src/main.c:129
+#: src/main.c:116
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Hittade %s fönsterbackend\n"
 
-#: src/main.c:137
+#: src/main.c:124
 #, c-format
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch och --optimize är ömsesidigt uteslutande.\n"
 
-#: src/main.c:157
+#: src/main.c:144
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "indatafilsökväg för lång ( > %d tecken )\n"
 
-#: src/main.c:164
+#: src/main.c:151
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "oväntat argument '%s' verkar inte vara en .nec-fil\n"
 
-#: src/main.c:171
+#: src/main.c:158
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "oväntat argument: %s\n"
 
-#: src/main.c:177
+#: src/main.c:164
 #, c-format
 msgid "batch mode requires an input file\n"
 msgstr "batchläge kräver en indatafil\n"
 
-#: src/main.c:187
+#: src/main.c:174
 #, c-format
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "kan inte öppna skärmen: en aktiv X11- eller Wayland-session krävs\n"
 
-#: src/main.c:210
+#: src/main.c:197
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "Forkar %d jobb över %d processorer.\n"
 
-#: src/main.c:223 src/main.c:231
+#: src/main.c:210 src/main.c:218
 #, c-format
 msgid "exiting after fatal error: pipe() failed"
 msgstr "avslutar efter allvarligt fel: pipe() misslyckades"
 
-#: src/main.c:240
+#: src/main.c:227
 #, c-format
 msgid "exiting after fatal error: fork() failed"
 msgstr "avslutar efter allvarligt fel: fork() misslyckades"
-
-#: src/main.c:840
-#, c-format
-msgid "exiting via user interrupt\n"
-msgstr "avslutar via användaravbrott\n"
-
-#: src/main.c:844
-#, c-format
-msgid "segmentation fault, exiting\n"
-msgstr "segmenteringsfel, avslutar\n"
-
-#: src/main.c:848
-#, c-format
-msgid "floating point exception, exiting\n"
-msgstr "flyttalsundantag, avslutar\n"
-
-#: src/main.c:852
-#, c-format
-msgid "abort signal received, exiting\n"
-msgstr "avbrottssignal mottagen, avslutar\n"
-
-#: src/main.c:856
-#, c-format
-msgid "termination request received, exiting\n"
-msgstr "avslutningsbegäran mottagen, avslutar\n"
-
-#: src/main.c:866
-#, c-format
-msgid "not forked, ignoring SIGCHLD from pid %d\n"
-msgstr "inte förgrenad, ignorerar SIGCHLD från pid %d\n"
-
-#: src/main.c:874
-#, c-format
-msgid "child process pid %d exited\n"
-msgstr "barnprocess pid %d avslutades\n"
-
-#: src/main.c:883
-#, c-format
-msgid "default exit with signal: %d\n"
-msgstr "standardavslut med signal: %d\n"
 
 #: src/mathlib.c:28
 msgid ""
@@ -5494,7 +5448,7 @@ msgstr ""
 "Starta om för att ändra MKL-trådningsbibliotek."
 
 # xnec2c-exempt: symbol
-#: src/mathlib.c:368 src/utils.c:729
+#: src/mathlib.c:368 src/utils.c:684
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
@@ -5558,8 +5512,8 @@ msgstr "Valde det första tillgängliga mathlib: %s\n"
 
 #: src/mathlib.c:669
 #, c-format
-msgid "mathlib_load[%d]: mathlib.available=0, skipping: %s\n"
-msgstr "mathlib_load[%d]: mathlib.available=0, hoppar över: %s\n"
+msgid "[%d]: mathlib.available=0, skipping: %s\n"
+msgstr "[%d]: mathlib.available=0, hoppar över: %s\n"
 
 #: src/mathlib.c:719
 msgid "Batch Math Library"
@@ -6038,12 +5992,8 @@ msgstr "DG7YBN stad (2025)"
 
 #: src/measurements.c:424
 #, c-format
-msgid ""
-"noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
-"to 0\n"
-msgstr ""
-"noise_temp_resolve: noise_temp-tabell ej tilldelad; t_sky/t_earth återställs "
-"till 0\n"
+msgid "noise_temp table not allocated; t_sky/t_earth defaulting to 0\n"
+msgstr "noise_temp-tabell ej tilldelad; t_sky/t_earth återställs till 0\n"
 
 #: src/measurements.c:481
 msgid "Z Real"
@@ -6307,10 +6257,10 @@ msgstr "Minnesallokering nekad %s: begärde %lu byte\n"
 msgid "mem_obj_t at %p: size=%lu used=%lu addr=%p\n"
 msgstr "mem_obj_t vid %p: size=%lu used=%lu addr=%p\n"
 
-# xnec2c-exempt: name
+# xnec2c-exempt: symbol
 #: src/mem/mem.c:250
 #, c-format
-msgid "mem_backtrace(%p):\n"
+msgid "%p:\n"
 msgstr ""
 
 #: src/mem/mem.c:253
@@ -6320,8 +6270,8 @@ msgstr "  m->backtrace är null, ingen bakåtspårningsdata\n"
 
 #: src/mem/mem.c:279
 #, c-format
-msgid "mem_clone: allocation failed for %lu bytes\n"
-msgstr "mem_clone: allokering misslyckades för %lu byte\n"
+msgid "allocation failed for %lu bytes\n"
+msgstr "allokering misslyckades för %lu byte\n"
 
 # xnec2c-exempt: notation
 #: src/mem/mem_track.c:208
@@ -6346,19 +6296,19 @@ msgstr ""
 msgid "mem-report %s:   frame %d %s\n"
 msgstr "mem-report %s:   ram %d %s\n"
 
-#: src/nec2_model.c:279 src/nec2_model.c:283 src/nec2_model.c:287
+#: src/nec2_model.c:278 src/nec2_model.c:282 src/nec2_model.c:286
 msgid "Card"
 msgstr "Kort"
 
-#: src/nec2_model.c:369
+#: src/nec2_model.c:368
 msgid "--- NEC2 Input File created or edited by "
 msgstr "--- NEC2-indatafil skapad eller redigerad av "
 
-#: src/nec2_model.c:386
+#: src/nec2_model.c:385
 msgid "--- End Comments ---"
 msgstr "--- Slut på kommentarer ---"
 
-#: src/nec2_model.c:525
+#: src/nec2_model.c:524
 #, c-format
 msgid ""
 "List_Comments():\n"
@@ -6369,7 +6319,7 @@ msgstr ""
 "Fel vid läsning av indatafil\n"
 "Oväntat EOF (filslut)"
 
-#: src/nec2_model.c:532
+#: src/nec2_model.c:531
 #, c-format
 msgid ""
 "List_Comments():\n"
@@ -6380,11 +6330,11 @@ msgstr ""
 "Fel vid läsning av indatafil\n"
 "Kommentarmnemonik kort eller saknas"
 
-#: src/nec2_model.c:818
+#: src/nec2_model.c:817
 msgid "End Comments"
 msgstr "Slut på kommentarer"
 
-#: src/nec2_model.c:916
+#: src/nec2_model.c:915
 #, c-format
 msgid ""
 "Cannot save treeview data\n"
@@ -6523,12 +6473,8 @@ msgstr "Inaktiverar OpenGL: peel-kompositshader misslyckades\n"
 
 #: src/opengl-engine/opengl_view_fit.c:71
 #, c-format
-msgid ""
-"gl_view_fit_view: no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,"
-"%g,%g]\n"
-msgstr ""
-"gl_view_fit_view: ingen ram löstes: r_max=%g distance=%g proj=%d box=[%g,%g,"
-"%g,%g]\n"
+msgid "no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,%g,%g]\n"
+msgstr "ingen ram löstes: r_max=%g distance=%g proj=%d box=[%g,%g,%g,%g]\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:141
 #, c-format
@@ -6580,22 +6526,10 @@ msgstr ""
 "OpenGL är inte tillgängligt på denna skärm; växlar till Cairo-renderare. Se "
 "'OpenGL-renderare' i Visa > Renderingsinställningar.\n"
 
-# xnec2c-exempt: name
-#: src/opt_file.c:342
-#, c-format
-msgid "opt_file_save: %s\n"
-msgstr ""
-
 #: src/opt_file.c:622
 #, c-format
 msgid "Loaded %d optimizer goals\n"
 msgstr "Laddade %d optimeringsmål\n"
-
-# xnec2c-exempt: name
-#: src/opt_file.c:658
-#, c-format
-msgid "opt_file_load: %s\n"
-msgstr ""
 
 #: src/opt_ui_formula.c:46
 #, c-format
@@ -7125,23 +7059,23 @@ msgstr "Skillnaden mellan högsta och lägsta poäng över frekvensstegen"
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
-msgid "fitness_transform: unknown direction %d\n"
-msgstr "fitness_transform: okänd riktning %d\n"
+msgid "unknown direction %d\n"
+msgstr "okänd riktning %d\n"
 
 #: src/optimizers/opt_fitness.c:582
 #, c-format
-msgid "reduce_values: unknown reduction method %d\n"
-msgstr "reduce_values: okänd reduktionsmetod %d\n"
+msgid "unknown reduction method %d\n"
+msgstr "okänd reduktionsmetod %d\n"
 
 #: src/optimizers/opt_nec2_eval.c:80
 #, c-format
-msgid "nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n"
-msgstr "nec2_eval_signal: eval_mutex-konflikt, blockerar (thr=%lu)\n"
+msgid "eval_mutex contention, blocking (thr=%lu)\n"
+msgstr "eval_mutex-konflikt, blockerar (thr=%lu)\n"
 
 #: src/optimizers/opt_nec2_eval.c:194
 #, c-format
-msgid "nec2_eval_run: not initialized\n"
-msgstr "nec2_eval_run: ej initialiserad\n"
+msgid "not initialized\n"
+msgstr "ej initialiserad\n"
 
 #: src/optimizers/opt_session.c:96
 #, c-format
@@ -7159,23 +7093,23 @@ msgstr "opt: optimering klar, bästa fitness: %.6g\n"
 
 #: src/optimizers/opt_session.c:194
 #, c-format
-msgid "opt_start: optimizer already running\n"
-msgstr "opt_start: optimeraren körs redan\n"
+msgid "optimizer already running\n"
+msgstr "optimeraren körs redan\n"
 
 #: src/optimizers/opt_session.c:258
 #, c-format
-msgid "opt_start: simple_new failed\n"
-msgstr "opt_start: simple_new misslyckades\n"
+msgid "simple_new failed\n"
+msgstr "simple_new misslyckades\n"
 
 #: src/optimizers/opt_session.c:267
 #, c-format
-msgid "opt_start: pthread_create failed: %d\n"
-msgstr "opt_start: pthread_create misslyckades: %d\n"
+msgid "pthread_create failed: %d\n"
+msgstr "pthread_create misslyckades: %d\n"
 
 #: src/optimizers/opt_simple.c:297
 #, c-format
-msgid "simple_config_init: unknown algorithm %d\n"
-msgstr "simple_config_init: okänd algoritm %d\n"
+msgid "unknown algorithm %d\n"
+msgstr "okänd algoritm %d\n"
 
 #: src/optimizers/opt_simple_var.c:43
 #, c-format
@@ -7440,12 +7374,8 @@ msgstr ""
 
 #: src/rdpattern_ui.c:132
 #, c-format
-msgid ""
-"Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
-"GS_LINP\n"
-msgstr ""
-"Scale_Gain_Resolved: gain_style %d utanför intervallet [0..%d], standard "
-"GS_LINP\n"
+msgid "gain_style %d out of range [0..%d], defaulting to GS_LINP\n"
+msgstr "gain_style %d utanför intervallet [0..%d], standard GS_LINP\n"
 
 #: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
@@ -7586,13 +7516,13 @@ msgstr ""
 
 #: src/render/gradient_cache.c:312
 #, c-format
-msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
-msgstr "gradient_cache_update: ytskapande misslyckades (%dx%d)\n"
+msgid "surface creation failed (%dx%d)\n"
+msgstr "ytskapande misslyckades (%dx%d)\n"
 
 #: src/render/render_fit.c:67
 #, c-format
-msgid "render_fit_solve: no geometry to fit\n"
-msgstr "render_fit_solve: ingen geometri att anpassa\n"
+msgid "no geometry to fit\n"
+msgstr "ingen geometri att anpassa\n"
 
 #: src/render/render_message.h:29
 msgid "File ▸ Open to load an NEC file"
@@ -7647,7 +7577,7 @@ msgstr "Optimeringsloop ofullständig, undertrycker mellanliggande omritning.\n"
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+rullning: trådelementets radie"
 
-#: src/settings/render_settings.c:49
+#: src/settings/render_settings.c:50
 msgid ""
 "OpenGL is not available on this display.\n"
 "Cairo rendering is active."
@@ -7655,7 +7585,7 @@ msgstr ""
 "OpenGL är inte tillgängligt på den här skärmen.\n"
 "Renderingen sker med Cairo."
 
-#: src/settings/render_settings.c:54
+#: src/settings/render_settings.c:55
 msgid ""
 "Built without OpenGL support.\n"
 "Cairo rendering is active."
@@ -7663,35 +7593,73 @@ msgstr ""
 "Programmet är byggt utan stöd för OpenGL.\n"
 "Renderingen sker med Cairo."
 
-#: src/settings/render_settings.c:123
+#: src/settings/render_settings.c:151
 msgid "General"
 msgstr "Allmänt"
 
-#: src/settings/render_settings.c:127
+#: src/settings/render_settings.c:155
 msgid "Color"
 msgstr "Färg"
 
-#: src/settings/render_settings_common.c:141
+#: src/settings/render_settings_common.c:142 src/sy_overrides.c:1093
 #, c-format
-msgid "render_settings_init: failed to load glade: %s\n"
-msgstr "render_settings_init: misslyckades att läsa in glade: %s\n"
+msgid "failed to load glade: %s\n"
+msgstr "misslyckades att läsa in glade: %s\n"
 
-#: src/settings/render_settings_common.c:151
+#: src/settings/render_settings_common.c:152
 #, c-format
-msgid "render_settings_init: failed to load opengl glade: %s\n"
-msgstr "render_settings_init: misslyckades att läsa in opengl glade: %s\n"
+msgid "failed to load opengl glade: %s\n"
+msgstr "misslyckades att läsa in opengl glade: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:162
 #, c-format
-msgid "render_settings_init: failed to load cairo glade: %s\n"
-msgstr "render_settings_init: misslyckades att läsa in cairo glade: %s\n"
+msgid "failed to load cairo glade: %s\n"
+msgstr "misslyckades att läsa in cairo glade: %s\n"
 
-#: src/settings/render_settings_common.c:182
+#: src/settings/render_settings_common.c:183
 #, c-format
-msgid "render_settings_init: failed to get render_settings_window from glade\n"
-msgstr ""
-"render_settings_init: misslyckades att hämta render_settings_window från "
-"glade\n"
+msgid "failed to get render_settings_window from glade\n"
+msgstr "misslyckades att hämta render_settings_window från glade\n"
+
+#: src/signal_handler.c:29
+#, c-format
+msgid "exiting via user interrupt\n"
+msgstr "avslutar via användaravbrott\n"
+
+#: src/signal_handler.c:33
+#, c-format
+msgid "segmentation fault, exiting\n"
+msgstr "segmenteringsfel, avslutar\n"
+
+#: src/signal_handler.c:37
+#, c-format
+msgid "floating point exception, exiting\n"
+msgstr "flyttalsundantag, avslutar\n"
+
+#: src/signal_handler.c:41
+#, c-format
+msgid "abort signal received, exiting\n"
+msgstr "avbrottssignal mottagen, avslutar\n"
+
+#: src/signal_handler.c:45
+#, c-format
+msgid "termination request received, exiting\n"
+msgstr "avslutningsbegäran mottagen, avslutar\n"
+
+#: src/signal_handler.c:55
+#, c-format
+msgid "not forked, ignoring SIGCHLD from pid %d\n"
+msgstr "inte förgrenad, ignorerar SIGCHLD från pid %d\n"
+
+#: src/signal_handler.c:63
+#, c-format
+msgid "child process pid %d exited\n"
+msgstr "barnprocess pid %d avslutades\n"
+
+#: src/signal_handler.c:72
+#, c-format
+msgid "default exit with signal: %d\n"
+msgstr "standardavslut med signal: %d\n"
 
 #: src/somnec.c:302
 #, c-format
@@ -7763,8 +7731,8 @@ msgstr "Ogiltiga argument till sy_evaluate"
 
 #: src/sy_expr.c:1246
 #, c-format
-msgid "sy_load_overrides: malformed line (no colon): %s"
-msgstr "sy_load_overrides: felaktig rad (inget kolon): %s"
+msgid "malformed line (no colon): %s"
+msgstr "felaktig rad (inget kolon): %s"
 
 #: src/sy_expr.c:1336
 #, c-format
@@ -7773,8 +7741,8 @@ msgstr "Laddade %d symbolåsidosättningar från %s\n"
 
 #: src/sy_expr.c:1453
 #, c-format
-msgid "sy_save_overrides: cannot open %s for writing: %s\n"
-msgstr "sy_save_overrides: kan inte öppna %s för skrivning: %s\n"
+msgid "cannot open %s for writing: %s\n"
+msgstr "kan inte öppna %s för skrivning: %s\n"
 
 #: src/sy_expr.c:1475
 #, c-format
@@ -7808,15 +7776,10 @@ msgstr ""
 msgid "Expression"
 msgstr "Uttryck"
 
-#: src/sy_overrides.c:1093
-#, c-format
-msgid "sy_overrides_init: failed to load glade: %s\n"
-msgstr "sy_overrides_init: misslyckades att läsa in glade: %s\n"
-
 #: src/sy_overrides.c:1107
 #, c-format
-msgid "sy_overrides_init: failed to get widgets from glade\n"
-msgstr "sy_overrides_init: misslyckades att hämta widgetar från glade\n"
+msgid "failed to get widgets from glade\n"
+msgstr "misslyckades att hämta widgetar från glade\n"
 
 #: src/sy_overrides.c:1223
 msgid "Input Symbols"
@@ -7882,44 +7845,39 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:417
-#, c-format
-msgid "Stop: %s\n"
-msgstr "Stopp: %s\n"
-
-#: src/utils.c:456 src/utils.c:458
+#: src/utils.c:411 src/utils.c:413
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "Stopp under frekvensslinga, dödläge förhindrat: %s\n"
 
-#: src/utils.c:684
+#: src/utils.c:639
 #, c-format
 msgid "applying an OpenMP budget of %d threads\n"
 msgstr "tillämpar en OpenMP-budget på %d trådar\n"
 
-#: src/utils.c:699
+#: src/utils.c:654
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f sekunder\n"
 
-#: src/utils.c:724
+#: src/utils.c:679
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Kunde inte öppna fil: %s\n"
 
-#: src/utils.c:1090
+#: src/utils.c:1045
 #, c-format
 msgid "  Backtrace:\n"
 msgstr "  Bakåtspårning:\n"
 
 # xnec2c-exempt: symbol
-#: src/utils.c:1092
+#: src/utils.c:1047
 #, c-format
 msgid "    %d. %s\n"
 msgstr ""
 
 # xnec2c-exempt: symbol
-#: src/utils.c:1119
+#: src/utils.c:1074
 #, c-format
 msgid "%s:\n"
 msgstr ""

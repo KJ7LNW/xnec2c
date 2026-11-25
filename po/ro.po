@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 02:39-0800\n"
+"POT-Creation-Date: 2026-11-25 13:19-0800\n"
 "PO-Revision-Date: 2025-12-28 20:37-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -1035,11 +1035,11 @@ msgid "Automatically apply changes and reload model after 300ms delay"
 msgstr ""
 "Aplică automat modificările și reîncarcă modelul după o întârziere de 300ms"
 
-#: resources/sy_overrides.glade:714 src/geom_edit.c:2866
+#: resources/sy_overrides.glade:714 src/geom_edit.c:2848
 msgid "_Apply"
 msgstr "_Aplică"
 
-#: resources/sy_overrides.glade:729 src/geom_edit.c:2865
+#: resources/sy_overrides.glade:729 src/geom_edit.c:2847
 msgid "_Cancel"
 msgstr "_Anulare"
 
@@ -1680,7 +1680,7 @@ msgstr "Gestionare carduri"
 msgid "File Save"
 msgstr "Salvare fișier"
 
-#: resources/xnec2c.glade:6003 src/nec2_model.c:279
+#: resources/xnec2c.glade:6003 src/nec2_model.c:278
 msgid "Comments"
 msgstr "Comentarii"
 
@@ -1891,27 +1891,27 @@ msgstr "Subdiviziune colțuri 2-3 (NY)"
 msgid "Surface Sub-division"
 msgstr "Subdiviziune suprafață"
 
-#: resources/xnec2c.glade:7533 src/geom_edit.c:1157
+#: resources/xnec2c.glade:7533 src/geom_edit.c:1151
 msgid "Center - X"
 msgstr "Centru - X"
 
-#: resources/xnec2c.glade:7565 src/geom_edit.c:1163
+#: resources/xnec2c.glade:7565 src/geom_edit.c:1157
 msgid "Normal - Elev."
 msgstr "Normală - Elev."
 
-#: resources/xnec2c.glade:7597 src/geom_edit.c:1159
+#: resources/xnec2c.glade:7597 src/geom_edit.c:1153
 msgid "Center - Y"
 msgstr "Centru - Y"
 
-#: resources/xnec2c.glade:7629 src/geom_edit.c:1165
+#: resources/xnec2c.glade:7629 src/geom_edit.c:1159
 msgid "Normal - Azim."
 msgstr "Normală - Azim."
 
-#: resources/xnec2c.glade:7661 src/geom_edit.c:1161
+#: resources/xnec2c.glade:7661 src/geom_edit.c:1155
 msgid "Center - Z"
 msgstr "Centru - Z"
 
-#: resources/xnec2c.glade:7693 src/geom_edit.c:1167
+#: resources/xnec2c.glade:7693 src/geom_edit.c:1161
 msgid "Patch Area"
 msgstr "Aria patch-ului"
 
@@ -3410,10 +3410,10 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "fișierul de configurare nu există sau nu poate fi citit: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1836 src/input.c:1837
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
-#: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
+#: src/sy_expr.c:172 src/utils.c:680
 #, c-format
 msgid "%s"
 msgstr ""
@@ -3447,11 +3447,8 @@ msgstr "--%s necesită <width>x<height>: %s\n"
 
 #: src/cairo/cairo_fit.c:115
 #, c-format
-msgid ""
-"cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
-msgstr ""
-"cairo_fit_view: niciun cadru rezolvat: extent=%g box=[%g,%g,%g,%g] view=%dx"
-"%d\n"
+msgid "no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
+msgstr "niciun cadru rezolvat: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
 # xnec2c-exempt: notation
 #: src/cairo/cairo_frame.c:302
@@ -3561,11 +3558,11 @@ msgstr "Fișiere Touchstone 2-port (*.s2p)"
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "Fișiere CSV separate prin virgulă (*.csv)"
 
-#: src/callbacks.c:83 src/callbacks.c:99 src/freqplots/freqplots_core.c:69
+#: src/callbacks.c:81 src/callbacks.c:97 src/freqplots/freqplots_core.c:69
 msgid "Antenna Temperature"
 msgstr "Temperatură de antenă"
 
-#: src/callbacks.c:84
+#: src/callbacks.c:82
 #, c-format
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
@@ -3575,7 +3572,7 @@ msgstr ""
 "masă. Modelele în spațiu liber sunt standard pentru evaluarea temperaturii "
 "antenei."
 
-#: src/callbacks.c:100
+#: src/callbacks.c:98
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3584,12 +3581,12 @@ msgstr ""
 "Câștig maxim la θ=%.0f° (%.0f° de la planul XY). Convenția presupune "
 "fasciculul în planul XY cu elevația de observare setată prin butonul rotativ."
 
-#: src/callbacks.c:186 src/callbacks.c:520 src/callbacks.c:1675
-#: src/callbacks.c:1845
+#: src/callbacks.c:184 src/callbacks.c:518 src/callbacks.c:1652
+#: src/callbacks.c:1822
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "Sunteți sigur că doriți să ieșiți din xnec2c?"
 
-#: src/callbacks.c:290
+#: src/callbacks.c:288
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3597,7 +3594,7 @@ msgstr ""
 "Nu se poate crea un fișier NEC2 de intrare nou\n"
 "cât timp bucla de frecvență rulează"
 
-#: src/callbacks.c:327
+#: src/callbacks.c:325
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3605,11 +3602,11 @@ msgstr ""
 "Nu se poate deschide un fișier NEC2 de intrare nou\n"
 "cât timp bucla de frecvență rulează"
 
-#: src/callbacks.c:446
+#: src/callbacks.c:444
 msgid "xnec2c geometry optimizer"
 msgstr "optimizator de geometrie xnec2c"
 
-#: src/callbacks.c:447
+#: src/callbacks.c:445
 #, c-format
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
@@ -3617,11 +3614,11 @@ msgstr ""
 "xnec2c a fost compilat fără suport inotify: optimizatorul nu poate fi "
 "activat."
 
-#: src/callbacks.c:468
+#: src/callbacks.c:466
 msgid "Xnec2c Optimizer"
 msgstr "Optimizator Xnec2c"
 
-#: src/callbacks.c:468
+#: src/callbacks.c:466
 #, c-format
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
@@ -3632,22 +3629,22 @@ msgstr ""
 "recalcula fișierul de intrare la modificare când este declanșat de inotify. "
 "Selectați fișierele pentru scriere în \"Fișier->Setări Optimizare\"."
 
-#: src/callbacks.c:972 src/callbacks.c:1289 src/callbacks.c:1871
+#: src/callbacks.c:949 src/callbacks.c:1266 src/callbacks.c:1848
 msgid "Are you sure you wish to close this window?"
 msgstr "Sunteți sigur că doriți să închideți această fereastră?"
 
-#: src/callbacks.c:1503
+#: src/callbacks.c:1480
 #, c-format
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr ""
 "OpenGL nu este disponibil pe acest display; nu se poate activa renderul.\n"
 
-#: src/callbacks.c:1811
+#: src/callbacks.c:1788
 #, c-format
 msgid "No open NEC2 input file"
 msgstr "Niciun fișier NEC2 de intrare deschis"
 
-#: src/callbacks.c:1902 src/callbacks.c:1932
+#: src/callbacks.c:1879 src/callbacks.c:1909
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3656,26 +3653,16 @@ msgstr ""
 "cât timp bucla de frecvență rulează"
 
 # xnec2c-exempt: name
-#: src/callbacks.c:1914 src/callbacks.c:1940
+#: src/callbacks.c:1891 src/callbacks.c:1917
 msgid "untitled.nec"
 msgstr ""
 
-#: src/callbacks.c:2401 src/callbacks.c:2421 src/callbacks.c:2441
-#: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
-#, c-format
-msgid ""
-"Frequency (FR) cards not yet processed.\n"
-"You may need to save the NEC2 Editor data first."
-msgstr ""
-"Cardurile de frecvență (FR) nu au fost încă procesate.\n"
-"Poate fi necesar să salvați mai întâi datele Editorului NEC2."
-
-#: src/chroma/chroma.c:315
+#: src/chroma/chroma.c:313
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "proiecție de culoare invalidă %d, se folosește instantaneu\n"
 
-#: src/chroma/chroma.c:627
+#: src/chroma/chroma.c:626
 #, c-format
 msgid "invalid segment scale encoding %d, using model radius\n"
 msgstr "codare scală segment nevalidă %d, se utilizează raza modelului\n"
@@ -4261,8 +4248,8 @@ msgstr ""
 msgid "VSWR vs Frequency"
 msgstr "VSWR vs frecvență"
 
-#: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
-#: src/geom_edit.c:2703
+#: src/geom_edit.c:108 src/geom_edit.c:1982 src/geom_edit.c:2254
+#: src/geom_edit.c:2685
 #, c-format
 msgid ""
 "Error reading row data\n"
@@ -4280,7 +4267,7 @@ msgstr ""
 "Eroare la scrierea datelor rândului\n"
 "Vă rugăm să reselectați rândul"
 
-#: src/geom_edit.c:583
+#: src/geom_edit.c:577
 #, c-format
 msgid ""
 "GC card preceded by GW card\n"
@@ -4289,12 +4276,12 @@ msgstr ""
 "Card GC precedat de card GW\n"
 "cu rază de fir nenulă"
 
-#: src/geom_edit.c:587
+#: src/geom_edit.c:581
 #, c-format
 msgid "No GW card before GC card"
 msgstr "Niciun card GW înainte de cardul GC"
 
-#: src/geom_edit.c:611
+#: src/geom_edit.c:605
 #, c-format
 msgid ""
 "No GC card after a GW card\n"
@@ -4303,7 +4290,7 @@ msgstr ""
 "Niciun card GC după un card GW\n"
 "cu rază de fir zero"
 
-#: src/geom_edit.c:620
+#: src/geom_edit.c:614
 #, c-format
 msgid ""
 "GC card follows a GW card\n"
@@ -4312,7 +4299,7 @@ msgstr ""
 "Cardul GC urmează un card GW\n"
 "cu rază de fir nenulă"
 
-#: src/geom_edit.c:1025
+#: src/geom_edit.c:1019
 #, c-format
 msgid ""
 "SC card preceded by SP card\n"
@@ -4321,12 +4308,12 @@ msgstr ""
 "Card SC precedat de card SP\n"
 "cu tip de patch arbitrar"
 
-#: src/geom_edit.c:1037
+#: src/geom_edit.c:1031
 #, c-format
 msgid "No SP or SM card before SC card"
 msgstr "Niciun card SP sau SM înainte de cardul SC"
 
-#: src/geom_edit.c:1057
+#: src/geom_edit.c:1051
 #, c-format
 msgid ""
 "No SC card after an SP card\n"
@@ -4335,7 +4322,7 @@ msgstr ""
 "Niciun card SC după un card SP\n"
 "cu tip de patch non-arbitrar"
 
-#: src/geom_edit.c:1064
+#: src/geom_edit.c:1058
 #, c-format
 msgid ""
 "SC card follows an SP card\n"
@@ -4344,47 +4331,56 @@ msgstr ""
 "Cardul SC urmează un card SP\n"
 "cu tip de patch arbitrar"
 
-#: src/geom_edit.c:1077
+#: src/geom_edit.c:1071
 #, c-format
 msgid "No SC card after an SM card"
 msgstr "Niciun card SC după un card SM"
 
-#: src/geom_edit.c:1172
+#: src/geom_edit.c:1166
 msgid "Corner 1 - X"
 msgstr "Colț 1 - X"
 
-#: src/geom_edit.c:1174
+#: src/geom_edit.c:1168
 msgid "Corner 1 - Y"
 msgstr "Colț 1 - Y"
 
-#: src/geom_edit.c:1176
+#: src/geom_edit.c:1170
 msgid "Corner 1 - Z"
 msgstr "Colț 1 - Z"
 
-#: src/geom_edit.c:1178
+#: src/geom_edit.c:1172
 msgid "Corner 2 - X"
 msgstr "Colț 2 - X"
 
-#: src/geom_edit.c:1180
+#: src/geom_edit.c:1174
 msgid "Corner 2 - Y"
 msgstr "Colț 2 - Y"
 
-#: src/geom_edit.c:1182
+#: src/geom_edit.c:1176
 msgid "Corner 2 - Z"
 msgstr "Colț 2 - Z"
 
-#: src/geom_edit.c:2861
+#: src/geom_edit.c:2843
 msgid "SY Card Editor"
 msgstr "Editor card SY"
 
-#: src/geom_edit.c:2871
+#: src/geom_edit.c:2853
 msgid "SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"
 msgstr "Definiție SY (ex. FREQ=146, LAMBDA=300/FREQ):"
 
-#: src/geom_edit.c:2970
+#: src/geom_edit.c:2952
 #, c-format
 msgid "NEC2 editor window not open"
 msgstr "Fereastra editorului NEC2 nu este deschisă"
+
+#: src/geom_edit.c:2980
+#, c-format
+msgid ""
+"Frequency (FR) cards not yet processed.\n"
+"You may need to save the NEC2 Editor data first."
+msgstr ""
+"Cardurile de frecvență (FR) nu au fost încă procesate.\n"
+"Poate fi necesar să salvați mai întâi datele Editorului NEC2."
 
 #: src/geometry.c:118
 #, c-format
@@ -4741,11 +4737,10 @@ msgstr "Forțarea verificării suprapunerii pentru %d segmente\n"
 
 #: src/geometry.c:1849
 #, c-format
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
+msgid "skipping frequency-dependent checks - no frequency data\n"
 msgstr ""
-"verify_segments() omite verificările dependente de frecvență - nu există "
-"date de frecvență\n"
+"verificările dependente de frecvență sunt omise - nu există date de "
+"frecvență\n"
 
 #: src/gnuplot.c:43
 msgid "Gnuplot Data"
@@ -4880,7 +4875,7 @@ msgstr "b mai mic decât a"
 msgid "step size limited at z = %12.5E\n"
 msgstr "dimensiunea pasului limitată la Z = %12.5E\n"
 
-#: src/input.c:150
+#: src/input.c:151
 #, c-format
 msgid ""
 "Error reading Comments\n"
@@ -4889,7 +4884,7 @@ msgstr ""
 "Eroare la citirea comentariilor\n"
 "EOF neașteptat (Sfârșit de fișier)"
 
-#: src/input.c:164
+#: src/input.c:165
 #, c-format
 msgid ""
 "Error reading Comments\n"
@@ -4898,7 +4893,7 @@ msgstr ""
 "Eroare la citirea comentariilor\n"
 "Mnemonicul comentariului scurt sau lipsă"
 
-#: src/input.c:175
+#: src/input.c:176
 #, c-format
 msgid ""
 "Read_Comments():\n"
@@ -4909,7 +4904,7 @@ msgstr ""
 " Eroare la citirea fișierului de intrare\n"
 "Mnemonic comentariu incorect"
 
-#: src/input.c:215
+#: src/input.c:216
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4918,7 +4913,7 @@ msgstr ""
 "Eroare de date de geometrie\n"
 "Numărul tag este negativ"
 
-#: src/input.c:222
+#: src/input.c:223
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4927,12 +4922,12 @@ msgstr ""
 "Eroare date geometrie\n"
 "Numărul de segmente este mai mic decât 1"
 
-#: src/input.c:229
+#: src/input.c:230
 #, c-format
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "avertisment - numărul de segmente este mai mare decât 1000000\n"
 
-#: src/input.c:252
+#: src/input.c:253
 #, c-format
 msgid ""
 "%s card: tag 0 selects segment %d by absolute position in the structure, not "
@@ -4944,12 +4939,12 @@ msgstr ""
 "referire la segment în cadrul acelui tag, cu excepția cazului în care se "
 "intenționează poziționarea absolută\n"
 
-#: src/input.c:299
+#: src/input.c:300
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "eroare card date %s: caracter neașteptat '%c' la coloana %d\n"
 
-#: src/input.c:301
+#: src/input.c:302
 #, c-format
 msgid ""
 "Data card error\n"
@@ -4958,37 +4953,37 @@ msgstr ""
 "Eroare card date\n"
 "Caracter neașteptat în card"
 
-#: src/input.c:372
+#: src/input.c:373
 #, c-format
 msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: evaluarea expresiei a eșuat pentru \"%s\"\n"
 
-#: src/input.c:413
+#: src/input.c:414
 #, c-format
 msgid "SY card: no line content available\n"
 msgstr "Card SY: conținut linie indisponibil\n"
 
-#: src/input.c:414
+#: src/input.c:415
 #, c-format
 msgid "SY card: no line content available"
 msgstr "Card SY: conținut linie indisponibil"
 
-#: src/input.c:431
+#: src/input.c:432
 #, c-format
 msgid "SY card: missing '=' in definition\n"
 msgstr "Card SY: lipsește '=' în definiție\n"
 
-#: src/input.c:432
+#: src/input.c:433
 #, c-format
 msgid "SY card: missing '=' in definition"
 msgstr "Card SY: lipsește '=' în definiție"
 
-#: src/input.c:465
+#: src/input.c:466
 #, c-format
 msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "Card SY: definirea simbolului a eșuat pentru %s=%s\n"
 
-#: src/input.c:652
+#: src/input.c:653
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4997,31 +4992,31 @@ msgstr ""
 "Eroare date geometrie\n"
 "Lipsește cardul GC pentru fir conic"
 
-#: src/input.c:659
+#: src/input.c:660
 #, c-format
 msgid "Geometry GC data card error"
 msgstr "Eroare card date geometrie GC"
 
-#: src/input.c:675
+#: src/input.c:676
 #, c-format
 msgid "Geometry GX data card error"
 msgstr "Eroare card date geometrie GX"
 
-#: src/input.c:698
+#: src/input.c:699
 #, c-format
 msgid "Geometry GR data card error"
 msgstr "Eroare card date geometrie GR"
 
-#: src/input.c:752
+#: src/input.c:753
 #, c-format
 msgid "No geometry data cards"
 msgstr "Nu există carduri de date geometrie"
 
-#: src/input.c:763
+#: src/input.c:764
 msgid "Probable invalid segment geometry.\n"
 msgstr "Geometrie segment probabil invalidă.\n"
 
-#: src/input.c:764
+#: src/input.c:765
 #, c-format
 msgid ""
 "Invalid segment geometry.\n"
@@ -5032,43 +5027,43 @@ msgstr ""
 "Vedeți avertismentele din consolă pentru detalii.\n"
 "Se încearcă continuarea..."
 
-#: src/input.c:770
+#: src/input.c:771
 #, c-format
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "Geometrie segment probabil invalidă (vedeți mai sus)\n"
 
-#: src/input.c:774
+#: src/input.c:775
 #, c-format
-msgid "Read_Geometry: verify_segments() passed\n"
-msgstr "Read_Geometry: verify_segments() a trecut\n"
+msgid "verify_segments() passed\n"
+msgstr "verify_segments() a trecut\n"
 
-#: src/input.c:811
+#: src/input.c:812
 #, c-format
 msgid "segment data error: tag=%d si=%f, bi=%f\n"
 msgstr "eroare date segment: tag=%d si=%f, bi=%f\n"
 
-#: src/input.c:813
+#: src/input.c:814
 #, c-format
 msgid "Segment data error, zero-length line?  See console."
 msgstr "Eroare date segment, linie de lungime zero? Vedeți consola."
 
-#: src/input.c:853
+#: src/input.c:854
 #, c-format
 msgid "Move GM data card error"
 msgstr "Eroare card date mutare GM"
 
-#: src/input.c:869 src/input.c:910 src/input.c:927 src/input.c:945
-#: src/input.c:953
+#: src/input.c:870 src/input.c:911 src/input.c:928 src/input.c:946
+#: src/input.c:954
 #, c-format
 msgid "Patch data card error"
 msgstr "Eroare card date patch"
 
-#: src/input.c:891
+#: src/input.c:892
 #, c-format
 msgid "Patch data error"
 msgstr "Eroare date patch"
 
-#: src/input.c:1000
+#: src/input.c:1001
 #, c-format
 msgid ""
 "\"GF\" card (NGF solution)\n"
@@ -5077,74 +5072,74 @@ msgstr ""
 "Cardul \"GF\" (soluție NGF)\n"
 "nu este suportat"
 
-#: src/input.c:1005
+#: src/input.c:1006
 #, c-format
 msgid "Ignoring CM card in geometry"
 msgstr "Se ignoră cardul CM din geometrie"
 
-#: src/input.c:1018
+#: src/input.c:1019
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
 msgstr "eroare card date geometrie (nwire=%d)\n"
 
 # xnec2c-exempt: symbol
-#: src/input.c:1019
+#: src/input.c:1020
 #, c-format
 msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
-#: src/input.c:1025
+#: src/input.c:1026
 #, c-format
 msgid "Command card in geometry section"
 msgstr "Card de comandă în secțiunea de geometrie"
 
-#: src/input.c:1027
+#: src/input.c:1028
 #, c-format
 msgid "Unrecognized geometry card"
 msgstr "Card de geometrie nerecunoscut"
 
-#: src/input.c:1051
+#: src/input.c:1052
 #, c-format
 msgid "Failed to initialize symbol table\n"
 msgstr "Inițializarea tabelei de simboluri a eșuat\n"
 
-#: src/input.c:1052
+#: src/input.c:1053
 #, c-format
 msgid "Failed to initialize symbol table"
 msgstr "Inițializarea tabelei de simboluri a eșuat"
 
-#: src/input.c:1192
+#: src/input.c:1193
 #, c-format
 msgid "No FR card: computing one step at the NEC-2 default %g MHz\n"
 msgstr ""
 "Fără card FR: se calculează un pas la valoarea implicită NEC-2 de %g MHz\n"
 
-#: src/input.c:1283
+#: src/input.c:1284
 #, c-format
 msgid "ignoring CM card in commands\n"
 msgstr "se ignoră cardul CM din comenzi\n"
 
-#: src/input.c:1284
+#: src/input.c:1285
 #, c-format
 msgid "Ignoring CM card in commands"
 msgstr "Se ignoră cardul CM din comenzi"
 
-#: src/input.c:1296
+#: src/input.c:1297
 #, c-format
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "Cardul CP este ignorat: calculul cuplajului nu este implementat\n"
 
-#: src/input.c:1392
+#: src/input.c:1393
 #, c-format
 msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "Se omite cardul FR duplicat la %g MHz\n"
 
-#: src/input.c:1457
+#: src/input.c:1458
 #, c-format
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "Frecvența maximă <= Frecvența minimă în cardul FR\n"
 
-#: src/input.c:1458
+#: src/input.c:1459
 #, c-format
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
@@ -5153,7 +5148,7 @@ msgstr ""
 "Frecvența maximă <= Frecvența minimă în cardul FR\n"
 "Verificați datele cardului FR și corectați"
 
-#: src/input.c:1481
+#: src/input.c:1482
 #, c-format
 msgid ""
 "Fix the GE/GN cards:\n"
@@ -5163,12 +5158,12 @@ msgstr ""
 "Corectați cardurile GE/GN:\n"
 "Cardul GE specifică prezența unui plan de masă, dar cardul GN indică altfel."
 
-#: src/input.c:1495
+#: src/input.c:1496
 #, c-format
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "theta > 90 grade cu plan de masă specificat\n"
 
-#: src/input.c:1496 src/radiation.c:911
+#: src/input.c:1497 src/radiation.c:911
 #, c-format
 msgid ""
 "Theta > 90 deg with ground specified\n"
@@ -5177,7 +5172,7 @@ msgstr ""
 "Theta > 90 grade cu plan de masă specificat\n"
 "Verificați datele cardului RP și corectați"
 
-#: src/input.c:1505
+#: src/input.c:1506
 #, c-format
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
@@ -5186,7 +5181,7 @@ msgstr ""
 "aproximarea g.s. cu fire radiale: nu poate fi utilizată cu opțiunea de sol "
 "Sommerfeld\n"
 
-#: src/input.c:1506
+#: src/input.c:1507
 #, c-format
 msgid ""
 "radial wire g.s. approximation\n"
@@ -5195,7 +5190,7 @@ msgstr ""
 "aproximarea g.s. cu fire radiale\n"
 "nu poate fi utilizată cu opțiunea de sol Sommerfeld"
 
-#: src/input.c:1554
+#: src/input.c:1555
 #, c-format
 msgid ""
 "data fault on loading card no %d: itag step1 %d is greater than itag step2 "
@@ -5204,7 +5199,7 @@ msgstr ""
 "eroare date pe cardul de încărcare nr. %d: itag step1 %d este mai mare decât "
 "itag step2 %d\n"
 
-#: src/input.c:1556
+#: src/input.c:1557
 #, c-format
 msgid ""
 "Data fault on loading card\n"
@@ -5213,7 +5208,7 @@ msgstr ""
 "Eroare date pe cardul de încărcare\n"
 "itag step1 este mai mare decât itag step2"
 
-#: src/input.c:1685
+#: src/input.c:1686
 #, c-format
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
@@ -5221,7 +5216,7 @@ msgstr ""
 "Impedanța liniei de transmisie = 0: nu este validă. Corectați cardul NT sau "
 "TL\n"
 
-#: src/input.c:1686
+#: src/input.c:1687
 #, c-format
 msgid ""
 "Transmission Line impedance = 0\n"
@@ -5230,12 +5225,12 @@ msgstr ""
 "Impedanța liniei de transmisie = 0\n"
 "nu este validă. Corectați cardul NT sau TL"
 
-#: src/input.c:1697
+#: src/input.c:1698
 #, c-format
 msgid "Segment number error in TL or NT card\n"
 msgstr "Eroare număr segment în cardul TL sau NT\n"
 
-#: src/input.c:1698
+#: src/input.c:1699
 #, c-format
 msgid ""
 "Segment number\n"
@@ -5244,24 +5239,24 @@ msgstr ""
 "Eroare număr segment\n"
 "în cardul NT sau TL"
 
-#: src/input.c:1720
+#: src/input.c:1721
 #, c-format
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr ""
 "Cardurile PQ și PT sunt ignorate: tipărirea în fișier nu este implementată\n"
 
-#: src/input.c:1724
+#: src/input.c:1725
 #, c-format
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "Cardul PL este ignorat: trasarea în fișier nu este acceptată\n"
 
-#: src/input.c:1730
+#: src/input.c:1731
 #, c-format
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr ""
 "Opțiunea undă de suprafață (I1=1): din comanda RP nu este implementată\n"
 
-#: src/input.c:1731
+#: src/input.c:1732
 #, c-format
 msgid ""
 "Surface wave option (I1=1)\n"
@@ -5270,7 +5265,7 @@ msgstr ""
 "Opțiunea undă de suprafață (I1=1)\n"
 "din comanda RP nu este implementată"
 
-#: src/input.c:1763
+#: src/input.c:1764
 #, c-format
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
@@ -5279,7 +5274,7 @@ msgstr ""
 "Theta > 90 grade cu plan de masă specificat: Verificați datele cardului RP "
 "și corectați\n"
 
-#: src/input.c:1764
+#: src/input.c:1765
 #, c-format
 msgid ""
 "Theta > 90 deg. with ground specified\n"
@@ -5288,15 +5283,15 @@ msgstr ""
 "Theta > 90 grade cu plan de masă specificat\n"
 "Verificați datele cardului RP și corectați"
 
-#: src/input.c:1831
+#: src/input.c:1832
 msgid "Geometry card in command section"
 msgstr "Card de geometrie în secțiunea de comenzi"
 
-#: src/input.c:1834
+#: src/input.c:1835
 msgid "Unrecognized command card"
 msgstr "Card de comandă nerecunoscut"
 
-#: src/input.c:1879
+#: src/input.c:1880
 #, c-format
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
@@ -5305,12 +5300,12 @@ msgstr ""
 "Card RP lipsă sau pentru undă de suprafață: Calculele diagramei de radiație "
 "și câștigului sunt dezactivate\n"
 
-#: src/input.c:1906
+#: src/input.c:1907
 #, c-format
 msgid "Unexpected exit from while loop"
 msgstr "Ieșire neașteptată din bucla while"
 
-#: src/input.c:1997
+#: src/input.c:1998
 #, c-format
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
@@ -5319,7 +5314,7 @@ msgstr ""
 "eroare card date comandă: EOF neașteptat la citirea fișierului de intrare - "
 "se adaugă cardul EN\n"
 
-#: src/input.c:1998
+#: src/input.c:1999
 #, c-format
 msgid ""
 "Command data card error\n"
@@ -5330,14 +5325,14 @@ msgstr ""
 "EOF neașteptat la citirea fișierului de intrare\n"
 "Se adaugă un card EN implicit"
 
-#: src/input.c:2015
+#: src/input.c:2016
 #, c-format
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "eroare card date comandă: codul mnemonic al cardului este prea scurt sau "
 "lipsește\n"
 
-#: src/input.c:2016
+#: src/input.c:2017
 #, c-format
 msgid ""
 "Command data card error\n"
@@ -5346,11 +5341,11 @@ msgstr ""
 "Eroare card date comandă\n"
 "Codul mnemonic este prea scurt sau lipsește"
 
-#: src/input.c:2072 src/input.c:2103
+#: src/input.c:2073 src/input.c:2104
 msgid "command data"
 msgstr "date de comandă"
 
-#: src/input.c:2217
+#: src/input.c:2218
 #, c-format
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
@@ -5359,7 +5354,7 @@ msgstr ""
 "eroare card date geometrie: EOF neașteptat la citirea fișierului de intrare "
 "- se adaugă cardul GE\n"
 
-#: src/input.c:2218
+#: src/input.c:2219
 #, c-format
 msgid ""
 "Geometry data card error\n"
@@ -5370,14 +5365,14 @@ msgstr ""
 "EOF neașteptat la citirea fișierului de intrare\n"
 "Se adaugă un card GE implicit"
 
-#: src/input.c:2235
+#: src/input.c:2236
 #, c-format
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr ""
 "eroare card date geometrie: codul mnemonic al cardului este prea scurt sau "
 "lipsește\n"
 
-#: src/input.c:2236
+#: src/input.c:2237
 #, c-format
 msgid ""
 "Geometry data card error\n"
@@ -5386,7 +5381,7 @@ msgstr ""
 "Eroare card date geometrie\n"
 "Codul mnemonic al cardului este prea scurt sau lipsește"
 
-#: src/input.c:2285 src/input.c:2315
+#: src/input.c:2286 src/input.c:2316
 msgid "geometry data"
 msgstr "date de geometrie"
 
@@ -5426,8 +5421,8 @@ msgid "Listing Object Ids:\n"
 msgstr "Listare ID-uri obiecte:\n"
 
 # xnec2c-exempt: symbol
-#: src/interface.c:202 src/utils.c:424 src/utils.c:428 src/utils.c:438
-#: src/utils.c:440
+#: src/interface.c:202 src/opt_file.c:342 src/opt_file.c:658 src/utils.c:372
+#: src/utils.c:379 src/utils.c:383 src/utils.c:393 src/utils.c:395
 #, c-format
 msgid "%s\n"
 msgstr ""
@@ -5449,104 +5444,64 @@ msgstr ""
 
 #: src/interface.c:370
 #, c-format
-msgid "create_animate_dialog: failed to load animate.glade: %s\n"
-msgstr "create_animate_dialog: eșec la încărcarea animate.glade: %s\n"
+msgid "failed to load animate.glade: %s\n"
+msgstr "eșec la încărcarea animate.glade: %s\n"
 
-#: src/main.c:126
+#: src/main.c:113
 msgid "none (no display)"
 msgstr "niciunul (fără afișare)"
 
-#: src/main.c:129
+#: src/main.c:116
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "Backend de fereastră detectat: %s\n"
 
-#: src/main.c:137
+#: src/main.c:124
 #, c-format
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch și --optimize sunt mutual exclusive.\n"
 
-#: src/main.c:157
+#: src/main.c:144
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "calea fișierului de intrare este prea lungă ( > %d caractere )\n"
 
-#: src/main.c:164
+#: src/main.c:151
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "argumentul neașteptat '%s' nu pare a fi un fișier .nec\n"
 
-#: src/main.c:171
+#: src/main.c:158
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "argument neașteptat: %s\n"
 
-#: src/main.c:177
+#: src/main.c:164
 #, c-format
 msgid "batch mode requires an input file\n"
 msgstr "modul lot necesită un fișier de intrare\n"
 
-#: src/main.c:187
+#: src/main.c:174
 #, c-format
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr ""
 "nu se poate deschide display-ul: este necesară o sesiune X11 sau Wayland "
 "activă\n"
 
-#: src/main.c:210
+#: src/main.c:197
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "Se creează fork pentru %d lucrări pe %d procesoare.\n"
 
-#: src/main.c:223 src/main.c:231
+#: src/main.c:210 src/main.c:218
 #, c-format
 msgid "exiting after fatal error: pipe() failed"
 msgstr "se iese după eroare fatală: pipe() a eșuat"
 
-#: src/main.c:240
+#: src/main.c:227
 #, c-format
 msgid "exiting after fatal error: fork() failed"
 msgstr "se iese după eroare fatală: fork() a eșuat"
-
-#: src/main.c:840
-#, c-format
-msgid "exiting via user interrupt\n"
-msgstr "se iese prin întrerupere utilizator\n"
-
-#: src/main.c:844
-#, c-format
-msgid "segmentation fault, exiting\n"
-msgstr "eroare de segmentare, se iese\n"
-
-#: src/main.c:848
-#, c-format
-msgid "floating point exception, exiting\n"
-msgstr "excepție în virgulă mobilă, se iese\n"
-
-#: src/main.c:852
-#, c-format
-msgid "abort signal received, exiting\n"
-msgstr "semnal de întrerupere primit, se iese\n"
-
-#: src/main.c:856
-#, c-format
-msgid "termination request received, exiting\n"
-msgstr "cerere de terminare primită, se iese\n"
-
-#: src/main.c:866
-#, c-format
-msgid "not forked, ignoring SIGCHLD from pid %d\n"
-msgstr "neramificat, se ignoră SIGCHLD de la pid %d\n"
-
-#: src/main.c:874
-#, c-format
-msgid "child process pid %d exited\n"
-msgstr "procesul copil pid %d s-a terminat\n"
-
-#: src/main.c:883
-#, c-format
-msgid "default exit with signal: %d\n"
-msgstr "ieșire implicită cu semnalul: %d\n"
 
 #: src/mathlib.c:28
 msgid ""
@@ -5557,7 +5512,7 @@ msgstr ""
 "Reporniți pentru a schimba biblioteca de fire MKL."
 
 # xnec2c-exempt: symbol
-#: src/mathlib.c:368 src/utils.c:729
+#: src/mathlib.c:368 src/utils.c:684
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
@@ -5621,8 +5576,8 @@ msgstr "Selectat primul mathlib disponibil: %s\n"
 
 #: src/mathlib.c:669
 #, c-format
-msgid "mathlib_load[%d]: mathlib.available=0, skipping: %s\n"
-msgstr "mathlib_load[%d]: mathlib.available=0, se omite: %s\n"
+msgid "[%d]: mathlib.available=0, skipping: %s\n"
+msgstr "[%d]: mathlib.available=0, se omite: %s\n"
 
 #: src/mathlib.c:719
 msgid "Batch Math Library"
@@ -6122,12 +6077,8 @@ msgstr "DG7YBN zonă urbană (2025)"
 
 #: src/measurements.c:424
 #, c-format
-msgid ""
-"noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
-"to 0\n"
-msgstr ""
-"noise_temp_resolve: tabelul noise_temp nu este alocat; t_sky/t_earth "
-"implicit la 0\n"
+msgid "noise_temp table not allocated; t_sky/t_earth defaulting to 0\n"
+msgstr "tabelul noise_temp nu este alocat; t_sky/t_earth implicit la 0\n"
 
 #: src/measurements.c:481
 msgid "Z Real"
@@ -6386,10 +6337,10 @@ msgstr "Alocare memorie refuzată %s: solicitate %lu octeți\n"
 msgid "mem_obj_t at %p: size=%lu used=%lu addr=%p\n"
 msgstr "mem_obj_t la %p: dimensiune=%lu utilizat=%lu adresă=%p\n"
 
-# xnec2c-exempt: name
+# xnec2c-exempt: symbol
 #: src/mem/mem.c:250
 #, c-format
-msgid "mem_backtrace(%p):\n"
+msgid "%p:\n"
 msgstr ""
 
 #: src/mem/mem.c:253
@@ -6399,8 +6350,8 @@ msgstr "  m->backtrace este nul, fără date de backtrace\n"
 
 #: src/mem/mem.c:279
 #, c-format
-msgid "mem_clone: allocation failed for %lu bytes\n"
-msgstr "mem_clone: alocare eșuată pentru %lu octeți\n"
+msgid "allocation failed for %lu bytes\n"
+msgstr "alocare eșuată pentru %lu octeți\n"
 
 #: src/mem/mem_track.c:208
 #, c-format
@@ -6424,19 +6375,19 @@ msgid "mem-report %s:   frame %d %s\n"
 msgstr "mem-report %s:   cadru %d %s\n"
 
 # xnec2c-exempt: loanword
-#: src/nec2_model.c:279 src/nec2_model.c:283 src/nec2_model.c:287
+#: src/nec2_model.c:278 src/nec2_model.c:282 src/nec2_model.c:286
 msgid "Card"
 msgstr ""
 
-#: src/nec2_model.c:369
+#: src/nec2_model.c:368
 msgid "--- NEC2 Input File created or edited by "
 msgstr "--- Fișier de intrare NEC2 creat sau editat de "
 
-#: src/nec2_model.c:386
+#: src/nec2_model.c:385
 msgid "--- End Comments ---"
 msgstr "--- Sfârșit comentarii ---"
 
-#: src/nec2_model.c:525
+#: src/nec2_model.c:524
 #, c-format
 msgid ""
 "List_Comments():\n"
@@ -6447,7 +6398,7 @@ msgstr ""
 "Eroare la citirea fișierului de intrare\n"
 "EOF neașteptat (Sfârșit de fișier)"
 
-#: src/nec2_model.c:532
+#: src/nec2_model.c:531
 #, c-format
 msgid ""
 "List_Comments():\n"
@@ -6458,11 +6409,11 @@ msgstr ""
 "Eroare la citirea fișierului de intrare\n"
 "Mnemonicul comentariului scurt sau lipsă"
 
-#: src/nec2_model.c:818
+#: src/nec2_model.c:817
 msgid "End Comments"
 msgstr "Sfârșit comentarii"
 
-#: src/nec2_model.c:916
+#: src/nec2_model.c:915
 #, c-format
 msgid ""
 "Cannot save treeview data\n"
@@ -6603,12 +6554,9 @@ msgstr "Dezactivare OpenGL: shader peel compozit eșuat\n"
 
 #: src/opengl-engine/opengl_view_fit.c:71
 #, c-format
-msgid ""
-"gl_view_fit_view: no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,"
-"%g,%g]\n"
+msgid "no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,%g,%g]\n"
 msgstr ""
-"gl_view_fit_view: niciun cadru rezolvat: r_max=%g distance=%g proj=%d "
-"box=[%g,%g,%g,%g]\n"
+"niciun cadru rezolvat: r_max=%g distance=%g proj=%d box=[%g,%g,%g,%g]\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:141
 #, c-format
@@ -6659,22 +6607,10 @@ msgstr ""
 "OpenGL nu este disponibil pe acest display; se comută la renderul Cairo. "
 "Consultați 'OpenGL Renderer' în View > Setări Randare.\n"
 
-# xnec2c-exempt: name
-#: src/opt_file.c:342
-#, c-format
-msgid "opt_file_save: %s\n"
-msgstr ""
-
 #: src/opt_file.c:622
 #, c-format
 msgid "Loaded %d optimizer goals\n"
 msgstr "S-au încărcat %d obiective de optimizare\n"
-
-# xnec2c-exempt: name
-#: src/opt_file.c:658
-#, c-format
-msgid "opt_file_load: %s\n"
-msgstr ""
 
 #: src/opt_ui_formula.c:46
 #, c-format
@@ -7206,23 +7142,23 @@ msgstr ""
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
-msgid "fitness_transform: unknown direction %d\n"
-msgstr "fitness_transform: direcție necunoscută %d\n"
+msgid "unknown direction %d\n"
+msgstr "direcție necunoscută %d\n"
 
 #: src/optimizers/opt_fitness.c:582
 #, c-format
-msgid "reduce_values: unknown reduction method %d\n"
-msgstr "reduce_values: metodă de reducere necunoscută %d\n"
+msgid "unknown reduction method %d\n"
+msgstr "metodă de reducere necunoscută %d\n"
 
 #: src/optimizers/opt_nec2_eval.c:80
 #, c-format
-msgid "nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n"
-msgstr "nec2_eval_signal: contențiune eval_mutex, blocare (thr=%lu)\n"
+msgid "eval_mutex contention, blocking (thr=%lu)\n"
+msgstr "contențiune eval_mutex, blocare (thr=%lu)\n"
 
 #: src/optimizers/opt_nec2_eval.c:194
 #, c-format
-msgid "nec2_eval_run: not initialized\n"
-msgstr "nec2_eval_run: neinițializat\n"
+msgid "not initialized\n"
+msgstr "neinițializat\n"
 
 #: src/optimizers/opt_session.c:96
 #, c-format
@@ -7240,23 +7176,23 @@ msgstr "opt: optimizare completă, aptitudine maximă: %.6g\n"
 
 #: src/optimizers/opt_session.c:194
 #, c-format
-msgid "opt_start: optimizer already running\n"
-msgstr "opt_start: optimizatorul rulează deja\n"
+msgid "optimizer already running\n"
+msgstr "optimizatorul rulează deja\n"
 
 #: src/optimizers/opt_session.c:258
 #, c-format
-msgid "opt_start: simple_new failed\n"
-msgstr "opt_start: simple_new a eșuat\n"
+msgid "simple_new failed\n"
+msgstr "simple_new a eșuat\n"
 
 #: src/optimizers/opt_session.c:267
 #, c-format
-msgid "opt_start: pthread_create failed: %d\n"
-msgstr "opt_start: pthread_create a eșuat: %d\n"
+msgid "pthread_create failed: %d\n"
+msgstr "pthread_create a eșuat: %d\n"
 
 #: src/optimizers/opt_simple.c:297
 #, c-format
-msgid "simple_config_init: unknown algorithm %d\n"
-msgstr "simple_config_init: algoritm necunoscut %d\n"
+msgid "unknown algorithm %d\n"
+msgstr "algoritm necunoscut %d\n"
 
 #: src/optimizers/opt_simple_var.c:43
 #, c-format
@@ -7519,12 +7455,8 @@ msgstr ""
 
 #: src/rdpattern_ui.c:132
 #, c-format
-msgid ""
-"Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
-"GS_LINP\n"
-msgstr ""
-"Scale_Gain_Resolved: gain_style %d în afara intervalului [0..%d], implicit "
-"GS_LINP\n"
+msgid "gain_style %d out of range [0..%d], defaulting to GS_LINP\n"
+msgstr "gain_style %d în afara intervalului [0..%d], implicit GS_LINP\n"
 
 #: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
@@ -7667,13 +7599,13 @@ msgstr "Absolut"
 
 #: src/render/gradient_cache.c:312
 #, c-format
-msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
-msgstr "gradient_cache_update: crearea suprafeței a eșuat (%dx%d)\n"
+msgid "surface creation failed (%dx%d)\n"
+msgstr "crearea suprafeței a eșuat (%dx%d)\n"
 
 #: src/render/render_fit.c:67
 #, c-format
-msgid "render_fit_solve: no geometry to fit\n"
-msgstr "render_fit_solve: nicio geometrie de încadrat\n"
+msgid "no geometry to fit\n"
+msgstr "nicio geometrie de încadrat\n"
 
 #: src/render/render_message.h:29
 msgid "File ▸ Open to load an NEC file"
@@ -7729,7 +7661,7 @@ msgstr "Buclă optimizer incompletă, se suprimă redesenarea intermediară.\n"
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+Scroll: raza firului"
 
-#: src/settings/render_settings.c:49
+#: src/settings/render_settings.c:50
 msgid ""
 "OpenGL is not available on this display.\n"
 "Cairo rendering is active."
@@ -7737,7 +7669,7 @@ msgstr ""
 "OpenGL nu este disponibil pe acest afișaj.\n"
 "Randarea cu Cairo este activă."
 
-#: src/settings/render_settings.c:54
+#: src/settings/render_settings.c:55
 msgid ""
 "Built without OpenGL support.\n"
 "Cairo rendering is active."
@@ -7745,34 +7677,73 @@ msgstr ""
 "Programul a fost compilat fără suport OpenGL.\n"
 "Randarea cu Cairo este activă."
 
-#: src/settings/render_settings.c:123
+#: src/settings/render_settings.c:151
 msgid "General"
 msgstr "Setări generale"
 
-#: src/settings/render_settings.c:127
+#: src/settings/render_settings.c:155
 msgid "Color"
 msgstr "Culoare"
 
-#: src/settings/render_settings_common.c:141
+#: src/settings/render_settings_common.c:142 src/sy_overrides.c:1093
 #, c-format
-msgid "render_settings_init: failed to load glade: %s\n"
-msgstr "render_settings_init: eșec la încărcarea glade: %s\n"
+msgid "failed to load glade: %s\n"
+msgstr "eșec la încărcarea glade: %s\n"
 
-#: src/settings/render_settings_common.c:151
+#: src/settings/render_settings_common.c:152
 #, c-format
-msgid "render_settings_init: failed to load opengl glade: %s\n"
-msgstr "render_settings_init: eșec la încărcarea glade opengl: %s\n"
+msgid "failed to load opengl glade: %s\n"
+msgstr "eșec la încărcarea glade opengl: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:162
 #, c-format
-msgid "render_settings_init: failed to load cairo glade: %s\n"
-msgstr "render_settings_init: eșec la încărcarea glade cairo: %s\n"
+msgid "failed to load cairo glade: %s\n"
+msgstr "eșec la încărcarea glade cairo: %s\n"
 
-#: src/settings/render_settings_common.c:182
+#: src/settings/render_settings_common.c:183
 #, c-format
-msgid "render_settings_init: failed to get render_settings_window from glade\n"
-msgstr ""
-"render_settings_init: eșec la obținerea render_settings_window din glade\n"
+msgid "failed to get render_settings_window from glade\n"
+msgstr "eșec la obținerea render_settings_window din glade\n"
+
+#: src/signal_handler.c:29
+#, c-format
+msgid "exiting via user interrupt\n"
+msgstr "se iese prin întrerupere utilizator\n"
+
+#: src/signal_handler.c:33
+#, c-format
+msgid "segmentation fault, exiting\n"
+msgstr "eroare de segmentare, se iese\n"
+
+#: src/signal_handler.c:37
+#, c-format
+msgid "floating point exception, exiting\n"
+msgstr "excepție în virgulă mobilă, se iese\n"
+
+#: src/signal_handler.c:41
+#, c-format
+msgid "abort signal received, exiting\n"
+msgstr "semnal de întrerupere primit, se iese\n"
+
+#: src/signal_handler.c:45
+#, c-format
+msgid "termination request received, exiting\n"
+msgstr "cerere de terminare primită, se iese\n"
+
+#: src/signal_handler.c:55
+#, c-format
+msgid "not forked, ignoring SIGCHLD from pid %d\n"
+msgstr "neramificat, se ignoră SIGCHLD de la pid %d\n"
+
+#: src/signal_handler.c:63
+#, c-format
+msgid "child process pid %d exited\n"
+msgstr "procesul copil pid %d s-a terminat\n"
+
+#: src/signal_handler.c:72
+#, c-format
+msgid "default exit with signal: %d\n"
+msgstr "ieșire implicită cu semnalul: %d\n"
 
 #: src/somnec.c:302
 #, c-format
@@ -7844,8 +7815,8 @@ msgstr "Argumente invalide pentru sy_evaluate"
 
 #: src/sy_expr.c:1246
 #, c-format
-msgid "sy_load_overrides: malformed line (no colon): %s"
-msgstr "sy_load_overrides: linie malformată (fără două puncte): %s"
+msgid "malformed line (no colon): %s"
+msgstr "linie malformată (fără două puncte): %s"
 
 #: src/sy_expr.c:1336
 #, c-format
@@ -7854,8 +7825,8 @@ msgstr "S-au încărcat %d suprascrieri de simboluri din %s\n"
 
 #: src/sy_expr.c:1453
 #, c-format
-msgid "sy_save_overrides: cannot open %s for writing: %s\n"
-msgstr "sy_save_overrides: nu se poate deschide %s pentru scriere: %s\n"
+msgid "cannot open %s for writing: %s\n"
+msgstr "nu se poate deschide %s pentru scriere: %s\n"
 
 #: src/sy_expr.c:1475
 #, c-format
@@ -7886,15 +7857,10 @@ msgstr "Maxim"
 msgid "Expression"
 msgstr "Expresie"
 
-#: src/sy_overrides.c:1093
-#, c-format
-msgid "sy_overrides_init: failed to load glade: %s\n"
-msgstr "sy_overrides_init: eșec la încărcarea glade: %s\n"
-
 #: src/sy_overrides.c:1107
 #, c-format
-msgid "sy_overrides_init: failed to get widgets from glade\n"
-msgstr "sy_overrides_init: eșec la obținerea widget-urilor din glade\n"
+msgid "failed to get widgets from glade\n"
+msgstr "eșec la obținerea widget-urilor din glade\n"
 
 #: src/sy_overrides.c:1223
 msgid "Input Symbols"
@@ -7961,45 +7927,40 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:417
-#, c-format
-msgid "Stop: %s\n"
-msgstr "Oprire: %s\n"
-
-#: src/utils.c:456 src/utils.c:458
+#: src/utils.c:411 src/utils.c:413
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "Stop în timpul buclei de frecvență, blocaj prevenit: %s\n"
 
-#: src/utils.c:684
+#: src/utils.c:639
 #, c-format
 msgid "applying an OpenMP budget of %d threads\n"
 msgstr "se aplică un buget OpenMP de %d fire de execuție\n"
 
-#: src/utils.c:699
+#: src/utils.c:654
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f secunde\n"
 
-#: src/utils.c:724
+#: src/utils.c:679
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: Deschiderea fișierului a eșuat: %s\n"
 
 # xnec2c-exempt: loanword
-#: src/utils.c:1090
+#: src/utils.c:1045
 #, c-format
 msgid "  Backtrace:\n"
 msgstr ""
 
 # xnec2c-exempt: symbol
-#: src/utils.c:1092
+#: src/utils.c:1047
 #, c-format
 msgid "    %d. %s\n"
 msgstr ""
 
 # xnec2c-exempt: symbol
-#: src/utils.c:1119
+#: src/utils.c:1074
 #, c-format
 msgid "%s:\n"
 msgstr ""

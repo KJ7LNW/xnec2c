@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 02:39-0800\n"
+"POT-Creation-Date: 2026-11-25 13:19-0800\n"
 "PO-Revision-Date: 2025-12-27 16:01-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -991,11 +991,11 @@ msgstr "החלה _אוטומטית"
 msgid "Automatically apply changes and reload model after 300ms delay"
 msgstr "החל שינויים אוטומטית וטען מחדש את המודל לאחר השהיה של 300ms"
 
-#: resources/sy_overrides.glade:714 src/geom_edit.c:2866
+#: resources/sy_overrides.glade:714 src/geom_edit.c:2848
 msgid "_Apply"
 msgstr "_החל"
 
-#: resources/sy_overrides.glade:729 src/geom_edit.c:2865
+#: resources/sy_overrides.glade:729 src/geom_edit.c:2847
 msgid "_Cancel"
 msgstr "_ביטול"
 
@@ -1627,7 +1627,7 @@ msgstr "ניהול כרטיסים"
 msgid "File Save"
 msgstr "שמירת קובץ"
 
-#: resources/xnec2c.glade:6003 src/nec2_model.c:279
+#: resources/xnec2c.glade:6003 src/nec2_model.c:278
 msgid "Comments"
 msgstr "הערות"
 
@@ -1836,27 +1836,27 @@ msgstr "חלוקת פינות 2-3 (NY)"
 msgid "Surface Sub-division"
 msgstr "חלוקת משטח"
 
-#: resources/xnec2c.glade:7533 src/geom_edit.c:1157
+#: resources/xnec2c.glade:7533 src/geom_edit.c:1151
 msgid "Center - X"
 msgstr "מרכז - X"
 
-#: resources/xnec2c.glade:7565 src/geom_edit.c:1163
+#: resources/xnec2c.glade:7565 src/geom_edit.c:1157
 msgid "Normal - Elev."
 msgstr "נורמל - גובה"
 
-#: resources/xnec2c.glade:7597 src/geom_edit.c:1159
+#: resources/xnec2c.glade:7597 src/geom_edit.c:1153
 msgid "Center - Y"
 msgstr "מרכז - Y"
 
-#: resources/xnec2c.glade:7629 src/geom_edit.c:1165
+#: resources/xnec2c.glade:7629 src/geom_edit.c:1159
 msgid "Normal - Azim."
 msgstr "נורמל - אזימוט"
 
-#: resources/xnec2c.glade:7661 src/geom_edit.c:1161
+#: resources/xnec2c.glade:7661 src/geom_edit.c:1155
 msgid "Center - Z"
 msgstr "מרכז - Z"
 
-#: resources/xnec2c.glade:7693 src/geom_edit.c:1167
+#: resources/xnec2c.glade:7693 src/geom_edit.c:1161
 msgid "Patch Area"
 msgstr "שטח טלאי"
 
@@ -3311,10 +3311,10 @@ msgid "config file does not exist or is not readable: %s\n"
 msgstr "קובץ תצורה לא קיים או לא ניתן לקריאה: %s\n"
 
 # xnec2c-exempt: symbol
-#: src/args.c:898 src/geometry.c:792 src/input.c:1835 src/input.c:1836
+#: src/args.c:898 src/geometry.c:792 src/input.c:1836 src/input.c:1837
 #: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
-#: src/sy_expr.c:172 src/utils.c:365 src/utils.c:725
+#: src/sy_expr.c:172 src/utils.c:680
 #, c-format
 msgid "%s"
 msgstr ""
@@ -3347,10 +3347,8 @@ msgstr "--%s דורש <width>x<height>: %s\n"
 
 #: src/cairo/cairo_fit.c:115
 #, c-format
-msgid ""
-"cairo_fit_view: no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
-msgstr ""
-"cairo_fit_view: לא נפתרה מסגרת: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
+msgid "no frame solved: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
+msgstr "לא נפתרה מסגרת: extent=%g box=[%g,%g,%g,%g] view=%dx%d\n"
 
 # xnec2c-exempt: notation
 #: src/cairo/cairo_frame.c:302
@@ -3458,11 +3456,11 @@ msgstr "קבצי Touchstone דו-פורטיים (*.s2p)"
 msgid "Comma-separated CSV files (*.csv)"
 msgstr "קבצי CSV מופרדים בפסיקים (*.csv)"
 
-#: src/callbacks.c:83 src/callbacks.c:99 src/freqplots/freqplots_core.c:69
+#: src/callbacks.c:81 src/callbacks.c:97 src/freqplots/freqplots_core.c:69
 msgid "Antenna Temperature"
 msgstr "טמפרטורת אנטנה"
 
-#: src/callbacks.c:84
+#: src/callbacks.c:82
 #, c-format
 msgid ""
 "Ground plane detected in model. Ta results will overcount ground effects. "
@@ -3471,7 +3469,7 @@ msgstr ""
 "זוהה מישור הארקה במודל. תוצאות Ta יספרו ביתר את השפעות ההארקה. מודלים של "
 "מרחב חופשי הם התקן להערכת טמפרטורת אנטנה."
 
-#: src/callbacks.c:100
+#: src/callbacks.c:98
 #, c-format
 msgid ""
 "Max gain at θ=%.0f° (%.0f° from XY plane). Convention assumes beam in XY "
@@ -3480,12 +3478,12 @@ msgstr ""
 "הגבר מרבי ב-θ=%.0f° (%.0f° ממישור XY). המוסכמה מניחה קרן במישור XY עם הגבהת "
 "תצפית הנקבעת על ידי לחצן הסיבוב."
 
-#: src/callbacks.c:186 src/callbacks.c:520 src/callbacks.c:1675
-#: src/callbacks.c:1845
+#: src/callbacks.c:184 src/callbacks.c:518 src/callbacks.c:1652
+#: src/callbacks.c:1822
 msgid "Are you sure you wish to quit xnec2c?"
 msgstr "האם לצאת מ-xnec2c?"
 
-#: src/callbacks.c:290
+#: src/callbacks.c:288
 msgid ""
 "A new NEC2 input file may not be created\n"
 "while the Frequency Loop is running"
@@ -3493,7 +3491,7 @@ msgstr ""
 "לא ניתן ליצור קובץ קלט NEC2 חדש\n"
 "בזמן שלולאת התדר פועלת"
 
-#: src/callbacks.c:327
+#: src/callbacks.c:325
 msgid ""
 "A new NEC2 input file may not be opened\n"
 "while the Frequency Loop is running"
@@ -3501,21 +3499,21 @@ msgstr ""
 "לא ניתן לפתוח קובץ קלט NEC2 חדש\n"
 "בזמן שלולאת התדר פועלת"
 
-#: src/callbacks.c:446
+#: src/callbacks.c:444
 msgid "xnec2c geometry optimizer"
 msgstr "מייעל גאומטריה של xnec2c"
 
-#: src/callbacks.c:447
+#: src/callbacks.c:445
 #, c-format
 msgid ""
 "xnec2c was built without inotify support: the optimizer cannot be enabled."
 msgstr "xnec2c נבנה ללא תמיכת inotify: לא ניתן להפעיל את המייעל."
 
-#: src/callbacks.c:468
+#: src/callbacks.c:466
 msgid "Xnec2c Optimizer"
 msgstr "מייעל Xnec2c"
 
-#: src/callbacks.c:468
+#: src/callbacks.c:466
 #, c-format
 msgid ""
 "No files are selected for writing. However, xnec2c will still reload and "
@@ -3526,21 +3524,21 @@ msgstr ""
 "הקלט בעת שינוי כאשר מופעל על ידי inotify. בחר קבצים לכתיבה ב-\"File-"
 ">Optimization Settings\"."
 
-#: src/callbacks.c:972 src/callbacks.c:1289 src/callbacks.c:1871
+#: src/callbacks.c:949 src/callbacks.c:1266 src/callbacks.c:1848
 msgid "Are you sure you wish to close this window?"
 msgstr "האם לסגור חלון זה?"
 
-#: src/callbacks.c:1503
+#: src/callbacks.c:1480
 #, c-format
 msgid "OpenGL is not available on this display; cannot enable renderer.\n"
 msgstr "OpenGL אינו זמין בתצוגה זו; לא ניתן להפעיל את המרנדר.\n"
 
-#: src/callbacks.c:1811
+#: src/callbacks.c:1788
 #, c-format
 msgid "No open NEC2 input file"
 msgstr "אין קובץ קלט NEC2 פתוח"
 
-#: src/callbacks.c:1902 src/callbacks.c:1932
+#: src/callbacks.c:1879 src/callbacks.c:1909
 msgid ""
 "NEC2 Editor's data may not be saved\n"
 "while the Frequency Loop is running"
@@ -3548,26 +3546,16 @@ msgstr ""
 "לא ניתן לשמור את נתוני עורך NEC2\n"
 "בזמן שלולאת התדר פועלת"
 
-#: src/callbacks.c:1914 src/callbacks.c:1940
+#: src/callbacks.c:1891 src/callbacks.c:1917
 msgid "untitled.nec"
 msgstr "ללא כותרת.nec"
 
-#: src/callbacks.c:2401 src/callbacks.c:2421 src/callbacks.c:2441
-#: src/geom_edit.c:455 src/geom_edit.c:1327 src/geom_edit.c:1582
-#, c-format
-msgid ""
-"Frequency (FR) cards not yet processed.\n"
-"You may need to save the NEC2 Editor data first."
-msgstr ""
-"כרטיסי תדר (FR) טרם עובדו.\n"
-"ייתכן שתצטרך לשמור תחילה את נתוני עורך NEC2."
-
-#: src/chroma/chroma.c:315
+#: src/chroma/chroma.c:313
 #, c-format
 msgid "invalid color projection %d, using instant\n"
 msgstr "הטלת צבע לא חוקית %d, משתמש ברגעי\n"
 
-#: src/chroma/chroma.c:627
+#: src/chroma/chroma.c:626
 #, c-format
 msgid "invalid segment scale encoding %d, using model radius\n"
 msgstr "קידוד קנה מידת מקטע לא תקין %d, משתמש ברדיוס המודל\n"
@@ -4140,8 +4128,8 @@ msgstr ""
 msgid "VSWR vs Frequency"
 msgstr "VSWR מול תדר"
 
-#: src/geom_edit.c:108 src/geom_edit.c:2000 src/geom_edit.c:2272
-#: src/geom_edit.c:2703
+#: src/geom_edit.c:108 src/geom_edit.c:1982 src/geom_edit.c:2254
+#: src/geom_edit.c:2685
 #, c-format
 msgid ""
 "Error reading row data\n"
@@ -4159,7 +4147,7 @@ msgstr ""
 "שגיאה בכתיבת נתוני שורה\n"
 "אנא בחר שורה מחדש"
 
-#: src/geom_edit.c:583
+#: src/geom_edit.c:577
 #, c-format
 msgid ""
 "GC card preceded by GW card\n"
@@ -4168,12 +4156,12 @@ msgstr ""
 "כרטיס GC קודם לכרטיס GW\n"
 "עם רדיוס תיל שאינו אפס"
 
-#: src/geom_edit.c:587
+#: src/geom_edit.c:581
 #, c-format
 msgid "No GW card before GC card"
 msgstr "אין כרטיס GW לפני כרטיס GC"
 
-#: src/geom_edit.c:611
+#: src/geom_edit.c:605
 #, c-format
 msgid ""
 "No GC card after a GW card\n"
@@ -4182,7 +4170,7 @@ msgstr ""
 "אין כרטיס GC אחרי כרטיס GW\n"
 "עם רדיוס תיל אפס"
 
-#: src/geom_edit.c:620
+#: src/geom_edit.c:614
 #, c-format
 msgid ""
 "GC card follows a GW card\n"
@@ -4191,7 +4179,7 @@ msgstr ""
 "כרטיס GC עוקב אחרי כרטיס GW\n"
 "עם רדיוס תיל שאינו אפס"
 
-#: src/geom_edit.c:1025
+#: src/geom_edit.c:1019
 #, c-format
 msgid ""
 "SC card preceded by SP card\n"
@@ -4200,12 +4188,12 @@ msgstr ""
 "כרטיס SC קודם לכרטיס SP\n"
 "עם סוג טלאי שרירותי"
 
-#: src/geom_edit.c:1037
+#: src/geom_edit.c:1031
 #, c-format
 msgid "No SP or SM card before SC card"
 msgstr "אין כרטיס SP או SM לפני כרטיס SC"
 
-#: src/geom_edit.c:1057
+#: src/geom_edit.c:1051
 #, c-format
 msgid ""
 "No SC card after an SP card\n"
@@ -4214,7 +4202,7 @@ msgstr ""
 "אין כרטיס SC אחרי כרטיס SP\n"
 "עם סוג טלאי לא שרירותי"
 
-#: src/geom_edit.c:1064
+#: src/geom_edit.c:1058
 #, c-format
 msgid ""
 "SC card follows an SP card\n"
@@ -4223,47 +4211,56 @@ msgstr ""
 "כרטיס SC עוקב אחרי כרטיס SP\n"
 "עם סוג טלאי שרירותי"
 
-#: src/geom_edit.c:1077
+#: src/geom_edit.c:1071
 #, c-format
 msgid "No SC card after an SM card"
 msgstr "אין כרטיס SC אחרי כרטיס SM"
 
-#: src/geom_edit.c:1172
+#: src/geom_edit.c:1166
 msgid "Corner 1 - X"
 msgstr "פינה 1 - X"
 
-#: src/geom_edit.c:1174
+#: src/geom_edit.c:1168
 msgid "Corner 1 - Y"
 msgstr "פינה 1 - Y"
 
-#: src/geom_edit.c:1176
+#: src/geom_edit.c:1170
 msgid "Corner 1 - Z"
 msgstr "פינה 1 - Z"
 
-#: src/geom_edit.c:1178
+#: src/geom_edit.c:1172
 msgid "Corner 2 - X"
 msgstr "פינה 2 - X"
 
-#: src/geom_edit.c:1180
+#: src/geom_edit.c:1174
 msgid "Corner 2 - Y"
 msgstr "פינה 2 - Y"
 
-#: src/geom_edit.c:1182
+#: src/geom_edit.c:1176
 msgid "Corner 2 - Z"
 msgstr "פינה 2 - Z"
 
-#: src/geom_edit.c:2861
+#: src/geom_edit.c:2843
 msgid "SY Card Editor"
 msgstr "עורך כרטיס SY"
 
-#: src/geom_edit.c:2871
+#: src/geom_edit.c:2853
 msgid "SY definition (e.g. FREQ=146, LAMBDA=300/FREQ):"
 msgstr "הגדרת SY (למשל FREQ=146, LAMBDA=300/FREQ):"
 
-#: src/geom_edit.c:2970
+#: src/geom_edit.c:2952
 #, c-format
 msgid "NEC2 editor window not open"
 msgstr "חלון עורך NEC2 אינו פתוח"
+
+#: src/geom_edit.c:2980
+#, c-format
+msgid ""
+"Frequency (FR) cards not yet processed.\n"
+"You may need to save the NEC2 Editor data first."
+msgstr ""
+"כרטיסי תדר (FR) טרם עובדו.\n"
+"ייתכן שתצטרך לשמור תחילה את נתוני עורך NEC2."
 
 #: src/geometry.c:118
 #, c-format
@@ -4597,9 +4594,8 @@ msgstr "מאלץ בדיקת חפיפה עבור %d מקטעים\n"
 
 #: src/geometry.c:1849
 #, c-format
-msgid ""
-"verify_segments() skipping frequency-dependent checks - no frequency data\n"
-msgstr "verify_segments() מדלג על בדיקות תלויות תדר - אין נתוני תדר\n"
+msgid "skipping frequency-dependent checks - no frequency data\n"
+msgstr "מדלג על בדיקות תלויות תדר - אין נתוני תדר\n"
 
 #: src/gnuplot.c:43
 msgid "Gnuplot Data"
@@ -4732,7 +4728,7 @@ msgstr "b קטן מ-a"
 msgid "step size limited at z = %12.5E\n"
 msgstr "גודל צעד מוגבל ב-Z = %12.5E\n"
 
-#: src/input.c:150
+#: src/input.c:151
 #, c-format
 msgid ""
 "Error reading Comments\n"
@@ -4741,7 +4737,7 @@ msgstr ""
 "שגיאה בקריאת הערות\n"
 "EOF בלתי צפוי (סוף קובץ)"
 
-#: src/input.c:164
+#: src/input.c:165
 #, c-format
 msgid ""
 "Error reading Comments\n"
@@ -4750,7 +4746,7 @@ msgstr ""
 "שגיאה בקריאת הערות\n"
 "מנמוניק הערה קצר או חסר"
 
-#: src/input.c:175
+#: src/input.c:176
 #, c-format
 msgid ""
 "Read_Comments():\n"
@@ -4761,7 +4757,7 @@ msgstr ""
 " שגיאה בקריאת קובץ קלט\n"
 "מנמוניק הערה שגוי"
 
-#: src/input.c:215
+#: src/input.c:216
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4770,7 +4766,7 @@ msgstr ""
 "שגיאת נתוני גאומטריה\n"
 "מספר התג שלילי"
 
-#: src/input.c:222
+#: src/input.c:223
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4779,12 +4775,12 @@ msgstr ""
 "שגיאת נתוני גאומטריה\n"
 "מספר מקטעים קטן מ-1"
 
-#: src/input.c:229
+#: src/input.c:230
 #, c-format
 msgid "warning - number of segments is greater than 1000000\n"
 msgstr "אזהרה - מספר מקטעים גדול מ-1000000\n"
 
-#: src/input.c:252
+#: src/input.c:253
 #, c-format
 msgid ""
 "%s card: tag 0 selects segment %d by absolute position in the structure, not "
@@ -4794,12 +4790,12 @@ msgstr ""
 "%s כרטיס: תג 0 בוחר מקטע %d לפי מיקום מוחלט במבנה, ולא בתוך תיל מתויג; יש "
 "לתת לתיל מספר תג ולהפנות למקטע בתוך תג זה אלא אם מיועד מיקום מוחלט\n"
 
-#: src/input.c:299
+#: src/input.c:300
 #, c-format
 msgid "%s data card error: Spurious character '%c' at column %d\n"
 msgstr "שגיאת כרטיס נתונים %s: תו זר '%c' בעמודה %d\n"
 
-#: src/input.c:301
+#: src/input.c:302
 #, c-format
 msgid ""
 "Data card error\n"
@@ -4808,37 +4804,37 @@ msgstr ""
 "שגיאת כרטיס נתונים\n"
 "תו זר בכרטיס"
 
-#: src/input.c:372
+#: src/input.c:373
 #, c-format
 msgid "%s: expression evaluation failed for \"%s\"\n"
 msgstr "%s: הערכת ביטוי נכשלה עבור \"%s\"\n"
 
-#: src/input.c:413
+#: src/input.c:414
 #, c-format
 msgid "SY card: no line content available\n"
 msgstr "כרטיס SY: אין תוכן שורה זמין\n"
 
-#: src/input.c:414
+#: src/input.c:415
 #, c-format
 msgid "SY card: no line content available"
 msgstr "כרטיס SY: אין תוכן שורה זמין"
 
-#: src/input.c:431
+#: src/input.c:432
 #, c-format
 msgid "SY card: missing '=' in definition\n"
 msgstr "כרטיס SY: חסר '=' בהגדרה\n"
 
-#: src/input.c:432
+#: src/input.c:433
 #, c-format
 msgid "SY card: missing '=' in definition"
 msgstr "כרטיס SY: חסר '=' בהגדרה"
 
-#: src/input.c:465
+#: src/input.c:466
 #, c-format
 msgid "SY card: symbol definition failed for %s=%s\n"
 msgstr "כרטיס SY: הגדרת סמל נכשלה עבור %s=%s\n"
 
-#: src/input.c:652
+#: src/input.c:653
 #, c-format
 msgid ""
 "Geometry data error\n"
@@ -4847,31 +4843,31 @@ msgstr ""
 "שגיאת נתוני גאומטריה\n"
 "אין כרטיס GC עבור תיל מתחדד"
 
-#: src/input.c:659
+#: src/input.c:660
 #, c-format
 msgid "Geometry GC data card error"
 msgstr "שגיאת כרטיס נתוני גאומטריה GC"
 
-#: src/input.c:675
+#: src/input.c:676
 #, c-format
 msgid "Geometry GX data card error"
 msgstr "שגיאת כרטיס נתוני גאומטריה GX"
 
-#: src/input.c:698
+#: src/input.c:699
 #, c-format
 msgid "Geometry GR data card error"
 msgstr "שגיאת כרטיס נתוני גאומטריה GR"
 
-#: src/input.c:752
+#: src/input.c:753
 #, c-format
 msgid "No geometry data cards"
 msgstr "אין כרטיסי נתוני גאומטריה"
 
-#: src/input.c:763
+#: src/input.c:764
 msgid "Probable invalid segment geometry.\n"
 msgstr "ככל הנראה גאומטריית מקטע לא תקינה.\n"
 
-#: src/input.c:764
+#: src/input.c:765
 #, c-format
 msgid ""
 "Invalid segment geometry.\n"
@@ -4882,43 +4878,43 @@ msgstr ""
 "ראה אזהרות בקונסולה לפרטים.\n"
 "מנסה להמשיך..."
 
-#: src/input.c:770
+#: src/input.c:771
 #, c-format
 msgid "Probable invalid segment geometry (see above)\n"
 msgstr "ככל הנראה גאומטריית מקטע לא תקינה (ראה למעלה)\n"
 
-#: src/input.c:774
+#: src/input.c:775
 #, c-format
-msgid "Read_Geometry: verify_segments() passed\n"
-msgstr "Read_Geometry: verify_segments() עבר\n"
+msgid "verify_segments() passed\n"
+msgstr "verify_segments() עבר\n"
 
-#: src/input.c:811
+#: src/input.c:812
 #, c-format
 msgid "segment data error: tag=%d si=%f, bi=%f\n"
 msgstr "שגיאת נתוני מקטע: tag=%d si=%f, bi=%f\n"
 
-#: src/input.c:813
+#: src/input.c:814
 #, c-format
 msgid "Segment data error, zero-length line?  See console."
 msgstr "שגיאת נתוני מקטע, קו באורך אפס?  ראה קונסולה."
 
-#: src/input.c:853
+#: src/input.c:854
 #, c-format
 msgid "Move GM data card error"
 msgstr "שגיאת כרטיס נתוני העברה GM"
 
-#: src/input.c:869 src/input.c:910 src/input.c:927 src/input.c:945
-#: src/input.c:953
+#: src/input.c:870 src/input.c:911 src/input.c:928 src/input.c:946
+#: src/input.c:954
 #, c-format
 msgid "Patch data card error"
 msgstr "שגיאת כרטיס נתוני טלאי"
 
-#: src/input.c:891
+#: src/input.c:892
 #, c-format
 msgid "Patch data error"
 msgstr "שגיאת נתוני טלאי"
 
-#: src/input.c:1000
+#: src/input.c:1001
 #, c-format
 msgid ""
 "\"GF\" card (NGF solution)\n"
@@ -4927,73 +4923,73 @@ msgstr ""
 "כרטיס \"GF\" (פתרון NGF)\n"
 "אינו נתמך"
 
-#: src/input.c:1005
+#: src/input.c:1006
 #, c-format
 msgid "Ignoring CM card in geometry"
 msgstr "מתעלם מכרטיס CM בגאומטריה"
 
-#: src/input.c:1018
+#: src/input.c:1019
 #, c-format
 msgid "geometry data card error (nwire=%d)\n"
 msgstr "שגיאת כרטיס נתוני גאומטריה (nwire=%d)\n"
 
 # xnec2c-exempt: symbol
-#: src/input.c:1019
+#: src/input.c:1020
 #, c-format
 msgid "%2s %3d %5d %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f %10.5f\n"
 msgstr ""
 
-#: src/input.c:1025
+#: src/input.c:1026
 #, c-format
 msgid "Command card in geometry section"
 msgstr "כרטיס פקודה בסעיף הגאומטריה"
 
-#: src/input.c:1027
+#: src/input.c:1028
 #, c-format
 msgid "Unrecognized geometry card"
 msgstr "כרטיס גאומטריה לא מזוהה"
 
-#: src/input.c:1051
+#: src/input.c:1052
 #, c-format
 msgid "Failed to initialize symbol table\n"
 msgstr "אתחול טבלת סמלים נכשל\n"
 
-#: src/input.c:1052
+#: src/input.c:1053
 #, c-format
 msgid "Failed to initialize symbol table"
 msgstr "אתחול טבלת סמלים נכשל"
 
-#: src/input.c:1192
+#: src/input.c:1193
 #, c-format
 msgid "No FR card: computing one step at the NEC-2 default %g MHz\n"
 msgstr "אין כרטיס FR: חישוב צעד אחד בתדר ברירת המחדל של NEC-2, %g MHz\n"
 
-#: src/input.c:1283
+#: src/input.c:1284
 #, c-format
 msgid "ignoring CM card in commands\n"
 msgstr "מתעלם מכרטיס CM בפקודות\n"
 
-#: src/input.c:1284
+#: src/input.c:1285
 #, c-format
 msgid "Ignoring CM card in commands"
 msgstr "מתעלם מכרטיס CM בפקודות"
 
-#: src/input.c:1296
+#: src/input.c:1297
 #, c-format
 msgid "CP card is ignored: coupling calculation not implemented\n"
 msgstr "כרטיס CP מתעלמים ממנו: חישוב צימוד אינו ממומש\n"
 
-#: src/input.c:1392
+#: src/input.c:1393
 #, c-format
 msgid "Skipping duplicate FR card at %g MHz\n"
 msgstr "מדלג על כרטיס FR כפול ב-%g MHz\n"
 
-#: src/input.c:1457
+#: src/input.c:1458
 #, c-format
 msgid "Max frequency <= Min frequency in FR card\n"
 msgstr "תדר מקסימלי <= תדר מינימלי בכרטיס FR\n"
 
-#: src/input.c:1458
+#: src/input.c:1459
 #, c-format
 msgid ""
 "Max frequency <= Min frequency in FR card\n"
@@ -5002,7 +4998,7 @@ msgstr ""
 "תדר מקסימלי <= תדר מינימלי בכרטיס FR\n"
 "אנא בדוק את נתוני כרטיס FR ותקן"
 
-#: src/input.c:1481
+#: src/input.c:1482
 #, c-format
 msgid ""
 "Fix the GE/GN cards:\n"
@@ -5012,12 +5008,12 @@ msgstr ""
 "תקן את כרטיסי GE/GN:\n"
 "כרטיס GE מציין שקרקע קיימת, אך כרטיס GN מציין אחרת."
 
-#: src/input.c:1495
+#: src/input.c:1496
 #, c-format
 msgid "theta > 90 deg. with ground specified\n"
 msgstr "תטא > 90 מעלות עם קרקע מוגדרת\n"
 
-#: src/input.c:1496 src/radiation.c:911
+#: src/input.c:1497 src/radiation.c:911
 #, c-format
 msgid ""
 "Theta > 90 deg with ground specified\n"
@@ -5026,14 +5022,14 @@ msgstr ""
 "תטא > 90 מעלות עם קרקע מוגדרת\n"
 "אנא בדוק את נתוני כרטיס RP ותקן"
 
-#: src/input.c:1505
+#: src/input.c:1506
 #, c-format
 msgid ""
 "radial wire g.s. approximation: may not be used with Sommerfeld ground "
 "option\n"
 msgstr "קירוב g.s. תילים רדיאליים: לא ניתן לשימוש עם אפשרות קרקע Sommerfeld\n"
 
-#: src/input.c:1506
+#: src/input.c:1507
 #, c-format
 msgid ""
 "radial wire g.s. approximation\n"
@@ -5042,14 +5038,14 @@ msgstr ""
 "קירוב g.s. תילים רדיאליים\n"
 "לא ניתן לשימוש עם אפשרות קרקע Sommerfeld"
 
-#: src/input.c:1554
+#: src/input.c:1555
 #, c-format
 msgid ""
 "data fault on loading card no %d: itag step1 %d is greater than itag step2 "
 "%d\n"
 msgstr "תקלת נתונים בכרטיס טעינה מספר %d: itag step1 %d גדול מ-itag step2 %d\n"
 
-#: src/input.c:1556
+#: src/input.c:1557
 #, c-format
 msgid ""
 "Data fault on loading card\n"
@@ -5058,13 +5054,13 @@ msgstr ""
 "תקלת נתונים בכרטיס טעינה\n"
 "itag step1 גדול מ-itag step2"
 
-#: src/input.c:1685
+#: src/input.c:1686
 #, c-format
 msgid ""
 "Transmission Line impedance = 0: is not valid. Please correct NT or TL card\n"
 msgstr "עכבת קו תמסורת = 0: לא תקין. אנא תקן כרטיס NT או TL\n"
 
-#: src/input.c:1686
+#: src/input.c:1687
 #, c-format
 msgid ""
 "Transmission Line impedance = 0\n"
@@ -5073,12 +5069,12 @@ msgstr ""
 "עכבת קו תמסורת = 0\n"
 "לא תקין. אנא תקן כרטיס NT או TL"
 
-#: src/input.c:1697
+#: src/input.c:1698
 #, c-format
 msgid "Segment number error in TL or NT card\n"
 msgstr "שגיאת מספר מקטע בכרטיס TL או NT\n"
 
-#: src/input.c:1698
+#: src/input.c:1699
 #, c-format
 msgid ""
 "Segment number\n"
@@ -5087,22 +5083,22 @@ msgstr ""
 "שגיאת מספר מקטע\n"
 "בכרטיס NT או TL"
 
-#: src/input.c:1720
+#: src/input.c:1721
 #, c-format
 msgid "PQ and PT cards are ignored: printing to file not implemented\n"
 msgstr "מתעלמים מכרטיסי PQ ו-PT: הדפסה לקובץ אינה ממומשת\n"
 
-#: src/input.c:1724
+#: src/input.c:1725
 #, c-format
 msgid "PL card is ignored: plotting to file not supported\n"
 msgstr "מתעלמים מכרטיס PL: שרטוט לקובץ אינו נתמך\n"
 
-#: src/input.c:1730
+#: src/input.c:1731
 #, c-format
 msgid "Surface wave option (I1=1): of RP command not implemented\n"
 msgstr "אפשרות גל פני שטח (I1=1): של פקודת RP לא מיושמת\n"
 
-#: src/input.c:1731
+#: src/input.c:1732
 #, c-format
 msgid ""
 "Surface wave option (I1=1)\n"
@@ -5111,14 +5107,14 @@ msgstr ""
 "אפשרות גל פני שטח (I1=1)\n"
 "של פקודת RP לא מיושמת"
 
-#: src/input.c:1763
+#: src/input.c:1764
 #, c-format
 msgid ""
 "Theta > 90 deg. with ground specified: Please check RP card data and "
 "correct\n"
 msgstr "תטא > 90 מעלות עם קרקע מוגדרת: אנא בדוק את נתוני כרטיס RP ותקן\n"
 
-#: src/input.c:1764
+#: src/input.c:1765
 #, c-format
 msgid ""
 "Theta > 90 deg. with ground specified\n"
@@ -5127,27 +5123,27 @@ msgstr ""
 "תטא > 90 מעלות עם קרקע מוגדרת\n"
 "אנא בדוק את נתוני כרטיס RP ותקן"
 
-#: src/input.c:1831
+#: src/input.c:1832
 msgid "Geometry card in command section"
 msgstr "כרטיס גאומטריה בסעיף הפקודות"
 
-#: src/input.c:1834
+#: src/input.c:1835
 msgid "Unrecognized command card"
 msgstr "כרטיס פקודה לא מזוהה"
 
-#: src/input.c:1879
+#: src/input.c:1880
 #, c-format
 msgid ""
 "Missing or surface-wave RP card: Radiation pattern and gain calculations "
 "disabled\n"
 msgstr "כרטיס RP חסר או גל פני שטח: חישובי תבנית קרינה והגבר מושבתים\n"
 
-#: src/input.c:1906
+#: src/input.c:1907
 #, c-format
 msgid "Unexpected exit from while loop"
 msgstr "יציאה בלתי צפויה מלולאת while"
 
-#: src/input.c:1997
+#: src/input.c:1998
 #, c-format
 msgid ""
 "command data card error: Unexpected EOF while reading input file - appending "
@@ -5155,7 +5151,7 @@ msgid ""
 msgstr ""
 "שגיאת כרטיס נתוני פקודה: EOF בלתי צפוי בקריאת קובץ קלט - מוסיף כרטיס EN\n"
 
-#: src/input.c:1998
+#: src/input.c:1999
 #, c-format
 msgid ""
 "Command data card error\n"
@@ -5166,12 +5162,12 @@ msgstr ""
 "EOF בלתי צפוי בקריאת קובץ קלט\n"
 "מוסיף כרטיס EN ברירת מחדל"
 
-#: src/input.c:2015
+#: src/input.c:2016
 #, c-format
 msgid "command data card error: card's mnemonic code too short or missing\n"
 msgstr "שגיאת כרטיס נתוני פקודה: קוד מנמוני של כרטיס קצר מדי או חסר\n"
 
-#: src/input.c:2016
+#: src/input.c:2017
 #, c-format
 msgid ""
 "Command data card error\n"
@@ -5180,11 +5176,11 @@ msgstr ""
 "שגיאת כרטיס נתוני פקודה\n"
 "קוד מנמוני קצר מדי או חסר"
 
-#: src/input.c:2072 src/input.c:2103
+#: src/input.c:2073 src/input.c:2104
 msgid "command data"
 msgstr "נתוני פקודות"
 
-#: src/input.c:2217
+#: src/input.c:2218
 #, c-format
 msgid ""
 "geometry data card error: Unexpected EOF while reading input file - "
@@ -5192,7 +5188,7 @@ msgid ""
 msgstr ""
 "שגיאת כרטיס נתוני גאומטריה: EOF בלתי צפוי בקריאת קובץ קלט - מוסיף כרטיס GE\n"
 
-#: src/input.c:2218
+#: src/input.c:2219
 #, c-format
 msgid ""
 "Geometry data card error\n"
@@ -5203,12 +5199,12 @@ msgstr ""
 "EOF בלתי צפוי בקריאת קובץ קלט\n"
 "מוסיף כרטיס GE ברירת מחדל"
 
-#: src/input.c:2235
+#: src/input.c:2236
 #, c-format
 msgid "geometry data card error: card's mnemonic code too short or missing\n"
 msgstr "שגיאת כרטיס נתוני גאומטריה: קוד מנמוני של כרטיס קצר מדי או חסר\n"
 
-#: src/input.c:2236
+#: src/input.c:2237
 #, c-format
 msgid ""
 "Geometry data card error\n"
@@ -5217,7 +5213,7 @@ msgstr ""
 "שגיאת כרטיס נתוני גאומטריה\n"
 "קוד מנמוני של כרטיס קצר מדי או חסר"
 
-#: src/input.c:2285 src/input.c:2315
+#: src/input.c:2286 src/input.c:2316
 msgid "geometry data"
 msgstr "נתוני גאומטריה"
 
@@ -5257,8 +5253,8 @@ msgid "Listing Object Ids:\n"
 msgstr "רשימת מזהי אובייקטים:\n"
 
 # xnec2c-exempt: symbol
-#: src/interface.c:202 src/utils.c:424 src/utils.c:428 src/utils.c:438
-#: src/utils.c:440
+#: src/interface.c:202 src/opt_file.c:342 src/opt_file.c:658 src/utils.c:372
+#: src/utils.c:379 src/utils.c:383 src/utils.c:393 src/utils.c:395
 #, c-format
 msgid "%s\n"
 msgstr ""
@@ -5278,102 +5274,62 @@ msgstr ""
 
 #: src/interface.c:370
 #, c-format
-msgid "create_animate_dialog: failed to load animate.glade: %s\n"
-msgstr "create_animate_dialog: נכשלה טעינת animate.glade: %s\n"
+msgid "failed to load animate.glade: %s\n"
+msgstr "נכשלה טעינת animate.glade: %s\n"
 
-#: src/main.c:126
+#: src/main.c:113
 msgid "none (no display)"
 msgstr "ללא (אין תצוגה)"
 
-#: src/main.c:129
+#: src/main.c:116
 #, c-format
 msgid "Detected %s windowing backend\n"
 msgstr "זוהה ממשק חלונות %s\n"
 
-#: src/main.c:137
+#: src/main.c:124
 #, c-format
 msgid "--batch and --optimize are mutual exclusive.\n"
 msgstr "--batch ו--optimize הם בלעדיים הדדית.\n"
 
-#: src/main.c:157
+#: src/main.c:144
 #, c-format
 msgid "input file path name too long ( > %d char )\n"
 msgstr "נתיב שם קובץ קלט ארוך מדי ( > %d תווים )\n"
 
-#: src/main.c:164
+#: src/main.c:151
 #, c-format
 msgid "unexpected argument '%s' does not appear to be a .nec file\n"
 msgstr "ארגומנט בלתי צפוי '%s' לא נראה כקובץ .nec\n"
 
-#: src/main.c:171
+#: src/main.c:158
 #, c-format
 msgid "unexpected argument: %s\n"
 msgstr "ארגומנט בלתי צפוי: %s\n"
 
-#: src/main.c:177
+#: src/main.c:164
 #, c-format
 msgid "batch mode requires an input file\n"
 msgstr "מצב אצווה דורש קובץ קלט\n"
 
-#: src/main.c:187
+#: src/main.c:174
 #, c-format
 msgid "cannot open display: a running X11 or Wayland session is required\n"
 msgstr "לא ניתן לפתוח תצוגה: נדרש סשן X11 או Wayland פעיל\n"
 
-#: src/main.c:210
+#: src/main.c:197
 #, c-format
 msgid "Forking %d jobs across %d processors.\n"
 msgstr "יצירת fork עבור %d משימות על פני %d מעבדים.\n"
 
-#: src/main.c:223 src/main.c:231
+#: src/main.c:210 src/main.c:218
 #, c-format
 msgid "exiting after fatal error: pipe() failed"
 msgstr "יוצא לאחר שגיאה חמורה: pipe() נכשל"
 
-#: src/main.c:240
+#: src/main.c:227
 #, c-format
 msgid "exiting after fatal error: fork() failed"
 msgstr "יוצא לאחר שגיאה חמורה: fork() נכשל"
-
-#: src/main.c:840
-#, c-format
-msgid "exiting via user interrupt\n"
-msgstr "יציאה באמצעות הפסקת משתמש\n"
-
-#: src/main.c:844
-#, c-format
-msgid "segmentation fault, exiting\n"
-msgstr "שגיאת סגמנטציה, יוצא\n"
-
-#: src/main.c:848
-#, c-format
-msgid "floating point exception, exiting\n"
-msgstr "חריגת נקודה צפה, יוצא\n"
-
-#: src/main.c:852
-#, c-format
-msgid "abort signal received, exiting\n"
-msgstr "התקבל אות ביטול, יוצא\n"
-
-#: src/main.c:856
-#, c-format
-msgid "termination request received, exiting\n"
-msgstr "התקבלה בקשת סיום, יוצא\n"
-
-#: src/main.c:866
-#, c-format
-msgid "not forked, ignoring SIGCHLD from pid %d\n"
-msgstr "לא בוצע fork, מתעלם מ-SIGCHLD מ-pid %d\n"
-
-#: src/main.c:874
-#, c-format
-msgid "child process pid %d exited\n"
-msgstr "תהליך בן pid %d יצא\n"
-
-#: src/main.c:883
-#, c-format
-msgid "default exit with signal: %d\n"
-msgstr "יציאת ברירת מחדל עם אות: %d\n"
 
 #: src/mathlib.c:28
 msgid ""
@@ -5384,7 +5340,7 @@ msgstr ""
 "הפעל מחדש כדי לשנות ספריית השחלה MKL."
 
 # xnec2c-exempt: symbol
-#: src/mathlib.c:368 src/utils.c:729
+#: src/mathlib.c:368 src/utils.c:684
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
@@ -5446,8 +5402,8 @@ msgstr "נבחרה ספריית mathlib הזמינה הראשונה: %s\n"
 
 #: src/mathlib.c:669
 #, c-format
-msgid "mathlib_load[%d]: mathlib.available=0, skipping: %s\n"
-msgstr "mathlib_load[%d]: ‏mathlib.available=0, דילוג על: %s\n"
+msgid "[%d]: mathlib.available=0, skipping: %s\n"
+msgstr "[%d]: ‏mathlib.available=0, דילוג על: %s\n"
 
 #: src/mathlib.c:719
 msgid "Batch Math Library"
@@ -5911,12 +5867,8 @@ msgstr "עיר DG7YBN (2025)"
 
 #: src/measurements.c:424
 #, c-format
-msgid ""
-"noise_temp_resolve: noise_temp table not allocated; t_sky/t_earth defaulting "
-"to 0\n"
-msgstr ""
-"noise_temp_resolve: טבלת noise_temp לא הוקצתה; ברירת מחדל t_sky/t_earth היא "
-"0\n"
+msgid "noise_temp table not allocated; t_sky/t_earth defaulting to 0\n"
+msgstr "טבלת noise_temp לא הוקצתה; ברירת מחדל t_sky/t_earth היא 0\n"
 
 #: src/measurements.c:481
 msgid "Z Real"
@@ -6160,10 +6112,10 @@ msgstr "הקצאת זיכרון נדחתה %s: נדרשו %lu בייטים\n"
 msgid "mem_obj_t at %p: size=%lu used=%lu addr=%p\n"
 msgstr "mem_obj_t ב-%p: גודל=%lu בשימוש=%lu כתובת=%p\n"
 
-# xnec2c-exempt: name
+# xnec2c-exempt: symbol
 #: src/mem/mem.c:250
 #, c-format
-msgid "mem_backtrace(%p):\n"
+msgid "%p:\n"
 msgstr ""
 
 #: src/mem/mem.c:253
@@ -6173,8 +6125,8 @@ msgstr "  m->backtrace הוא null, אין נתוני מעקב\n"
 
 #: src/mem/mem.c:279
 #, c-format
-msgid "mem_clone: allocation failed for %lu bytes\n"
-msgstr "mem_clone: הקצאת זיכרון נכשלה עבור %lu בייטים\n"
+msgid "allocation failed for %lu bytes\n"
+msgstr "הקצאת זיכרון נכשלה עבור %lu בייטים\n"
 
 #: src/mem/mem_track.c:208
 #, c-format
@@ -6196,19 +6148,19 @@ msgstr "mem-report %s: סידורי=%llu אתר=%s גודל=%lu בשימוש=%lu
 msgid "mem-report %s:   frame %d %s\n"
 msgstr "mem-report %s:   מסגרת %d %s\n"
 
-#: src/nec2_model.c:279 src/nec2_model.c:283 src/nec2_model.c:287
+#: src/nec2_model.c:278 src/nec2_model.c:282 src/nec2_model.c:286
 msgid "Card"
 msgstr "כרטיס"
 
-#: src/nec2_model.c:369
+#: src/nec2_model.c:368
 msgid "--- NEC2 Input File created or edited by "
 msgstr "--- קובץ קלט NEC2 נוצר או נערך על ידי "
 
-#: src/nec2_model.c:386
+#: src/nec2_model.c:385
 msgid "--- End Comments ---"
 msgstr "--- סוף הערות ---"
 
-#: src/nec2_model.c:525
+#: src/nec2_model.c:524
 #, c-format
 msgid ""
 "List_Comments():\n"
@@ -6219,7 +6171,7 @@ msgstr ""
 "שגיאה בקריאת קובץ קלט\n"
 "סוף קובץ (EOF) בלתי צפוי"
 
-#: src/nec2_model.c:532
+#: src/nec2_model.c:531
 #, c-format
 msgid ""
 "List_Comments():\n"
@@ -6230,11 +6182,11 @@ msgstr ""
 "שגיאה בקריאת קובץ קלט\n"
 "מנמוניקת הערה קצרה או חסרה"
 
-#: src/nec2_model.c:818
+#: src/nec2_model.c:817
 msgid "End Comments"
 msgstr "סוף הערות"
 
-#: src/nec2_model.c:916
+#: src/nec2_model.c:915
 #, c-format
 msgid ""
 "Cannot save treeview data\n"
@@ -6372,12 +6324,8 @@ msgstr "מבטל OpenGL: שיידר הרכבת ה-peel נכשל\n"
 
 #: src/opengl-engine/opengl_view_fit.c:71
 #, c-format
-msgid ""
-"gl_view_fit_view: no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,"
-"%g,%g]\n"
-msgstr ""
-"gl_view_fit_view: לא נפתרה מסגרת: r_max=%g distance=%g proj=%d box=[%g,%g,%g,"
-"%g]\n"
+msgid "no frame solved: r_max=%g distance=%g proj=%d box=[%g,%g,%g,%g]\n"
+msgstr "לא נפתרה מסגרת: r_max=%g distance=%g proj=%d box=[%g,%g,%g,%g]\n"
 
 #: src/opengl-engine/opengl_view_msaa.c:141
 #, c-format
@@ -6428,22 +6376,10 @@ msgstr ""
 "OpenGL אינו זמין בתצוגה זו; עובר למרנדר Cairo. ראה 'מרנדר OpenGL' תחת תצוגה "
 "> הגדרות רינדור.\n"
 
-# xnec2c-exempt: name
-#: src/opt_file.c:342
-#, c-format
-msgid "opt_file_save: %s\n"
-msgstr ""
-
 #: src/opt_file.c:622
 #, c-format
 msgid "Loaded %d optimizer goals\n"
 msgstr "נטענו %d יעדי מייעל\n"
-
-# xnec2c-exempt: name
-#: src/opt_file.c:658
-#, c-format
-msgid "opt_file_load: %s\n"
-msgstr ""
 
 #: src/opt_ui_formula.c:46
 #, c-format
@@ -6958,23 +6894,23 @@ msgstr "הפרש בין הציון המרבי למזערי על פני צעדי 
 
 #: src/optimizers/opt_fitness.c:509
 #, c-format
-msgid "fitness_transform: unknown direction %d\n"
-msgstr "fitness_transform: כיוון לא מוכר %d\n"
+msgid "unknown direction %d\n"
+msgstr "כיוון לא מוכר %d\n"
 
 #: src/optimizers/opt_fitness.c:582
 #, c-format
-msgid "reduce_values: unknown reduction method %d\n"
-msgstr "reduce_values: שיטת צמצום לא מוכרת %d\n"
+msgid "unknown reduction method %d\n"
+msgstr "שיטת צמצום לא מוכרת %d\n"
 
 #: src/optimizers/opt_nec2_eval.c:80
 #, c-format
-msgid "nec2_eval_signal: eval_mutex contention, blocking (thr=%lu)\n"
-msgstr "nec2_eval_signal: תחרות eval_mutex, חוסם (thr=%lu)\n"
+msgid "eval_mutex contention, blocking (thr=%lu)\n"
+msgstr "תחרות eval_mutex, חוסם (thr=%lu)\n"
 
 #: src/optimizers/opt_nec2_eval.c:194
 #, c-format
-msgid "nec2_eval_run: not initialized\n"
-msgstr "nec2_eval_run: לא אותחל\n"
+msgid "not initialized\n"
+msgstr "לא אותחל\n"
 
 #: src/optimizers/opt_session.c:96
 #, c-format
@@ -6992,23 +6928,23 @@ msgstr "opt: אופטימיזציה הושלמה, התאמה מיטבית: %.6g\
 
 #: src/optimizers/opt_session.c:194
 #, c-format
-msgid "opt_start: optimizer already running\n"
-msgstr "opt_start: המייעל כבר רץ\n"
+msgid "optimizer already running\n"
+msgstr "המייעל כבר רץ\n"
 
 #: src/optimizers/opt_session.c:258
 #, c-format
-msgid "opt_start: simple_new failed\n"
-msgstr "opt_start: simple_new נכשל\n"
+msgid "simple_new failed\n"
+msgstr "simple_new נכשל\n"
 
 #: src/optimizers/opt_session.c:267
 #, c-format
-msgid "opt_start: pthread_create failed: %d\n"
-msgstr "opt_start: pthread_create נכשל: %d\n"
+msgid "pthread_create failed: %d\n"
+msgstr "pthread_create נכשל: %d\n"
 
 #: src/optimizers/opt_simple.c:297
 #, c-format
-msgid "simple_config_init: unknown algorithm %d\n"
-msgstr "simple_config_init: אלגוריתם לא מוכר %d\n"
+msgid "unknown algorithm %d\n"
+msgstr "אלגוריתם לא מוכר %d\n"
 
 #: src/optimizers/opt_simple_var.c:43
 #, c-format
@@ -7263,11 +7199,8 @@ msgstr ""
 
 #: src/rdpattern_ui.c:132
 #, c-format
-msgid ""
-"Scale_Gain_Resolved: gain_style %d out of range [0..%d], defaulting to "
-"GS_LINP\n"
-msgstr ""
-"Scale_Gain_Resolved: gain_style %d מחוץ לטווח [0..%d], ברירת מחדל GS_LINP\n"
+msgid "gain_style %d out of range [0..%d], defaulting to GS_LINP\n"
+msgstr "gain_style %d מחוץ לטווח [0..%d], ברירת מחדל GS_LINP\n"
 
 #: src/rdpattern_ui.c:547
 msgid "Gain in the direction of the viewer, for the current view angles."
@@ -7403,13 +7336,13 @@ msgstr "מוחלט"
 
 #: src/render/gradient_cache.c:312
 #, c-format
-msgid "gradient_cache_update: surface creation failed (%dx%d)\n"
-msgstr "gradient_cache_update: יצירת משטח נכשלה (%dx%d)\n"
+msgid "surface creation failed (%dx%d)\n"
+msgstr "יצירת משטח נכשלה (%dx%d)\n"
 
 #: src/render/render_fit.c:67
 #, c-format
-msgid "render_fit_solve: no geometry to fit\n"
-msgstr "render_fit_solve: אין גאומטריה להתאמה\n"
+msgid "no geometry to fit\n"
+msgstr "אין גאומטריה להתאמה\n"
 
 #: src/render/render_message.h:29
 msgid "File ▸ Open to load an NEC file"
@@ -7464,7 +7397,7 @@ msgstr "לולאת האופטימיזציה לא הושלמה, מונע ציור
 msgid "Ctrl+Scroll: Wire Radius"
 msgstr "Ctrl+Scroll: רדיוס תיל"
 
-#: src/settings/render_settings.c:49
+#: src/settings/render_settings.c:50
 msgid ""
 "OpenGL is not available on this display.\n"
 "Cairo rendering is active."
@@ -7472,7 +7405,7 @@ msgstr ""
 "OpenGL אינו זמין בתצוגה זו.\n"
 "מציג Cairo פעיל."
 
-#: src/settings/render_settings.c:54
+#: src/settings/render_settings.c:55
 msgid ""
 "Built without OpenGL support.\n"
 "Cairo rendering is active."
@@ -7480,33 +7413,73 @@ msgstr ""
 "התוכנה נבנתה ללא תמיכה ב־OpenGL.\n"
 "מציג Cairo פעיל."
 
-#: src/settings/render_settings.c:123
+#: src/settings/render_settings.c:151
 msgid "General"
 msgstr "כללי"
 
-#: src/settings/render_settings.c:127
+#: src/settings/render_settings.c:155
 msgid "Color"
 msgstr "צבע"
 
-#: src/settings/render_settings_common.c:141
+#: src/settings/render_settings_common.c:142 src/sy_overrides.c:1093
 #, c-format
-msgid "render_settings_init: failed to load glade: %s\n"
-msgstr "render_settings_init: נכשלה טעינת glade: %s\n"
+msgid "failed to load glade: %s\n"
+msgstr "נכשלה טעינת glade: %s\n"
 
-#: src/settings/render_settings_common.c:151
+#: src/settings/render_settings_common.c:152
 #, c-format
-msgid "render_settings_init: failed to load opengl glade: %s\n"
-msgstr "render_settings_init: נכשלה טעינת opengl glade: %s\n"
+msgid "failed to load opengl glade: %s\n"
+msgstr "נכשלה טעינת opengl glade: %s\n"
 
-#: src/settings/render_settings_common.c:161
+#: src/settings/render_settings_common.c:162
 #, c-format
-msgid "render_settings_init: failed to load cairo glade: %s\n"
-msgstr "render_settings_init: נכשלה טעינת cairo glade: %s\n"
+msgid "failed to load cairo glade: %s\n"
+msgstr "נכשלה טעינת cairo glade: %s\n"
 
-#: src/settings/render_settings_common.c:182
+#: src/settings/render_settings_common.c:183
 #, c-format
-msgid "render_settings_init: failed to get render_settings_window from glade\n"
-msgstr "render_settings_init: נכשלה השגת render_settings_window מ-glade\n"
+msgid "failed to get render_settings_window from glade\n"
+msgstr "נכשלה השגת render_settings_window מ-glade\n"
+
+#: src/signal_handler.c:29
+#, c-format
+msgid "exiting via user interrupt\n"
+msgstr "יציאה באמצעות הפסקת משתמש\n"
+
+#: src/signal_handler.c:33
+#, c-format
+msgid "segmentation fault, exiting\n"
+msgstr "שגיאת סגמנטציה, יוצא\n"
+
+#: src/signal_handler.c:37
+#, c-format
+msgid "floating point exception, exiting\n"
+msgstr "חריגת נקודה צפה, יוצא\n"
+
+#: src/signal_handler.c:41
+#, c-format
+msgid "abort signal received, exiting\n"
+msgstr "התקבל אות ביטול, יוצא\n"
+
+#: src/signal_handler.c:45
+#, c-format
+msgid "termination request received, exiting\n"
+msgstr "התקבלה בקשת סיום, יוצא\n"
+
+#: src/signal_handler.c:55
+#, c-format
+msgid "not forked, ignoring SIGCHLD from pid %d\n"
+msgstr "לא בוצע fork, מתעלם מ-SIGCHLD מ-pid %d\n"
+
+#: src/signal_handler.c:63
+#, c-format
+msgid "child process pid %d exited\n"
+msgstr "תהליך בן pid %d יצא\n"
+
+#: src/signal_handler.c:72
+#, c-format
+msgid "default exit with signal: %d\n"
+msgstr "יציאת ברירת מחדל עם אות: %d\n"
 
 #: src/somnec.c:302
 #, c-format
@@ -7578,8 +7551,8 @@ msgstr "ארגומנטים לא חוקיים ל-sy_evaluate"
 
 #: src/sy_expr.c:1246
 #, c-format
-msgid "sy_load_overrides: malformed line (no colon): %s"
-msgstr "sy_load_overrides: שורה פגומה (ללא נקודתיים): %s"
+msgid "malformed line (no colon): %s"
+msgstr "שורה פגומה (ללא נקודתיים): %s"
 
 #: src/sy_expr.c:1336
 #, c-format
@@ -7588,8 +7561,8 @@ msgstr "נטענו %d דריסות סמלים מ-%s\n"
 
 #: src/sy_expr.c:1453
 #, c-format
-msgid "sy_save_overrides: cannot open %s for writing: %s\n"
-msgstr "sy_save_overrides: לא ניתן לפתוח %s לכתיבה: %s\n"
+msgid "cannot open %s for writing: %s\n"
+msgstr "לא ניתן לפתוח %s לכתיבה: %s\n"
 
 #: src/sy_expr.c:1475
 #, c-format
@@ -7620,15 +7593,10 @@ msgstr "מרבי"
 msgid "Expression"
 msgstr "ביטוי"
 
-#: src/sy_overrides.c:1093
-#, c-format
-msgid "sy_overrides_init: failed to load glade: %s\n"
-msgstr "sy_overrides_init: נכשלה טעינת glade: %s\n"
-
 #: src/sy_overrides.c:1107
 #, c-format
-msgid "sy_overrides_init: failed to get widgets from glade\n"
-msgstr "sy_overrides_init: נכשלה השגת ווידג'טים מ-glade\n"
+msgid "failed to get widgets from glade\n"
+msgstr "נכשלה השגת ווידג'טים מ-glade\n"
 
 #: src/sy_overrides.c:1223
 msgid "Input Symbols"
@@ -7694,44 +7662,39 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: src/utils.c:417
-#, c-format
-msgid "Stop: %s\n"
-msgstr "עצור: %s\n"
-
-#: src/utils.c:456 src/utils.c:458
+#: src/utils.c:411 src/utils.c:413
 #, c-format
 msgid "Stop during freq loop, deadlock prevented: %s\n"
 msgstr "עצירה במהלך לולאת תדר, מניעת קפאון: %s\n"
 
-#: src/utils.c:684
+#: src/utils.c:639
 #, c-format
 msgid "applying an OpenMP budget of %d threads\n"
 msgstr "החלת תקציב OpenMP של %d תהליכונים\n"
 
-#: src/utils.c:699
+#: src/utils.c:654
 #, c-format
 msgid "%s[%d]: %f seconds\n"
 msgstr "%s[%d]: %f שניות\n"
 
-#: src/utils.c:724
+#: src/utils.c:679
 #, c-format
 msgid "xnec2c[%d]: %s: Failed to open file: %s\n"
 msgstr "xnec2c[%d]: %s: נכשל בפתיחת קובץ: %s\n"
 
-#: src/utils.c:1090
+#: src/utils.c:1045
 #, c-format
 msgid "  Backtrace:\n"
 msgstr "  מעקב:\n"
 
 # xnec2c-exempt: symbol
-#: src/utils.c:1092
+#: src/utils.c:1047
 #, c-format
 msgid "    %d. %s\n"
 msgstr ""
 
 # xnec2c-exempt: symbol
-#: src/utils.c:1119
+#: src/utils.c:1074
 #, c-format
 msgid "%s:\n"
 msgstr ""
