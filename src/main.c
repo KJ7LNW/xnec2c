@@ -21,14 +21,11 @@
 #include "args.h"
 #include "validation_dump.h"
 #include "shared.h"
-#include "gdk_scroll.h"
 #include "mathlib.h"
 #include "structure_ui.h"
 #include "window_lifecycle.h"
-#include "opengl/opengl_structure.h"
 #include "cairo/cairo_draw.h"
 #include "cairo/cairo_fit.h"
-#include "cairo/cairo_frame.h"
 #ifdef HAVE_OPENGL
 #include "opengl-engine/opengl_view_fit.h"
 #endif
@@ -324,55 +321,19 @@ main (int argc, char *argv[])
   /* Main window freq spinbutton */
   config_widget_capture( &calc_data.fmhz_save );
 
-  /* Get the structure drawing area */
-  GtkWidget *structure_cairo_da =
-    Builder_Get_Object( main_window_builder, "structure_drawingarea" );
-
-  /* Spin buttons and entry backing the structure view */
-  rotate_structure  = GTK_SPIN_BUTTON(
-      Builder_Get_Object(main_window_builder, "main_rotate_spinbutton") );
-  incline_structure = GTK_SPIN_BUTTON(
-      Builder_Get_Object(main_window_builder, "main_incline_spinbutton") );
-  scroll_install_spin_notches( rotate_structure,  SCROLL_ANGLE_INCREMENT );
-  scroll_install_spin_notches( incline_structure, SCROLL_ANGLE_INCREMENT );
-  structure_zoom = GTK_SPIN_BUTTON(
-      Builder_Get_Object(main_window_builder, "main_zoom_spinbutton") );
-  structure_fstep_entry = GTK_ENTRY(
-      Builder_Get_Object(main_window_builder, "structure_fstep_entry") );
-
   /* Create the structure view before the GL widget; observers are
    * installed inside opengl_structure_surface_new and fire during
    * subsequent viewport/angle assignments. */
-  structure_view = view_new( VIEW_STRUCTURE,
-      rotate_structure, incline_structure, structure_zoom,
-      structure_view_changed_cb, NULL );
-  view_set_spin_handlers( structure_view,
-      G_CALLBACK(on_main_rotate_spinbutton_value_changed),
-      G_CALLBACK(on_main_incline_spinbutton_value_changed),
-      G_CALLBACK(on_main_zoom_spinbutton_value_changed) );
-  view_set_angles( structure_view,
-      gtk_spin_button_get_value( rotate_structure ),
-      gtk_spin_button_get_value( incline_structure ) );
-  view_set_drag_mode( structure_view,
-      rc_config.view_drag_constrained
-          ? VIEW_DRAG_CONSTRAINED : VIEW_DRAG_FREE );
+  structure_view_create();
 
   /* Force deterministic config for reproducible validation dumps.  Runs after
    * Read_Config() so it overrides rc-file settings, and after structure_view is
    * created so it can reset the viewer to its default orientation. */
   validation_dump_force_config();
 
-  /* Register the Cairo surface once the view it presents exists. */
-  canvas_add_surface( CANVAS_STRUCTURE,
-      cairo_surface_adopt(structure_cairo_da, structure_view,
-        structure_input_caps) );
+  structure_surfaces_add();
 
-  /* Create the GL surface after the view is initialized */
 #ifdef HAVE_OPENGL
-  canvas_add_surface( CANVAS_STRUCTURE,
-      opengl_structure_surface_new(GTK_CONTAINER(
-          gtk_widget_get_parent(structure_cairo_da))) );
-
   /* A command-line engine replaces the renderer choice Read_Config() stored */
   render_engine_request_apply();
 

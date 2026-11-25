@@ -78,7 +78,7 @@ void validation_dump_force_config(void)
 	 * deck opens, and each spinbutton's value-changed handler re-angles
 	 * structure_view from the replayed value, so pinning the view alone is
 	 * overwritten before any dump runs.  Angle the live view from the pinned
-	 * fields, which runs after structure_view is created in main(). */
+	 * fields, which runs after structure_view_create() in main(). */
 	rc_config.main_rotate_spinbutton  = (int)VIEW_DEFAULT_WR;
 	rc_config.main_incline_spinbutton = (int)VIEW_DEFAULT_WI;
 	view_set_angles(structure_view,

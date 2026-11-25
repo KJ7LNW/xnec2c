@@ -30,6 +30,8 @@ void Alloc_Crnt_Fstep_Buffers(int nfrq);
 void free_crnt_fstep_buffers(void);
 void structure_view_changed_cb(view_t *v, gpointer user_data);
 void Init_Struct_Drawing(void);
+void structure_view_create(void);
+void structure_surfaces_add(void);
 
 /* Scroll capability row every engine's structure surface borrows */
 extern surface_capability_t *const structure_input_caps[];

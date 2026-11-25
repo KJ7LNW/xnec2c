@@ -21,7 +21,8 @@
  * structure_ui: Structure-window UI helpers and initialization.
  *
  * Houses viewer-gain display, frequency-step current buffers,
- * structure redraw queuing, and Init_Struct_Drawing which wires
+ * structure redraw queuing, structure view creation, canvas surface
+ * registration, and Init_Struct_Drawing which wires
  * prerender to the 2D projection buffer.
  */
 #include "structure_ui.h"
@@ -29,6 +30,9 @@
 #include "config_hooks.h"
 #include "callbacks.h"
 #include "cairo/cairo_draw.h"
+#include "cairo/cairo_frame.h"
+#include "gdk_scroll.h"
+#include "opengl/opengl_structure.h"
 #include "prerender/prerender_aggregate.h"
 #include "prerender/prerender_color.h"
 #include "render/render_canvas.h"
@@ -255,7 +259,7 @@ free_crnt_fstep_buffers(void)
  * Propagation to the rdpattern view under
  * common-projection sharing is handled internally by view_t via the
  * rotation_follower link established by view_share_master().  Bound as
- * changed_cb at view_new() in main.c.
+ * changed_cb at view_new() in structure_view_create().
  */
   void
 structure_view_changed_cb(view_t *v, gpointer _user_data)
@@ -272,6 +276,78 @@ structure_view_changed_cb(view_t *v, gpointer _user_data)
   freqplots_redraw_if_showing( view_panels );
 
 } /* structure_view_changed_cb() */
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * structure_view_create() - Create the structure view over its spin buttons
+ *
+ * Binds the main window rotate, incline and zoom spin buttons and the
+ * frequency-step entry, installs the angle scroll notches, and creates
+ * structure_view from the spin angles and the configured drag mode, with
+ * structure_view_changed_cb() as its change callback.
+ */
+  void
+structure_view_create( void )
+{
+  /* Spin buttons and entry backing the structure view */
+  rotate_structure  = GTK_SPIN_BUTTON(
+      Builder_Get_Object(main_window_builder, "main_rotate_spinbutton") );
+  incline_structure = GTK_SPIN_BUTTON(
+      Builder_Get_Object(main_window_builder, "main_incline_spinbutton") );
+  scroll_install_spin_notches( rotate_structure,  SCROLL_ANGLE_INCREMENT );
+  scroll_install_spin_notches( incline_structure, SCROLL_ANGLE_INCREMENT );
+  structure_zoom = GTK_SPIN_BUTTON(
+      Builder_Get_Object(main_window_builder, "main_zoom_spinbutton") );
+  structure_fstep_entry = GTK_ENTRY(
+      Builder_Get_Object(main_window_builder, "structure_fstep_entry") );
+
+  /* Create the view over the spin buttons, bind their handlers, and seed
+   * its angles and drag mode */
+  structure_view = view_new( VIEW_STRUCTURE,
+      rotate_structure, incline_structure, structure_zoom,
+      structure_view_changed_cb, NULL );
+  view_set_spin_handlers( structure_view,
+      G_CALLBACK(on_main_rotate_spinbutton_value_changed),
+      G_CALLBACK(on_main_incline_spinbutton_value_changed),
+      G_CALLBACK(on_main_zoom_spinbutton_value_changed) );
+  view_set_angles( structure_view,
+      gtk_spin_button_get_value( rotate_structure ),
+      gtk_spin_button_get_value( incline_structure ) );
+  view_set_drag_mode( structure_view,
+      rc_config.view_drag_constrained
+          ? VIEW_DRAG_CONSTRAINED : VIEW_DRAG_FREE );
+}
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * structure_surfaces_add() - Register the structure canvas surfaces
+ *
+ * Adopts the main window structure drawing area as the Cairo surface of
+ * CANVAS_STRUCTURE and, in OpenGL builds, adds a GL surface to the same
+ * container.  Both surfaces read structure_view, so structure_view_create()
+ * runs first.
+ */
+  void
+structure_surfaces_add( void )
+{
+  /* Get the structure drawing area */
+  GtkWidget *structure_cairo_da =
+    Builder_Get_Object( main_window_builder, "structure_drawingarea" );
+
+  /* Register the Cairo surface once the view it presents exists. */
+  canvas_add_surface( CANVAS_STRUCTURE,
+      cairo_surface_adopt(structure_cairo_da, structure_view,
+        structure_input_caps) );
+
+  /* Create the GL surface after the view is initialized */
+#ifdef HAVE_OPENGL
+  canvas_add_surface( CANVAS_STRUCTURE,
+      opengl_structure_surface_new(GTK_CONTAINER(
+          gtk_widget_get_parent(structure_cairo_da))) );
+#endif
+}
 
 /*-----------------------------------------------------------------------*/
 
