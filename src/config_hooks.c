@@ -21,7 +21,6 @@
 #include "shared.h"
 #include "callbacks.h"
 #include "rdpattern_ui.h"
-#include "structure_ui.h"
 #include "anim/anim_dialog.h"
 
 /*------------------------------------------------------------------------*/

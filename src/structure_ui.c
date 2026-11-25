@@ -25,8 +25,6 @@
  */
 #include "structure_ui.h"
 #include "shared.h"
-#include "config_hooks.h"
-#include "callbacks.h"
 #include "prerender/prerender_color.h"
 
 /*-----------------------------------------------------------------------*/

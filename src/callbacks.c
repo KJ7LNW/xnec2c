@@ -25,7 +25,6 @@
 #include "measurements.h"
 #include "themes/theme.h"
 #include "rdpattern_ui.h"
-#include "structure_ui.h"
 #include "window_lifecycle.h"
 #include "anim/anim_dialog.h"
 #include "config_hooks.h"

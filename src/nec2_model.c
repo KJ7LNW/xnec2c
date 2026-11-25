@@ -21,7 +21,6 @@
 #include "shared.h"
 #include "input.h"
 #include "expr_edit.h"
-#include "structure_ui.h"
 
 /*------------------------------------------------------------------------*/
 
