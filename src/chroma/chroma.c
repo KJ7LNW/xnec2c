@@ -33,6 +33,7 @@
 #include "chroma_glyph.h"
 #include "../anim/anim_phase.h"
 #include "../shared.h"
+#include "../themes/theme.h"
 
 const chroma_proj_row_t chroma_proj_rows[CHROMA_PROJ_NUM] = {
   [CHROMA_PROJ_AMPLITUDE] = {
@@ -85,9 +86,6 @@ static const palette_kind_t hue_palette_kinds[HUE_ENC_NUM] = {
   [HUE_SIGN_DIVERGING] = PALETTE_DIVERGING,
   [HUE_PHASE_CYCLIC]   = PALETTE_CYCLIC,
 };
-
-/* Neutral fill for patches under a hue channel they cannot express */
-#define PATCH_DIM_RGB  ((rgb_f_t){ 0.55f, 0.55f, 0.55f })
 
 /* Comet tail brightness floor keeping the tail visible; the user's
  * brightness floor raises it, and the crest gain is its complement */
@@ -573,13 +571,14 @@ chroma_proj_frame_patch(int fstep, double phase,
   }
   else if( !chroma_source_supported(CHROMA_ELEM_PATCH, row->hue_src) )
   {
-    /* A hue channel patches cannot express renders as neutral grey dimmed
-     * by the current envelope: the ramp never gains a second meaning on
-     * the same screen. */
+    /* Fill patches under a hue channel they cannot express with the
+     * theme's muted text color dimmed by the current envelope, so the
+     * ramp never gains a second meaning on the same screen. */
+    const rgb_f_t text_muted = theme_active()->colors[THEME_ROLE_TEXT_MUTED];
     int i;
 
     for( i = 0; i < data.m; i++ )
-      patch_proj_rgb[i] = rgb_linear_scale(PATCH_DIM_RGB,
+      patch_proj_rgb[i] = rgb_linear_scale(text_muted,
           x.lum_floor + (1.0 - x.lum_floor) * (double)patch_src.s_env[i]);
 
     patch_result = patch_proj_rgb;
