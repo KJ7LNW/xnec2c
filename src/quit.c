@@ -61,6 +61,25 @@
 
 #include "shared.h"
 #include "optimizers/opt_session.h"
+#include "render/render_canvas.h"
+
+/*-----------------------------------------------------------------------*/
+
+/**
+ * main_window_destroy() - Destroy the main window, then clear the structure canvas
+ *
+ * Clears the canvas once destroying the window has finalized the drawing
+ * widgets the canvas presents, so a callback the main loop runs later finds
+ * the canvas closed, and each engine frees its surface after its widget has
+ * unrealized.
+ */
+  static void
+main_window_destroy( void )
+{
+  Gtk_Widget_Destroy( &main_window );
+  canvas_clear( CANVAS_STRUCTURE );
+
+} /* main_window_destroy() */
 
 /*-----------------------------------------------------------------------*/
 
@@ -81,7 +100,7 @@ xnec2c_quit( gpointer user_data )
   Get_GUI_State();
   Save_Config();
 
-  Gtk_Widget_Destroy( &main_window );
+  main_window_destroy();
 
 } /* xnec2c_quit() */
 
@@ -171,7 +190,7 @@ main_windows_destroy( void )
   freqplots_destroy_all_popups();
   Gtk_Widget_Destroy( &freqplots_window );
   Gtk_Widget_Destroy( &rdpattern_window );
-  Gtk_Widget_Destroy( &main_window );
+  main_window_destroy();
 
 } /* main_windows_destroy() */
 

@@ -716,12 +716,6 @@ parent_cleanup( void )
   main_windows_destroy();
   config_widget_cleanup();
 
-  /* Release the structure surfaces, whose widgets lived inside the main
-   * window and so reached no canvas-clearing destroy chain of their own.
-   * Every widget is finalized by now, so each engine releases what its
-   * unrealize left behind. */
-  canvas_clear( CANVAS_STRUCTURE );
-
   free_structure_segs();
 
   /* Free the views that no widget can reach now. */
