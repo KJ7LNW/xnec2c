@@ -28,7 +28,10 @@ xnec2c_SOURCES = \
     touchstone.c    touchstone.h \
     rdpattern_noise_menu.c rdpattern_noise_menu.h \
     rdpattern_ui.c   rdpattern_ui.h \
+    structure_canvas.c structure_canvas.h \
+    structure_crnt.c structure_crnt.h \
     structure_ui.c   structure_ui.h \
+    structure_view.c structure_view.h \
     window_lifecycle.c window_lifecycle.h \
     fields.c        fields.h \
     fork.c          fork.h \

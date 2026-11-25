@@ -27,7 +27,7 @@
 #include "color/color_palette.h"
 #include "chroma/chroma.h"
 #include "render/render_geometry.h"
-#include "structure_ui.h"
+#include "structure_crnt.h"
 #include "window_lifecycle.h"
 #include "mem/mem_track.h"
 

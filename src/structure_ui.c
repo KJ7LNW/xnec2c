@@ -18,32 +18,16 @@
  */
 
 /*
- * structure_ui: Structure-window UI helpers and initialization.
+ * structure_ui: Structure-window UI readouts.
  *
- * Houses viewer-gain display, frequency-step current buffers,
- * structure redraw queuing, structure view creation, canvas surface
- * registration, and Init_Struct_Drawing which wires
- * prerender to the 2D projection buffer.
+ * Houses viewer-gain display and the frequency-step and color-code
+ * label readouts.
  */
 #include "structure_ui.h"
 #include "shared.h"
 #include "config_hooks.h"
 #include "callbacks.h"
-#include "cairo/cairo_draw.h"
-#include "cairo/cairo_frame.h"
-#include "gdk_scroll.h"
-#include "opengl/opengl_structure.h"
-#include "prerender/prerender_aggregate.h"
 #include "prerender/prerender_color.h"
-#include "render/render_canvas.h"
-#include "render/render_wire_radius.h"
-#include "view/view_core.h"
-
-/* Scroll capabilities of the structure domain */
-surface_capability_t *const structure_input_caps[] = {
-  &wire_radius_cap,
-  NULL
-};
 
 /*-----------------------------------------------------------------------*/
 
@@ -52,7 +36,7 @@ surface_capability_t *const structure_input_caps[] = {
  *
  * Writes the gain in the current structure-view direction.
  */
-static void
+  void
 structure_viewer_readout(void)
 {
   g_rec_mutex_lock(&freq_data_lock);
@@ -177,194 +161,5 @@ Show_Viewer_Gain(
   }
 
 } /* Show_Viewer_Gain() */
-
-/*-----------------------------------------------------------------------*/
-
-/**
- * free_crnt_step() - Release one fstep's crnt sub-buffers
- * @elem: pointer to one crnt_t element
- */
-static void
-free_crnt_step(void *elem)
-{
-  crnt_t *c = elem;
-  mem_array_free(&c->air);
-  mem_array_free(&c->aii);
-  mem_array_free(&c->bir);
-  mem_array_free(&c->bii);
-  mem_array_free(&c->cir);
-  mem_array_free(&c->cii);
-  mem_array_free(&c->cur);
-}
-
-/*-----------------------------------------------------------------------*/
-
-/**
- * Alloc_Crnt_Fstep_Buffers() - Allocate per-frequency-step crnt storage
- *
- * @nfrq: Number of frequency steps (steps_total + 1)
- *
- * Allocates crnt_fstep[] array so each frequency step holds the
- * current/charge data its solve writes.
- */
-  void
-Alloc_Crnt_Fstep_Buffers( int nfrq )
-{
-  /* Resize the outer array, freeing only the shrink tail; surviving
-   * entries keep their sub-buffers for reuse by the inner alloc loop. */
-  mem_array_resize(&crnt_fstep, nfrq, free_crnt_step);
-
-  for( int i = 0; i < nfrq; i++ )
-  {
-    mem_array_realloc(&crnt_fstep[i].air, data.npm);
-    mem_array_realloc(&crnt_fstep[i].aii, data.npm);
-    mem_array_realloc(&crnt_fstep[i].bir, data.npm);
-    mem_array_realloc(&crnt_fstep[i].bii, data.npm);
-    mem_array_realloc(&crnt_fstep[i].cir, data.npm);
-    mem_array_realloc(&crnt_fstep[i].cii, data.npm);
-    mem_array_realloc(&crnt_fstep[i].cur, data.np3m);
-
-  }
-
-  alloc_struct_colors(nfrq);
-
-} /* Alloc_Crnt_Fstep_Buffers() */
-
-/*-----------------------------------------------------------------------*/
-
-/**
- * free_crnt_fstep_buffers() - Release per-frequency current storage
- */
-  void
-free_crnt_fstep_buffers(void)
-{
-  int nfrq = mem_array_count(crnt_fstep);
-
-  for( int i = 0; i < nfrq; i++ )
-    free_crnt_step(&crnt_fstep[i]);
-  mem_array_free(&crnt_fstep);
-
-} /* free_crnt_fstep_buffers() */
-
-/*-----------------------------------------------------------------------*/
-
-/** structure_view_changed_cb() - view_t change callback for structure view
- * @v:           view that changed
- * @_user_data:  unused
- *
- * Invoked by view_notify_change() whenever rotation, pan, zoom, or extent
- * changes.  Refreshes the WR/WI spin display and viewer readout, then queues
- * a structure redraw and the view-dependent frequency plots.  The
- * frequency-step readouts are view-independent and stay untouched here.
- * Propagation to the rdpattern view under
- * common-projection sharing is handled internally by view_t via the
- * rotation_follower link established by view_share_master().  Bound as
- * changed_cb at view_new() in structure_view_create().
- */
-  void
-structure_view_changed_cb(view_t *v, gpointer _user_data)
-{
-  /* The viewer-gain panel plots the gain in the view direction, so a view
-   * change moves its trace */
-  static const fp_panel_t view_panels[] = { FP_PANEL_VIEWER, FP_PANEL_COUNT };
-
-  (void)_user_data;
-
-  view_update_spin_display( v );
-  structure_viewer_readout();
-  canvas_queue_redraw(CANVAS_STRUCTURE, TRUE);
-  freqplots_redraw_if_showing( view_panels );
-
-} /* structure_view_changed_cb() */
-
-/*-----------------------------------------------------------------------*/
-
-/**
- * structure_view_create() - Create the structure view over its spin buttons
- *
- * Binds the main window rotate, incline and zoom spin buttons and the
- * frequency-step entry, installs the angle scroll notches, and creates
- * structure_view from the spin angles and the configured drag mode, with
- * structure_view_changed_cb() as its change callback.
- */
-  void
-structure_view_create( void )
-{
-  /* Spin buttons and entry backing the structure view */
-  rotate_structure  = GTK_SPIN_BUTTON(
-      Builder_Get_Object(main_window_builder, "main_rotate_spinbutton") );
-  incline_structure = GTK_SPIN_BUTTON(
-      Builder_Get_Object(main_window_builder, "main_incline_spinbutton") );
-  scroll_install_spin_notches( rotate_structure,  SCROLL_ANGLE_INCREMENT );
-  scroll_install_spin_notches( incline_structure, SCROLL_ANGLE_INCREMENT );
-  structure_zoom = GTK_SPIN_BUTTON(
-      Builder_Get_Object(main_window_builder, "main_zoom_spinbutton") );
-  structure_fstep_entry = GTK_ENTRY(
-      Builder_Get_Object(main_window_builder, "structure_fstep_entry") );
-
-  /* Create the view over the spin buttons, bind their handlers, and seed
-   * its angles and drag mode */
-  structure_view = view_new( VIEW_STRUCTURE,
-      rotate_structure, incline_structure, structure_zoom,
-      structure_view_changed_cb, NULL );
-  view_set_spin_handlers( structure_view,
-      G_CALLBACK(on_main_rotate_spinbutton_value_changed),
-      G_CALLBACK(on_main_incline_spinbutton_value_changed),
-      G_CALLBACK(on_main_zoom_spinbutton_value_changed) );
-  view_set_angles( structure_view,
-      gtk_spin_button_get_value( rotate_structure ),
-      gtk_spin_button_get_value( incline_structure ) );
-  view_set_drag_mode( structure_view,
-      rc_config.view_drag_constrained
-          ? VIEW_DRAG_CONSTRAINED : VIEW_DRAG_FREE );
-}
-
-/*-----------------------------------------------------------------------*/
-
-/**
- * structure_surfaces_add() - Register the structure canvas surfaces
- *
- * Adopts the main window structure drawing area as the Cairo surface of
- * CANVAS_STRUCTURE and, in OpenGL builds, adds a GL surface to the same
- * container.  Both surfaces read structure_view, so structure_view_create()
- * runs first.
- */
-  void
-structure_surfaces_add( void )
-{
-  /* Get the structure drawing area */
-  GtkWidget *structure_cairo_da =
-    Builder_Get_Object( main_window_builder, "structure_drawingarea" );
-
-  /* Register the Cairo surface once the view it presents exists. */
-  canvas_add_surface( CANVAS_STRUCTURE,
-      cairo_surface_adopt(structure_cairo_da, structure_view,
-        structure_input_caps) );
-
-  /* Create the GL surface after the view is initialized */
-#ifdef HAVE_OPENGL
-  canvas_add_surface( CANVAS_STRUCTURE,
-      opengl_structure_surface_new(GTK_CONTAINER(
-          gtk_widget_get_parent(structure_cairo_da))) );
-#endif
-}
-
-/*-----------------------------------------------------------------------*/
-
-/*  Init_Struct_Drawing()
- *
- *  Initializes drawing parameters after geometry input
- */
-  void
-Init_Struct_Drawing( void )
-{
-  mem_array_realloc(&structure_segs, (data.n + 4 * data.m));
-  Prerender_Aggregate();
-
-  /* Viewport only exists in the UI process; children skip this harmlessly.
-   * Guard: skip if no geometry loaded (segments or patches required). */
-  if( (data.n > 0 || data.m > 0) && structure_view != NULL )
-    canvas_sync_viewport( CANVAS_STRUCTURE );
-}
 
 /*-----------------------------------------------------------------------*/

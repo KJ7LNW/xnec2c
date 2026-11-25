@@ -44,7 +44,8 @@
 
 #include "input.h"
 #include "shared.h"
-#include "structure_ui.h"
+#include "structure_canvas.h"
+#include "structure_crnt.h"
 #include "rdpattern_ui.h"
 #include "prerender/prerender_state.h"
 #include "prerender/prerender_aggregate.h"

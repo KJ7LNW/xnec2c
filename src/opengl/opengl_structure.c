@@ -27,7 +27,7 @@
 #include "opengl_state.h"
 #include "../opengl-engine/opengl_view.h"
 #include "../render/render_dispatch.h"
-#include "../structure_ui.h"
+#include "../structure_canvas.h"
 
 /* Vertex attribute layout shared by radiation-pattern point batches */
 static const gl_vertex_attrib_t opengl_lit_point_attribs[] = {
