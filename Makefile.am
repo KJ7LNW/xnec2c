@@ -338,19 +338,27 @@ nobase_dist_pkgdata_DATA += examples/satellite.nec
 CLEANFILES += examples-automake.lst
 CLEANFILES += examples-srcdir.lst
 # Run the PO catalog maintenance gates on a development checkout. They
-# rewrite $(srcdir)/po and read git state, which a release tarball lacks.
-check-po: check-potfiles-list check-po-exemptions check-po-clean check-po-dist check-po-checkout
+# rewrite $(srcdir)/po and read git state, which a release tarball lacks. The
+# gates run under --keep-going, so a failing gate leaves every gate that does
+# not depend on it to run and report before check-po fails.
+check-po:
+	@$(MAKE) --no-print-directory --keep-going check-po-gates
 .PHONY: check-po
+check-po-gates: check-potfiles-list check-po-catalogs check-po-exemptions check-po-clean check-po-dist check-po-checkout check-po-tests
+.PHONY: check-po-gates
 check-potfiles-list:
 	@$(srcdir)/scripts/po/po-update.sh --check
 .PHONY: check-potfiles-list
 # Run command $(1) on each catalog po/LINGUAS registers, passing the catalog
-# path and then arguments $(2); stop at the first catalog whose command fails.
+# path and then arguments $(2); every catalog runs, and the call fails after
+# the last catalog when any catalog's command failed.
 po_foreach_catalog = \
 	lc=$$($(srcdir)/scripts/po/po-linguas.sh $(srcdir)/po/LINGUAS) || exit $$?; \
+	status=0; \
 	for lang in $$lc; do \
-	  $(1) $(srcdir)/po/$$lang.po $(2) || exit 1; \
-	done
+	  $(1) $(srcdir)/po/$$lang.po $(2) || status=1; \
+	done; \
+	exit $$status
 # Check the catalogs after the refresh sweep so the gate reads final tree
 # state rather than a pre-strip transient. The complete gate runs here: an
 # authoritative catalog answers every entry with a translation or with an
@@ -359,18 +367,20 @@ po_foreach_catalog = \
 check-po-catalogs: po-refresh
 	@$(call po_foreach_catalog,$(srcdir)/scripts/po/po-check.sh)
 .PHONY: check-po-catalogs
-# Compare source-based exemptions after the per-catalog sweep so both gates
-# read the same refreshed catalogs. Run from the source tree because the audit
-# derives every catalog path from po/.
-check-po-exemptions: check-po-catalogs
+# Compare source-based exemptions after the refresh sweep, as check-po-catalogs
+# does, so both gates read the same refreshed catalogs and neither waits on the
+# other's outcome. Run from the source tree because the audit derives every
+# catalog path from po/.
+check-po-exemptions: po-refresh
 	@cd "$(srcdir)" && scripts/po/po-exempt-check.pl
 .PHONY: check-po-exemptions
 # Prove the refresh sweep left no residue. po-revert-churn.sh restores every
 # catalog whose only change was reference-line or header-date churn, so a file
-# still modified here carries a change that belongs in a commit. Depends on
-# both po/ gates so the recipe reads the tree after every sweep finishes, including
-# under parallel make. Tarball builds carry no .git and skip.
-check_po_clean_prerequisites = check-potfiles-list check-po-exemptions
+# still modified here carries a change that belongs in a commit. Depends on the
+# list check and the refresh sweep so the recipe reads the tree after the sweep
+# writing po/ finishes, including under parallel make; the catalog and
+# exemption gates only read po/. Tarball builds carry no .git and skip.
+check_po_clean_prerequisites = check-potfiles-list po-refresh
 check-po-clean: $(check_po_clean_prerequisites)
 	@if $(is_git_checkout); then \
 	  residue=`cd $(srcdir) && git status --porcelain -- po`; \
@@ -398,11 +408,23 @@ check-po-dist: po-refresh
 # fail unless both run in each git checkout, whose .git is a directory or a
 # gitfile, and stand down in a tree holding no .git. The script receives the
 # make program through po_check_make so make -n only prints its line, and
-# takes check-po-clean's prerequisite gates as current so only the two gates
+# takes check-po-clean's prerequisites as current so only the two gates
 # run.
 check-po-checkout:
 	@$(srcdir)/scripts/po/po-checkout-check.sh '$(po_check_make)' Makefile '$(check_po_clean_prerequisites)'
 .PHONY: check-po-checkout
+# Run the tests of the po scripts. Each test stages its fixture catalogs in a
+# scratch tree below the working directory and reads no catalog under po/, so
+# the gate waits on no other gate; every test runs, and the gate fails after
+# the last test when any test failed.
+po_script_tests = po_stats_exempt_test.sh po_plural_forms_test.sh po_plural_gate_test.pl po_entry_state_test.pl
+check-po-tests:
+	@status=0; \
+	for po_test in $(po_script_tests); do \
+	  $(srcdir)/scripts/po/t/$$po_test || status=1; \
+	done; \
+	exit $$status
+.PHONY: check-po-tests
 # Regenerate the template alone, then discard the creation-date churn xgettext
 # writes when no message changed. The list check completes first, so a
 # POTFILES.in that no longer names a source file cannot drive a template

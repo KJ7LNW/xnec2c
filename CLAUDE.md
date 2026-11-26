@@ -35,3 +35,8 @@
 # repo
 
 - never remove cocci/ or debug/ scripts.
+
+# testing
+
+- t/ - only use this directory for tests that are ongoing and must validate across future changes. Focus only on correctness validation here for regression checks, but not implementation considerations. 
+- debug/ - Use this directory for any tests that are ephemeral in the sense that they're only necessary during the development cycle itself and serve no development testing purpose in the future. Error on this side of the fence for testing. 

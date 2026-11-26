@@ -139,8 +139,9 @@ sub prepare_candidate
 	return ($outcome, $candidate);
 }
 
-# Run the shared gate against the mapped projection alone, so entries no
-# current manifest record answers cannot block already-answered work.
+# Run the shared gate against the mapped projection, so entries no current
+# manifest record answers block answered work only through the header and the
+# plural entries, which no output map can repair.
 sub gate_candidate
 {
 	my ($candidate) = @_;
@@ -157,7 +158,7 @@ sub gate_candidate
 			or die "$gate_path: unable to merge check output: $!\n";
 		# po-check.sh reserves exit 1 for gate failures, so a failed exec
 		# leaves through the code the parent treats as unrepairable.
-		exec 'scripts/po/po-check.sh', '--review', $gate_path or do {
+		exec 'scripts/po/po-check.sh', $gate_path or do {
 			print "$gate_path: unable to run scripts/po/po-check.sh: $!\n";
 			exit 127;
 		};
@@ -174,8 +175,9 @@ sub gate_candidate
 		if ($status & 127) != 0;
 
 	# Only the documented gate-failure status on mapped entries describes
-	# faults an output-map edit can answer. Header faults retain the explicit
-	# no-record origin and terminate because the output map cannot repair them.
+	# faults an output-map edit can answer. Header and plural-entry faults
+	# retain the explicit no-record origin and terminate because the output map
+	# cannot repair them.
 	my @reported = grep { /FAIL/ } @{$localized};
 	my @unmapped = grep { /\(no record; catalog msgid/ } @{$localized};
 	return new_outcome(kind => OUTCOME_FATAL,

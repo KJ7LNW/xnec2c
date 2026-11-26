@@ -10,7 +10,7 @@
 # untranslated, so the exempt pair must leave the untranslated count and
 # report as exempt.
 
-top="${srcdir}/.."
+top="$(dirname "$0")/../../.."
 work=$(mktemp -d "${PWD}/po_stats_exempt.XXXXXX") || exit 99
 trap 'rm -rf "$work"' EXIT
 
@@ -18,7 +18,7 @@ mkdir -p "$work/scripts/po" "$work/po" || exit 99
 for script in po-stats.sh po-classify.awk po-linguas.sh; do
 	cp "$top/scripts/po/$script" "$work/scripts/po/$script" || exit 99
 done
-cp "${srcdir}/fixtures/po_stats_exempt.po" "$work/po/xx.po" || exit 99
+cp "$top/scripts/po/t/fixtures/po_stats_exempt.po" "$work/po/xx.po" || exit 99
 echo xx > "$work/po/LINGUAS" || exit 99
 
 if ! out=$("$work/scripts/po/po-stats.sh" -v 2>&1); then

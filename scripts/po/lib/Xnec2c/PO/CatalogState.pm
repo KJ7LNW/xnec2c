@@ -9,11 +9,15 @@ use Locale::PO;
 
 our @EXPORT_OK = qw(
 	apply_translation_records catalog_annotation_records catalog_change_records
-	catalog_exemption_records catalog_identity catalog_path exempt_marker
-	load_catalog po_identity
+	catalog_exemption_records catalog_identity catalog_path catalog_plural_forms
+	exempt_marker load_catalog po_identity
 );
 
 my $EXEMPT_MARKER = 'xnec2c-exempt';
+my $CLASSIFIER_PATH = 'scripts/po/po-classify.awk';
+
+# Classifier states that make an entry output-map work.
+my %WORK_STATES = map { $_ => 1 } qw(fuzzy untranslated identical);
 
 # Name the authoritative catalog one language owns.
 sub catalog_path
@@ -73,6 +77,24 @@ sub load_catalog
 	return $catalog;
 }
 
+# Return the Plural-Forms value one language's catalog header declares.
+sub catalog_plural_forms
+{
+	my ($lang) = @_;
+	my $path = catalog_path($lang);
+	my ($header) = grep { po_identity($_)->{identity} eq catalog_identity('', '') }
+		@{load_catalog($path)};
+
+	die "$path: catalog holds no header entry\n" if !defined $header;
+
+	my ($plural_forms) = Locale::PO->dequote($header->msgstr)
+		=~ /^Plural-Forms:[ \t]*(.*?)[ \t]*$/m;
+	die "$path: header entry declares no Plural-Forms\n"
+		if !defined $plural_forms;
+
+	return $plural_forms;
+}
+
 # Read every syntactically valid exemption name from one translator comment.
 sub exemption_comment_names
 {
@@ -80,16 +102,6 @@ sub exemption_comment_names
 
 	return () if !defined $comment;
 	return $comment =~ /^\Q$EXEMPT_MARKER\E:[ \t]*([a-z]+)[ \t]*$/mg;
-}
-
-# Read the sole exemption name one catalog entry carries, if any. Multiple
-# markers describe no single state and remain unaccepted for the audit to name.
-sub catalog_exemption
-{
-	my ($po) = @_;
-	my @names = exemption_comment_names($po->comment);
-
-	return @names == 1 ? $names[0] : undef;
 }
 
 # Expose the marker spelling every catalog reader and writer shares.
@@ -174,31 +186,61 @@ sub catalog_by_identity
 	return \%entries;
 }
 
-# Select every fuzzy, unexempted untranslated, and self-translated entry from
-# current catalog state, in catalog order.
+# Read the states po-classify.awk records for one catalog that make an entry
+# output-map work, as the set of states each entry identity carries.
+sub catalog_entry_states
+{
+	my ($path) = @_;
+	my %states;
+
+	open my $records, '-|', 'awk', '-f', $CLASSIFIER_PATH, $path
+		or die "$path: unable to run $CLASSIFIER_PATH: $!\n";
+	binmode $records, ':encoding(UTF-8)';
+	while (my $record = <$records>)
+	{
+		chomp $record;
+		my ($state, undef, $key) = split /\t/, $record, 3;
+		next if !exists $WORK_STATES{$state};
+
+		# The key holds the raw quoted content of msgctxt and msgid; dequote
+		# each as po_identity dequotes the loaded entry.
+		my ($context, $source) = split /\x04/, $key, 2;
+		my $identity = catalog_identity(Locale::PO->dequote(qq("$context")),
+			Locale::PO->dequote(qq("$source")));
+		$states{$identity}{$state} = 1;
+	}
+	close $records;
+	die "$path: $CLASSIFIER_PATH failed (wait status $?)\n" if $? != 0;
+
+	return \%states;
+}
+
+# Select every singular entry po-classify.awk records as fuzzy, untranslated,
+# or identical in current catalog state, in catalog order.
 sub catalog_change_records
 {
 	my ($lang) = @_;
 	my $path = catalog_path($lang);
 	my $catalog = load_catalog($path);
+	my $states = catalog_entry_states($path);
 	my @changes;
 	my %seen;
 
 	for my $po (@{$catalog})
 	{
-		my $translation = Locale::PO->dequote($po->msgstr);
+		# Output maps carry no plural forms; the gate projection holds every
+		# plural entry, so po-check.sh judges its forms.
+		next if defined $po->msgid_plural;
+
 		my $identity = po_identity($po);
-		my $exempt = defined catalog_exemption($po);
-		my $empty = !defined $translation || $translation eq '';
-		my $copy = !$empty && $translation eq $identity->{source};
-		my $selected = $po->fuzzy || ($empty && !$exempt) || $copy;
-		next if !$selected;
+		my $entry_states = $states->{$identity->{identity}};
+		next if !defined $entry_states;
 
 		record_unique_identity($path, \%seen, $identity);
 		push @changes, {
 			context => $identity->{context},
 			source => $identity->{source},
-			copied => $copy ? 1 : 0,
+			copied => exists $entry_states->{identical} ? 1 : 0,
 		};
 	}
 

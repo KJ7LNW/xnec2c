@@ -10,7 +10,7 @@
 # Each layout holds a po-update.sh stub recording that potfiles-sync reached
 # the sync, and an untracked catalog check-po-clean reports as po/ residue.
 # Make runs from each layout with srcdir and top_srcdir naming it and with the
-# targets <current-targets> lists, check-po-clean's prerequisite gates, taken
+# targets <current-targets> lists, check-po-clean's prerequisites, taken
 # as current, so only the two gates run. Git runs apart from the caller's repository and configuration, since a
 # git hook exports the repository it runs in.
 #
@@ -101,7 +101,7 @@ stage_layout() {
 }
 
 # Run gate $2 of the makefile from layout tree $1 with srcdir and top_srcdir
-# naming the layout, check-po-clean's prerequisite gates taken as current, and
+# naming the layout, check-po-clean's prerequisites taken as current, and
 # the caller's make state cleared, printing make's output on stdout.
 run_gate() {
 	local tree=$1

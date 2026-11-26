@@ -11,7 +11,7 @@ use FindBin qw($RealBin);
 use Xnec2c::PO::Outcome qw(OUTCOME_OK command_outcome);
 use Xnec2c::PO::TranslationMap qw(map_path output_path);
 use Xnec2c::PO::TranslationRules qw(
-	exemption_rules record_rules repair_rules
+	exemption_rules plural_rules record_rules repair_rules
 );
 
 our @EXPORT_OK = qw(
@@ -108,6 +108,7 @@ sub edit_output_instruction
 			. " po/rules/$lang.md.",
 		repair_rules(),
 		exemption_rules(),
+		plural_rules($lang),
 		"# Workspace\n\n" . workspace_rules($session),
 		session_contract($session));
 }

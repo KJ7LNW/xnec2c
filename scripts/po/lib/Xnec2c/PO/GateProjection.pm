@@ -11,8 +11,8 @@ use Xnec2c::PO::CatalogState qw(catalog_identity po_identity);
 
 our @EXPORT_OK = qw(catalog_line_index mapped_catalog_projection);
 
-# Derive the gate projection: the catalog header plus only the entries the
-# current output map answers.
+# Derive the gate projection: the catalog header, every plural entry, whose
+# forms no output map answers, and the entries the current output map answers.
 sub mapped_catalog_projection
 {
 	my ($catalog, $translations) = @_;
@@ -22,7 +22,8 @@ sub mapped_catalog_projection
 	{
 		my $identity = po_identity($po);
 		next if $identity->{source} ne ''
-			&& !exists $translations->{$identity->{identity}};
+			&& !exists $translations->{$identity->{identity}}
+			&& !defined $po->msgid_plural;
 
 		push @projection, $po;
 	}

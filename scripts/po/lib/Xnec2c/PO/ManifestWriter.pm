@@ -11,7 +11,7 @@ use Xnec2c::PO::MapFile qw(
 );
 use Xnec2c::PO::TranslationMap qw(map_path prompt_path);
 use Xnec2c::PO::TranslationRules qw(
-	exemption_rules record_rules repair_rules
+	exemption_rules plural_rules record_rules repair_rules
 );
 
 our @EXPORT_OK = qw(write_language_manifest);
@@ -23,7 +23,8 @@ sub write_language_manifest
 	my $serialized = serialize_records($records);
 	my $directions = "# Output format\n\n" . record_rules()
 		. "\n- Translate each T under the preceding rules.\n"
-		. repair_rules() . "\n\n" . exemption_rules();
+		. repair_rules() . "\n\n" . exemption_rules() . "\n\n"
+		. plural_rules($lang);
 	my $prompt = read_utf8_file('doc/TRANSLATING.md') . "\n\n"
 		. read_utf8_file("po/rules/$lang.md") . "\n\n$directions\n$serialized";
 

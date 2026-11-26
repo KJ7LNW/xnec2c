@@ -5,6 +5,9 @@ Apply each line when changing xgettext flags or keywords, refreshing catalogs, o
 ## User-given
 
 - Leave newly marked msgids untranslated for the single translation pass.
+- Hold tests of the po scripts under `scripts/po/t/` and run them from `make check-po`; `make check` runs no `scripts/po` program.
+- Leave the choice of which strings carry a quantity to the translating model; the po scripts detect no quantity strings.
+- State count and plural guidance in the shared translation guide generically, deferring to each language's own count grammar.
 
 ## Model-derived
 

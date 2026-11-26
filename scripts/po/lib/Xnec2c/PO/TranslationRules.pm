@@ -6,13 +6,14 @@ use utf8;
 
 use Exporter qw(import);
 
+use Xnec2c::PO::CatalogState qw(catalog_plural_forms);
 use Xnec2c::PO::MapFile qw(
 	OWNER_MODEL OWNER_PROGRAM record_owner_tags record_tag_order source_excerpt
 );
 
 our @EXPORT_OK = qw(
 	cross_catalog_rules exemption_conflict exemption_name exemption_names
-	exemption_propagates exemption_rules record_rules repair_rules
+	exemption_propagates exemption_rules plural_rules record_rules repair_rules
 	resolved_target
 );
 
@@ -219,6 +220,16 @@ sub repair_rules
 		'- Apply every correction with Edit, at the line the report names.',
 		'- Retain every valid record; never replace the whole output file.',
 		'- Write and run no program that rewrites this map.');
+}
+
+# State the plural count and selection expression one language's catalog
+# header declares, the plural section both prompts carry.
+sub plural_rules
+{
+	my ($lang) = @_;
+
+	return "# Plural forms\n\n- Plural count and selection expression: `"
+		. catalog_plural_forms($lang) . '`';
 }
 
 # Present every documented reason beside the content it covers, indented for
