@@ -222,13 +222,13 @@
 - Keep `patch` under the higher catalog-consistency ruling even though topic 16 otherwise prefers an established native term.
 
 ## 14. Grammatical number
-- Slovenian translated literals distinguish singular, dual, paucal forms for counts ending in 3 or 4 where grammar requires them, and plural.
+- Slovenian translated literals distinguish singular, dual, paucal, and plural forms where grammar requires them.
 - Inflect nouns, adjectives, participles, and verbs for the grammatical number selected by the explicit literal count.
-- Use singular after a count ending in 1 except 11, dual after a count ending in 2 except 12, the 3-or-4 form except 13 or 14, and plural otherwise.
+- Select the form by the count's last two digits: singular after `01`, eg `1` or `101`; dual after `02`; the 3-or-4 form after `03` or `04`; plural after every other count, eg `0`, `5`, `11`, or `21`.
 
 ## 15. Grammatical agreement
 - Make adjectives and participles agree in gender and number with the head noun, including a head noun implied by a standalone label.
-- Decline masculine `patch` as `patch`, `patcha`, `patchi`, or `patchev`; use genitive plural after counts of 5 or more, eg `5 žic`.
+- Decline masculine `patch` as `patch`, `patcha`, `patchi`, or `patchev`; use genitive plural after counts the plural form covers, eg `5 žic` or `21 žic`.
 - Retain reflexive `se` where the Slovenian verb requires it, eg `spreminja se`.
 - Use neuter agreement for a standalone process or state label unless its established implied head noun has another gender, eg neuter `sevanje` and feminine `ojačitev`.
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 13:19-0800\n"
+"POT-Creation-Date: 2026-11-25 16:04-0800\n"
 "PO-Revision-Date: 2026-05-25 01:51-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,6 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 # xnec2c-exempt: name
 #: files/xnec2c.desktop.in:3 resources/xnec2c.glade:1784
@@ -3391,7 +3392,7 @@ msgstr "konfiguratsiya fayli mavjud emas yoki oʻqib boʻlmaydi: %s\n"
 
 # xnec2c-exempt: symbol
 #: src/args.c:898 src/geometry.c:792 src/input.c:1836 src/input.c:1837
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/mathlib.c:844 src/mathlib.c:1149 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:680
 #, c-format
@@ -5491,27 +5492,27 @@ msgstr ""
 "MKL iplash kutubxonasini oʻzgartirish uchun qayta ishga tushiring."
 
 # xnec2c-exempt: symbol
-#: src/mathlib.c:368 src/utils.c:684
+#: src/mathlib.c:367 src/utils.c:684
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
 
-#: src/mathlib.c:373
+#: src/mathlib.c:372
 #, c-format
 msgid "%s: opened %s\n"
 msgstr "%s: %s ochildi\n"
 
-#: src/mathlib.c:381
+#: src/mathlib.c:380
 #, c-format
 msgid "%s: library not found or nonfunctional, skipping: %s\n"
 msgstr "%s: kutubxona topilmadi yoki ishlamaydi, oʻtkazib yuborilmoqda: %s\n"
 
-#: src/mathlib.c:406
+#: src/mathlib.c:405
 #, c-format
 msgid "  %s: unable to bind %s: %s\n"
 msgstr "  %s: %s ga bogʻlab boʻlmaydi: %s\n"
 
-#: src/mathlib.c:434
+#: src/mathlib.c:433
 #, c-format
 msgid ""
 "%s=%s is set, so thread counts are not chosen per job, which affects "
@@ -5520,17 +5521,17 @@ msgstr ""
 "%s=%s oʻrnatilgan, shuning uchun tola sonlari har bir ish uchun tanlanmaydi, "
 "bu samaradorlikka taʼsir qiladi\n"
 
-#: src/mathlib.c:454
+#: src/mathlib.c:453
 #, c-format
 msgid "%s: loaded\n"
 msgstr "%s: yuklandi\n"
 
-#: src/mathlib.c:524
+#: src/mathlib.c:523
 #, c-format
 msgid "Migrated legacy mathlib index %d to ID '%s'\n"
 msgstr "Eski mathlib indeksi %d '%s' ID ga koʻchirildi\n"
 
-#: src/mathlib.c:529
+#: src/mathlib.c:528
 #, c-format
 msgid ""
 "Legacy mathlib index %d out of range [0-%d], triggering first-run scan\n"
@@ -5538,31 +5539,31 @@ msgstr ""
 "Eski mathlib indeksi %d [0-%d] oraligʻidan tashqarida, birinchi ishga "
 "tushirish skaneri ishga tushirilmoqda\n"
 
-#: src/mathlib.c:558
+#: src/mathlib.c:576
 #, c-format
 msgid "Mathlib ID '%s' not found in available libraries.\n"
 msgstr "Mathlib ID '%s' mavjud kutubxonalarda topilmadi.\n"
 
-#: src/mathlib.c:560
+#: src/mathlib.c:578
 #, c-format
 msgid "Mathlib '%s' is not available.\n"
 msgstr "Mathlib '%s' mavjud emas.\n"
 
-#: src/mathlib.c:565
+#: src/mathlib.c:583
 #, c-format
 msgid "Selected first available mathlib: %s\n"
 msgstr "Birinchi mavjud mathlib tanlandi: %s\n"
 
-#: src/mathlib.c:669
+#: src/mathlib.c:683
 #, c-format
 msgid "[%d]: mathlib.available=0, skipping: %s\n"
 msgstr "[%d]: mathlib.available=0, oʻtkazib yuborilmoqda: %s\n"
 
-#: src/mathlib.c:719
+#: src/mathlib.c:733
 msgid "Batch Math Library"
 msgstr "Paketli matematik kutubxona"
 
-#: src/mathlib.c:720
+#: src/mathlib.c:734
 #, c-format
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
@@ -5572,16 +5573,16 @@ msgstr ""
 "Paketli matematik kutubxonani tanlash buyruq satriga -j belgilanmasa taʼsir "
 "qilmaydi. (Biroq, bu tanlov keyingi xnec2c ochilganda saqlanadi.)\n"
 
-#: src/mathlib.c:759
+#: src/mathlib.c:773
 #, c-format
 msgid "%s: benchmark=%d\n"
 msgstr "%s: sinov=%d\n"
 
-#: src/mathlib.c:830
+#: src/mathlib.c:844
 msgid "Mathlib Help"
 msgstr "Mathlib yordami"
 
-#: src/mathlib.c:831
+#: src/mathlib.c:845
 msgid ""
 "Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
 "up xnec2c EM simulations if available on your platform. Library detection "
@@ -5657,11 +5658,11 @@ msgstr ""
 "\n"
 "Bu matnni terminaldan nusxalab, boshqa joyga qoʻyish mumkin.\n"
 
-#: src/mathlib.c:866
+#: src/mathlib.c:880
 msgid "Mathlib Benchmark Help"
 msgstr "Mathlib sinov yordami"
 
-#: src/mathlib.c:868
+#: src/mathlib.c:882
 #, c-format
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
@@ -5759,12 +5760,12 @@ msgstr ""
 "kuchaytirishni toʻxtatadigan tola sonini topadi, bu esa tarashda hisoblash "
 "uchun protsessorlaringiz sonidan kam chastota qolganda ahamiyatli sondir.\n"
 
-#: src/mathlib.c:967 src/mathlib.c:977 src/mathlib.c:984 src/mathlib.c:990
-#: src/mathlib.c:1007 src/mathlib.c:1012 src/mathlib.c:1135
+#: src/mathlib.c:981 src/mathlib.c:991 src/mathlib.c:998 src/mathlib.c:1004
+#: src/mathlib.c:1021 src/mathlib.c:1026 src/mathlib.c:1149
 msgid "Mathlib Benchmark"
 msgstr "Mathlib sinovi"
 
-#: src/mathlib.c:968
+#: src/mathlib.c:982
 #, c-format
 msgid ""
 "%s=%s states the thread count of every library that honors it, so a thread "
@@ -5775,17 +5776,17 @@ msgstr ""
 "uchun tola sinovi har bir oʻtishda bir xil sonni oʻlchaydi.  Tola sonlarini "
 "sinash uchun uni bekor qiling va qayta ishga tushiring."
 
-#: src/mathlib.c:978
+#: src/mathlib.c:992
 #, c-format
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "Optimallashtirish faol boʻlganda sinovlar oʻchirilgan."
 
-#: src/mathlib.c:985
+#: src/mathlib.c:999
 #, c-format
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr "Sinovlarni bajarishdan oldin NEC2 kirish faylini yuklashingiz kerak."
 
-#: src/mathlib.c:991
+#: src/mathlib.c:1005
 #, c-format
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
@@ -5794,16 +5795,16 @@ msgstr ""
 "\"Bitta ish\" dan boshqa sinov tanlash buyruq satriga -j belgilanmasa taʼsir "
 "qilmaydi."
 
-#: src/mathlib.c:1008
+#: src/mathlib.c:1022
 #, c-format
 msgid "You must select at least one math library to benchmark"
 msgstr "Sinov uchun kamida bitta matematik kutubxona tanlashingiz kerak"
 
-#: src/mathlib.c:1013
+#: src/mathlib.c:1027
 msgid "Run the benchmark now?"
 msgstr "Sinovni hozir ishga tushirasizmi?"
 
-#: src/mathlib.c:1014
+#: src/mathlib.c:1028
 #, c-format
 msgid ""
 "This will run a frequency loop benchmark for each detected linear algebra "
@@ -5857,26 +5858,26 @@ msgstr ""
 "\n"
 "Sinov yakunlanganda bu dialog yopiladi."
 
-#: src/mathlib.c:1074
+#: src/mathlib.c:1088
 #, c-format
 msgid "Starting %s benchmark (%s %d)\n"
 msgstr "%s sinovi boshlanmoqda (%s %d)\n"
 
-#: src/mathlib.c:1084
+#: src/mathlib.c:1098
 #, c-format
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "Sinov tarashi bajarilmadi: FR_cards=%d steps_total=%d\n"
 
-#: src/mathlib.c:1089
+#: src/mathlib.c:1103
 #, c-format
 msgid "   %f seconds (%s %2d) %c\n"
 msgstr "   %f soniya (%s %2d) %c\n"
 
-#: src/mathlib.c:1118
+#: src/mathlib.c:1132
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr "bir marta oʻlchandi: bu kutubxona oʻzi yigʻilgan tola sonini saqlaydi"
 
-#: src/mathlib.c:1130
+#: src/mathlib.c:1144
 #, c-format
 msgid ""
 "\n"
@@ -5885,7 +5886,7 @@ msgstr ""
 "\n"
 "Eng tez matematik kutubxona: %s (%s %d): %f soniya\n"
 
-#: src/mathlib.c:1133
+#: src/mathlib.c:1147
 #, c-format
 msgid ""
 "\n"
@@ -5894,7 +5895,7 @@ msgstr ""
 "\n"
 "Natija topilmadimi?  Bu dastur nuqsoni."
 
-#: src/mathlib.c:1186
+#: src/mathlib.c:1200
 #, c-format
 msgid ""
 "\n"
@@ -5922,13 +5923,13 @@ msgstr ""
 "* Batafsil maʼlumot uchun Intel ning mkl_set_threading_layer() hujjatiga "
 "qarang.\n"
 
-#: src/mathlib.c:1419
+#: src/mathlib.c:1433
 #, c-format
 msgid "%s: thread count cannot be bounded, dlsym(%s): %s\n"
 msgstr "%s: tola sonini chegaralab boʻlmaydi, dlsym(%s): %s\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:1467
+#: src/mathlib.c:1481
 #, c-format
 msgid "dlsym(mkl_set_threading_layer): %s\n"
 msgstr ""

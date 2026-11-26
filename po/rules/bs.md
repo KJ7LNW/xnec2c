@@ -230,7 +230,7 @@
 
 - Adjectives and participles agree in gender and number with the head noun, including standalone labels whose head noun is implied (eg "Uključen" agrees with masculine unos when the head noun is elided).
 - Declension: os (axis) is i-declension only (N os, G/L osi); never a-declension osa/ose.
-- Partitive-after-count: paucal 2-4 takes genitive singular (2 segmenta), 5+ takes genitive plural (5 segmenata).
+- Partitive-after-count: the paucal form takes genitive singular (2 segmenta, 22 segmenta); the plural form takes genitive plural (5 segmenata, 12 segmenata).
 - Reflexive particle se is retained where the source verb is reflexive in Bosnian usage (izračunava se, postavlja se).
 - Standalone label with no explicit head noun defaults to masculine gender agreement.
 

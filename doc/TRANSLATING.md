@@ -20,7 +20,7 @@ eg `<b>avg:</b> Average penalty across band`: keep `<b>avg:</b>`; translate `Ave
 
 ## Plural forms
 
-- Take the plural count and the selection expression the catalog header declares from the plural-forms table in the GNU gettext manual; never derive them.
+- Take the plural count and the selection expression from the Plural forms section the translation request supplies.
 - The declared count binds every plural entry in the catalog; a wrong count invalidates the whole file.
 
 ## Terminology sources

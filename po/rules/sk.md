@@ -250,7 +250,7 @@
 - Override ruling: "widget" and "segment" stay loanwords despite native alternatives, because catalog consistency (topic 12) outranks locale-form preference.
 
 ## 14. Grammatical number
-- Slovak translated literals distinguish singular, nominative plural for counts ending in `2`-`4` outside the teens, and genitive plural for zero, teens, and other counts.
+- Slovak translated literals distinguish singular, nominative plural, and genitive plural.
 - Inflect nouns, adjectives, participles, and finite verbs for the grammatical number required by the literal subject or explicit count.
 - After an explicit literal count, use singular with `1`, nominative plural with `2`-`4`, and genitive plural with `0`, `5+`, and teen values; retain the exact count while selecting its natural Slovak form.
 

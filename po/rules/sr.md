@@ -267,12 +267,12 @@
 
 - Use singular, paucal, and plural forms in translated literals; inflect nouns, adjectives, participles, and finite verbs for the selected number.
 - After a literal count ending in `1` but not `11`, use singular; after `2`-`4` but not `12`-`14`, use paucal; use plural otherwise.
-- Realize the paucal noun as genitive singular and the plural noun after `0` or `5+` as genitive plural, with matching agreement.
+- Realize the paucal noun as genitive singular and the plural noun as genitive plural, with matching agreement.
 
 ## 15. Grammatical agreement
 
 - Adjectives and participles concord in gender, number, and case with their head noun, including a standalone label whose head noun is implied (e.g. an adjective-only label defaults per topic 15's gender rule below).
-- Declension-class follows standard Serbian noun paradigms; after a count of 2-4 the noun takes paucal (genitive singular) form, after 5+ or 0 it takes genitive plural.
+- Declension-class follows standard Serbian noun paradigms.
 - Reflexive particle "се" is retained wherever the underlying verb is reflexive (e.g. "учитава се").
 - A standalone label with no explicit head noun defaults to masculine gender unless the established head noun for that concept in the catalog is feminine or neuter (e.g. "тачка" is feminine, so labels built on "тачка напајања" agree feminine).
 

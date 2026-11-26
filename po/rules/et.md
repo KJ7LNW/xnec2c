@@ -291,13 +291,13 @@ Established/preferred terms; one target term per concept, reused consistently ac
 ## 14. Grammatical number
 
 - Use singular and plural noun, adjective, participle, and verb forms according to the literal's grammatical subject and referent.
-- After an explicit count of `1`, use the singular nominative; after literal counts of `2` or more, use the singular partitive where Estonian count syntax requires it.
+- After an explicit count of `1`, use the singular nominative; after every other literal count, eg `0` or `2`, use the singular partitive where Estonian count syntax requires it, eg `%d sümboli alistust`.
 - Not applicable: uninflected-number handling, because Estonian marks grammatical number.
 
 ## 15. Grammatical agreement
 
 - Adjectives and participles agree in number and case with the head noun, including standalone labels whose head noun is implied (eg "Aktiivne" agreeing with an implied "port").
-- Declension: standard case/declension selection; numbers 2 and above take the noun in partitive singular (eg "%d sümboli alistust").
+- Declension: standard case/declension selection.
 - Reflexive verb forms retain their reflexive marking where the source implies self-action (eg a control that "resets itself").
 - Not applicable: gender concord and standalone-label default-gender resolution (Estonian has no grammatical gender).
 

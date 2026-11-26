@@ -279,9 +279,8 @@ Use one locked term per concept throughout the catalog; do not introduce synonym
 
 ## 14. Grammatical number
 
-- Use Polish singular, paucal plural, or general plural in every translated literal: singular after `1`; paucal nominative plural after counts ending in `2-4` except `12-14`; genitive plural after `0`, `5-21`, counts ending in `5-9`, and counts ending in `11-14`.
+- Use Polish singular, paucal plural, or general plural in every translated literal: singular after `1`; paucal nominative plural after counts ending in `2-4` except `12-14`; genitive plural after every other count, eg `0`, `5`, `12`, `21`, or `101`.
 - Inflect the noun, adjective, participle, and finite verb for the selected number; do not copy source singular or plural mechanically.
-- With a literal count, use the counted construction required by that count, including genitive plural after `5` and higher forms governed by the rule above.
 
 ## 15. Grammatical agreement
 

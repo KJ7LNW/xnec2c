@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xnec2c 4.4.18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 13:19-0800\n"
+"POT-Creation-Date: 2026-11-25 16:04-0800\n"
 "PO-Revision-Date: 2026-07-11 10:31-0700\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,6 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 # xnec2c-exempt: name
 #: files/xnec2c.desktop.in:3 resources/xnec2c.glade:1784
@@ -3348,7 +3349,7 @@ msgstr "கட்டமைப்புக் கோப்பு இல்லை 
 
 # xnec2c-exempt: symbol
 #: src/args.c:898 src/geometry.c:792 src/input.c:1836 src/input.c:1837
-#: src/mathlib.c:830 src/mathlib.c:1135 src/rdpattern_ui.c:404
+#: src/mathlib.c:844 src/mathlib.c:1149 src/rdpattern_ui.c:404
 #: src/rdpattern_ui.c:412 src/rdpattern_ui.c:419 src/sy_expr.c:142
 #: src/sy_expr.c:172 src/utils.c:680
 #, c-format
@@ -5412,27 +5413,27 @@ msgstr ""
 "MKL த்ரெடிங் நூலகத்தை மாற்ற மறுதொடக்கம் செய்யவும்."
 
 # xnec2c-exempt: symbol
-#: src/mathlib.c:368 src/utils.c:684
+#: src/mathlib.c:367 src/utils.c:684
 #, c-format
 msgid "%s: %s\n"
 msgstr ""
 
-#: src/mathlib.c:373
+#: src/mathlib.c:372
 #, c-format
 msgid "%s: opened %s\n"
 msgstr "%s: %s திறக்கப்பட்டது\n"
 
-#: src/mathlib.c:381
+#: src/mathlib.c:380
 #, c-format
 msgid "%s: library not found or nonfunctional, skipping: %s\n"
 msgstr "%s: நூலகம் காணப்படவில்லை அல்லது செயல்படவில்லை, தவிர்க்கிறது: %s\n"
 
-#: src/mathlib.c:406
+#: src/mathlib.c:405
 #, c-format
 msgid "  %s: unable to bind %s: %s\n"
 msgstr "  %s: %s ஐப் பிணைக்க முடியவில்லை: %s\n"
 
-#: src/mathlib.c:434
+#: src/mathlib.c:433
 #, c-format
 msgid ""
 "%s=%s is set, so thread counts are not chosen per job, which affects "
@@ -5441,17 +5442,17 @@ msgstr ""
 "%s=%s அமைக்கப்பட்டுள்ளது, எனவே ஒவ்வொரு பணிக்கும் த்ரெட் எண்ணிக்கைகள் தேர்ந்தெடுக்கப்படாது; "
 "இது செயல்திறனைப் பாதிக்கிறது\n"
 
-#: src/mathlib.c:454
+#: src/mathlib.c:453
 #, c-format
 msgid "%s: loaded\n"
 msgstr "%s: ஏற்றப்பட்டது\n"
 
-#: src/mathlib.c:524
+#: src/mathlib.c:523
 #, c-format
 msgid "Migrated legacy mathlib index %d to ID '%s'\n"
 msgstr "பழைய mathlib குறியீடு %d ஐ ID '%s' க்கு இடம்பெயர்த்தது\n"
 
-#: src/mathlib.c:529
+#: src/mathlib.c:528
 #, c-format
 msgid ""
 "Legacy mathlib index %d out of range [0-%d], triggering first-run scan\n"
@@ -5459,31 +5460,31 @@ msgstr ""
 "பழைய mathlib குறியீடு %d வரம்பிற்கு [0-%d] வெளியே உள்ளது, முதல்-இயக்க வருடலைத் "
 "தூண்டுகிறது\n"
 
-#: src/mathlib.c:558
+#: src/mathlib.c:576
 #, c-format
 msgid "Mathlib ID '%s' not found in available libraries.\n"
 msgstr "கிடைக்கும் நூலகங்களில் Mathlib ID '%s' காணப்படவில்லை.\n"
 
-#: src/mathlib.c:560
+#: src/mathlib.c:578
 #, c-format
 msgid "Mathlib '%s' is not available.\n"
 msgstr "Mathlib '%s' கிடைக்கவில்லை.\n"
 
-#: src/mathlib.c:565
+#: src/mathlib.c:583
 #, c-format
 msgid "Selected first available mathlib: %s\n"
 msgstr "கிடைக்கும் முதல் mathlib தேர்ந்தெடுக்கப்பட்டது: %s\n"
 
-#: src/mathlib.c:669
+#: src/mathlib.c:683
 #, c-format
 msgid "[%d]: mathlib.available=0, skipping: %s\n"
 msgstr "[%d]: mathlib.available=0, தவிர்க்கப்படுகிறது: %s\n"
 
-#: src/mathlib.c:719
+#: src/mathlib.c:733
 msgid "Batch Math Library"
 msgstr "தொகுதி கணித நூலகம்"
 
-#: src/mathlib.c:720
+#: src/mathlib.c:734
 #, c-format
 msgid ""
 "Selecting a batched math library has no effect unless -j is specified on the "
@@ -5494,16 +5495,16 @@ msgstr ""
 "இல்லை. (எனினும், அடுத்த முறை xnec2c திறக்கப்படும்போது இந்தத் தேர்வு சேமிக்கப்படும்.)\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:759
+#: src/mathlib.c:773
 #, c-format
 msgid "%s: benchmark=%d\n"
 msgstr ""
 
-#: src/mathlib.c:830
+#: src/mathlib.c:844
 msgid "Mathlib Help"
 msgstr "Mathlib உதவி"
 
-#: src/mathlib.c:831
+#: src/mathlib.c:845
 msgid ""
 "Accelerated math libraries such as ATLAS, OpenBLAS and Intel MKL can speed "
 "up xnec2c EM simulations if available on your platform. Library detection "
@@ -5575,11 +5576,11 @@ msgstr ""
 "\n"
 "நகலெடுத்து ஒட்டுவதற்கு இந்த உரை முனையத்தில் கிடைக்கிறது.\n"
 
-#: src/mathlib.c:866
+#: src/mathlib.c:880
 msgid "Mathlib Benchmark Help"
 msgstr "Mathlib பெஞ்ச்மார்க் உதவி"
 
-#: src/mathlib.c:868
+#: src/mathlib.c:882
 #, c-format
 msgid ""
 "Jobs are forked and run in parallel by xnec2c, whereas threads are used by "
@@ -5672,12 +5673,12 @@ msgstr ""
 "எண்ணிக்கையை இது கண்டறியும்; கணக்கிட மீதமுள்ள அதிர்வெண்களைவிட உங்களிடம் செயலிகள் அதிகமாக "
 "இருக்கும்போது இது பொருந்தும்.\n"
 
-#: src/mathlib.c:967 src/mathlib.c:977 src/mathlib.c:984 src/mathlib.c:990
-#: src/mathlib.c:1007 src/mathlib.c:1012 src/mathlib.c:1135
+#: src/mathlib.c:981 src/mathlib.c:991 src/mathlib.c:998 src/mathlib.c:1004
+#: src/mathlib.c:1021 src/mathlib.c:1026 src/mathlib.c:1149
 msgid "Mathlib Benchmark"
 msgstr "Mathlib பெஞ்ச்மார்க்"
 
-#: src/mathlib.c:968
+#: src/mathlib.c:982
 #, c-format
 msgid ""
 "%s=%s states the thread count of every library that honors it, so a thread "
@@ -5688,17 +5689,17 @@ msgstr ""
 "த்ரெட் அளவுகோல் ஒவ்வொரு சுற்றிலும் அதே எண்ணிக்கையை அளவிடுகிறது. த்ரெட் எண்ணிக்கைகளை "
 "அளவிட, இதை அமைக்காமல் வைத்து மீண்டும் தொடங்கவும்."
 
-#: src/mathlib.c:978
+#: src/mathlib.c:992
 #, c-format
 msgid "Benchmarks are disabled while optimization is activated."
 msgstr "உகப்பாக்கம் செயல்படுத்தப்பட்டிருக்கும்போது பெஞ்ச்மார்க்குகள் முடக்கப்படும்."
 
-#: src/mathlib.c:985
+#: src/mathlib.c:999
 #, c-format
 msgid "You must load a NEC2 input file before running benchmarks."
 msgstr "பெஞ்ச்மார்க்குகளை இயக்குவதற்கு முன் NEC2 உள்ளீட்டுக் கோப்பை ஏற்ற வேண்டும்."
 
-#: src/mathlib.c:991
+#: src/mathlib.c:1005
 #, c-format
 msgid ""
 "Choosing a benchmark other than \"Single Job\" has no effect unless -j is "
@@ -5707,16 +5708,16 @@ msgstr ""
 "கட்டளை வரியில் -j குறிப்பிடப்படாவிட்டால் \"ஒற்றை பணி\" அல்லாத பெஞ்ச்மார்க்கைத் தேர்வு "
 "செய்வதால் விளைவு இல்லை."
 
-#: src/mathlib.c:1008
+#: src/mathlib.c:1022
 #, c-format
 msgid "You must select at least one math library to benchmark"
 msgstr "பெஞ்ச்மார்க் செய்ய குறைந்தது ஒரு கணித நூலகத்தையாவது தேர்ந்தெடுக்க வேண்டும்"
 
-#: src/mathlib.c:1013
+#: src/mathlib.c:1027
 msgid "Run the benchmark now?"
 msgstr "அளவுகோலை இப்போது இயக்க விரும்புகிறீர்களா?"
 
-#: src/mathlib.c:1014
+#: src/mathlib.c:1028
 #, c-format
 msgid ""
 "This will run a frequency loop benchmark for each detected linear algebra "
@@ -5767,27 +5768,27 @@ msgstr ""
 "\n"
 "அளவுகோல் முடிவடையும்போது இந்த உரையாடல் மூடப்படும்."
 
-#: src/mathlib.c:1074
+#: src/mathlib.c:1088
 #, c-format
 msgid "Starting %s benchmark (%s %d)\n"
 msgstr "%s அளவுகோல் தொடங்குகிறது (%s %d)\n"
 
-#: src/mathlib.c:1084
+#: src/mathlib.c:1098
 #, c-format
 msgid "Benchmark sweep did not run: FR_cards=%d steps_total=%d\n"
 msgstr "அளவுகோல் ஸ்வீப் இயங்கவில்லை: FR_cards=%d steps_total=%d\n"
 
-#: src/mathlib.c:1089
+#: src/mathlib.c:1103
 #, c-format
 msgid "   %f seconds (%s %2d) %c\n"
 msgstr "   %f வினாடிகள் (%s %2d) %c\n"
 
-#: src/mathlib.c:1118
+#: src/mathlib.c:1132
 msgid "measured once: this library keeps the thread count it was built with"
 msgstr ""
 "ஒருமுறை அளவிடப்பட்டது: இந்த நூலகம் உருவாக்கப்பட்ட த்ரெட் எண்ணிக்கையைத் தக்கவைத்துக்கொள்கிறது"
 
-#: src/mathlib.c:1130
+#: src/mathlib.c:1144
 #, c-format
 msgid ""
 "\n"
@@ -5796,7 +5797,7 @@ msgstr ""
 "\n"
 "சிறந்த கணித நூலகம்: %s (%s %d): %f வினாடிகள்\n"
 
-#: src/mathlib.c:1133
+#: src/mathlib.c:1147
 #, c-format
 msgid ""
 "\n"
@@ -5805,7 +5806,7 @@ msgstr ""
 "\n"
 "முடிவு கிடைக்கவில்லையா?  இது ஒரு வழு."
 
-#: src/mathlib.c:1186
+#: src/mathlib.c:1200
 #, c-format
 msgid ""
 "\n"
@@ -5833,13 +5834,13 @@ msgstr ""
 "* மேலும் விவரங்களுக்கு mkl_set_threading_layer() பற்றிய Intel இன் ஆவணத்தைப் "
 "பார்க்கவும்.\n"
 
-#: src/mathlib.c:1419
+#: src/mathlib.c:1433
 #, c-format
 msgid "%s: thread count cannot be bounded, dlsym(%s): %s\n"
 msgstr "%s: த்ரெட் எண்ணிக்கையைக் கட்டுப்படுத்த முடியாது, dlsym(%s): %s\n"
 
 # xnec2c-exempt: name
-#: src/mathlib.c:1467
+#: src/mathlib.c:1481
 #, c-format
 msgid "dlsym(mkl_set_threading_layer): %s\n"
 msgstr ""

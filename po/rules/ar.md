@@ -275,7 +275,7 @@ Locked terms, applied everywhere in po/ar.po; correct technical sense per topic 
 ## 14. Grammatical number
 
 - Use Arabic singular, dual, and plural noun forms; make adjectives, participles, and verbs agree with the selected number.
-- After zero, use the plural noun; after one, use singular; after two, use dual; after `3-10`, use plural; after `11-99`, use singular accusative; follow the same cycle for larger literal counts.
+- After zero, use the plural noun; after one, use singular; after two, use dual; after `3-10`, use plural; after `11-99`, use singular accusative; above `99`, select by the last two digits and use singular genitive after `00`-`02`, eg `100 ملف`.
 - Choose a sound or broken plural according to the locked noun's established Modern Standard Arabic form; never invent a plural marker.
 
 ## 15. Grammatical agreement
